@@ -1,0 +1,199 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
+              <ul class="pull-right list-unstyled list-inline statusbar">
+                <li>
+                  <label>Subsidiary Slots Available <span class="">4</span></label>
+                </li>
+                <li><label>Subsidiary Slots Utilized <span>6</span></label></li>
+                <li>
+                  <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
+                </li>
+
+              </ul>
+            </h4>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%"
+                    style="width:100%">
+                    <table class="table table-hover" id="datatables">
+                      <thead>
+                        <tr>
+                          <th style="min-width: 19px!important;" class="text-center">#</th>
+                          <th style="min-width: 130px;">Date</th>
+                          <th style="min-width: 150px;">Subsidiary Name</th>
+                          <th style="min-width: 120px;">First Name</th>
+                          <th style="min-width: 120px;">Last Name</th>
+                          <th style="min-width: 180px;">Email</th>
+                          <th style="min-width: 100px;">Credits Used</th>
+                          <th style="min-width: 130px;width: 100px !important;">Quotes Received</th>
+                          <th style="min-width: 100px;" nowrap class="text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                          <td>Jumbo Foam Mattresses</td>
+                          <td>Jayesh</td>
+                          <td>Patel</td>
+                          <td>jayesh.patel@jumbofoam.ke</td>
+                          <td>18</td>
+                          <td nowrap>44</td>
+                          <td nowrap>Active</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td nowrap>14-06-2019<br> 14:25:30 GMT</td>
+                          <td>Dr. Mattress</td>
+                          <td>Adnan</td>
+                          <td>Merdin</td>
+                          <td>adnan@drmatress.co.ke</td>
+                          <td>12</td>
+                          <td nowrap>56</td>
+                          <td nowrap>Active</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td nowrap>15-06-2019<br> 09:33:30 GMT</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>justin.case@mgmatresses.ke</td>
+                          <td></td>
+                          <td nowrap></td>
+                          <td nowrap>Pending</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td nowrap>16-06-2019<br> 13:16:09 GMT</td>
+                          <td>Slumberland Kenya Limited</td>
+                          <td>Jay</td>
+                          <td>Mediratta</td>
+                          <td>jay@slumberland.ke</td>
+                          <td>43</td>
+                          <td nowrap>102</td>
+                          <td nowrap>Active</td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td nowrap>14-08-2019<br> 14:25:30 GMT</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>richard.toe@mokofoam.ke</td>
+                          <td></td>
+                          <td nowrap></td>
+                          <td nowrap>Pending</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addsub" class="popupnew modal fade in" role="dialog" style="display:none;">
+  <div class="modal-dialog emaildiv">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form [formGroup]="manageSubForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <h2>Add Subsidiary
+        <button type="button" class="close" (click)="close()">&times;</button>
+          </h2>
+          <div class="padnew">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="authemaildiv">
+                  <p><strong>Enter details of an Authorized user</strong></p>
+                  <div class="form-group"></div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                        <label>First Name</label>
+                        <div *ngIf="submitted && manageSubDetails.firstName.errors?.required" class="invalid-feedback">
+                          First Name is required
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
+                        <label>Last Name</label>
+                        <div *ngIf="submitted && manageSubDetails.lastName.errors?.required" class="invalid-feedback">
+                          Last Name is required
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="emailId" oninput="this.value = this.value.toLowerCase()">
+                        <label>Your Email ID</label>
+                        <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
+                          Email is required
+                        </div>
+                        <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
+                          Invalid Email id
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="inputDiv selectdiv">                                             
+                      <select formControlName="country" class="countryddl">
+                         <option value=''>Select</option>
+                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
+                      </select>
+                      <label>Select Country</label>
+                      <div *ngIf="submittedSignup && suf.country.errors" class="invalid-feedback">
+                         <div *ngIf="suf.country.errors.required">
+                            Country field is required
+                         </div>
+                      </div>
+                   </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Mobile No.</label>
+                        <div *ngIf="submitted && manageSubDetails.mobileNo.errors?.required" class="invalid-feedback">
+                          Mobile No is required
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="inputDiv">
+                        <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                        <label>Landline No.</label>
+                    </div>
+                  </div>
+                </div>
+
+                <p id="paradiv">
+                  {{respMessage}}
+                </p>
+                <div class="clearfix"></div>
+                <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

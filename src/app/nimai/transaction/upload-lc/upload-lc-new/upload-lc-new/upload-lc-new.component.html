@@ -1,0 +1,654 @@
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-icon" data-background-color="blue">
+              <i class="fas fa-concierge-bell"></i>
+            </div>
+            <div class="card-content">
+              <h4 class="card-title">Upload LC Details</h4>
+              <form  [formGroup]="lcDetailForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="tabbable-panel">
+                            <div class="tabbable-line">
+                              <div class="tab-content">
+                                <h2>Applicant & Beneficiary</h2>
+                                <div class="tab-pane active" id="tab_default_3">
+                                  <div class="row">
+                                    <div class="col-md-12 ">
+                                      <ul class="list-unstyled list-inline">
+                                        <li>
+                                          <div class="selection">
+                                            <p class=""><strong>You are</strong></p>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="radio">
+                                            <label>
+                                                <input type="radio" value="Applicant" id="rdApplicant" name="userType" formControlName="userType"
+                                                checked="checked"><span class="circle"></span><span class="check"></span>
+                                            Applicant
+                                            </label>
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="radio">
+                                            <label>
+                                                <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary">
+                                                <span class="circle"></span><span class="check"></span>
+                                            Beneficiary 
+                                            </label>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div id="divApplicant">
+                                      <p class="col-md-12"><strong>Applicant Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="applicantCountry">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                                            <label>Applicant's Name </label>
+                                        </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <p class="col-md-12"><strong>Beneficiary Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="beneCountry">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                                            <label>Beneficiary's Name</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="30" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
+                                            <label>Contact Person</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                                            <label>Contact Person's Email</label>
+                                        </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <div class="clearfix"></div>
+                                      <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="beneBankCountry" class="select_country">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country of Beneficiary Bank</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <label>Swift Code</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                                            <label>Bank Name</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div id="divBene">
+                                      <p class="col-md-12"><strong>Beneficiary Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="beneCountry">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                                            <label>Beneficiary's Name </label>
+                                        </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="beneBankCountry">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country of Beneficiary Bank</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <label>Swift Code</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                                            <label>Bank Name</label>
+                                        </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <p class="col-md-12"><strong>Applicant Details</strong></p>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv selectdiv">
+                                            <select name='country' formControlName="applicantCountry">
+                                                <option [ngValue]="null" selected>Select</option>
+                                                <option value='India'>India</option>
+                                                <option value='Bangladesh'>Bangladesh</option>
+                                                <option value='Kenya'>Kenya</option>
+                                                <option value='Nigeria'>Nigeria</option>
+                                                <option value='UAE'>UAE </option>
+                                                <option value='Qatar'>Qatar</option>
+                                            </select>
+                                            <label>Country</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                                            <label>Applicant's Name</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="50" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
+                                            <label>Contact Person</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                                            <label>Contact Person's Email</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane active" id="tab_default_1">
+                                  <h2>LC Details</h2>
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="30" formControlName="lCIssuanceBank" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                        <label>LC Issuance Bank</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="30" formControlName="lCIssuanceBranch" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                        <label>Issuance Branch</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="11" formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                        <label>Swift Code</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv selectdiv">
+                                        <a href="#" class="textddlV texttip" data-toggle="tooltip" data-placement="auto" title=""><i class="fas fa-info-circle"></i></a>                                       
+                                            <select formControlName="lCIssuanceCountry" class="countryddl">
+                                                <!-- <option value="">Select Country</option> -->
+                                                <option value="INDIA">India</option>
+                                                <option value="AUSTRALIA">Australia
+                                                </option>
+                                                <option value="BANGLADESH">Bangladesh
+                                                </option>
+                                            </select>
+                                        <label>Select Country</label>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12 selection marginselection">
+                                      <div class="row">
+                                        <label class="customlabel">Requirement</label>
+                                            <div class="radio-group radio-tile-group">
+                                                <input type="radio"
+                                                    id="option-one" name="selector"
+                                                    formControlName="selector"
+                                                    value="Confirmation"
+                                                    >
+                                                <label
+                                                    for="option-one">Confirmation</label>
+                                                <input type="radio" id="option-two"
+                                                    name="selector"
+                                                    formControlName="selector"
+                                                    value="Discounting"
+                                                    >
+                                                <label
+                                                    for="option-two">Discounting</label>
+                                                <input type="radio" id="option-three"
+                                                    name="selector"
+                                                    formControlName="selector"
+                                                    value="ConfirmAndDiscount"
+                                                    >
+                                                <label for="option-three">Confirmation
+                                                    and Discounting</label>
+                                                <input type="radio" id="option-four"
+                                                    name="selector"
+                                                    formControlName="selector"
+                                                    value="Refinance"
+                                                    >
+                                                <label
+                                                    for="option-four">Refinancing</label>
+                                                <input type="radio" id="option-five"
+                                                    name="selector"
+                                                    formControlName="selector"
+                                                    value="Banker"
+                                                    (click)="tenor.selectors('Banker')">
+                                                <label for="option-five">Banker's
+                                                    Acceptance</label>
+                                            </div>
+                                      </div>
+                                    </div>
+                                    <div class="">
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers">
+                                        <div class="inputDiv">
+                                        <input type="text" maxlength="15"
+                                            formControlName="lCValue" (keypress)="validateRegexFields($event, 'number')">
+                                        <label>LC Value</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers">
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="lCCurrency">
+                                                <!-- <option value="">Select</option> -->
+                                                <option value="INR">INR</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EURO">EURO</option>
+                                            </select>
+                                            <label>Select Currency</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers">
+                                        <mat-form-field>
+                                            <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">LC Issuance Date</mat-label>
+                                            <input autocomplete="off"  matInput [(ngModel)]="dateToPass"
+                                                [matDatepicker]="lcIssuDt"
+                                                formControlName="lCIssuingDate" >
+                                            <mat-datepicker-toggle matSuffix
+                                                [for]="lcIssuDt">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #lcIssuDt>
+                                            </mat-datepicker>
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Bankers">
+                                        <mat-form-field>
+                                            <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Last Shipment Date
+                                        </mat-label>
+                                        <input autocomplete="off" matInput
+                                            [matDatepicker]="lastShipDt"
+                                            formControlName="lastShipmentDate">
+                                        <mat-datepicker-toggle matSuffix
+                                            [for]="lastShipDt">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #lastShipDt>
+                                        </mat-datepicker>
+                                    </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Bankers">
+                                        <mat-form-field>
+                                            <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Negotiation Date
+                                            </mat-label>
+                                            <input autocomplete="off" matInput [matDatepicker]="negDt"
+                                                formControlName="negotiationDate">
+                                            <mat-datepicker-toggle matSuffix
+                                                [for]="negDt">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #negDt>
+                                            </mat-datepicker>
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="goodsType">
+                                                <option value="Gold"> Gold</option>                                  
+                                                <option value="Plastic">Plastic</option>
+                                                <option value="Drugs">Drugs</option>
+                                                <option value="Diamonds">Diamonds</option>
+                                            </select>
+                                            <label>Types of Good</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane active" id="tab_default_2">
+                                  <h2>Tenor</h2>
+                                  <div class="row">
+                                    <div class="col-md-3 chkconfirmTenor alltenor chkConfDiscTenor">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="5" formControlName="confirmationPeriod" (keypress)="validateRegexFields($event, 'number')">
+                                         <label>Period for which Confirmation is required</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3 chkDiscountTenor alltenor chkConfDiscTenor">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+                                            <label>Period for which discounting is required (Days)</label>
+                                        </div>
+                                      </div>
+                                    <div class="col-md-4  chkBankerTenor alltenor">
+                                      <div class="inputDiv">
+                                        <input type="text">
+                                        <label>Period for which financing is required (Days)</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4 alltenor chkRefinaceTenor">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
+                                            <label>Original Tenor of LC (Days)</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4  alltenor chkRefinaceTenor">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
+                                            <label>Period for which refinancing is required (Days)</label>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6 chkconfirmTenor chkDiscountTenor  alltenor chkBankerTenor chkConfDiscTenor">
+                                      <div class="inputDiv">
+                                        <input type="text" maxlength="300" formControlName="paymentTerms"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                                            <label>Payment terms to seller as per LC</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6 chkDiscountTenor alltenor">
+                                      <div class="inputDiv">
+                                        <textarea maxlength="50" rows="4" formControlName="remarks"></textarea>
+                                            <label>Remarks</label>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>                                    
+                                    <div class="col-md-3 chkconfirmTenor chkConfDiscTenor alltenor">
+                                      <div class="inputDiv">
+                                        <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{lcDetailForm.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
+                                         <label>Start Date</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 chkRefinaceTenor alltenor">
+                                      <div class="selection maturitydate">
+                                        <p><strong>LC Maturity Date <i class="fas fa-info-circle"></i></strong></p>
+                                      </div>
+                                      <ul class="list-unstyled list-inline">
+                                        <li>
+                                            <div class="radio">
+                                                <label for="rdmaturity">
+                                                    <input type="radio" (change)="handleRadio($event)" value="rdmaturity" id="rdmaturity" name="optionsRadios"
+                                                        ><span class="circle"></span><span class="check"></span><span
+                                                        class="circle"></span><span class="check"></span>
+                                                        <mat-form-field>                                
+                                                        <input autocomplete="off" matInput
+                                                            [matDatepicker]="lcMaturity"
+                                                            formControlName="lcMaturityDate">
+                                                        <mat-datepicker-toggle matSuffix
+                                                            [for]="lcMaturity">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #lcMaturity>
+                                                        </mat-datepicker>
+                                                    </mat-form-field>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="radio">
+                                                <label for="rdNegotiation">
+                                                    <input checked="checked" type="radio" value="rdNegotiation" name="optionsRadios" id="rdNegotiation"><span
+                                                        class="circle"></span><span class="check"></span><span class="circle"></span><span
+                                                        class="check"></span>
+                                                    Multiple Dates
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="multipledate" style="width: 400px; display: none;">
+                                            <label>Upload Document (only jpg, jpeg, png)</label>
+                                            <input (change)="handleFileInput($event)" type="file" placeholder="Document" class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
+                                        </li>
+                            
+                                    </ul>
+                                    </div>
+                                    <div class="chkRefinaceTenor alltenor">
+                                      <div class="clearfix"></div>
+                                      <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+                                      <div class="col-md-4" >
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="20" formControlName="lcNumber">
+                                            <label>LC Number</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="30" formControlName="lastBeneBank">
+                                            <label>Beneficiary Bank Name</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNum')" formControlName="lastBeneSwiftCode">
+                                            <label>Swift Code</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="inputDiv selectdiv">
+                                            <select name="country" style="color: transparent;" formControlName="lastBankCountry">
+                                                <option value="" style="color: rgb(0, 0, 0);">Select</option>
+                                                <option value="1" style="color: rgb(0, 0, 0);">India</option>
+                                                <option value="2" style="color: rgb(0, 0, 0);">Bangladesh</option>
+                                                <option value="3" style="color: rgb(0, 0, 0);">Kenya</option>
+                                                <option value="4" style="color: rgb(0, 0, 0);">Nigeria</option>
+                                                <option value="5" style="color: rgb(0, 0, 0);">UAE </option>
+                                                <option value="6" style="color: rgb(0, 0, 0);">Qatar</option>
+                                            </select>
+                                            <label>Country</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="tab-pane active" id="tab_default_4">
+                                  <h2>Other Details</h2>
+                                  <div class="row">
+                                    <p class="col-md-12"><strong>Loading of Goods</strong></p>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv selectdiv">
+                                        <select name="country" formControlName="loadingCountry">
+                                            <option value="INDIA">
+                                                India</option>
+                                            <option value="BANGLADESH">
+                                                Bangladesh</option>
+                                            <option value="KENYA">
+                                                Kenya</option>
+                                            <option value="NIGERIA">
+                                                Nigeria</option>
+                                            <option value="UAE">UAE
+                                            </option>
+                                            <option value="QATAR">
+                                                Qatar</option>
+                                        </select>
+                                        <label>Country of Port of
+                                            Loading</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv selectdiv">
+                                        <select name="IndiaPort" formControlName="loadingPort">
+                                            <option value="JNP">
+                                                Jawaharlal Nehru Port</option>
+                                            <option value="MP">
+                                                Mumbai Port </option>
+                                            <option value="GP">
+                                                GUJRAT Port </option>
+                                            <option value="SPMP">Dr.
+                                                Syama Prasad Mukherjee Port
+                                            </option>
+                                            <option value="RPMP">Dr.
+                                                Rama Prasad Mukherjee Port
+                                            </option>
+                                        </select>
+                                        <label>Port of Loading</label>
+                                      </div>
+                                    </div>
+                                    <p class="col-md-12"><strong>Discharge of Goods</strong></p>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv selectdiv">
+                                        <select name="country" formControlName="dischargeCountry">
+                                            <option value="INDIA">
+                                                India</option>
+                                            <option value="BANGLADESH">
+                                                Bangladesh</option>
+                                            <option value="KENYA">
+                                                Kenya</option>
+                                            <option value="NIGERIA">
+                                                Nigeria</option>
+                                            <option value="UAE">UAE
+                                            </option>
+                                            <option value="QATAR">
+                                                Qatar</option>
+                                        </select>
+                                        <label>Country of Port of
+                                            Discharge</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="inputDiv selectdiv">
+                                        <select name="Banglaport" formControlName="dischargePort">
+                                            <option value="POC">
+                                                Port of Chittagong</option>
+                                            <option value="POM">
+                                                Port of Mongla</option>
+                                            <option value="POD">
+                                                Port of Dhaka</option>
+                                            <option value="POP">
+                                                Port of Payra</option>
+                                        </select>
+                                        <label>Port of Discharge</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12 ">
+                                      <div class="selection">
+                                        <p class=""><strong>Charges are on</strong></p>
+                                      </div>
+                                      <ul class="list-unstyled list-inline">
+                                        <li>
+                                            <div class="radio">
+                                                <label >
+                                                    <input type="radio" formControlName="chargesType" name="chargesType"
+                                                        value="Applicant" ><span class="circle"></span><span
+                                                        class="check"></span><span class="circle"></span><span class="check"></span>
+                                                    {{lcDetailForm.get('applicantName').value}} (Applicant)
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="radio">
+                                                <label >
+                                                    <input type="radio" name="chargesType" formControlName="chargesType"
+                                                        value="Beneficiary"><span class="circle"></span><span
+                                                        class="check"></span><span class="circle"></span><span class="check"></span>
+                                                    {{lcDetailForm.get('beneName').value}} (Beneficiary)
+                                                </label>
+                                            </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <p class="col-md-12"><strong>Validity</strong>  <a href="#" class="texttip" data-toggle="tooltip" data-placement="auto" title="Date before which you need quotes from banks."><i class="fas fa-info-circle"></i></a>   </p>
+                                    <div class="col-md-3">
+                                        <mat-form-field>
+                                            <mat-label>Validity</mat-label>
+                                            <input matInput [matDatepicker]="validity" formControlName="validity" autocomplete="off">
+                                            <mat-datepicker-toggle matSuffix [for]="validity">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #validity>
+                                            </mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                        <p><strong>Pro Forma</strong></p>
+                                        <label>Upload Document (only jpg, jpeg, png)</label>
+                                        <input (change)="handleFileInput1($event)" type="file" placeholder="Document" class="filestyle" name="upload_file2" id="upload_file2" data-icon="false"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-info pull-right" (click)="preview()" *ngIf="isPreview">Save & Preview</button>
+                <button type="button" class="btn btn-info pull-right" (click)="update()" *ngIf="showUpdateButton">Update & Preview</button>
+                <button type="button" class="btn btn-info pull-right" (click)="confirm()" *ngIf="isConfirm">Confirm</button>
+                <button type="button" class="btn btn-info pull-right" (click)="edit()" *ngIf="isEdit">Edit</button>
+                <div class="clearfix"></div>
+                <div class="form-group"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

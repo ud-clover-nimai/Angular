@@ -1,0 +1,41 @@
+.dropdownlabel{
+    font-family: 'Montserrat', sans-serif!important;
+    font-size: 9px!important;
+    font-weight: 500!important;
+    letter-spacing: 0.4px!important;
+    position: absolute!important;
+    top: -7px!important;
+    left: 5px!important;
+    transform: translateY(-50%)!important;
+    color: #999!important;
+    transition: all 0.15s ease-out 0s!important;
+    pointer-events: none!important;
+}
+.personal_details .inputDiv .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+.field_wrapper a {
+    font-size: 11px !IMPORTANT;
+    display: inline-block;
+}
+
+.newh4{
+  padding: 5px 15px 10px 15px !important;font-size: 15px;font-weight: 500;
+}
+
+.newh4 span i{
+ font-size: 15px !important;
+}

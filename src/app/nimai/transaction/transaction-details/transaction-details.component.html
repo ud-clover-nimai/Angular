@@ -1,0 +1,1205 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
+
+<div class="content">
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+           <div class="card">
+              <div class="card-header card-header-icon" data-background-color="blue">
+                 <i class="fa fa-th-list"></i>
+              </div>
+              <div class="card-content">
+                 <h4 class="card-title pull-left">Transaction Details</h4>
+                 <form>
+                  <!-- <div class="row">
+                    <div class="col-md-12">
+                        No records available
+                      </div>
+                  </div> -->
+                    <div class="row">
+                       <div class="col-md-12">
+                        <mat-form-field id="transactionFilter" style="padding-left: 75%;">
+                           <mat-label>Filter</mat-label>
+                           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. CU002">
+                         </mat-form-field>
+                          <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                           <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                              <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
+                              <option value="Accepted">Accepted </option>
+                              <option value="Rejected">Rejected</option>
+                              <option value="Expired">Expired</option>
+                              </select>
+                           </div>
+                           <div [hidden]="dataSourceLength">
+                           <table mat-table [dataSource]="dataSource" matSort>
+
+                              <!-- ID Column -->
+                              <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
+                                <td style="padding-left:0px !important" mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="txnID" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
+                                <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
+                              </ng-container>
+                              <!-- Progress Column -->
+                              <ng-container matColumnDef="dateTime"  >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date & Time </th>
+                                <td mat-cell *matCellDef="let row"> {{row.insertedDate | date : "dd-MM-y"}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="lcBank" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> LC Issuing Bank </th>
+                                <td mat-cell *matCellDef="let row"> {{row.lCIssuanceBank}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="requirement">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
+                                <td mat-cell *matCellDef="let row"> {{row.requirementType}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="lCValue">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> LC Value </th>
+                                <td mat-cell *matCellDef="let row"> {{row.lCValue}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="goods">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
+                                <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="applicantName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant's Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="beneName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.beneName}} </td>
+                              </ng-container>
+                              <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Status </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <select id="changeStatus" (change)="reOpenTransaction(row.transactionId)">
+                                        <option value="Open">Re-open</option>
+                                        <option value="Close">Close</option>
+                                     </select>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="detail1">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                <td mat-cell *matCellDef="let row"> 
+                                    <a style="cursor: pointer;" (click)="getDetail(row);openNav3();openOffcanvas();">Detail</a>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="detail2">
+                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                 <td mat-cell *matCellDef="let row"> 
+                                     <a style="cursor: pointer;" (click)="cloneTransaction(row.transactionId)">Clone</a>
+                                 </td>
+                               </ng-container>
+                              
+                        
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                              </tr>
+                            </table>
+                        
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                           </div>
+                           <div [hidden]="!dataSourceLength">
+                              <table class="table">
+                                 <thead>
+                                   <th>
+                                     <p>No records available. </p>
+                                   </th>
+                                 </thead>               
+                               </table>
+                           </div>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="clearfix"></div>
+                 </form>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<div id="menu-bar" style="display: none;">
+  <div class="handle btn btn-info handle">
+     <span class="fas fa-angle-left"></span>
+  </div>
+  <!--<h3>SlideReveal
+     <small><span class="glyphicon glyphicon-info-sign"></span> Press <kbd>ESC</kbd> to close</small>
+     </h3>-->
+  <div class="popupcontent">
+     <div class="card">
+        <div class="card-content">
+           <ul class="nav nav-pills nav-pills-info">
+              <li class="active"><a href="#pill1" data-toggle="tab" aria-expanded="true">Details</a></li>
+              <li class=""><a href="#pill2" data-toggle="tab" aria-expanded="false">Quote</a></li>
+           </ul>
+           <div class="tab-content">
+              <div class="tab-pane active" id="pill1">
+                 <table class="table table-bordered">
+                    <thead>
+                       <tr>
+                          <th>Transaction Detail</th>
+                          <th>19111200001</th>
+                       </tr>
+                       <tr>
+                          <th colspan="2">LC Details</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                       <tr>
+                          <td>LC Issuing Bank</td>
+                          <td>Janata Sahakari Bank</td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+              <div class="tab-pane" id="pill2">
+                 Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                 <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+              </div>
+              <div class="tab-pane" id="pill3">
+                 Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                 <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="menu-barnew" class="offcanvas">
+   <div class="popupcontent">
+      <div class="card">
+         <div class="card-content">
+            <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
+                <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
+               <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId)" aria-expanded="true">Quote</a></li>
+              
+            </ul>
+            <div class="tab-content" style="height: 552px;overflow: auto;">
+              
+               <div class="tab-pane active" id="pill111" >
+                  <div class="row">
+                     <div class="col-md-12" style="padding-right: 0px !important;">
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                              <th>Transaction ID</th>
+                              <th>{{specificDetail.transactionId}}</th>
+                           </tr>                        
+                           <tr>
+                              <th colspan="2">Applicant</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Name</td>
+                              <td>{{specificDetail.applicantName}}</td>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.applicantCountry}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                              <td>Contact Person</td>
+                              <td>{{specificDetail.applicantContactPerson}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                              <td>Email Id</td>
+                              <td>{{specificDetail.applicantContactPersonEmail}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table class="table table-bordered">
+                        <thead></thead>
+                        <tbody>
+                           <tr>
+                              <th colspan="2">Beneficiary</th>
+                           </tr>
+                           <tr>
+                              <td>Name </td>
+                              <td>{{specificDetail.beneName}}</td>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.beneCountry}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.userType == 'Applicant'">
+                              <td>Contact Person</td>
+                              <td>{{specificDetail.beneContactPerson}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.userType == 'Applicant'">
+                              <td>Email Id</td>
+                              <td>{{specificDetail.beneContactPersonEmail}}</td>
+                           </tr>
+                           <tr>
+                              <td>Bank</td>
+                              <td>{{specificDetail.beneBankName}}</td>
+                           </tr>
+                           <tr>
+                              <td>Swift Code</td>
+                              <td>{{specificDetail.beneSwiftCode}}</td>
+                           </tr>
+                           <tr>
+                              <td>Bank Country</td>
+                              <td>{{specificDetail.beneBankCountry}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr>
+                              <th colspan="2">LC Details</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>LC Issuing Bank</td>
+                              <td>{{specificDetail.lCIssuanceBank}}</td>
+                           </tr>
+                           <tr>
+                              <td>Branch </td>
+                              <td>{{specificDetail.lCIssuanceBranch}}</td>
+                           </tr>
+                           <tr>
+                              <td>Swift Code</td>
+                              <td>{{specificDetail.swiftCode}}</td>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.lCIssuanceCountry}}</td>
+                           </tr>
+                           <tr>
+                              <td>Requirement</td>
+                              <td>{{specificDetail.requirementType}}</td>
+                           </tr>
+                           <tr>
+                              <td>Amount</td>
+                              <td>{{specificDetail.lCValue}}</td>
+                           </tr>
+                           <tr>
+                              <td>Currency</td>
+                              <td>{{specificDetail.lCCurrency}}</td>
+                           </tr>
+                           <tr>
+                              <td>LC Issuing Date</td>
+                              <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                              <td>LC Negotiation Date</td>
+                              <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                              <td>Last Shipment Date</td>
+                              <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
+                           </tr>
+                           <tr>
+                              <td>Goods</td>
+                              <td>{{specificDetail.goodsType}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+   
+                     <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance'">
+                        <tbody>
+                           <tr>
+                              <th colspan="2">Tenor of Deferred Payment </th>
+                           </tr>
+                           <tr *ngIf="specificDetail.requirementType == 'Banker'">
+                              <td>Period for which financing is required</td>
+                              <td>{{specificDetail.discountingPeriod}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.requirementType == 'Discounting'">
+                              <td>Usance (Days)</td>
+                              <td>{{specificDetail.discountingPeriod}}</td>
+                           </tr>
+                           <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation'">
+                              <td>Usance (Days)</td>
+                              <td>{{specificDetail.confirmationPeriod}}</td>
+                           </tr>
+                           <tr>
+                              <td>Payments terms to seller as per LC </td>
+                              <td>{{specificDetail.paymentTerms}}</td>
+                           </tr>
+                        </tbody>
+                     </table>   
+                     <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
+                        <tbody>
+                           <tr>
+                              <th colspan="2">Tenor of Deferred Payment </th>
+                           </tr>
+                           <tr>
+                              <td>Orignal Usance (Tenor) of LC</td>
+                              <td>{{specificDetail.originalTenorDays}}</td>
+                           </tr>
+                           <tr>
+                              <td>Period for which refinancing is required</td>
+                              <td>{{specificDetail.refinancingPeriod}}</td>
+                           </tr>
+                           <tr>
+                              <td>LC Maturity Date</td>
+                              <td>{{specificDetail.lcMaturityDate | date : "dd-MM-y"}}</td>
+                           </tr>
+                           <tr>
+                              <th colspan="2">Beneficiary Details of Last Transaction</th>
+                           </tr>
+                           <tr>
+                              <td>LC Number</td>
+                              <td>{{specificDetail.lcNumber}}</td>
+                           </tr>
+                           <tr>
+                              <td>Beneficiary Bank Name</td>
+                              <td>{{specificDetail.lastBeneBank}}</td>
+                           </tr>
+                           <tr>
+                              <td>Swift Code</td>
+                              <td>{{specificDetail.lastBeneSwiftCode}}</td>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.lastBankCountry}}</td>
+                           </tr>
+
+                        </tbody>
+                     </table>                  
+                     <table class="table table-bordered">
+                        <tbody>
+                           <tr>
+                              <th colspan="2">Others</th>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.loadingCountry}}</td>
+                           </tr>
+                           <tr>
+                              <td>Port of Loading</td>
+                              <td>{{specificDetail.loadingPort}}</td>
+                           </tr>
+                           <tr>
+                              <td>Country</td>
+                              <td>{{specificDetail.dischargeCountry}}</td>
+                           </tr>
+                           <tr>
+                              <td>Port of Discharge</td>
+                              <td>{{specificDetail.dischargePort}}</td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 Charges are on
+                              </td>
+                              <td>{{specificDetail.chargesType}}</td>
+                           </tr>
+                           <tr>
+                              <td>Validity</td>
+                              <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
+                           </tr>
+                           <tr>
+                              <td>Pro Forma</td>
+                              <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>
+                  </div>
+               </div>
+                <div class="tab-pane" id="tab2">
+                  <div class="col-md-12">
+                     <div class="row">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th>Transaction ID</th>
+                                 <th *ngIf="quotationdata">{{quotationdata.transactionId}}</th>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="form-group clearfix"></div>
+                  <div class="row" style="background: #eee;
+                     padding: 5px 0;">
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Discounting Bank Details</th>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-6">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th style="width: 50%;">Bank</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.bankName}}</td>
+                              </tr>
+                              <tr>
+                                 <th>Country</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.countryName}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-6">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <th style="width: 50%;">Branch</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.branchName}}</td>
+                              </tr>
+                              <tr>
+                                 <th nowrap>Name</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>                              
+                              <tr>
+                                 <th>Mobile No.</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.mobileNumber}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>                              
+                              <tr>
+                                 <th>Email</th>
+                                 <td *ngIf="quotationdata">{{quotationdata.emailAddress}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>                     
+                  </div>                  
+                  
+                  <div class="row" > 
+                     <div class="col-md-12">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td style="width: 50%;">Date & Time</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                              </tr>
+                               <tr>
+                                 <td>Confirmation Charges</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Confirmation Charges from Date of Issuance till date of discounting</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Confirmation Charges from Date of Issuance till date of maturity</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Discounting Charges p.a.</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Libor</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.insertedDate | date : "dd-MM-y"}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Negotiation Charges p.a.</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Document Handling Charges (USD)</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Min.Trancation Charges (USD)</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
+                              </tr>
+                              <tr>
+                                 <th>Total Quote</th>
+                                 <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
+                              </tr>
+                             
+                              
+                           </tbody>
+                        </table>
+                     </div>
+                   
+                     <div class="col-md-12 pull-right">
+                        <a href="#" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div id="menubarDetailreject" style="display: none;">
+  <div class="popupcontent">
+     <div class="card">
+        <div class="card-content">
+           <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
+              padding: 10px 15px 0;">
+              <li  class="active"><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
+              <li><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
+           </ul>
+           <div class="tab-content" style="height: 552px;overflow: auto;">
+              <div class="tab-pane active" id="tab2">
+                 <div class="col-md-6">
+                    <div class="row">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <th>Transaction ID</th>
+                                <th>19111200002</th>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+                 <div class="form-group clearfix"></div>
+                 <div class="row" style="background: #eee;
+                    padding: 5px 0;">
+                    <div class="col-md-12">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Discounting Bank Details</th>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <th style="width: 50%;">Bank</th>
+                                <td>Hongkong and Shanghai Banking Corportaion (HSBC)</td>
+                             </tr>
+                             <tr>
+                                <th>Country</th>
+                                <td>UAE</td>
+                             </tr>
+                             <tr>
+                                <th>Email</th>
+                                <td>zayed.hussain@hsbc.ae</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <th style="width: 50%;">Branch</th>
+                                <td>Al Suq Road, Dubai</td>
+                             </tr>
+                             <tr>
+                                <th nowrap>Contact Person</th>
+                                <td>Zayed Hussain</td>
+                             </tr>
+                             <tr>
+                                <th nowrap>Contact Number</th>
+                                <td>+971-60055722</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+                 <div class="form-group"></div>
+                 <div class="row" >
+                    <div class="col-md-12">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Quote Received</th>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <td style="width: 50%;">Date & Time</td>
+                                <td>14-06-2019 14:25:30 GMT</td>
+                             </tr>
+                             <tr>
+                                <td>Quote Accepted on</td>
+                                <td>16:2711 GMT</td>
+                             </tr>
+                             <tr>
+                                <td>LC Issuing Bank</td>
+                                <td>Diamond Trust Bank, Kenya</td>
+                             </tr>
+                             <tr>
+                                <td>Requirement</td>
+                                <td>Discounting</td>
+                             </tr>
+                             <tr>
+                                <td>LC Value (USD)</td>
+                                <td>35200.00</td>
+                             </tr>
+                             <tr>
+                                <td>Goods</td>
+                                <td>Matress</td>
+                             </tr>
+                             <tr>
+                                <td>Applicant Name</td>
+                                <td>Vitafoams Products Ltd., India</td>
+                             </tr>
+                             <tr>
+                                <td>Beneficiary Name</td>
+                                <td>Aerotech General Trading LLC, India</td>
+                             </tr>
+                             <tr>
+                                <td>Confirmation Charges</td>
+                                <td>2.25%</td>
+                             </tr>
+                             <tr>
+                                <td>Charges from Date of Issuance to date of discounting</td>
+                                <td>0.25%</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table">
+                          <tbody>
+                             <tr>
+                                <td style="width: 50%;">Charges from Date of Issuance to date of maturity</td>
+                                <td>0.25%</td>
+                             </tr>
+                             <tr>
+                                <td>Discounting Charges p.a.</td>
+                                <td>0.25%</td>
+                             </tr>
+                             <tr>
+                                <td>Libor</td>
+                                <td>0.25%</td>
+                             </tr>
+                             <tr>
+                                <td>Negotiation Charges p.a.</td>
+                                <td>0.25%</td>
+                             </tr>
+                             <tr>
+                                <td>Document Handling Charges (USD)</td>
+                                <td>65.00</td>
+                             </tr>
+                             <tr>
+                                <td>Other Charges (USD)</td>
+                                <td>100.00</td>
+                             </tr>
+                             <tr>
+                                <td>Min. Transaction Charges (USD)</td>
+                                <td>90.00</td>
+                             </tr>
+                             <tr>
+                                <th>Total Quote</th>
+                                <th>36687.00</th>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-12 pull-right">
+                       <a href="#" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal6" >Reopen
+                       </a>
+                       <a href="#" data-toggle="modal" class="pull-right linkbtn reopen" data-target="#myModal8"> Refund</a>
+                    </div>
+                 </div>
+              </div>
+              <div class="tab-pane " id="pill111" >
+                 <div class="row">
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <thead>
+                             <tr>
+                                <th>Transaction ID</th>
+                                <th>19111200002</th>
+                             </tr>
+                             <tr>
+                                <th colspan="2">LC Details</th>
+                             </tr>
+                          </thead>
+                          <tbody>
+                             <tr>
+                                <td style="width: 50%;">Issuing Bank(IB)</td>
+                                <td>Diamond Trust Bank, Kenya</td>
+                             </tr>
+                             <tr>
+                                <td>Branch </td>
+                                <td>Nairobi</td>
+                             </tr>
+                             <tr>
+                                <td>Swift Code</td>
+                                <td>JB145678390</td>
+                             </tr>
+                             <tr>
+                                <td>Country</td>
+                                <td>Kenya</td>
+                             </tr>
+                             <tr>
+                                <td>Requirement</td>
+                                <td>Discounting</td>
+                             </tr>
+                             <tr>
+                                <td>Amount</td>
+                                <td>USD $35,200</td>
+                             </tr>
+                             <tr>
+                                <td>LC Issuing Date</td>
+                                <td>07/01/2019</td>
+                             </tr>
+                             <tr>
+                                <td>LC Expiry Date</td>
+                                <td>07/01/2019</td>
+                             </tr>
+                             <tr>
+                                <td>Last Shipment Date(LSD)</td>
+                                <td>03/03/2019 </td>
+                             </tr>
+                             <tr>
+                                <td>Goods</td>
+                                <td>Garments</td>
+                             </tr>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Tenor </th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Period for which confirmation is required</td>
+                                <td>60 days</td>
+                             </tr>
+                             <tr>
+                                <td>Payment terms to seller as per LC</td>
+                                <td>Payment should be credited to the seller's account before last shipment date</td>
+                             </tr>
+                             <tr>
+                                <td>Start Date</td>
+                                <td>Date of issuance of LC</td>
+                             </tr>
+                             <!-- <tr>
+                                <td>End Date</td>
+                                <td>Date of Maturity</td>
+                             </tr> -->
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Applicant</th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Applicant</td>
+                                <td>Vitafoams Products Ltd, Kenya</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Beneficiary</th>
+                             </tr>
+                             <tr>
+                                <td>Beneficiary   </td>
+                                <td>Aerotech General Trading LLC, India</td>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Bank</td>
+                                <td>Bank of Baroda</td>
+                             </tr>
+                             <tr>
+                                <td>Swift</td>
+                                <td>BB78564301</td>
+                             </tr>
+                             <tr>
+                                <td>Country</td>
+                                <td>India</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Others</th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Port of Loading   </td>
+                                <td>Jawaharlal Nehru Port, India</td>
+                             </tr>
+                             <tr>
+                                <td>Port of Discharge</td>
+                                <td>Port of Chittagong, Bangladesh</td>
+                             </tr>
+                             <tr>
+                                <td>Charges are on</td>
+                                <td>Vitafoams Products Ltd, Kenya(Applicant)</td>
+                             </tr>
+                             <tr>
+                                <td>Validity</td>
+                                <td>12/01/2020</td>
+                             </tr>
+                             <tr>
+                                <td>Pro Forma</td>
+                                <td><a href="#">View</a></td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="menubarDetailexpired" style="display: none;">
+  <div class="popupcontent">
+     <div class="card">
+        <div class="card-content">
+           <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
+              padding: 10px 15px 0;">
+              <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
+           </ul>
+           <div class="tab-content" style="height: 552px;overflow: auto;">
+              <div class="tab-pane active" id="pill111" >
+                 <div class="row">
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <thead>
+                             <tr>
+                                <th>Transaction ID</th>
+                                <th>19111200002</th>
+                             </tr>
+                             <tr>
+                                <th colspan="2">LC Details</th>
+                             </tr>
+                          </thead>
+                          <tbody>
+                             <tr>
+                                <td style="width: 50%;">Issuing Bank(IB)</td>
+                                <td>Diamond Trust Bank, Kenya</td>
+                             </tr>
+                             <tr>
+                                <td>Branch </td>
+                                <td>Nairobi</td>
+                             </tr>
+                             <tr>
+                                <td>Swift Code</td>
+                                <td>JB145678390</td>
+                             </tr>
+                             <tr>
+                                <td>Country</td>
+                                <td>Kenya</td>
+                             </tr>
+                             <tr>
+                                <td>Requirement</td>
+                                <td>Discounting</td>
+                             </tr>
+                             <tr>
+                                <td>Amount</td>
+                                <td>USD $35,200</td>
+                             </tr>
+                             <tr>
+                                <td>LC Issuing Date</td>
+                                <td>07/01/2019</td>
+                             </tr>
+                             <tr>
+                                <td>LC Expiry Date</td>
+                                <td>07/01/2019</td>
+                             </tr>
+                             <tr>
+                                <td>Last Shipment Date(LSD)</td>
+                                <td>03/03/2019 </td>
+                             </tr>
+                             <tr>
+                                <td>Goods</td>
+                                <td>Garments</td>
+                             </tr>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Tenor </th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Period for which confirmation is required</td>
+                                <td>60 days</td>
+                             </tr>
+                             <tr>
+                                <td>Payment terms to seller as per LC</td>
+                                <td>Payment should be credited to the seller's account before last shipment date</td>
+                             </tr>
+                             <tr>
+                                <td>Start Date</td>
+                                <td>Date of issuance of LC</td>
+                             </tr>
+                             <!-- <tr>
+                                <td>End Date</td>
+                                <td>Date of Maturity</td>
+                             </tr> -->
+                          </tbody>
+                       </table>
+                    </div>
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Applicant</th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Applicant</td>
+                                <td>Vitafoams Products Ltd, Kenya</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Beneficiary</th>
+                             </tr>
+                             <tr>
+                                <td>Beneficiary   </td>
+                                <td>Aerotech General Trading LLC, India</td>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Bank</td>
+                                <td>Bank of Baroda</td>
+                             </tr>
+                             <tr>
+                                <td>Swift</td>
+                                <td>BB78564301</td>
+                             </tr>
+                             <tr>
+                                <td>Country</td>
+                                <td>India</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                       <table class="table table-bordered">
+                          <tbody>
+                             <tr>
+                                <th colspan="2">Others</th>
+                             </tr>
+                             <tr>
+                                <td style="width: 50%;">Port of Loading   </td>
+                                <td>Jawaharlal Nehru Port, India</td>
+                             </tr>
+                             <tr>
+                                <td>Port of Discharge</td>
+                                <td>Port of Chittagong, Bangladesh</td>
+                             </tr>
+                             <tr>
+                                <td>Charges are on</td>
+                                <td>Vitafoams Products Ltd, Kenya(Applicant)</td>
+                             </tr>
+                             <tr>
+                                <td>Validity</td>
+                                <td>12/01/2020</td>
+                             </tr>
+                             <tr>
+                                <td>Pro Forma</td>
+                                <td><a href="#">View</a></td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="myModal4" style="display: none;" class="popupnew modal fade" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+     <!-- Modal content-->
+     <div class="modal-content">
+        <div class="modal-body">
+           <h2>Transaction Closed</h2>
+           <div class="padnew">
+              <div class="row">
+                 <!--<p><strong>Enter Email ID here</strong></p> -->
+                 <div class="col-md-12">
+                    <div class="row">
+                       <div class="col-md-12">
+                          <p>By clicking the Closed button you ensure that the transaction has been closed with the customer</p>
+                          <label>Remarks (Optional)</label>
+                          <div class="inputDiv">
+                             <textarea rows="4"></textarea>
+                          </div>
+                       </div>
+                    </div>
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info pull-right">OK</button>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="myModal5" style="display: none;z-index: 9999;" class="popupnew modal fade" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+     <!-- Modal content-->
+     <div class="modal-content">
+        <div class="modal-body">
+           <h2>Reject Trasaction</h2>
+           <div class="padnew">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="">
+                 <div class="row">
+                    <div class="col-md-12">
+                       <label>Select your reason for rejecting the transaction</label>
+                       <div class="form-group"></div>
+                       <div class="inputDiv selectdiv">
+                          <select id="rejectReason">
+                             <option value=''>Select</option>
+                             <option value="1">Bank not acceptable</option>
+                             <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
+                             <option value="2">Others</option>
+                          </select>
+                          <label>Select Reason</label>
+                       </div>
+                       <div class="form-group"></div>
+                       <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
+                    </div>
+                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote(quotationdata.quotationId,quotationdata.transactionId)">Submit</button> 
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="reOpenPopup" style="display: none;opacity: 1;top: 20%;z-index: 9999;" class="popupnew modal fade" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+     <!-- Modal content-->
+     <div class="modal-content">
+        <div class="modal-body">
+           <h2> Trasaction Reopened</h2>
+           <div class="padnew">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="">
+                 <div class="row">
+                    <div class="col-md-12">
+                       <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
+                       <div class="form-group"></div>
+                    </div>
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="redirectAsReopen()">Ok</button> 
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="myModal7" style="display: none;" class="popupnew modal fade" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+     <!-- Modal content-->
+     <div class="modal-content">
+        <div class="modal-body">
+           <h2>Reopen Trasaction</h2>
+           <div class="padnew">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="">
+                 <div class="row">
+                    <div class="col-md-12">
+                       <label>Validity of your transaction has been expired. Kindly update the validity date before reopening it.</label> 
+                       <div class="form-group"></div>
+                    </div>
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Ok</button> 
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="myModal8" style="display: none;" class="popupnew modal fade" role="dialog">
+  <div class="modal-dialog modal-md emaildiv">
+     <!-- Modal content-->
+     <div class="modal-content">
+        <div class="modal-body">
+           <h2>Trasaction Refund</h2>
+           <div class="padnew">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="">
+                 <div class="row">
+                    <div class="col-md-12">
+                       <label>By clicking Refund you will receive 1 credit back to your account.</label> 
+                       <div class="form-group"></div>
+                    </div>
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Cancel</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Refund</button> 
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="myModal9" class="modal3" style="display: none;">
+   <!-- <div class="modal-dialog modal-md emaildiv"> -->
+   <!-- Modal content-->
+   <div class="modal-content-image">
+     <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
+     <div class="modal-body" style="text-align:center">
+       <h4>Attached document</h4>
+       <div class="row">
+         <!--<p><strong>Enter Email ID here</strong></p> -->
+         <div class="col-md-12">
+          <img [src]="document" />
+         </div>
+         <!-- <button type="submit" class="btn btn-info"  data-dismiss="modal">Close</button>-->
+       </div>
+     </div>
+   </div>
+   <!-- </div> -->
+ </div>

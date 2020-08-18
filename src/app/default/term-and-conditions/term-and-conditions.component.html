@@ -1,0 +1,42 @@
+<!-- <div fxLayout="row" fxLayoutAlign="space-between center" class="pophead">
+  <div fxLayout="column" >
+    <a href="javascript:void(0);" (click)="closeDialog()">
+      <i class="fa fa-times" style="color: white;"></i>
+    </a>
+  </div>
+  <div fxLayout="column">
+    <h6 mat-dialog-title>{{data.title}}</h6>
+  </div>
+</div> -->
+<div class="pophead"><h2 mat-dialog-title >{{data.title}}</h2>
+  <a href="javascript:void(0);" (click)="closeDialog()" style="margin-top: 30px;margin-left: 75%;">
+    <i class="fa fa-times" style="color: white;" ></i>
+  </a>
+</div>
+<div>
+    <h3>What is Angular?</h3>
+
+    <p>Angular is a platform that makes it easy to build applications with the web. Angular
+      combines declarative templates, dependency injection, end to end tooling, and integrated
+      best practices to solve development challenges. Angular empowers developers to build
+      applications that live on the web, mobile, or the desktop</p>
+  
+    <h3>Architecture overview</h3>
+  
+    <p>Angular is a platform and framework for building client applications in HTML and TypeScript.
+    Angular is itself written in TypeScript. It implements core and optional functionality as a
+    set of TypeScript libraries that you import into your apps.</p>
+  
+    <p>The basic building blocks of an Angular application are NgModules, which provide a compilation
+    context for components. NgModules collect related code into functional sets; an Angular app is
+    defined by a set of NgModules. An app always has at least a root module that enables
+    bootstrapping, and typically has many more feature modules.</p>
+  
+    <p>Components define views, which are sets of screen elements that Angular can choose among and
+    modify according to your program logic and data. Every app has at least a root component.</p>
+  
+    <p>Components use services, which provide specific functionality not directly related to views.
+    Service providers can be injected into components as dependencies, making your code modular,
+    reusable, and efficient.</p>
+  
+</div>

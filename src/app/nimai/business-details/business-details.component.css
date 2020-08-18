@@ -1,0 +1,45 @@
+#business_details{
+    font-weight: 600;
+}
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+.dropdownlabel{
+    font-family: 'Montserrat', sans-serif!important;
+    font-size: 9px!important;
+    font-weight: 500!important;
+    letter-spacing: 0.4px!important;
+    position: absolute!important;
+    top: -7px!important;
+    left: 5px!important;
+    transform: translateY(-50%)!important;
+    color: #999!important;
+    transition: all 0.15s ease-out 0s!important;
+    pointer-events: none!important;
+}
+.business_details .inputDiv .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+/*added by ashvini - required fields*/
+.business_details .selection .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 32px;
+    right: 140px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+

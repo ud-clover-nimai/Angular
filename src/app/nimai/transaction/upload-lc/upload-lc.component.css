@@ -1,0 +1,150 @@
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+::ng-deep.mat-datepicker-content .mat-calendar{
+    zoom:0.87;
+    height: 345px!important;
+}
+.selections input[type=radio] {
+	position: absolute;
+	visibility: hidden;
+	display: none;
+}
+
+.selections label {
+	color: #9a929e;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	padding: 5px 20px;
+	margin: 0;
+}
+
+.selections input[type=radio]:checked+label {
+	color: #fff;
+	background: #00bcd4;
+}
+
+.selections label+input[type=radio]+label {
+	border-left: solid 0px #00bcd4;
+}
+
+.selections .radio-group {
+    border: solid 1px #ddd;
+    display: inline-block;
+    margin: 10px 15px 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.selections .customlabel {
+    font-size: 11px!important;
+    font-weight: 400 !important;
+    color: #999999!important;
+    clear: both;
+    font-family: roboto;
+    display: block;
+    position: absolute;
+    top: -16px;
+}
+.selections{
+    margin-top:10px!important;
+}
+::ng-deep .mat-input-element {
+    caret-color: #00b5de;
+}
+::ng-deep .mat-datepicker-content .mat-calendar-next-button:hover{
+    color: navy!important;
+}
+::ng-deep .mat-datepicker-content .mat-calendar-previous-button:hover{
+    color: navy!important;
+}
+::ng-deep .mat-calendar-arrow:hover{
+    color: navy!important;
+}
+.customspan {
+    top: 1  px;
+    font-size: 9px;
+    color: #aaa;
+    left: 1px;
+    position: absolute;
+    transform: translateY(-50%);
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.labeltext {
+    display: block;
+    padding: 6px 0px 0;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    font-family: 'Montserrat', sans-serif;
+}
+hr {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid #1fc1d5;
+}
+.inputDiv{
+    margin-bottom: 10px!important;
+}
+/* The Modal (background) */
+
+.modal1, .modal2, .modal3{
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1050;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 9;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

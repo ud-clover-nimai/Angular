@@ -1,0 +1,63 @@
+.statusbar li {
+    vertical-align: top;
+  border-right: 1px solid #bfbfbf;
+  padding: 0 10px;
+}
+
+.statusbar li li {
+border:0;
+padding: 0;
+}
+
+
+.statusbar li label {
+   font-size: 13px;
+  line-height: 1.428571429;
+  color: #989898;
+  font-weight: 400;
+}
+
+.statusbar li .numbdiv {
+      color: #ffffff;
+  font-weight: 400;
+  font-size: 13px;
+  display: inline-block;
+  background: #00bcd4;
+  padding: 2px 7px;
+  border-radius: 33px;
+  text-align: center;
+  margin: 0 0 0 5px;
+}
+
+.statusbar li a {
+margin:0;
+}
+
+.statusbar li:last-child {
+border:0;
+}
+
+.inputDivNew {
+position: relative;
+}
+
+.inputDivNew input{
+    border: 1px solid #ccc;
+  font-size: 13px;
+  padding: 5px 8px;
+  height: 30px;
+  display: block;
+  width: 100%;
+}
+
+.inputDivNew i.fas.fa-calendar-week{
+    position: absolute;
+  top: 7px;
+  right: 8px;
+  color: #848484;
+}
+
+.thead{
+    background: #00bcd4;
+  color: #fff;
+}

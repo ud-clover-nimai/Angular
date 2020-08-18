@@ -1,0 +1,15 @@
+.sidebar[data-active-color="blue"]  li.active>a {
+    background-color: #00bcd4;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+/* 
+ul li a.active{
+    background-color: #00bcd4;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+} */
+.sidebar .nav i{
+    margin-top:2px!important;
+}
+.sidebar .nav p{
+    margin-top: -2px!important;
+}

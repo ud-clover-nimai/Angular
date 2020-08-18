@@ -1,0 +1,402 @@
+
+<div id="menu-bar" [hidden]="!isActive"  style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+         <div class="popupcontent">
+            <div class="card">
+               <div class="card-content">
+                  <h4>{{title}}</h4>
+                  <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                     <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Confirmation Charges p.a.</td>
+                                 <td><input type="text"  [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
+                              </tr>
+                            
+                              <tr>
+                                 <td>
+                                    <input [checked]="chargesEdit1" type="radio"  id="optn2"  name="chargesEdit1" [disabled]="radioid"
+                                    (change)="onNegotChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1"  [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                              </tr>
+                              <tr>
+                                 <td>
+                                    <input [checked]="chargesEdit2" type="radio"  id="optn2" name="chargesEdit1"  [disabled]="radioid"
+                                    (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                               </tr>
+
+                              <tr>
+                                 <td>Other Charges</td>
+                                 <td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective  />
+                                  
+                                    <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
+                                 </td>
+                              </tr>
+                              
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" weightDirective placeholder="0.00"  />
+                                   
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate"  placeholder="28/03/2020"></td>
+                              </tr>
+                              <!-- <tr>
+                                 <th>Total Quote</th>
+                                 <th><input type="text" [(ngModel)]="dataViewEdit.totalQuoteValue"></th>
+                              </tr> -->
+                              <tr>
+                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div>
+                           <button type="submit" class="btn btn-info pull-right"  id="btnpreview"
+                           (click)="transaction('preview',dataViewEdit)">
+                              Preview
+                              <div class="ripple-container" ></div>
+                           </button>
+                           <!-- <button class="btn btn-info" (click)="transaction('ok')">
+                              Save
+                              <div class="ripple-container"></div>
+                           </button> -->
+
+                        </div>
+                     </div>
+                  </div>
+                 
+                  <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                     <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Confirmation Charges p.a.</td>
+                                 <td>{{dataViewEdit.confirmationCharges}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                 <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
+                              </tr>
+                           
+                              <tr>
+                                 <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                                 <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Minimum Transaction Charges</td>
+                                 <td>
+                                   {{dataViewEdit.minTransactionCharges}}
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Other Charges</td>
+                                 <td>{{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td>{{dataViewEdit.validityDate | date : "dd-MM-y"}}</td>
+                              </tr>
+                              <tr>
+                                 <th>Total Quote</th>
+                                 <th *ngIf="detail">{{dataViewEdit.totalQuoteValue}}</th>
+                              </tr>
+                              <tr>
+                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div>
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                              Submit
+                              <div class="ripple-container"></div>
+                           </button>
+                           <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                              Edit
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                     <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td colspan="2" class="text-center">
+                                    <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div class="posfix">
+                           <button class="btn btn-info" (click)="transaction('ok')">
+                              OK
+                              <div class="ripple-container"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div [hidden]="!isActiveQuote" >
+      <div id="menubarConfirmQuote"  
+      style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+      <div class="popupcontent">
+         <div class="card">
+            <div class="card-content">
+               <h4>{{title}}</h4>
+               <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                  <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data)" #f="ngForm" novalidate>
+                    <div class="tab-pane active" id="pill1">
+                     <div class="tab">
+                        <table>
+                           <tbody>
+                           <tr>
+                              <td><b>Requirement</b></td>
+                              <td>{{data.requirementType}}</td>
+                                                      
+                              <td><b>CCy</b></td>
+                              <td>{{data.lCCurrency}}</td>
+                           </tr>     
+                           <tr>
+                              <td><b>Transaction ID</b></td>
+                              <td>{{data.transactionId}}</td>
+                            
+                             <td><b>Amount</b></td>
+                             <td>{{ data.lCValue}}</td>
+                          </tr> 
+                          <tr>
+                             <td><b>IB</b></td>
+                             <td>{{data.lCIssuanceBank}}</td>
+                         
+                             <td><b>Tenor</b></td>
+                             <td>{{data.confirmationPeriod}} Days</td>
+                          </tr>  
+                        </tbody>
+                         </table>
+                        </div>
+                     <table class="table">
+                        <tbody>
+                           <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
+<br>
+                           <tr>
+                              <td>Confirmation Charges p.a.</td>
+                            
+                              <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <input [checked]="charges1" type="radio"  id="optn"  name="charges1" 
+                                 (change)="onNegotChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                 <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1"  [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <input [checked]="charges2" type="radio"  id="optn" name="charges1"  
+                                 (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                 <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                            </tr>
+                            <tr>
+                              <td>Other Charges</td>
+                              <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
+                           </tr>
+                           <textarea style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                           rows="3"></textarea>
+                          
+                           <!-- <tr>
+                              <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
+                              <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
+                            </tr> -->
+                         
+                           <tr>
+                              <td>Minimum Transaction Charges</td>
+                              <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" 
+                                  weightDirective>
+                              </td>
+                              </tr>
+                           
+                           <tr>
+                              <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                              <td><input type="date" name="validityDate" [(ngModel)]="data.validityDate" 
+                                 #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
+                                 <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
+                                    <div *ngIf="validityDate.errors.required">Validity date is required</div>
+                                </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>Other terms and conditions</td>
+                           </tr>
+                          
+                           <textarea placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                           rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
+                          
+                           <tr>
+                              <td>
+                                 Disclaimer:Note: The application benchmark/taxes will be applicable
+                                 as of transaction date,actual quote from the bank may differ to the extent
+                              </td>
+                           </tr>
+                           
+                        </tbody>
+                     </table>
+                
+                     <div>
+                        <button type="submit"  class="btn btn-info pull-right" >
+                           Save/Generate Quote
+                           <div class="ripple-container" ></div>
+                        </button>
+                       
+                     </div>
+                  </div>
+               </form>
+               </div>
+           
+               <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                  <div class="tab-pane active" id="pill1">
+                    <div class="tab">
+                           <table>
+                              <tbody>
+                              <tr>
+                                 <td><b>Requirement</b></td>
+                                 <td>{{data.requirementType}}</td>
+                                                         
+                                 <td><b>CCy</b></td>
+                                 <td>{{data.lCCurrency}}</td>
+                              </tr>     
+                              <tr>
+                                 <td><b>Transaction ID</b></td>
+                                 <td>{{data.transactionId}}</td>
+                               
+                                <td><b>Amount</b></td>
+                                <td>{{ data.lCValue}}</td>
+                             </tr> 
+                             <tr>
+                                <td><b>IB</b></td>
+                                <td>{{data.lCIssuanceBank}}</td>
+                            
+                                <td><b>Tenor</b></td>
+                                <td>{{data.confirmationPeriod}} Days</td>
+                             </tr>  
+                           </tbody>
+                            </table>
+                           </div>
+                     <table class="table">
+                        <tbody>
+                           <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
+                           <br>
+                           <tr>
+                              <td>Confirmation Charges p.a.</td>
+                              <td>{{data.confirmationCharges}} %</td>
+                           </tr>
+                           <tr>
+                              <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                              <td>{{data.confChgsNegot}}</td>
+                           </tr>
+                           <tr>
+                              <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                              <td>{{data.confChgsMatur}}</td>
+                           </tr>
+                           <tr>
+                              <td>Other Charges<br><small style="color: #b6a3a3;">Customer needs to pay standard swift transfer charges.</small>
+                              </td>
+                              <td>
+                                 {{data.otherCharges}}
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>Minimum Transaction Charges</td>
+                              <td>
+                                 {{data.minTransactionCharges}}
+                              </td>
+                           </tr>
+                          
+                           <tr>
+                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                              <td>{{data.validityDate | date : "dd-MM-y"}}</td>
+                           </tr>
+                           <tr>
+                              <th>Total Quote</th>
+                              <th>{{data.TotalQuote}}</th>
+                           </tr><br>
+                           <tr>
+                              <td><small>Others terms and conditions</small></td>
+                           </tr>
+                           <tr>
+                              <td colspan="2"><small style="color: #b6a3a3;">Discounting commission applicable from the date of discounting until the maturity date of bill(s).</small></td>
+                           </tr> 
+                           
+                           <tr>
+                              <td colspan="2"><small>Disclaimer:Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                           </tr> 
+                        </tbody>
+                     </table>
+                     <div>
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data,detail)">
+                           Confirm
+                           <div class="ripple-container"></div>
+                        </button>
+                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data,detail)">
+                           Edit
+                           <div class="ripple-container"></div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                  <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <td colspan="2" class="text-center">
+                                 <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <div class="posfix">
+                        <button class="btn btn-info" (click)="transactionForQuotes('ok',data)">
+                           OK
+                           <div class="ripple-container"></div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+  
+<div id="myModalConfirm" style="display: none;" class="popupnew modal">
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2> Trasaction Fail</h2>
+            <div class="padnew">
+               <!--<p><strong>Enter Email ID here</strong></p> -->
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <label id="labConfirm"></label> 
+                        <div class="form-group"></div>
+                     </div>
+                     <button type="submit" class="btn btn-info pull-right" (click)="redirectToactive()" data-dismiss="modal">Ok</button> 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>

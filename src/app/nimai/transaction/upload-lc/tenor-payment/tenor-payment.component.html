@@ -1,0 +1,151 @@
+<div class="row" [hidden]="!confirmation" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="confirmationPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <!-- <div class="clearfix"></div>
+    <div class="col-md-4" [hidden]="!CandD">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div> -->
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
+            <label>Start Date</label>
+        </div>
+    </div> -->
+    <!-- <div class="col-md-4 ">
+        <div class="selection"><label class="customlabel">End Date</label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" (change)="handleRadio($event,'DOM')" name="tenorEndDate"
+                    value="DOM"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
+            </label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" name="tenorEndDate" (change)="handleRadio($event,'ND')"
+                    value="Negotiation Date"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Negotiation Date
+            </label>
+        </div>
+
+    </div> -->
+</div>
+
+<div class="row" [hidden]="!discount" [formGroup]="LcDetail">
+    <div class="col-md-4" [hidden]="bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="col-md-4" [hidden]="!bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which financing is required</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+</div>
+
+<!-- refinancing -->
+<div class="row" [hidden]="!refinancing" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
+            <label>Orignal Usance (Tenor) of LC</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which refinancing is required</label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
+        <div class="selection maturitydate">
+            <p><strong>LC Maturity Date <i class="fas fa-info-circle tooltip" aria-hidden="true"></i></strong></p>
+        </div>
+        <div class="col-md-4">
+                <mat-form-field>                                
+                <input autocomplete="off" matInput
+                    [matDatepicker]="lcMaturity"
+                    formControlName="lcMaturityDate">
+                <mat-datepicker-toggle matSuffix
+                    [for]="lcMaturity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #lcMaturity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>  
+        <div class="col-md-4">       
+            <li class="multipledate" style="width: 400px;">
+                <label>Upload multiple maturity dates (Optional - only jpg, jpeg, png)</label>
+                <input (change)="handleFileInput($event)" type="file" placeholder="Document" class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
+            </li>
+        </div>     
+    </div>
+
+    <div class="clearfix"></div>
+    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="20" formControlName="lcNumber">
+            <label>LC Number</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="30" formControlName="lastBeneBank">
+            <label>Beneficiary Bank Name</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNum')" formControlName="lastBeneSwiftCode">
+            <label>Swift Code</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv selectdiv">
+
+            <select name="country" formControlName="lastBankCountry">
+                <option value="INDIA">India</option>
+                <option value="BANGLADESH">Bangladesh</option>
+                <option value="KENYA">Kenya</option>
+                <option value="NIGERIA">Nigeria</option>
+                <option value="UAE">UAE</option>
+                <option value="QATAR">Qatar</option>
+            </select>
+            <label>Country</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,275 @@
+<div class="content">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card myprofile">
+               <div class="card-header card-header-icon" data-background-color="blue">
+                  <i class="fas fa-user"></i>
+               </div>
+               <div class="card-content">
+                  <h4 class="card-title">
+                     My Profile  &nbsp;&nbsp;&nbsp;<small>Account Verified
+                        <img src="https://image.flaticon.com/icons/svg/929/929440.svg"
+                           style="width:18px !important; vertical-align: text-bottom;" /></small>
+                  </h4>
+                     <div class="row">
+                        <p class="col-md-12"><strong>Personal Details</strong><small> <a style="cursor: pointer;"
+                           (click)="redirectOn('personal-details')" class="edit_icon">Edit <i class="far fa-edit"></i></a></small></p>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">First Name</span>
+                              <span class="labeltext">{{personalDetails.firstName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Last Name</span>
+                              <span class="labeltext">{{personalDetails.lastName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email ID</span>
+                              <span class="labeltext">{{personalDetails.emailAddress}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Mobile No.</span>
+                              <span class="labeltext">{{personalDetails.mobileNum}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Landline No.</span>
+                              <span class="labeltext">{{personalDetails.landLinenumber}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.landLinenumber">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Country</span>
+                              <span class="labeltext">{{personalDetails.countryName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Company Name</span>
+                                 <span class="labeltext">{{personalDetails.companyName}}</span>
+                              </div>
+                           </div>
+                           <div class="col-md-3" *ngIf="isReferrer">
+                              <div class="inputDiv">
+                                 <span class="customspan">Designation</span>
+                                 <span class="labeltext">{{personalDetails.designation}}</span>
+                              </div>
+                           </div>
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Minimum Value of LC (USD)</span>
+                              <span class="labeltext">{{personalDetails.minLCValue}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.minLCValue">-</span>
+                           </div>
+                        </div>
+                      
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Black Listed Goods</span>
+                              <ul class="list-unstyled list-inline">
+                                 <li *ngFor="let valuebe of personalDetails.blacklistedGoods">
+                                    <span class="labeltext" >
+                                       {{valuebe.blackListGoods}}
+                                    </span>
+                                 </li>
+                              </ul>
+                              
+                           </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-md-3" *ngIf="isBank">
+                           <div class="inputDiv">
+                              <span class="customspan">Countries Interested</span>
+                              <ul class="list-unstyled list-inline">
+                                 <li *ngFor="let valuebe1 of personalDetails.interestedCountry">
+                                    <span class="labeltext" >
+                                       {{valuebe1.countriesIntrested}}
+                                    </span>
+                                 </li>
+                              </ul>
+                              
+                           </div>
+                        </div>
+                        
+                        <div class="col-md-3" *ngIf="isReferrer">
+                           <div class="inputDiv">
+                              <span class="customspan">Business Type</span>
+                              <span class="labeltext">{{personalDetails.businessType}}</span>
+                           </div>
+                        </div>
+                        
+                        <p class="col-md-12"><strong>Additional Email IDs</strong><small></small></p>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 1</span>
+                              <span class="labeltext">{{personalDetails.emailAddress1}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress1">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 2</span>
+                              <span class="labeltext">{{personalDetails.emailAddress2}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress2">-</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Email Id 3</span>
+                              <span class="labeltext">{{personalDetails.emailAddress3}}</span>
+                              <span class="labeltext" *ngIf="!personalDetails.emailAddress3">-</span>
+                           </div>
+                        </div>
+                     </div>
+                     <hr/>
+                     <div *ngIf="isCustomer || isBank">
+                     <p class="dash"><strong>Business Details</strong><small>
+                     <a style="cursor: pointer;" (click)="redirectOn('business-details')" class="edit_icon">Edit <i class="far fa-edit"></i></a></small></p>
+                     <div class="row">
+                        <div class="col-md-3" *ngIf="isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Registration Type</span>
+                              <span class="labeltext">{{bd.registrationType}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Company Name</span>
+                              <span class="labeltext">{{bd.comapanyName}}</span>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-6" *ngIf="isCustomer">
+                           <table class="table table-bordered" >
+                          
+                              <tr>
+                                 <th>MD/CEO/Owner’s First Name</th>
+                                 <th>MD/CEO/Owner’s Last Name</th>
+                                 <th>Designation</th>
+                              </tr>
+                              <tr *ngFor="let detail of bd.ownerMasterBean">
+                                 <td>
+                                    {{detail.ownerFirstName}}
+                                 </td>
+                                 <td>
+                                    {{detail.ownerLastName}}
+                                 </td>
+                                 <td>
+                                    {{detail.designation}}
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Bank Name</span>
+                              <span class="labeltext">{{bd.bankName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Branch Name</span>
+                              <span class="labeltext">{{bd.branchName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Swift Code</span>
+                              <span class="labeltext">{{bd.swiftCode}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                              <span class="customspan">Designation</span>
+                              <span class="labeltext">{{bd.designation}}</span>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        
+                        <h4 class="headingProfile col-md-12">
+                           Registered Address Details
+                        </h4>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Country</span>
+                              <span class="labeltext">{{bd.registeredCountry}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">State</span>
+                              <span class="labeltext">{{bd.provinceName}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">City</span>
+                              <span class="labeltext">{{bd.city}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 1</span>
+                              <span class="labeltext">{{bd.address1}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 2</span>
+                              <span class="labeltext">{{bd.address2}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Address Line 3/ Landmark</span>
+                              <span class="labeltext">{{bd.address3}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Pincode</span>
+                              <span class="labeltext">{{bd.pincode}}</span>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="inputDiv">
+                              <span class="customspan">Telephone</span>
+                              <span class="labeltext">{{bd.telephone}}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <hr/>
+                     </div>
+                     <p class="dash"><strong>KYC Details</strong><small>
+                           <a style="cursor: pointer;" (click)="redirectOn('kyc-details')" class="edit_icon">Edit <i
+                                 class="far fa-edit"></i></a></small></p>
+                     <div class="clearfix"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer class="footer">
+   <div class="container-fluid">
+      <nav class="pull-left">
+      </nav>
+      <p class="copyright pull-right">
+         &copy;
+         <script>document.write(new Date().getFullYear())</script> Nimai Management Consultants
+      </p>
+   </div>
+</footer>
+
+

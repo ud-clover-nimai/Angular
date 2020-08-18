@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <!-- <div class="wrapper"> -->
+
+    <!-- <div class="main-panel"> -->
+
+    <div class="content" [hidden]="!isNew">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">Subscription Plans</h4>
+
+                            <div class="col-md-4" *ngFor="let plan of subscriptionDetails">
+                                <div class="plan">
+                                    <div class="divplan" [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}">
+                                        <h3 class="plan-title">{{plan.subscriptionName}} &nbsp;|&nbsp; ${{plan.subscriptionAmount}}</h3>                            
+                                    </div>
+                                    <ul class="plan-features">
+                                        <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
+                                        <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                        <li class="plan-feature">{{plan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
+                                        <li class="plan-feature">{{plan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
+                                        <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{plan.relationshipManager}}</span></li>
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="javascript:void()" (click)="choosePlan(plan)"
+                                        [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}" class="plan-button">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="plan">
+                                    <div class="divplan unlimitedbox">
+                                        <h3 class="plan-title">Platinum ++ </h3>
+                                        <p class="plan-price"> </p>
+                                    </div>
+                                    <ul class="plan-features">
+                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Transaction
+                                                Credits</span></li>
+                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Branches</span></li>
+                                        <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
+                                        <li class="plan-feature">1 <span class="plan-feature-name">Year Validity</span></li>
+                                        <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - Yes</span></li>
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="javascript:void()" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" [hidden]="!isOrder">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <ol class="breadcrumb">
+                                    <li><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li class="active"><a>Order Details</a></li>
+                                </ol>
+                            </h4>
+                            <div class="plans">
+                                <div class="col-md-4">
+                                    <div class="plan">
+                                        <div class="divplan" [ngClass] = "{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}">
+                                            <h3 class="plan-title">{{choosedPlan.subscriptionName}} &nbsp;|&nbsp; ${{choosedPlan.subscriptionAmount}}</h3>                            
+                                        </div>
+                                        <ul class="plan-features">
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
+                                            <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>
+                                        </ul>
+                                        <!-- <div class="text-right">
+                                            <a href="javascript:void()" (click)="choosePlan(plan)"
+                                            [ngClass] = "{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}" class="plan-button">Buy Now</a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="plan plan-highlight">
+                                        <p class="plan-recommended">Selected</p>
+                                        <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
+                                        <p class="plan-price">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
+                                        <ul class="plan-features">
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
+                                                    Credits</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span
+                                                    class="plan-feature-name">Branches</span></li>                                          
+
+                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer
+                                                    Support</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year
+                                                    Validity</span></li>
+                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>          
+                                        </ul>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4">
+                                    <div class="boxline" *ngIf="showVASPlan">
+                                        <p>
+                                           <strong>Advisory Services</strong>
+                                        </p>
+                                        <table>
+                                           <tr>
+                                              <td class="text-left">
+                                                 <ul>
+                                                    <li>{{advDetails.plan_name}}</li>
+                                                    <li>{{advDetails.description_1}}</li>
+                                                    <li>{{advDetails.description_3}}</li>
+                                                 </ul>
+                                              </td>
+                                              <td  class="text-right">
+                                                 <p><strong>US ${{advDetails.pricing}}</strong></p>
+                                              </td>
+                                           </tr>
+                                           <tr>
+                                              <td colspan="2">
+                                                 <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                              </td>
+                                           </tr>
+                                        </table>
+                                     </div>
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <label class="customlabel">Sub Total</label>
+                                            </td>
+                                            <td>US ${{addedAmount}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="customlabel">Coupon Code</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="" class="coupantext" maxlength="15" />
+                                                <a 
+                                                    class="btn btn-info btn-xs pull-right marginzero">
+                                                    Apply
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="customlabel">Discount</label>
+                                            </td>
+                                            <td>US $0</td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Grand Total
+                                            </th>
+                                            <th>
+                                                US ${{addedAmount}}
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <button type="button" (click)="payNow()"
+                                        class="btn btn-info pull-right">
+                                        Continue
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" [hidden]="!isPayment">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <ol class="breadcrumb">
+                                    <li><a (click)="isNew = true;isOrder = false;isPayment=false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li id="planUnlimited"><a (click)="isNew = false;isOrder = true;isPayment=false;" style="cursor: pointer;">Order Details</a></li>
+                                    <li class="active"><a>Payment Details</a></li>
+                                </ol>
+                            </h4>
+                            <form [formGroup]="paymentForm"  class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 selection">
+                                        <div class="radio-group">
+                                            <input checked="checked" type="radio" id="option-one" name="colorCheckbox"
+                                                value="red">
+                                            <label for="option-one">Credit Card</label>
+                                            <input type="radio" id="option-two" name="colorCheckbox" value="green">
+                                            <label for="option-two">Wire Transfer</label>
+                                        </div>
+                                    </div>
+                                    <div class="red box col-md-12 form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                    <input type="text" maxlength="20">
+                                                    <label>Card Number</label>
+                                                </div>
+                                                <img src="assets/images/accepted_c22e0.png"
+                                                    style="width: 180px !important;margin: -15px 0 15px 0;" />
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="inputDiv">
+                                                            <input type="text" maxlength="5">
+                                                            <label>Expiration Date</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="inputDiv">
+                                                            <input type="password" maxlength="3">
+                                                            <label>CVV</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void()" (click)="payment()"
+                                            class="btn btn-info pull-right">Pay Now</a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="green box paymentpage col-md-12 form-group">
+                                        <span><a href="#"  data-toggle="modal" data-target="#myModal4">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
+                                        </span>
+                                        <a (click)="nextModule()" class="btn btn-info pull-right">Next</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" [hidden]="!isPaymentSuccess">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <ol class="breadcrumb">
+                                    <li><a>Payment Successful</a></li>
+                                </ol>
+                            </h4>
+                            <div class="plans">
+                                <div class="col-md-4">
+                                    <div class="plan-old plan-success-old">
+                                        <p class="plan-success-recommended">Purchased</p>
+                                        <h3 class="plan-title-old">{{choosedPlan.subscriptionName}}</h3>
+                                        <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
+                                        <ul class="plan-features">
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
+                                                    Credits</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span
+                                                    class="plan-feature-name">Branches</span></li>                                          
+
+                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer
+                                                    Support</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year
+                                                    Validity</span></li>
+                                            <li class="plan-feature">{{choosedPlan.relationshipManager}}<span class="plan-feature-name">Relationship
+                                                    Manager</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-8">
+                                    <p class="errormessage text-success" style="margin: 0 0 90px 0;">Congratulations!
+                                        Your Payment is Successful!</p>
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <table class="table table-bordered borderless">
+                                                <tr>
+                                                    <th class="textimp">
+                                                        Amount Paid
+                                                    </th>
+                                                    <th class="text-center">
+                                                        US ${{choosedPlan.subscriptionAmount}}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date & Time</td>
+                                                    <td>{{timeStamp}} </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Payment Transaction ID</td>
+                                                    <td>P7898252809468274 </td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <!--added byashvini - “Next” button in the payment successful  page -->
+                                    <div class="clearfix"></div>
+                                    <div class="form-group"></div>
+                                    
+                                    <p>A receipt with payment Transaction ID has been sent to {{custUserEmailId}}</p>
+                                    <button class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
+                                </div>
+                                <div class="clearfix"></div>
+                                <!-- <button type="submit" onclick="location.href = 'kyc-details.html';" class="btn btn-info pull-right">
+                                    Next
+                                    <div class="ripple-container"></div>
+                                </button> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal4" class="popupnew modal fade in" role="dialog">
+        <div class="modal-dialog modal-md emaildiv">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+              <h2>Wire Transfer Details</h2>
+              <div class="padnew">
+                <!--<p><strong>Enter Email ID here</strong></p> -->
+                <div class="">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="head">We have sent bank details to initiate wire transfer payment on your registered email ID.</p> 
+                      <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div class="ripple-container"><div class="ripple ripple-on ripple-out"></div></div></button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+    <router-outlet></router-outlet>
+    <!-- </div> -->
+    <!-- </div> -->
+</body>
+
+</html>

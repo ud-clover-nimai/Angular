@@ -1,0 +1,11 @@
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+::ng-deep .mat-form-field-infix{
+    width: 196px!important;
+}
+.radio label {
+    color: #333!important;
+}

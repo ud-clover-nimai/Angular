@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <!-- <div class="wrapper"> -->
+
+    <!-- <div class="main-panel"> -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">KYC Details - <small class="category">Complete your profile</small>
+                            </h4>
+                            <form [formGroup]="kycDetailsForm" (ngSubmit)="submit();">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <h4 class="card-title col-md-12"
+                                                style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                                Business KYC
+                                            </h4>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select formControlName="busiCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="1" >India</option>
+                                                        <option value="2" >Bangladesh
+                                                        </option>
+                                                        <option value="3" >Kenya</option>
+                                                        <option value="4" >Nigeria</option>
+                                                        <option value="5" >UAE </option>
+                                                        <option value="6" >Qatar</option>
+                                                    </select>
+                                                    <label>Select Country</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select formControlName="busiDocument">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="1" >Company
+                                                            Registration Document</option>
+                                                        <option value="2" >Bank Account
+                                                            Statement</option>
+                                                        <option value="3" >Tax Receipt
+                                                        </option>
+                                                    </select>
+                                                    <label>Valid Documents</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label>Upload Document (only pdf, jpeg, png)</label>
+                                                <div class="element">
+                                                    <input formControlName="file" type="file"
+                                                        placeholder="Registration Document"
+                                                        (change)="selectFile($event)" name="upload_file1"
+                                                        id="upload_file1" class="filestyle" data-icon="false" />
+                                                </div>
+
+
+                                                <div id="moreImageUpload"></div>
+                                                <div class="clear"></div>
+                                                <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                    <a href="javascript:void(0);" class="attachMore" id="attachMore">+
+                                                        Add More Documents</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div>
+                                            <h4 class="card-title col-md-12"
+                                                style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                                Personal KYC
+                                            </h4>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+
+                                                    <select formControlName="perCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="1" >India</option>
+                                                        <option value="2" >Bangladesh
+                                                        </option>
+                                                        <option value="3" >Kenya</option>
+                                                        <option value="4" >Nigeria</option>
+                                                        <option value="5" >UAE </option>
+                                                        <option value="6" >Qatar</option>
+                                                    </select>
+                                                    <label>Select Country</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select formControlName="perDocument">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="1" >Passport</option>
+                                                        <option value="2" >Driving License
+                                                        </option>
+                                                        <option value="3" >National Identity
+                                                            Card</option>
+                                                    </select>
+                                                    <label>Valid Documents</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                    <label>Upload Document (only pdf, jpeg, png)</label>
+                                                    <input type="file" name="Passport of Owner Signatory / Beneficiary "
+                                                        (change)="selectFile($event)" class="filestyle"
+                                                        data-icon="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        <button type="submit" class="btn btn-info pull-right">Submit</button>
+                        <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <!-- </div> -->
+    <!-- </div> -->
+    <router-outlet></router-outlet>
+</body>
+
+</html>

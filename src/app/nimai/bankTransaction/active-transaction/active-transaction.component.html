@@ -1,0 +1,300 @@
+<div class="content">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="card">
+                <div class="card-header card-header-icon" data-background-color="blue">
+                   <i class="fa fa-th-list"></i>
+                </div>
+                <div class="card-content">
+                   <h4 class="card-title pull-left">Active Transaction</h4>
+                   
+                   <!-- <h4 class="card-title">
+                      <span id="changetext"> Active Transaction</span> 
+                      <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn">
+                        <span class="fas fa-long-arrow-alt-left"></span> Back</a>
+                      </h4>    -->
+              
+                   <form>
+                    <div class="row" *ngIf="hasNoRecord">
+                      <div class="col-md-12">
+                          No records available
+                        </div>
+                    </div>
+                      <div class="row" *ngIf="!hasNoRecord">
+                         <div class="col-md-12">
+                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                               <table class="table table-hover" id="datatables">
+                                  <thead>
+                                    <tr>
+                                      <th class="disabled-sorting text-center">#</th> 
+                                      <th nowrap>LC Issuing Bank</th>
+                                      <th nowrap>Transaction ID</th>
+                                      <th style="min-width: 80px;">Goods</th>
+                                      <th style="min-width: 150px;">Applicant Name</th>
+                                      <th style="min-width: 150px;">Beneficiary Name</th>
+                                      <th style="min-width: 80px;">LC Value</th>
+                                      <th style="min-width: 80px;">Quote</th>
+                                      <th style="min-width: 80px;">Transaction Valid Till</th>
+                                      <th style="min-width: 80px;">Quote Valid Till</th>
+                                      <th style="min-width: 130px;">Requirement</th>
+                                      <th style="min-width: 130px;">Quotes Rank</th>
+                                      <th style="min-width: 130px;">Action</th>
+                                   </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let record of detail; let i = index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{record.lCIssuanceBank}}</td>
+                                      <td>{{record.transactionId}}</td>
+                                      <td>{{record.goodsType}}</td>
+                                      <td>{{record.applicantName}}</td>
+                                      <td>{{record.beneName}}</td>
+                                      <td>{{record.lCValue}}</td>
+                                      <td>{{record.totalQuoteValue}}</td>
+                                      <td nowrap>{{record.validity| date : "dd-MM-y"}}</td>
+                                      <td nowrap>{{record.validityDate| date : "dd-MM-y"}}</td>
+                                      <td>{{record.requirementType}}</td>
+                                      <td><span id="transactionDiv" style="cursor: pointer;" class="transactionDiv">{{record.quotationReceived}}</span></td>
+                                      <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
+                                              class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
+                                  </tr>
+                                  </tbody>
+                               </table>
+                            </div>
+                            <!-- <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
+                              style="width:100%">
+                              <table class="table table-hover" id="">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Transaction ID</th>
+                                    <th>Bank</th>
+                                    <th>Total Quote</th>
+                                    <th>Ccy</th>
+                                    <th>Valid Till</th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>CU20BANCON1101</td>
+                                    <td>****** <br>
+                                      Quotes placed till date 214<br>
+                                      Quotes for Matress 23</td>
+                                    <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                    <td>USD</td>
+                                    <td>19-06-2019<br>
+                                      4 days to go</td>
+                                    <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>CU20BANCON1101</td>
+                                    <td>******<br>
+                                      Quotes placed till date 322<br>
+                                      Quotes for Matress 102</td>
+                                    <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                    <td>USD</td>
+                                    <td>20-06-2019<br>
+                                      0 days to go</td>
+                                    <td><a href="javascript:void()" class="btn btn-default disabled" style="cursor:not-allowed;">Accept</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>CU20BANCON1101</td>
+                                    <td>******<br>
+                                      Quotes placed till date 184<br>
+                                      Quotes for Matress 87</td>
+                                    <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                    <td>USD</td>
+                                    <td>22-06-2019<br>
+                                      7 days to go</td>
+                                    <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>4</td>
+                                    <td>CU20BANCON1101</td>
+                                    <td>******<br>
+                                      Quotes placed till date 87<br>
+                                      Quotes for Matress 12</td>
+                                    <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                    <td>USD</td>
+                                    <td>24-06-2019<br>
+                                      9 days to go</td>
+                                    <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>5</td>
+                                    <td>CU20BANCON1101</td>
+                                    <td>******<br>
+                                      Quotes placed till date 211<br>
+                                      Quotes for Matress 123</td>
+                                    <td><a href="javascript:void()" class="handle1" style="text-decoration:underline;">500</a></td>
+                                    <td>USD</td>
+                                    <td>26-06-2019<br> 11 days to go</td>
+                                    <td><a href="javascript:void()" class="btn btn-info" data-toggle="modal" data-target="#myModal4">Accept</a></td>
+                                  </tr>
+                            
+                                </tbody>
+                              </table>
+                            
+                            </div> -->
+                            <div class="text-right downloaddiv">
+                              <ul class="list-unstyled list-inline">
+                                <li>Download</li>
+                                <li><a href="javascript:void()" class="pdf"><span class="fas fa-file-pdf"></span></a></li>
+                                <li><a href="javascript:void()" class="excel"><span class="fas fa-file-excel"></span></a></li>
+                              </ul>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="clearfix"></div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+<!--   
+  <div id="menu-bar1" style="background: #fff;">
+    <div class="popupcontent">
+      <div class="card">
+        <div class="card-content">
+          <h4>Bank Quote</h4>
+          <div class="tab-content" id="tab2">
+            <div class="tab-pane active datadiv" id="pill1"
+              style="    height: 530px;overflow: auto;padding-bottom: 30px;">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>CU20BANCON1101</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Bank</td>
+                    <td>****** <br>
+                      Quotes placed till date 214
+                      Quotes for Matress 23</td>
+                  </tr>
+                  <tr>
+                    <td>Confirmation Charges</td>
+                    <td><input type="text" name="" value="1%" placeholder=""></td>
+                  </tr>
+                  <tr>
+                    <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
+                    <td>USD $5.01</td>
+                  </tr>
+                  <tr>
+                    <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
+                    <td>USD $17.55</td>
+                  </tr>
+                  <tr>
+                    <td>Minimum Transaction Charges</td>
+                    <td><input type="text" name="" value="USD $500"></td>
+                  </tr>
+                  <tr>
+                    <td>Other Charges</td>
+                    <td>USD $50 <br>
+                      Comment: SWIFT Charges</td>
+                  </tr>
+                  <tr>
+                    <td>Valid Till</td>
+                    <td>19-06-2019<br>
+                      4 days to go</td>
+                  </tr>
+                  <tr>
+                    <th>Total Quote</th>
+                    <th>USD $500 </th>
+                  </tr>
+                  <tr>
+                    <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual
+                      quote from the bank may differ to that extent.</td>
+                  </tr>
+                </tbody>
+              </table>
+  
+  
+  
+            </div>
+            <div class="posfix">
+              <button type="submit" class="btn btn-info pull-right handle1">
+                Ok
+                <div class="ripple-container"></div>
+              </button>
+            </div>
+          </div>
+          <div class="tab-content" id="tab3">
+            <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="text-center">
+                      <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active Transaction
+                        Section to see your current rank.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="posfix">
+                <a href="javascript:void()" class="btn btn-info">
+                  OK
+                  <div class="ripple-container"></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  <!-- <div id="myModal4" class="popupnew modal fade in" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+    
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2>Quote Accepted</h2>
+          <div class="padnew">
+            <div class="">
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
+                    this Bid.</p>
+  
+                  <ul class="list-unstyled">
+                    <li><strong>Bank Details</strong></li>
+                    <li>Bank : Diamond Trust Bank</li>
+                    <li>Branch : Dhaka</li>
+                    <li>Country : Bangladesh</li>
+                    <li>Email : nasim.devij@dtbbank.com</li>
+                    <li>Contact : +254-719-031-888</li>
+                    <li>Contact Person : Nasim Devji</li>
+                  </ul>
+                  <p>Details are saved in the Transaction Details section.</p>
+                  <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div
+                      class="ripple-container">
+                      <div class="ripple ripple-on ripple-out"
+                        style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                      </div>
+                    </div></button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+    <app-banker></app-banker>
+    <app-confirm-and-discount></app-confirm-and-discount>
+    <app-confirmation></app-confirmation>
+    <app-discounting></app-discounting>
+    <app-refinancing></app-refinancing>

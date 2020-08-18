@@ -1,0 +1,225 @@
+<div class="row" [formGroup]="LcDetail">
+    <div class="col-md-12 ">
+
+        <ul class="list-unstyled list-inline">
+            <li>
+                <div class="selection">
+                    <p class=""><strong>You are</strong></p>
+                </div>
+            </li>
+            <li>
+                <div class="radio">
+                    <label >
+                        <input type="radio" value="Applicant" id="rdApplicant" name="userType" formControlName="userType"
+                            checked="checked"><span class="circle"></span><span class="check"></span>
+                        Applicant
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="radio">
+                    <label >
+                        <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary"><span
+                            class="circle"></span><span class="check"></span>
+                        Beneficiary
+                    </label>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div id="divApplicant">
+        <p class="col-md-12"><strong>Applicant Details</strong>
+        </p>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+
+                <!-- <select name='country' formControlName="applicantCountry" [disabled]="true">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select> -->
+                <input type="text" maxlength="50" formControlName="applicantCountry" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Country</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="50" formControlName="applicantName" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Applicant's Name </label>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <p class="col-md-12"><strong>Beneficiary Details</strong>
+        </p>
+
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+
+                <select name='country' formControlName="beneCountry">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select>
+                <label>Country</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Beneficiary's Name</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="30" formControlName="beneContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Contact Person</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                <label>Contact Person's Email</label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+        <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+
+                <select name='country' formControlName="beneBankCountry" class="select_country">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select>
+                <label>Country of Beneficiary Bank</label>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                <label>Swift Code</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+
+                <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <label>Bank Name</label>
+            </div>
+        </div>
+    </div>
+    <div id="divBene">
+        <p class="col-md-12"><strong>Beneficiary Details</strong>
+        </p>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+    
+                <!-- <select name='country' formControlName="beneCountry">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select> -->
+                <input type="text" maxlength="50" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <label>Country</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="50" formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <label>Beneficiary's Name </label>
+            </div>
+        </div>
+    
+        <div class="clearfix"></div>
+    
+        <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+    
+                <select name='country' formControlName="beneBankCountry">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select>
+                <label>Country of Beneficiary Bank</label>
+            </div>
+        </div>
+    
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                <label>Swift Code</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+    
+                <input type="text" maxlength="50" formControlName="beneBankName" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <label>Bank Name</label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <p class="col-md-12"><strong>Applicant Details</strong>
+        </p>
+    
+        <div class="col-md-3">
+            <div class="inputDiv selectdiv">
+    
+                <select name='country' formControlName="applicantCountry">
+                    <option [ngValue]="null" selected>Select</option>
+                    <option value='India'>India</option>
+                    <option value='Bangladesh'>Bangladesh</option>
+                    <option value='Kenya'>Kenya</option>
+                    <option value='Nigeria'>Nigeria</option>
+                    <option value='UAE'>UAE </option>
+                    <option value='Qatar'>Qatar</option>
+                </select>
+                <label>Country</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="50" formControlName="applicantName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Applicant's Name</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" maxlength="50" formControlName="applicantContactPerson" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <label>Contact Person</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="inputDiv">
+                <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                <label>Contact Person's Email</label>
+            </div>
+        </div>
+    </div>
+    
+</div>

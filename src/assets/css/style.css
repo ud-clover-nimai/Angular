@@ -1,0 +1,1059 @@
+/*@import url:https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons;*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
+* {
+	box-sizing: border-box;
+}
+
+html,body{
+	height: 100%;font-family: 'Montserrat', sans-serif;
+}
+
+.loginbody {
+	background: #f6f5f7;	
+    height: 100%;	
+    font-family: 'Montserrat', sans-serif;	
+    background: url(../images/world.jpg) no-repeat;	
+	background-size: cover;
+	background-size: 100% 100%;
+}
+
+.textddlV {
+    margin-right: 10px;    
+    position: absolute;    
+    top: -11px;    
+    margin: 0 !important;    
+    left: 83px;
+}
+
+.loginbody:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;background-color: rgba(0, 169, 209, 0.25882352941176473);
+}
+
+.loginbody form { 
+	padding: 0 30px;
+	height: 100%;
+	text-align: center;
+}
+
+.content-a {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: table; }
+
+.content-b {
+  display: table-cell;
+  position: relative;
+  vertical-align: middle;
+  text-align: center; }
+/*
+body:after{
+	content:"";
+	position: absolute;
+	top:0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.23137254901960785);
+}
+*/
+
+.loginbody h1 {
+	font-weight: bold;
+	margin: 0;
+	font-size: 20px;
+}
+
+.loginbody h2 {
+	text-align: center;
+}
+
+.loginbody .overlay-panel p {
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 0.3px;
+	margin: 20px 0 30px;
+	padding: 0 30px;
+}
+
+.loginbody span {
+    font-size: 11px;
+    font-weight: 500;
+    padding-bottom: 20px;
+    display: block;
+}
+
+.loginbody a {
+	color: #333; 
+	text-decoration: none;
+	margin: 15px 0;
+	font-weight: 500;
+	letter-spacing: 0.2px;
+	display: block;
+}
+	
+.loginbody button {
+	border-radius: 20px;
+	border: 1px solid #00bcd4;
+	background-color: #00bcd4;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.loginbody  button:active {
+	transform: scale(0.95);
+}
+
+ .loginbody button:focus {
+	outline: none;
+}
+
+.loginbody  button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+.loginbody  form {
+	padding: 0 30px;
+	height: 100%;
+	text-align: center;
+}
+
+.loginbody .maindiv {
+	background-color: rgba(255, 255, 255, 0.84);
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    min-height: 530px;
+    z-index: 9;
+}
+
+.loginbody .form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+}
+
+.loginbody .sign-in-container {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+	padding: 0 40px; 
+}
+
+.loginbody .right-panel-active .sign-in-container {
+	transform: translateX(200%);
+	z-index: -2;
+	display: none;
+}
+
+.loginbody .sign-up-container {
+	left: 0;
+	width: 100%;
+	opacity: 0;
+	z-index: 1;
+}
+
+.loginbody .right-panel-active .sign-up-container {
+	transform: translateX(0%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+    position: relative;
+}
+
+@keyframes show {
+	0%,
+	49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
+	50%,
+	100% {
+		opacity: 1;
+		z-index: 5;
+	}
+}
+
+.loginbody .overlay-container {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 1;
+}
+
+.loginbody  .right-panel-active .overlay-container {
+	transform: translateX(-200%);
+}
+
+.loginbody .overlay {
+	
+	background: #00B4DB;  /* fallback for old browsers */
+	background: linear-gradient(to right, #0083B0, #00B4DB);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.loginbody  .right-panel-active .overlay {
+	transform: translateX(50%);
+}
+
+.loginbody  .overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.loginbody  .overlay-left {
+	transform: translateX(-20%);
+}
+
+.loginbody .right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+.loginbody .overlay-right {
+	right: 0;
+	transform: translateX(0);
+}
+
+.loginbody .right-panel-active .overlay-right {
+	transform: translateX(20%);
+}
+
+.loginbody .social-container {
+	margin: 20px 0;
+}
+
+.loginbody .social-container a {
+	border: 1px solid #DDDDDD;
+	border-radius: 50%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 5px;
+	height: 40px;
+	width: 40px;
+}
+
+.loginbody input,.loginbody select {
+
+	background-color: #eee;
+	border: none;
+	padding: 10px 0px 4px 23px !important;
+	width: 100%;
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.3px;
+	border-radius: 0px;
+	background: none;
+	height: 31px;
+	border: 0;
+	background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 0 2px, 100% 1px;
+	background-repeat: no-repeat;
+	background-position: center bottom, center calc(100% - 1px);
+	background-color: rgba(0, 0, 0, 0);
+	transition: background 0s ease-out;
+}
+
+.loginbody input:focus,
+.loginbody input:active,
+.loginbody select:focus,
+.loginbody select:active {
+	outline: none;
+}
+
+.loginbody input[type="text"],
+.loginbody input[type="email"],
+.loginbody input[type="password"],
+.loginbody select {
+	border: none; 
+}
+
+.loginbody input[type="submit"]:active {
+	color: white;
+	background: #21a1e1;
+}
+
+.loginbody .inputDiv {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.loginbody .inputDiv label {
+	position: absolute;
+    top: 18px;
+    left: 22px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-29%);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: #353535;
+    font-weight: 500;
+    pointer-events: none;
+    -webkit-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+
+.loginbody .inputDiv img{
+	position: absolute;
+    left: 0;
+    width: 13px;
+    top: 13px;
+}
+
+.loginbody .inputDiv input:focus+label,
+.loginbody .inputDiv input.has-value+label,
+.loginbody .inputDiv select:focus+label,
+.loginbody .inputDiv select.has-value+label {
+	top: -2px;
+    font-size: 9px;
+    color: #aaa;
+    left: 1px;
+}
+
+.bootstrap-select > .dropdown-toggle{
+	padding-left: 23px !important;
+	padding-top: 11px;
+}
+
+
+
+.bootstrap-select.btn-group .dropdown-toggle .filter-option 
+{
+	font-family: 'Montserrat', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.2px !important;
+    text-transform: capitalize;
+    color: #353535 !important;
+}
+
+.loginbody .inputDiv.is-focused input, .loginbody .inputDiv.is-focused select, .loginbody .inputDiv.is-focused textarea {
+    outline: none;
+    background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
+    background-size: 100% 2px, 100% 1px;
+    box-shadow: none;
+    transition-duration: 0.3s;
+  }
+
+
+
+
+/* .loginbody .inputDiv .ng-invalid {
+	outline: none;
+    background-image: linear-gradient(#ff0330, #ff0330), linear-gradient(#ff0330, #ff0330);
+    background-size: 100% 2px, 100% 1px;
+    box-shadow: none;
+    transition-duration: 0.3s;
+
+} */
+
+.loginbody .inputDiv .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: -15px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.loginbody .vertop{
+	vertical-align: top;
+	padding-top: 25px;
+}
+
+/* .loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: #ff0330;
+    right: 10px;
+    bottom: -10px;
+} */
+
+.inputDiv.is-focused input, .inputDiv.is-focused select, .inputDiv.is-focused textarea {
+    outline: none;
+    background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#D2D2D2, #D2D2D2);
+    background-size: 100% 2px, 100% 1px;
+    box-shadow: none;
+    transition-duration: 0.3s;
+  }
+
+.loginbody .radio-tile-group {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.loginbody .radio-tile-group .input-container {
+	position: relative;
+	height: 6rem;
+	width: 6rem;
+	margin: 10px 5px 10px;
+}
+
+.loginbody .radio-tile-group .input-container .radio-button {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	cursor: pointer;
+}
+
+.loginbody .radio-tile-group .input-container .radio-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #d0d0d0;
+	border-radius: 5px;
+	padding: 0rem;
+	transition: transform 300ms ease;
+}
+
+.loginbody .radio-tile-group .input-container .icon svg {
+	fill: #d0d0d0;
+	width: 3rem;
+	height: 3rem;
+}
+
+.loginbody .radio-tile-group .input-container .radio-tile-label {
+	text-align: center;
+	font-size: 10px;
+	font-weight: 500;
+	text-transform: capitalize;
+	letter-spacing: 0.3px;
+	color: #d0d0d0;
+}
+
+.loginbody .radio-tile-group .input-container .radio-button:checked+.radio-tile {
+	background-color: #00bcd4;
+	border: 1px solid #00bcd4;
+	color: white;
+	transform: scale(1.05, 1.05);
+}
+
+.loginbody .radio-tile-group .input-container .radio-button:checked+.radio-tile .icon svg {
+	fill: white;
+	background-color: #00bcd4;
+}
+
+.loginbody .radio-tile-group .input-container .radio-button:checked+.radio-tile .icon svg path {
+	fill: white;
+	background-color: #00bcd4;
+}
+
+.loginbody .radio-tile-group .input-container .radio-button:checked+.radio-tile .radio-tile-label {
+	color: white !important;
+	background-color: #00bcd4;
+}
+
+.loginbody  .icon {
+	padding: 8px 0 0 0;
+}
+
+.loginbody .onoffswitch {
+	position: relative;
+	width: 151px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.loginbody .onoffswitch-checkbox {
+	display: none;
+}
+
+.loginbody .onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #FFFFFF;
+	border-radius: 50px;
+}
+
+.loginbody .onoffswitch-inner {
+	display: block;
+	width: 200%;
+	margin-left: -100%;
+	text-align: left;
+	transition: margin 0.3s ease-in 0s;
+}
+
+.loginbody .onoffswitch-inner:before,
+.loginbody .onoffswitch-inner:after {
+	display: block;
+	float: left;
+	width: 50%;
+	height: 41px;
+	padding: 0;
+	line-height: 41px;
+	font-size: 15px;
+	color: white;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
+}
+
+.loginbody .onoffswitch-inner:before {
+	content: "Customer";
+	padding-left: 14px;
+	background-color: #EEEEEE;
+	color: #34A7C1;
+}
+
+.loginbody .onoffswitch-inner:after {
+	content: "Underwriter";
+	padding-right: 14px;
+	background-color: #EEEEEE;
+	color: #999999;
+	text-align: right;
+}
+
+.loginbody .onoffswitch-switch {
+	display: block;
+	width: 29px;
+	margin: 6px;
+	background: #A1A1A1;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 106px;
+	border: 2px solid #FFFFFF;
+	border-radius: 50px;
+	transition: all 0.3s ease-in 0s;
+}
+
+.loginbody .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+
+.loginbody .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+	right: 0px;
+	background-color: #34A7C1;
+}
+
+.loginbody .selection input[type=radio] {
+	position: absolute;
+	visibility: hidden;
+	display: none;
+}
+
+.loginbody .selection label {
+	color: #9a929e;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	padding: 5px 20px;
+	margin: 0;
+	top:0 !important;
+}
+
+.loginbody .selection input[type=radio]:checked+label {
+	color: #fff;
+	background: #00bcd4;
+}
+
+.loginbody .selection label+input[type=radio]+label {
+	border-left: solid 0px #00bcd4;
+}
+
+.loginbody .selection .radio-group {
+	border: solid 1px #ddd;
+	display: inline-block;
+	margin: 0px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.marbtm25 {
+	margin-bottom: 30px;
+}
+.loginbody .customlabel {
+	font-size: 11px;
+	color: #999 !important;
+	font-weight: 500 !important;
+	display: block !important;
+	position: relative !important;
+}
+
+
+
+.loginbody .checkmark {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: inline-block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.loginbody .checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.loginbody .checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
+
+
+.successdiv .modal-content{
+	box-shadow: none;    border: 0px solid rgba(0,0,0,.2);
+}
+
+.successdiv .modal-body{
+	padding: 8px;
+}
+.successdiv .modal-body:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background: rgba(122, 193, 66, 0.45098039215686275);
+    z-index: 0;
+    left: 0;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.successdiv h3{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 45px 0 18px 0;
+    color: #7ac142;
+}
+
+
+.successdiv {
+    box-shadow: none;
+    border: 0;
+}
+.innerSuccessdiv {
+    position: relative;
+    z-index: 1;
+    padding: 15px 20px 20px;
+}
+
+
+.innerSuccessdiv p{
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 18px;
+    color: darkslategrey;
+}
+
+.innerSuccessdiv .ptext {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 16px;
+}
+
+.successdiv button.close {
+    z-index: 22;
+    position: relative;
+    right: -10px;
+}
+
+ 
+.successdiv .arrow_box:after {
+	    top: 87px;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #c3e3aa;
+    border-width: 15px;
+    margin-left: -15px;
+}
+
+.faileddiv  .modal-body:before{
+	    background: rgb(255, 104, 104);
+}
+.faileddiv .arrow_box:after {
+	border-top-color: #ff6868;
+}
+ 
+ .faileddiv h3{
+ 	 color: #ff6868;
+ }
+
+
+.infodiv  .modal-body:before{
+	    background: rgb(124, 224, 215);
+}
+.infodiv .arrow_box:after {
+	border-top-color: rgb(124, 224, 215);
+}
+ 
+ .infodiv h3{
+ 	 color: #35cec0;
+ }
+
+.rc-anchor {
+  border-radius: 3px;
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.08);
+}
+.rc-inline-block {
+  display: inline-block;
+  height: 100%;
+}
+.rc-anchor-center-item {
+  display: table-cell;
+  vertical-align: middle;
+}
+.rc-anchor-center-container {
+  display: table;
+  height: 100%;
+}
+.rc-anchor-light {
+  background: #f9f9f9;
+  border: 1px solid #d3d3d3;
+  color: #000;
+}
+.rc-anchor-normal {
+  height: 74px;
+  width: 300px;
+  position: relative;
+  margin: 5px auto 20px;
+}
+.rc-anchor-normal .rc-anchor-content {
+  height: 74px;
+  width: 145px;
+  float: left;
+}
+.rc-anchor-normal .rc-anchor-checkbox-label {
+  width: 93px;
+}
+.rc-anchor-checkbox {
+  margin: 0 12px 2px 12px;
+}
+.recaptcha-checkbox {
+  border: none;
+  font-size: 1px;
+  height: 28px;
+  margin: 4px;
+  width: 28px;
+  overflow: visible;
+  outline: 0;
+  vertical-align: text-bottom;
+  display: block;
+}
+.recaptcha-checkbox-border {
+  border-radius: 2px;
+  background-color: #fff;
+  border: 2px solid #c1c1c1;
+  font-size: 1px;
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.rc-anchor-checkbox-label {
+  font-family: Roboto, helvetica, arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+}
+.rc-anchor-normal-footer {
+  display: inline-block;
+  height: 74px;
+  vertical-align: top;
+}
+.rc-anchor-logo-portrait {
+  margin: 10px 0 0 0;
+  width: 58px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.rc-anchor-logo-img-portrait {
+  background-size: 32px !important;
+  height: 32px;
+  margin: 0 13px 0 13px;
+  width: 32px;
+}
+.rc-anchor-logo-img {
+  background: url('https://www.gstatic.com/recaptcha/api2/logo_48.png');
+  background-repeat: no-repeat;
+}
+.rc-anchor-logo-text {
+  color: #9b9b9b;
+  cursor: default;
+  font-family: Roboto, helvetica, arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 10px;
+  margin-top: 5px;
+  text-align: center;
+}
+.rc-anchor-normal .rc-anchor-pt,
+.rc-anchor-compact .rc-anchor-pt {
+  color: #9b9b9b;
+  font-family: Roboto, helvetica, arial, sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+}
+.rc-anchor-normal .rc-anchor-pt {
+  margin: 4px 13px 0 0;
+  padding-right: 2px;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  width: 276px;
+}
+.rc-anchor-pt a:link,
+.rc-anchor-pt a:visited {
+  color: #9b9b9b;
+  text-decoration: none;
+}
+.recaptcha-checkbox-borderAnimation {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAANICAYAAABZl8i8AAAABmJLR…caGahTBej/IqDS5GVQOowHJTExMTExMTExMTExMTGx4Pb/Ab7rit24eUF+AAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  border: none;
+  height: 28px;
+  outline: 0;
+  position: absolute;
+  width: 28px;
+}
+.recaptcha-checkbox-spinner {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAscCAYAAAALLkmiAAAABmJLR…OqmOwj9LFhB/6A26e0msmsRAxskuaQZKyUU1yatK+i/X9jsJ4YiehNDAAAAABJRU5ErkJggg==);
+  background-repeat: no-repeat;
+  border: none;
+  height: 36px;
+  left: -4px;
+  outline: 0;
+  position: absolute;
+  top: -4px;
+  width: 36px;
+}
+.recaptcha-checkbox-spinnerAnimation {
+  background-repeat: no-repeat;
+  border: none;
+  height: 38px;
+  left: -5px;
+  outline: 0;
+  position: absolute;
+  top: -5px;
+  visibility: hidden;
+  width: 38px;
+}
+.recaptcha-checkbox-checkmark {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAATsCAYAAADsAfBvAAAABmJLR…c8fQAAAIA4Ve/BleITOu7J3HehqXqHPH0AAAAAAAAAALr5H72AWmG4R73sAAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  border: none;
+  height: 30px;
+  left: -5px;
+  outline: 0;
+  position: absolute;
+  width: 38px;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a{padding:6px 20px;}
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li a span.text{padding: 0;}
+
+ @media(max-width: 768px){
+ 	.loginbody .maindiv{
+ 		    min-height: 695px;
+ 	}
+ }
+
+ 
+
+@media(max-width: 500px) {
+ .loginbody {
+ 	    background-size: auto;
+ }
+	.loginbody .maindiv {
+    min-height: 610px;
+	}
+	.loginbody .sign-in-container,
+	.loginbody .sign-up-container {
+		width: 80%;
+	}
+	.loginbody .right-panel-active .sign-up-container {
+		transform: translateX(25%);
+	}
+	.loginbody .overlay-container {
+		width: 20%;
+	}
+	.loginbody .overlay-panel p,
+	.loginbody .overlay-panel h1 {
+		display: none;
+	}
+	.loginbody button.ghost {
+		background-color: transparent;
+		border-color: #FFFFFF;
+		transform: rotate(270deg);
+		padding: 7px 16px;
+		width: 100px;
+		margin-left: 19px;
+	}
+	.loginbody .overlay-container {
+		right: 0;
+		left: auto;
+	}
+	.loginbody form {
+		padding: 0 25px;
+	}
+	.loginbody .right-panel-active .overlay-container {
+		transform: translateX(0%);
+		left: 0;
+		right: auto;
+	}
+	.loginbody #signIn {
+		margin-right: 33px;
+	}  
+	.loginbody span{
+		display: block;
+	}
+
+	.loginbody .maindiv {
+    min-height: 695px;
+    margin: 30px 0;
+}
+}
+
+@media (max-width: 360px){
+.loginbody form {
+    padding: 0 10px;
+}}
+
+.multiselect-dropdown .dropdown-btn span, .dropdown-down {
+    padding: 0 !important;
+    display: inline-block !important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn span a {
+	display: inline-block;
+    padding-top: 2px;
+    padding-left: 4px;
+    color: white;
+    margin: 2px 0;
+	padding-right: 4px;
+	border:none;
+	border-bottom: #000 1px;
+	border-radius: 0px;
+}
+
+.multiselect-dropdown {
+	height: 36px;
+}
+
+
+.checkbox .checkbox-material {
+	vertical-align: middle;
+   position: relative;
+   top: 1px;
+   padding-right: 5px;
+   display: inline-block;
+   padding-bottom: 0;
+   /* font-size: 0; */
+}
+
+.checkbox .checkbox-material:before{
+	   top: 0px;
+}
+
+.checkbox label {
+   cursor: pointer;
+   padding-left: 0;
+	color:#545454; 
+   font-size: 13px;
+}
+
+.multiselect-dropdown .dropdown-btn span a {
+    display: inline-block !important;
+    margin: 0;
+}
+
+#ForgotPassworddiv{
+	display: none;
+}

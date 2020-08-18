@@ -1,0 +1,214 @@
+.loginbody form{
+    padding: 0;font-family: 'Montserrat', sans-serif;
+}
+.loginbody .radio-tile-group .input-container {
+    position: relative;
+    height: 8rem;font-family: 'Montserrat', sans-serif;
+    width: 8rem;
+    margin: 10px 5px 10px;
+}
+.loginbody .maindiv{border-radius: 7px;min-height: 530px;font-family: 'Montserrat', sans-serif;
+       padding: 0;
+}.loginbody h2 {
+    font-size: 19px;
+    padding: 15px 17px 12px;
+    margin: 0 0 0 0;
+    font-weight: 700;
+    background: #00bcd4;
+    color: #fff;font-family: 'Montserrat', sans-serif;
+    line-height: 19px;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5294117647058824);
+}
+
+.loginbody h2 small{
+    color: #fff;
+}
+.loginbody .radio-tile-group {
+    display: block;
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    
+}
+.form-group .checkbox label, .form-group .radio label, .form-group label, .form-group .label-on-left, .form-group .label-on-right {
+    font-size: 11px;
+    line-height: 1.428571429;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+.checkbox label {
+    cursor: pointer;
+    padding-left: 0;
+    color: #545454;
+    font-size: 12px;
+}
+
+.checkbox label + a{
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.selection .list-inline>li{
+    vertical-align: middle;
+}   
+
+.loginbody .inputDiv label {
+    position: absolute;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-29%);
+    font-size: 11px;
+    letter-spacing: 0.2px;
+    color: #353535;
+    font-weight: 500;
+    pointer-events: none;
+    -webkit-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+}
+
+.heightdiv{
+   height: 526px;
+}
+.loginbody .radio-tile-group .input-container {
+      position: relative;
+    height: 90px;
+    width: 90px;
+    margin: 30px auto 0px;
+}
+.loginbody .radio-tile-group .input-container .radio-tile-label {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    color: #d0d0d0;
+}
+.loginbody .radio-tile-group .input-container .icon svg {
+    fill: #a0a0a0;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+.loginbody .radio-tile-group .input-container .radio-tile-label{
+   color: #a0a0a0;
+}
+.rc-anchor-normal {
+    height: 74px;
+    width: 230px;
+    position: relative;
+    margin: 30px auto;
+
+}
+.selection .list-inline>li{
+    vertical-align: middle;
+}   
+
+.extralink {
+    color: #333 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;    
+    letter-spacing: 0.1px;
+    cursor: pointer;
+}
+
+.selection .customlabel {
+    font-size: 12px !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+    clear: both;
+    font-family: Montserrat;
+    display: block;
+    position: absolute;
+    top: -12px;
+
+}
+.terms_condition{
+    color:#4d74e0!important
+}
+.dropdownlabel{
+    font-family: 'Montserrat', sans-serif!important;
+    font-size: 10px!important;
+    font-weight: 500!important;
+    letter-spacing: 0.4px!important;
+    position: absolute!important;
+    top: -7px!important;
+    left: 5px!important;
+    transform: translateY(-50%)!important;
+    color: #999!important;
+    transition: all 0.15s ease-out 0s!important;
+    pointer-events: none!important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn span {
+    margin-left: 10px!important;
+    margin-top: 4px!important;
+}
+.blackListedGoodsList_img{
+    margin-left: 5px!important;
+    top:9px!important;
+}
+.loginbody .inputDiv .invalid-feedback{
+    top: 33px!important;
+}
+.loginbody .inputDiv {
+    margin-bottom: 30px!important;
+}
+.loginbody .inputDiv .ng-invalid + label + .invalid-feedback:after {
+    content:none!important;
+}
+select option{
+    color: #545454!important;
+}
+.extralink:hover {
+    color: blue!important;
+  }
+  .loginbody .inputDiv i {
+    position: absolute;
+    left: 0;
+    width: 10px;
+    height: 15px;
+    top: 13px;
+    color: skyblue;
+}
+.eye_icon {
+    position: absolute!important;
+    left:90%!important;
+    width: 20px!important;
+    top: 11px!important;
+    cursor: pointer;
+    color: #009dc7!important;
+}
+.divmob input[type=text] {
+    padding-left: 55px !IMPORTANT;
+    }
+.countrycode {
+    position: absolute;
+    left: 15px;
+    top: 11px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #545454;
+    /* display: none; */
+    }
+select.currency {
+    width: 35% !important;
+    padding: 11px 5px !important;
+    float: right;
+    font-size: 10px !important;
+    color: #333 !important;
+    }
+.currencyleft{
+    width: 64% !important;
+    float: left;
+    }
+.passicon{
+    position: absolute;
+        left: 0;
+        width: 13px;
+        top: 14px;
+        color: #00bcd4;
+        font-size: 13px !important;
+    } 

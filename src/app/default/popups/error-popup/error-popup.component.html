@@ -1,0 +1,23 @@
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+
+    <div class="modal-content">
+        <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
+        <div class="modal-body">
+
+            <div class="text-center innerSuccessdiv">
+                <svg width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#e21f1f" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#e21f1f" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                  <line class="path line" fill="none" stroke="#e21f1f" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+                  </svg>
+                <h3>Failed</h3>
+                <p><strong>{{title}}</strong></p>
+                <p class="ptext">{{message}}</p>
+            </div>
+            <div style="text-align: center;"><button type="button" class="btn btn-info" (click)="close()">Ok</button></div>
+        </div>
+    </div>
+
+</div>

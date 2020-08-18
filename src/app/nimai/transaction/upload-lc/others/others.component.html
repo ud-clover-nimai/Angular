@@ -1,0 +1,148 @@
+<div class="row" [formGroup]="LcDetail">
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Loading Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="loadingCountry">
+
+                        <option value="INDIA">
+                            India</option>
+                        <option value="BANGLADESH">
+                            Bangladesh</option>
+                        <option value="KENYA">
+                            Kenya</option>
+                        <option value="NIGERIA">
+                            Nigeria</option>
+                        <option value="UAE">UAE
+                        </option>
+                        <option value="QATAR">
+                            Qatar</option>
+                    </select>
+                    <label>Country of Port of
+                        Loading</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="IndiaPort" formControlName="loadingPort">
+
+                        <option value="Jawaharlal Nehru Port">
+                            Jawaharlal Nehru Port</option>
+                        <option value="Mumbai Port">
+                            Mumbai Port </option>
+                        <option value="GUJRAT Port">
+                            GUJRAT Port </option>
+                        <option value="Dr. Syama Prasad Mukherjee Port">Dr.
+                            Syama Prasad Mukherjee Port
+                        </option>
+                        <option value="Dr. Rama Prasad Mukherjee Port">Dr.
+                            Rama Prasad Mukherjee Port
+                        </option>
+                    </select>
+                    <label>Port of Loading</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Discharge Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="dischargeCountry">
+
+                        <option value="INDIA">
+                            India</option>
+                        <option value="BANGLADESH">
+                            Bangladesh</option>
+                        <option value="KENYA">
+                            Kenya</option>
+                        <option value="NIGERIA">
+                            Nigeria</option>
+                        <option value="UAE">UAE
+                        </option>
+                        <option value="QATAR">
+                            Qatar</option>
+                    </select>
+                    <label>Country of Port of
+                        Discharge</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="Banglaport" formControlName="dischargePort">
+
+                        <option value="Port of Chittagong">
+                            Port of Chittagong</option>
+                        <option value="Port of Mongla">
+                            Port of Mongla</option>
+                        <option value="Port of Dhaka">
+                            Port of Dhaka</option>
+                        <option value="Port of Payra">
+                            Port of Payra</option>
+                    </select>
+                    <label>Port of Discharge</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 ">
+        <div class="selection">
+            <p class=""><strong>Charges are
+                    on</strong></p>
+        </div>
+        <ul class="list-unstyled list-inline">
+            <li>
+                <div class="radio">
+                    <label >
+                        <input type="radio" formControlName="chargesType" name="chargesType"
+                            value="{{LcDetail.get('applicantName').value}} (Applicant)" ><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        {{LcDetail.get('applicantName').value}} (Applicant)
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="radio">
+                    <label >
+                        <input type="radio" name="chargesType" formControlName="chargesType"
+                            value="{{LcDetail.get('beneName').value}} (Beneficiary)"><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        {{LcDetail.get('beneName').value}} (Beneficiary)
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Validity</mat-label>
+                <input matInput [matDatepicker]="validity" formControlName="validity" autocomplete="off" class="validity">
+                <mat-datepicker-toggle matSuffix [for]="validity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #validity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+    <div class="clearfix"></div>
+
+   
+    <div class="clearfix"></div>
+    <div class="col-md-5">
+        <p><strong>Pro Forma</strong></p>
+        <label>Upload Document (only jpg, jpeg, png)</label>
+        <input (change)="handleFileInput1($event)" type="file" placeholder="Document" class="filestyle" name="upload_file2" id="upload_file2" data-icon="false"/>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+
+</div>

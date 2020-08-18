@@ -1,0 +1,16 @@
+.support h2{
+    color: #757575;
+font-weight: bold;
+padding-bottom: 10px;
+font-size: 21px;
+padding: 0;
+margin: 5px 0px 30px;
+}
+
+.support h4{
+ font-size: 29px;
+font-weight: 900;   margin-top: 20px;margin-bottom: 0;
+}
+.support table td{
+border:0 !important;
+}

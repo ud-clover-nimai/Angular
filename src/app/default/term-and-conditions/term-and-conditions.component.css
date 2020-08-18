@@ -1,0 +1,18 @@
+.pophead{
+    font-size: 9px;
+    font-weight: 500;
+    padding: 0px 15px;
+    margin: 0px 0 20px;
+    background: #00bcd4;
+    color: #fff;
+    display: flex;
+}
+
+.mat-dialog-title {
+    margin: 0;
+    display: block;
+}
+/* .close_dialog{
+    margin-top: 30px!important;
+    margin-left: 74%!important;
+} */

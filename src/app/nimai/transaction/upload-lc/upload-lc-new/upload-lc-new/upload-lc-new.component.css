@@ -1,0 +1,40 @@
+card .card-header.card-header-icon + .card-content .card-title {
+    padding-bottom: 15px;
+    }
+    .tabbable-line > .tab-content {
+    margin-top: 0;
+    background-color: #fff;
+    border: 0;
+    border-top: 0px solid #eee;
+    padding: 0px 0 15px;
+    }
+    .tabbable-panel {
+    border: 0px solid #eee;
+    padding: 0 10px;
+    }
+    .tab-content h2{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #e22214;
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+    }
+    .list-inline>li{
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    }
+    .tab-content>.active {
+    display: block;
+    margin: 0 0 5px;
+    }
+    .multipledate{
+    width: 400px;
+    vertical-align: top;
+    }
+    .textip, .texttip{
+    font-size: 11px !important;color: #333;
+    }
+    .marginselection{margin: 15px 0 5px;}
