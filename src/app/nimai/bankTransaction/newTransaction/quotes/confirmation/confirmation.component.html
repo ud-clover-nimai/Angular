@@ -202,14 +202,15 @@
                            <tr>
                               <td>
                                  <input [checked]="charges2" type="radio"  id="optn" name="charges1"  
-                                 (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                 (change)="onMatureChange($event.target.value)"  style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till date of maturity
+                                 <a href="#" class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
                                  <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                             </tr>
                             <tr>
                               <td>Other Charges</td>
                               <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
                            </tr>
-                           <textarea style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                           <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                            rows="3"></textarea>
                           
                            <!-- <tr>
@@ -225,7 +226,8 @@
                               </tr>
                            
                            <tr>
-                              <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                              <!-- <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td> -->
+                             <td>Validity</td>
                               <td><input type="date" name="validityDate" [(ngModel)]="data.validityDate" 
                                  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                  <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
@@ -237,7 +239,7 @@
                               <td>Other terms and conditions</td>
                            </tr>
                           
-                           <textarea placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                           <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
                            rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
                           
                            <tr>
@@ -307,12 +309,13 @@
                               <td>{{data.confChgsMatur}}</td>
                            </tr>
                            <tr>
-                              <td>Other Charges<br><small style="color: #b6a3a3;">Customer needs to pay standard swift transfer charges.</small>
+                              <td>Other Charges<br><small style="color: #b6a3a3;"> {{data.OtherChargesComments}}</small>
                               </td>
                               <td>
                                  {{data.otherCharges}}
                               </td>
                            </tr>
+                          
                            <tr>
                               <td>Minimum Transaction Charges</td>
                               <td>
@@ -321,7 +324,7 @@
                            </tr>
                           
                            <tr>
-                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                               <td>Validity  </td>
                               <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                            </tr>
                            <tr>
@@ -332,7 +335,7 @@
                               <td><small>Others terms and conditions</small></td>
                            </tr>
                            <tr>
-                              <td colspan="2"><small style="color: #b6a3a3;">Discounting commission applicable from the date of discounting until the maturity date of bill(s).</small></td>
+                              <td colspan="2"><small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                            </tr> 
                            
                            <tr>

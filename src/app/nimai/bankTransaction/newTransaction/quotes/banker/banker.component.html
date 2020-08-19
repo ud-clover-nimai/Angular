@@ -242,7 +242,7 @@
                                  <span class="pull-right percent">%</span></td>
                               </tr>
                              
-                              <textarea style="width:331px;margin: 6px 0px 0px;height: 50px;"  placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
+                              <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark" style="width:331px;margin: 6px 0px 0px;height: 50px;"  placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
                               rows="3"></textarea>
                              
                               <tr>
@@ -268,7 +268,7 @@
                                  <td>Other Charges</td>
                                  <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
                               </tr>
-                              <textarea style="width:331px;margin: 6px 0px 0px;height: 50px;" placeholder="Customer needs to pay standard swift transfer  &#10; charges" 
+                              <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" style="width:331px;margin: 6px 0px 0px;height: 50px;" placeholder="Customer needs to pay standard swift transfer  &#10; charges" 
                               rows="3"></textarea>
                                              
                               <!-- <tr>
@@ -292,7 +292,7 @@
                                  <td>Other terms and conditions</td>
                               </tr>
                              
-                              <textarea  placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                              <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
                               rows="3" style="margin: 6px 0px 0px; width: 328px; height: 50px;"></textarea>
                              
                               <tr>
@@ -304,7 +304,7 @@
                            </tbody>
                         </table>
                      <div>
-                        <button type="submit"  class="btn btn-info pull-right" >
+                        <button type="submit"  class="btn btn-info pull-right">
                            Save/Generate Quote
                            <div class="ripple-container" ></div>
                         </button>
@@ -348,7 +348,7 @@
                            <br>
                            <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
                             <tr>
-                              <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">comment :6 month libor</small></td>
+                              <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">{{data.commentsBenchmark}}</small></td>
                               <td>{{data.applicableBenchmark}}% </td>
                            </tr>
                            
@@ -374,7 +374,7 @@
                               </td>
                            </tr>
                            <tr>
-                              <td>Other Charges<br><small style="color: #b6a3a3;">Comment: P&T charges</small>
+                              <td>Other Charges<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
                               </td>
                               <td>
                                  {{data.otherCharges}}
@@ -388,7 +388,9 @@
                            </tr>
                           
                            <tr>
-                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                               <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                  <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a> 
+                                  <br><small style="color: #b6a3a3;">{{data.termConditionComments}}</small> </td>
                               <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                            </tr>
                            <tr>

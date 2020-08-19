@@ -72,7 +72,9 @@ public isActiveQuote:boolean=false;
       negotiationDays: 0,
       sumOfQuote: 0,
       confChgsMatur: 0,
-      confChgsNegot:0
+      confChgsNegot:0,
+      OtherChargesComments:"",
+      termConditionComments:"",
         }
         
 this.dataViewEdit={

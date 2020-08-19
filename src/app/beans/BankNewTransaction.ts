@@ -89,7 +89,9 @@ export interface PlaceQuote{
 		negotiationDays: number;
 		sumOfQuote: number;
 		confChgsMatur: number;
-        confChgsNegot:number;
+		confChgsNegot:number;
+		OtherChargesComments:String,
+		termConditionComments:String,
 		}
 
 		export interface editViewQuotation{

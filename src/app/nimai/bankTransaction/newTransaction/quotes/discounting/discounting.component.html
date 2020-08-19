@@ -235,7 +235,7 @@
                                     <span class="pull-right percent">%</span></td>
                                  </tr>
                                 
-                                 <textarea style="width:331px;margin: 6px 0px 0px;height: 57px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
+                                 <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark" style="width:331px;margin: 6px 0px 0px;height: 57px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" 
                                  rows="3"></textarea>
                                 
                                  <tr>
@@ -261,7 +261,7 @@
                                     <td>Other Charges</td>
                                     <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
                                  </tr>
-                                 <textarea class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" 
+                                 <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" 
                                  rows="3"></textarea>
                                                 
                                  <!-- <tr>
@@ -332,7 +332,7 @@
                               <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
                               <br>
                               <tr>
-                                 <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">comment :6 month libor</small></td>
+                                 <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">{{data.commentsBenchmark}}</small></td>
                                  <td>{{data.applicableBenchmark}}% </td>
                               </tr>
                               
@@ -358,7 +358,7 @@
                                  </td>
                               </tr>
                               <tr>
-                                 <td>Other Charges<br><small style="color: #b6a3a3;">Comment: P&T charges</small>
+                                 <td>Other Charges<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
                                  </td>
                                  <td>
                                     {{data.otherCharges}}
