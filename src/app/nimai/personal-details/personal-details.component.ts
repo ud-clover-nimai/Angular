@@ -62,7 +62,7 @@ export class PersonalDetailsComponent implements OnInit {
       bankType: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      emailId: ['', [Validators.required, Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]],
+      emailId: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       mobileNo: ['', [Validators.required,Validators.minLength(7)]],
       landLineNo: ['',Validators.minLength(7)],
       country: ['', Validators.required],
@@ -73,9 +73,9 @@ export class PersonalDetailsComponent implements OnInit {
       minLCVal: [''],
       blacklistedGC: [''],
       // otherEmails: this.fb.array([this.getOtherMails()])
-      emailAddress1: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')],
-      emailAddress2: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')],
-      emailAddress3: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]
+      emailAddress1: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      emailAddress2: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      emailAddress3: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]
 
     })
     
@@ -110,7 +110,7 @@ export class PersonalDetailsComponent implements OnInit {
   getOtherMails(){
     var count = 0;
     return this.fb.group({
-      emailAddress: ['', Validators.pattern('([a-z0-9._%+-]+)@([a-z0-9.-]+)?\.([a-z]{2,4})$')]
+      emailAddress: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]
   });
   }
 
