@@ -61,7 +61,7 @@ export class NewTransactionService {
   }
 
   public getQuotationDetails(data: any): Observable<any[]> {
-    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getQuotationDtlByQId`,data , { headers: { 'content-types': 'application/json' } });
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getQuoteByUserIdTxnIdStatus`,data , { headers: { 'content-types': 'application/json' } });
   }
 
   public acceptBankQuote(data: any): Observable<any[]> {

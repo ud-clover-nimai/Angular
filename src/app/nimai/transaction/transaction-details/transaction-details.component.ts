@@ -113,13 +113,14 @@ export class TransactionDetailsComponent {
   displayQuoteDetails(transactionId){
     let data = {
       "userId": sessionStorage.getItem('userID'),
-      "transactionId": transactionId
+      "transactionId": transactionId,
+      "quotationStatus": $('#addOptions select').val()
     }
     
-    this.nts.getAllQuotationDetails(data).subscribe(
+    this.nts.getQuotationDetails(data).subscribe(
         (response) => {
           this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
-        console.log(this.quotationdata);
+          console.log(this.quotationdata);
         },
         (error) => {}
     )

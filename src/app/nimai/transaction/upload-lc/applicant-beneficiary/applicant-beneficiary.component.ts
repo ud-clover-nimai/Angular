@@ -16,18 +16,27 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     $('#divBene').hide();
-      $("input[name='userType']").click(function () {
-         
-         var radioValue = $("input[name='userType']:checked").val();
-         if (radioValue == "Beneficiary") {
-            $('#divApplicant').hide();
-            $('#divBene').show();
-         }
-         else if (radioValue == "Applicant") {
-            $('#divApplicant').show();
-            $('#divBene').hide();
-         }
-      });
+    this.onItemChange("Applicant");
+  }
+
+  onItemChange(e){
+    var radioValue = $("input[name='userType']:checked").val();
+    if (e == "Beneficiary") {
+       $('#divApplicant').hide();
+       $('#divBene').show();
+       this.LcDetail.get('applicantName').setValue('');
+       this.LcDetail.get('applicantCountry').setValue('');
+       this.LcDetail.get('beneName').setValue(sessionStorage.getItem('companyName'));
+       this.LcDetail.get('beneCountry').setValue(sessionStorage.getItem('registeredCountry'));
+    }
+    else if (e == "Applicant") {
+       $('#divApplicant').show();
+       $('#divBene').hide();
+       this.LcDetail.get('applicantName').setValue(sessionStorage.getItem('companyName'));
+       this.LcDetail.get('applicantCountry').setValue(sessionStorage.getItem('registeredCountry'));
+       this.LcDetail.get('beneName').setValue('');
+       this.LcDetail.get('beneCountry').setValue('');
+    }
   }
 
   validateRegexFields(event, type){

@@ -11,7 +11,7 @@
                 <div class="radio">
                     <label >
                         <input type="radio" value="Applicant" id="rdApplicant" name="userType" formControlName="userType"
-                            checked="checked"><span class="circle"></span><span class="check"></span>
+                            (change)="onItemChange($event.target.value)"><span class="circle"></span><span class="check"></span>
                         Applicant
                     </label>
                 </div>
@@ -19,8 +19,8 @@
             <li>
                 <div class="radio">
                     <label >
-                        <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary"><span
-                            class="circle"></span><span class="check"></span>
+                        <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary" (change)="onItemChange($event.target.value)">
+                        <span class="circle"></span><span class="check"></span>
                         Beneficiary
                     </label>
                 </div>
