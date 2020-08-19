@@ -50,7 +50,7 @@ export class ReferComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNo: ['', [Validators.required,Validators.minLength(11)]],
-    emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
     status: new FormControl('ACTIVE'),

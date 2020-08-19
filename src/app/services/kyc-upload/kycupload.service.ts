@@ -15,7 +15,7 @@ export class KycuploadService {
   public upload(formData:FormData): Observable<HttpEvent<any>>{
    
 
-    const req = new HttpRequest('POST', `${environment.domain}/nimaiKYC/kyc/uploadMultipleFiles`, formData, {
+    const req = new HttpRequest('POST', `${environment.domain}/nimaiKYC//kyc/saveKycDoc`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

@@ -43,7 +43,7 @@ export class ManageSubsidiaryComponent implements OnInit {
     mobileNo: new FormControl('',[Validators.required]),
     country: new FormControl('',[Validators.required]),
     landlineNo: new FormControl(''),
-    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
   });
 
   get manageSubDetails() {

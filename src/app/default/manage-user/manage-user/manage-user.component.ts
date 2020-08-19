@@ -64,7 +64,7 @@ export class ManageUserComponent implements OnInit {
     mobileNo: new FormControl(''),
     country: new FormControl('',[Validators.required]),
     landlineNo: new FormControl('',[Validators.required]),
-    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countriesInt: new FormControl('',[Validators.required]),
     minLCValue: new FormControl(''),
     blacklistedGC: new FormControl('',[Validators.required]),

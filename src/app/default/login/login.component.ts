@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
       regCurrency:['']
     });
     this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]]
     })
     this.dropdownSetting = {
       singleSelection: false,
@@ -375,7 +375,7 @@ export class LoginComponent implements OnInit {
     $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
-    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
     this.signupForm.get('mobileNo').clearValidators();
     this.signupForm.get('country').setValidators(Validators.required);
     this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);
@@ -387,7 +387,7 @@ export class LoginComponent implements OnInit {
     $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
-    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
     this.signupForm.get('mobileNo').setValidators([Validators.required,Validators.minLength(7)]);
     this.signupForm.get('country').setValidators(Validators.required);
     this.signupForm.get('landlineNo').setValidators(Validators.minLength(7));
@@ -643,7 +643,7 @@ export class LoginComponent implements OnInit {
     }
 
   forPassValidate() {
-    this.forgotPasswordForm.get('email').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.forgotPasswordForm.get('email').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
     this.forgotPasswordForm.get('email').updateValueAndValidity();
   }
 
