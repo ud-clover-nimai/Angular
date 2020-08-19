@@ -27,6 +27,8 @@ export class BusinessDetailsComponent implements OnInit {
   public hasValue=false;
   resp: any;
   parentRedirection: string = "subscription";
+  stateName: any = "";
+  countryName: any;
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
@@ -94,7 +96,7 @@ export class BusinessDetailsComponent implements OnInit {
 
   ngOnInit() { 
     loads();
-    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
+    this.getCountryStateList();
    }
    ngAfterViewInit() {
      const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
@@ -154,7 +156,7 @@ export class BusinessDetailsComponent implements OnInit {
       return;
     }
     sessionStorage.setItem('companyName',this.businessDetailsForm.get('companyName').value);
-    sessionStorage.setItem('registeredCountry',this.businessDetailsForm.get('country').value);
+    sessionStorage.setItem('registeredCountry',this.countryName);
 
     this.perDetailsSubmit = false;
 
@@ -257,7 +259,7 @@ export class BusinessDetailsComponent implements OnInit {
       telephone: this.businessDetailsForm.get('telephone').value,
       comapanyName: this.businessDetailsForm.get('companyName').value,
       designation:this.businessDetailsForm.get('bank_designation').value,
-      registeredCountry: this.businessDetailsForm.get('country').value,
+      registeredCountry: this.countryName,
       registrationType: this.businessDetailsForm.get('selector').value,
       provinceName: this.businessDetailsForm.get('provinceName').value,
       address1: this.businessDetailsForm.get('addressLine1').value,
@@ -341,6 +343,24 @@ export class BusinessDetailsComponent implements OnInit {
           event.preventDefault();
       }    
     }
+  }
+
+  getCountryStateList(){
+    this.bds.viewCountryList().
+      subscribe(
+        (response) => {
+          this.resp = JSON.parse(JSON.stringify(response)).data;
+          // sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
+  }
+
+  showState(data){
+    this.countryName = data.countryName;
+   this.stateName = data.stateResponce;
+    
   }
 
 }

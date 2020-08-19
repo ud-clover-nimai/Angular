@@ -169,6 +169,9 @@
                       <div class="inputDiv">
                         <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                         <label>Mobile No.</label>
+                        <div *ngIf="manageSubDetails.mobileNo.touched && manageSubDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                              Mobile Number is atleast of 7 digits.
+                        </div>
                       </div>
                   </div>
                   <div class="col-md-6">
@@ -177,6 +180,9 @@
                         <label>Landline No.</label>
                         <div *ngIf="submitted && manageSubDetails.landlineNo.errors?.required" class="invalid-feedback">
                           landline No is required
+                        </div>
+                        <div *ngIf="manageSubDetails.landlineNo.errors?.minlength" class="invalid-feedback">
+                          Landline No. is atleast of 7 digits.
                         </div>
                     </div>
                   </div>

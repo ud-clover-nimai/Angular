@@ -23,6 +23,6 @@ export class BusinessDetailsService {
   }
 
   public viewCountryList(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry/` , { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
   } 
 }

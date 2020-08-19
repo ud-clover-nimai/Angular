@@ -40,9 +40,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   manageSubForm = this.formBuilder.group({
     firstName: new FormControl('',[Validators.required]),
     lastName: new FormControl('',[Validators.required]),
-    mobileNo: new FormControl('',[Validators.required]),
+    mobileNo: new FormControl('',[Validators.required,Validators.minLength(7)]),
     country: new FormControl('',[Validators.required]),
-    landlineNo: new FormControl(''),
+    landlineNo: new FormControl('',[Validators.minLength(7)]),
     emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
   });
 
@@ -122,18 +122,23 @@ export class ManageSubsidiaryComponent implements OnInit {
           this.respMessage = JSON.parse(JSON.stringify(response)).message;
           
           if(this.respMessage.indexOf('not match') > -1){
-            this.respMessage = "Domain Name does not match!"
+            this.respMessage = "Domain Name does not match!";
+
+            $('#authemaildiv').slideDown();
+            $('#paradiv').slideDown();
+            $('#okbtn').hide();
+            $('#btninvite').show();   
           }
           else{
             this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
             
-
+            $('#authemaildiv').slideUp();
+            $('#paradiv').slideDown();
+            $('#okbtn').show();
+            $('#btninvite').hide();
+            this.manageSubForm.reset();
           }
-          $('#authemaildiv').slideUp();
-          $('#paradiv').slideDown();
-          $('#okbtn').show();
-          $('#btninvite').hide();
-          this.manageSubForm.reset();
+          
         },
         (error) => {
           $('#authemaildiv').slideUp();
@@ -146,11 +151,10 @@ export class ManageSubsidiaryComponent implements OnInit {
       )
     },
     (err) =>{
-      $('#authemaildiv').slideUp();
-          $('#paradiv').slideDown();
-          $('#okbtn').show();
-          $('#btninvite').hide();
-          this.manageSubForm.reset();
+        $('#authemaildiv').slideDown();
+        $('#paradiv').slideDown();
+        $('#okbtn').hide();
+        $('#btninvite').show();   
       this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
 
     }

@@ -213,9 +213,9 @@
                                     </h4>
                                     <div class="col-md-3">
                                         <div class="inputDiv selectdiv">
-                                            <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''">
-                                                <option [ngValue]="null" selected>Select</option>
-                                                <option *ngFor="let data of resp" >{{data.country}}</option>
+                                            <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''" (ngModelChange)="showState($event)">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.countryName}}</option>
                                                 <!-- <option value="India">India</option>
                                                 <option value="Australia">Australia</option>
                                                 <option value="Bangladesh">Bangladesh</option> -->
@@ -229,10 +229,9 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv selectdiv" >
                                             <select formControlName="provinceName" [ngClass]="hasValue ? 'has-value' : ''">
-                                                <option [ngValue]="null" selected>Select</option>
-                                                <option value="Maharastra">Maharashtra</option>
-                                                <option value="Jharkhand">Jharkhand</option>
-                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of stateName" [ngValue]='data.stateName'>{{data.stateName}}</option>
+                                                
                                             </select>
                                             <label>Select Province/State</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.provinceName.errors" class="invalid-feedback">
