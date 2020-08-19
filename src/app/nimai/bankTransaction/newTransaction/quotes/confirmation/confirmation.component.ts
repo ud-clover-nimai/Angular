@@ -32,6 +32,7 @@ export class ConfirmationComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public errmessage: string = '';
+  totalQuote: any;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -234,13 +235,13 @@ export class ConfirmationComponent implements OnInit {
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {
-        this.tab = 'tab2';
-        setTimeout(() => {
-          $('input').attr('readonly', true);
-        }, 200);
+       
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -257,7 +258,28 @@ export class ConfirmationComponent implements OnInit {
           this.selectNego = 'yes';
         }
 
-
+        if(this.title=='Edit'){
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+          this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+            (response) => {
+              this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+            },
+            error => {
+              alert('error')
+              this.closed();
+              this.tab = 'tab1';
+            }
+          )
+        }else{
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+        }
+       
       }
         break;
     }
