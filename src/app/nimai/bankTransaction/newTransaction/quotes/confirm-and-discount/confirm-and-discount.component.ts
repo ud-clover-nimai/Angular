@@ -33,6 +33,7 @@ public isActiveQuote:boolean=false;
   public selectNego: string = "";
   public selectMature: String = "";
   public radioid: boolean = true;
+  totalQuotes: any;
 
  constructor(public titleService: TitleService, public ts: NewTransactionService, 
     public upls: UploadLcService,public activatedRoute: ActivatedRoute, public router: Router) {
@@ -226,15 +227,13 @@ this.dataViewEdit={
       case 'ok': {
             this.closed();
             this.tab = 'tab1';         
-           
-         
-      }
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+          });  
+               }
         break;
       case 'preview': {
-        this.tab = 'tab2';
-        setTimeout(() => {
-          $('input').attr('readonly', true);
-        }, 200);
+      
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -251,7 +250,33 @@ this.dataViewEdit={
           this.selectNego = 'yes';
         }
 
-
+        if(this.title=='Edit'){
+         
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+          console.log(this.dataViewEdit)
+          this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+            (response) => {
+             
+              this.totalQuotes = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+            },
+            error => {
+              alert('error')
+              this.closed();
+              this.tab = 'tab1';
+            }
+            
+          ) 
+         
+        }else{
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+        }
+       
           }
         break;
     }

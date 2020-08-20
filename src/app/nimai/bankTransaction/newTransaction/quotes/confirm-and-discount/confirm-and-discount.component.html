@@ -43,7 +43,7 @@
                            <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
 
                            </td>
-                           <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly
+                           <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" 
                                  placeholder="2.8750" weightDirective><span class="pull-right percent">%</span>
                               <textarea rows="3" placeholder="Comments for Applicable Benchmark"></textarea></td>
                         </tr>
@@ -81,6 +81,17 @@
                              
                            </td>
                         </tr>
+                      
+                        <tr>
+                           <td>Other Charges<br>
+                           </td>
+                           <td>
+                              <input type="text" [(ngModel)]="dataViewEdit.otherCharges"
+                                 placeholder="0.00" weightDirective />
+
+                              <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
+                           </td>
+                        </tr>
                         <tr>
                            <td>Minimum Transaction Charges</td>
                            <td>
@@ -90,25 +101,17 @@
                            </td>
                         </tr>
                         <tr>
-                           <td>Other Charges<br>
-
-                           </td>
-                           <td>
-
-                              <input type="text" [(ngModel)]="dataViewEdit.otherCharges"
-                                 placeholder="0.00" weightDirective />
-
-                              <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
-                           </td>
-                        </tr>
-                        <tr>
                            <td>Validity</td>
                            <td><input type="text" [(ngModel)]="dataViewEdit.validityDate" placeholder="28/03/2020"></td>
                         </tr>
-                        <!-- <tr>
-                                 <th>Total Quote</th>
-                                 <th>65,287 USD</th>
-                              </tr> -->
+                        <tr *ngIf="title=='View'">
+                           <td>Total Quote</td>
+                           <td>
+                              <input type="text" name="totalQuoteValue"
+                                 [(ngModel)]="dataViewEdit.totalQuoteValue" placeholder="0.00" readonly
+                                 weightDirective />
+                           </td>
+                        </tr>
                         <tr>
                            <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>
@@ -157,7 +160,7 @@
                         <tr>
                            <td>Negotiation Charges (Fixed)</td>
                            <td>
-                              USD ${{dataViewEdit.negotiationChargesFixed}}
+                                ${{dataViewEdit.negotiationChargesFixed}}
                            </td>
                         </tr>
                         <tr>
@@ -169,31 +172,42 @@
                         <tr>
                            <td>Document Handling Charges</td>
                            <td>
-                              USD ${{dataViewEdit.docHandlingCharges}}
+                                ${{dataViewEdit.docHandlingCharges}}
+                           </td>
+                        </tr>
+                       
+                        <tr>
+                           <td>Other Charges<br>
+                           </td>
+                           <td>
+                                ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
+                                 transfer charges.</small>
                            </td>
                         </tr>
                         <tr>
                            <td>Minimum Handling Charges</td>
                            <td>
-                              USD ${{dataViewEdit.minTransactionCharges}}
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Other Charges<br>
-                           </td>
-                           <td>
-                              USD ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
-                                 transfer charges.</small>
+                                ${{dataViewEdit.minTransactionCharges}}
                            </td>
                         </tr>
                         <tr>
                            <td>Validity</td>
                            <td>{{dataViewEdit.validityDate| date : "dd-MM-y"}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                            <th>Total Quote</th>
-                           <th>USD {{dataViewEdit.totalQuoteValue}}</th>
+                           <th>  {{dataViewEdit.totalQuoteValue}}</th>
+                        </tr> -->
+
+                        <tr *ngIf="title=='View'">
+                           <th>Total Quote</th>
+                           <th>{{dataViewEdit.totalQuoteValue}}</th>
                         </tr>
+                        <tr *ngIf="title=='Edit'">
+                           <th>Total Quote</th>
+                           <th>{{totalQuotes}}</th>
+                        </tr>
+
                         <tr>
                            <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>

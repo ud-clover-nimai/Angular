@@ -24,6 +24,8 @@ export class DiscountingComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public errmessage: string = "";
+  public totalQuotes: any;
+
 
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
@@ -172,14 +174,34 @@ export class DiscountingComponent implements OnInit {
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {
-        this.tab = 'tab2';
-        setTimeout(() => {
-          $('input').attr('readonly', true);
-        }, 200);
-
+        if(this.title=='Edit'){
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+          this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+            (response) => {
+              this.totalQuotes= JSON.parse(JSON.stringify(response)).data.TotalQuote;
+            },
+            error => {
+              alert('error')
+              this.closed();
+              this.tab = 'tab1';
+            }
+          )
+         
+        }else{
+          this.tab = 'tab2';
+          setTimeout(() => {
+            $('input').attr('readonly', true);
+          }, 200);
+        }
       }
         break;
     }

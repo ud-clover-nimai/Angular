@@ -46,10 +46,14 @@
                                  <td>Validity</td>
                                  <td><input type="text" [(ngModel)]="dataViewEdit.validityDate"  placeholder="28/03/2020"></td>
                               </tr>
-                              <!-- <tr>
-                                 <th>Total Quote</th>
-                                 <th><input type="text" [(ngModel)]="dataViewEdit.totalQuoteValue"></th>
-                              </tr> -->
+                              <tr *ngIf="title=='View'">
+                                 <td>Total Quote</td>
+                                 <td>
+                                    <input type="text" name="totalQuoteValue"
+                                       [(ngModel)]="dataViewEdit.totalQuoteValue" placeholder="0.00" readonly
+                                       weightDirective />
+                                 </td>
+                              </tr>
                               <tr>
                                  <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
@@ -87,6 +91,12 @@
                                  <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                  <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
                               </tr>
+                             
+                              <tr>
+                                 <td>Other Charges</td>
+                                 <td>{{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                 </td>
+                              </tr>
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
@@ -94,17 +104,20 @@
                                  </td>
                               </tr>
                               <tr>
-                                 <td>Other Charges</td>
-                                 <td>{{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
-                                 </td>
-                              </tr>
-                              <tr>
                                  <td>Validity</td>
                                  <td>{{dataViewEdit.validityDate | date : "dd-MM-y"}}</td>
                               </tr>
-                              <tr>
+                              <!-- <tr>
                                  <th>Total Quote</th>
                                  <th *ngIf="detail">{{dataViewEdit.totalQuoteValue}}</th>
+                              </tr> -->
+                              <tr *ngIf="title=='View'">
+                                 <th>Total Quote</th>
+                                 <th>{{dataViewEdit.totalQuoteValue}}</th>
+                              </tr>
+                              <tr *ngIf="title=='Edit'">
+                                 <th>Total Quote</th>
+                                 <th>{{totalQuote}}</th>
                               </tr>
                               <tr>
                                  <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>

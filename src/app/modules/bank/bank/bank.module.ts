@@ -76,12 +76,6 @@ const routes: Routes = [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]
-      },{
-        path: "new-transaction", component: NewTransactionComponent,
-        children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
       },
       {
         path: "new-request", component: NewTransactionComponent,
