@@ -128,7 +128,7 @@
                                    <p> Transaction Details </p>
                                 </a>
                              </li>
-                             <li *ngIf="isCustomer || isBank" [routerLinkActive]="['active']">
+                             <li *ngIf="isCustomer" [routerLinkActive]="['active']">
                                 <a [routerLink]="['draft-transaction']">
                                    <i class="fas fa-folder-open"></i>
                                    <p> <span class="sidebar-normal"> Saved Transactions <span *ngIf="draftcount" class="badge">{{draftcount}}</span>
@@ -136,6 +136,15 @@
                                    </p>
                                 </a>
                              </li>
+                             <li *ngIf="isBank" [routerLinkActive]="['active']">
+                              <a [routerLink]="['draft-transaction']">
+                                 <i class="fas fa-folder-open"></i>
+                                 <p> <span class="sidebar-normal"> Saved Transactions <span *ngIf="draftcountBank" class="badge">{{draftcountBank}}</span>
+                                    </span> 
+                                 </p>
+                              </a>
+                           </li>
+
                           </ul>
                        </div>
                     </li>

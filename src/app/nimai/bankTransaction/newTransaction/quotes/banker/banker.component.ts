@@ -206,8 +206,6 @@ export class BankerComponent implements OnInit {
             $('input').attr('readonly', true);
           }, 200);
         }
-       
-  
 
       }
         break;
