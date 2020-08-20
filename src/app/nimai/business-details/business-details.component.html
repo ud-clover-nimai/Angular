@@ -212,7 +212,7 @@
                                         Registered Address Details
                                     </h4>
                                     <div class="col-md-3">
-                                        <div class="inputDiv selectdiv">
+                                        <div class="inputDiv selectdiv" id="addOptions">
                                             <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''" (ngModelChange)="showState($event)">
                                                 <option value=''>Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data'>{{data.countryName}}</option>

@@ -7,6 +7,7 @@ import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { loads } from '../../../assets/js/commons'
 import { OwnerDetail } from 'src/app/beans/ownerdetail';
 import { ValidateRegex } from '../../beans/Validations';
+import * as $ from '../../../assets/js/jquery.min';
 
 
 
@@ -238,6 +239,8 @@ export class BusinessDetailsComponent implements OnInit {
           bd.loading = false;
           this.titleService.loading.next(false);
         }, 1000);
+
+        this.countryName = this.bd.registeredCountry;
 
         sessionStorage.setItem('companyName',this.bd.comapanyName);
         sessionStorage.setItem('registeredCountry',this.bd.registeredCountry);
