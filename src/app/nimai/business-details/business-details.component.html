@@ -216,9 +216,6 @@
                                             <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''" (ngModelChange)="showState($event)">
                                                 <option value=''>Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data'>{{data.countryName}}</option>
-                                                <!-- <option value="India">India</option>
-                                                <option value="Australia">Australia</option>
-                                                <option value="Bangladesh">Bangladesh</option> -->
                                             </select>
                                             <label>Select Country</label>
                                             <div *ngIf="perDetailsSubmit && busiDetails.country.errors?.required" class="invalid-feedback">

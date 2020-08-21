@@ -97,8 +97,8 @@ export class BusinessDetailsComponent implements OnInit {
 
   ngOnInit() { 
     loads();
-    this.getCountryStateList();
    }
+
    ngAfterViewInit() {
      const selectList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('select'));
      selectList.forEach((select: HTMLElement) => {
@@ -199,56 +199,73 @@ export class BusinessDetailsComponent implements OnInit {
 
   public getBusinessDetails(userID: string) {
     this.titleService.loading.next(true);
-    this.bds.viewBusinessDetails(userID).subscribe(
-      (response) => {
-        let responseData = JSON.parse(JSON.stringify(response));
-        this.bd = responseData.data;
-        if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
-          this.isCustomer = false;
-        } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
-          this.isCustomer = true;
 
-        }
-        console.log("this.isCustomer",this.isCustomer)
-        this.setValidators();
-        this.businessDetailsForm.patchValue({
-          bankNbfcName: this.bd.bankName,
+    this.bds.viewCountryList().
+      subscribe(
+        (response) => {
+          this.resp = JSON.parse(JSON.stringify(response)).data;
+          
+          this.bds.viewBusinessDetails(userID).subscribe(
+            (response) => {
+              let responseData = JSON.parse(JSON.stringify(response));
+              this.bd = responseData.data;
+              if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
+                this.isCustomer = false;
+              } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
+                this.isCustomer = true;
+      
+              }
+              console.log("this.isCustomer",this.isCustomer)
+              this.setValidators();
+              this.businessDetailsForm.patchValue({
+                bankNbfcName: this.bd.bankName,      
+                branchName: this.bd.branchName,
+                swiftCode: this.bd.swiftCode,
+                telephone: this.bd.telephone,
+                bank_designation: this.bd.designation,
+                companyName: this.bd.comapanyName,
+                country: this.bd.registeredCountry,
+                selector: this.bd.registrationType,
+                provinceName: this.bd.provinceName,
+                addressLine1: this.bd.address1,
+                addressLine2: this.bd.address2,
+                addressLine3: this.bd.address3,
+                city: this.bd.city,
+                pincode: this.bd.pincode,
+                userId: this.bd.userId
+              })                           
 
-          branchName: this.bd.branchName,
-          swiftCode: this.bd.swiftCode,
-          telephone: this.bd.telephone,
-          bank_designation: this.bd.designation,
-          companyName: this.bd.comapanyName,
-          country: this.bd.registeredCountry,
-          selector: this.bd.registrationType,
-          provinceName: this.bd.provinceName,
-          addressLine1: this.bd.address1,
-          addressLine2: this.bd.address2,
-          addressLine3: this.bd.address3,
-          city: this.bd.city,
-          pincode: this.bd.pincode,
-          userId: this.bd.userId
-        })
+              let data = this.resp.find(ob =>
+                ob['countryName'] === this.bd.registeredCountry
+                );
+              this.businessDetailsForm.controls['country'].patchValue(data);
+              
+              if (this.bd.ownerMasterBean.length > 0)
+                this.addOwner(this.bd.ownerMasterBean);
+      
+              const bd = this;
+              setTimeout(() => {
+                loads();
+                bd.loading = false;
+                this.titleService.loading.next(false);
+              }, 1000);
+      
+              this.countryName = this.bd.registeredCountry;
+      
+              sessionStorage.setItem('companyName',this.bd.comapanyName);
+              sessionStorage.setItem('registeredCountry',this.bd.registeredCountry);
+            },
+            (error) => {
+              this.titleService.loading.next(false);
+            }
+          )
+          
+        },
+        (error) => {}
+      )
 
-        if (this.bd.ownerMasterBean.length > 0)
-          this.addOwner(this.bd.ownerMasterBean);
 
-        const bd = this;
-        setTimeout(() => {
-          loads();
-          bd.loading = false;
-          this.titleService.loading.next(false);
-        }, 1000);
-
-        this.countryName = this.bd.registeredCountry;
-
-        sessionStorage.setItem('companyName',this.bd.comapanyName);
-        sessionStorage.setItem('registeredCountry',this.bd.registeredCountry);
-      },
-      (error) => {
-        this.titleService.loading.next(false);
-      }
-    )
+    
   }
 
 

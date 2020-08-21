@@ -35,8 +35,8 @@
                                             </h4>
                                             <div class="col-md-6">
                                                 <div class="inputDiv selectdiv">
-                                                    <select formControlName="busiCountry">
-                                                        <option value=''>Select</option>
+                                                    <select id="busiCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
                                                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
                                                     </select>
                                                     <label>Select Country</label>
@@ -44,7 +44,7 @@
                                             </div>
                                             <div class="col-md-6" *ngIf="isCustomer">
                                                 <div class="inputDiv selectdiv">
-                                                    <select formControlName="busiDocument">
+                                                    <select id="busiDocument">
                                                         <option [ngValue]="null" selected>Select</option>
                                                         <option value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
                                                         <option value="Address Proof">Address Proof</option>
@@ -55,7 +55,7 @@
                                             </div>
                                             <div class="col-md-6" *ngIf="isBank">
                                                 <div class="inputDiv selectdiv">
-                                                    <select formControlName="busiDocument">
+                                                    <select >
                                                         <option [ngValue]="null" selected>Select</option>
                                                         <option value="Statutory License">Statutory License</option>
                                                         <option value="Address Proof">Address Proof</option>
@@ -65,20 +65,34 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>Upload Document (only pdf, jpeg, png)</label>
-                                                <div class="element">
-                                                    <input formControlName="file" type="file"
-                                                        placeholder="Registration Document"
-                                                        (change)="selectFile($event)" name="upload_file1"
-                                                        id="upload_file1" class="filestyle" data-icon="false" />
+                                                <div class="element" formArrayName="businessDocumentList_html"
+                                                *ngFor="let item of kycDetailsForm.get('businessDocumentList_html').controls; let i = index;">
+                                                <div class="row" [formGroupName]="i">
+                                                    <input formControlName="encodedFileContent" type="file"
+                                                        placeholder="Upload Document"
+                                                        (change)="selectFile($event, item)" name="document[]"
+                                                        id="upload_file{{i+1}}" class="filestyle" multiple=""   />
+
+                                                        <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
+                                                            <div class="inputDiv" *ngIf="i==0">
+                                                                <a href="javascript:void(0);" (click)="add(i,'business')" class="attachMore" id="attachMore">+
+                                                                    Add More</a>
+                                                            </div>
+                                                            <div class="inputDiv" *ngIf="i>0">
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore"
+                                                                    (click)="remove(i,'business')">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                                 </div>
 
 
-                                                <div id="moreImageUpload"></div>
+                                                <!-- <div id="moreImageUpload"></div>
                                                 <div class="clear"></div>
                                                 <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
                                                     <a href="javascript:void(0);" class="attachMore" id="attachMore">+
                                                         Add More Documents</a>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -93,8 +107,8 @@
                                             <div class="col-md-6">
                                                 <div class="inputDiv selectdiv">
 
-                                                    <select formControlName="perCountry">
-                                                        <option value=''>Select</option>
+                                                    <select id="perCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
                                                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
                                                     </select>
                                                     <label>Select Country</label>
@@ -102,7 +116,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="inputDiv selectdiv">
-                                                    <select formControlName="perDocument">
+                                                    <select id="perDocument">
                                                         <option [ngValue]="null" selected>Select</option>
                                                         <option value="Passport" >Passport</option>
                                                         <option value="Driving License" >Driving License</option>
@@ -112,10 +126,35 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                    <label>Upload Document (only pdf, jpeg, png)</label>
-                                                    <input type="file" name="Passport of Owner Signatory / Beneficiary "
-                                                        (change)="selectFile($event)" class="filestyle"
-                                                        data-icon="false">
+                                                <label>Upload Document (only pdf, jpeg, png)</label>
+                                                <div class="element" formArrayName="personalDocumentList_html"
+                                                *ngFor="let item of kycDetailsForm.get('personalDocumentList_html').controls; let i = index;">
+                                                <div class="row" [formGroupName]="i">
+                                                    <input formControlName="encodedFileContent" type="file"
+                                                        placeholder="Upload Document"
+                                                        (change)="selectFile_KYC($event)" name="document[]"
+                                                        id="upload_file4{{i+1}}" class="filestyle" multiple=""   />
+
+                                                        <div class="col-md-3" id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                            <div class="inputDiv" *ngIf="i==0">
+                                                                <a href="javascript:void(0);" (click)="add(i)" class="attachMore" id="attachMore">+
+                                                                    Add More</a>
+                                                            </div>
+                                                            <div class="inputDiv" *ngIf="i>0">
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore"
+                                                                    (click)="remove(i)">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </div>
+
+
+                                                <!-- <div id="moreImageUpload"></div>
+                                                <div class="clear"></div>
+                                                <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                    <a href="javascript:void(0);" class="attachMore" id="attachMore">+
+                                                        Add More Documents</a>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>

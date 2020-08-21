@@ -87,9 +87,20 @@ export class SubscriptionComponent implements OnInit {
     this.choosedPlan.userId = sessionStorage.getItem('userID');
     this.isNew = false;
     this.isOrder = true;
-    this.subscriptionService.viewAdvisory().subscribe(response => {
+    this.viewVASPlans();
+  }
+
+  viewVASPlans(){
+    let data = {
+      "country_name": sessionStorage.getItem("registeredCountry")
+    }
+    this.subscriptionService.viewAdvisory(data).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
-      this.advPrice = this.advDetails.pricing;
+      if(!this.advDetails){
+        this.showVASPlan = false;
+      }else{
+        this.advPrice = this.advDetails.pricing;
+      }
     })
   }
 

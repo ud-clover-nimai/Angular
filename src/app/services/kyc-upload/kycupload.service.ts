@@ -12,10 +12,10 @@ export class KycuploadService {
   constructor(private httpClient : HttpClient) { }
 
 
-  public upload(formData:FormData): Observable<HttpEvent<any>>{
+  public upload(formData): Observable<HttpEvent<any>>{
    
 
-    const req = new HttpRequest('POST', `${environment.domain}/nimaiKYC//kyc/saveKycDoc`, formData, {
+    const req = new HttpRequest('POST', `${environment.domain}/nimaiKYC/kyc/saveKycDoc`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

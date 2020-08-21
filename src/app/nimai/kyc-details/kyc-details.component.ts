@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { call } from '../../../assets/js/bootstrap-filestyle.min'
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { loadFilestyle ,loads} from '../../../assets/js/commons'
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import * as $ from '../../../assets/js/jquery.min';
+
 
 @Component({
   selector: 'app-kyc-details',
@@ -23,6 +25,8 @@ export class KycDetailsComponent implements OnInit {
   isBank: boolean = false;
   isCustomer: boolean = false;
   resp: any;
+  imageSrc: any;
+  itemData:any = [];
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -58,42 +62,83 @@ export class KycDetailsComponent implements OnInit {
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
 
+     this.kycDetailsForm = this.fb.group({
+      businessDocumentList: this.fb.array([]),
+      personalDocumentList: this.fb.array([]),
+      businessDocumentList_html: this.fb.array([this.getBusiList()]),
+      personalDocumentList_html: this.fb.array([this.getPersList()]),
+
+    });
+
   }
 
   ngOnInit() {
-    this.kycDetailsForm = this.fb.group({
-      file: [''],
-      busiDocument: [''],
-      busiCountry: [''],
-      perCountry:[''],
-      perDocument:[''],
-
-    });
+   
     loads();
     this.titleService.changeTitle(this.title);
   }
 
+  getBusiList(){
+    return this.fb.group({
+    documentName: [''],
+    title: ['Business'],
+    country: [''],
+    encodedFileContent: [''],
+    documentType: ['jpg']
+  });
+}
+
+  getPersList(){
+    return this.fb.group({
+    documentName: [''],
+    title: ['Personal'],
+    country: [''],
+    encodedFileContent: [''],
+    documentType: ['jpg']
+  });
+}
+
+add(i: number, type) {
+  if(type){
+    let items = this.kycDetailsForm.get('businessDocumentList_html') as FormArray;
+    if (items.length < 3)
+    {
+      items.push(this.getBusiList());
+    }
+  }
+  else{
+    let items = this.kycDetailsForm.get('personalDocumentList_html') as FormArray;
+    if (items.length < 3)
+    {
+      items.push(this.getPersList());
+    }
+  }
+}
+
+remove(i: number, type) {
+  if(type){
+    let items = this.kycDetailsForm.get('businessDocumentList_html') as FormArray;
+    items.removeAt(i);
+  }
+  else{
+    let items = this.kycDetailsForm.get('personalDocumentList_html') as FormArray;
+    items.removeAt(i);
+  }
+}
+
 
   submit(): void {
 
-    const formData: FormData = new FormData();
-
-    if (this.selectedFiles.length) {
-      for (let i = 0; i < this.selectedFiles.length; i++)
-        formData.append('files', this.selectedFiles[i], this.selectedFiles[i].name),this;
+    var data = {
+      "userId" : sessionStorage.getItem("userID"),
+      "businessDocumentList": this.kycDetailsForm.get('businessDocumentList').value,
+      "personalDocumentList": this.kycDetailsForm.get('personalDocumentList').value,
     }
 
-    formData.append('userId', sessionStorage.getItem('userID'));
-    formData.append('fileType', 'pdf');
-
-    this.kycService.upload(formData)
+    this.kycService.upload(data)
       .subscribe(
-        event => {
-          if (event.type === HttpEventType.UploadProgress) {
-            console.log(Math.round(100 * event.loaded / event.total));
-          } else if (event instanceof HttpResponse) {
-            console.log(event.body.message);
-          }
+        resp => {
+          
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Thank you for submitting the KYC documents.',
@@ -123,27 +168,68 @@ export class KycDetailsComponent implements OnInit {
 
   }
 
-  selectFile(event) {
-
-    console.log("event-------",event)
-    if (event.target.files.length) {
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.selectedFiles.push(<File>event.target.files[i]);
-      }
+  selectFile(e, data) {
+    $("#moreImageUploadLinkType").show();
+    this.itemData = data;
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
     }
-    call();
-    console.log("selectedFiles",this.selectedFiles)
+    else{
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsDataURL(file);     
+    }
+    
+  }
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+
+    const control = <FormArray>this.kycDetailsForm.get('businessDocumentList');
+
+     control.push(this.fb.group({
+      documentName: $('#busiDocument').val(),
+      title: ['Personal'],
+      country: $('#busiCountry').val(),
+      encodedFileContent: [this.imageSrc],
+      documentType: ['jpg']      
+    }));
+
   }
 
-  creatFile(): FormGroup {
-    return this.fb.group({
-      file: ''
-    })
+  selectFile_KYC(e) {
+      // $("#moreImageUploadLink").show();
+    
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    else{
+      reader.onload = this._handleReaderLoaded_KYC.bind(this);
+      reader.readAsDataURL(file);
+    }
+    
+  }
+  _handleReaderLoaded_KYC(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+
+    const control = <FormArray>this.kycDetailsForm.get('personalDocumentList');
+
+     control.push(this.fb.group({
+      documentName: $('#perDocument').val(),
+      title: ['Personal'],
+      country: $('#perCountry').val(),
+      encodedFileContent: [this.imageSrc],
+      documentType: ['jpg']      
+    }));
   }
 
-  addItem() {
-    let item = this.kycDetailsForm.get('files') as FormArray;
-    item.push(this.creatFile());
-  }
-
+  
 }

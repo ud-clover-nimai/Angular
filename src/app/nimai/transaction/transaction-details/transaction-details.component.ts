@@ -187,7 +187,7 @@ reOpenTransaction(transactionId){
   if($('#addOptions select').val() == "Rejected"){
   var data = {
     "transactionId":transactionId,
-    "userId":"CU1313"
+    "userId":sessionStorage.getItem('userID'),
     }
     this.nts.custReopenTransaction(data).subscribe(
       (response) => {

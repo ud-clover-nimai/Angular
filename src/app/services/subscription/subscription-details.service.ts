@@ -27,8 +27,8 @@ export class SubscriptionDetailsService {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/saveUserSubscriptionPlan/` + userID, plan, { headers: { 'content-type': 'application/json' } })
   }
 
-  public viewAdvisory(): Observable<Subscription> {
-    return this.httpClient.get<Subscription>(`${environment.domain}/nimaiSPlan/viewAdvisory` , { headers: { 'content-type': 'application/json' } })
+  public viewAdvisory(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getAdvisoryListByCountry` ,data, { headers: { 'content-type': 'application/json' } })
   }
 
   public getTotalCount(data): Observable<any> {
