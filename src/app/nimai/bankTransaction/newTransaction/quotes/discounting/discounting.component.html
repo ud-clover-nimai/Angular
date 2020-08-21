@@ -67,7 +67,8 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="text" [(ngModel)]="dataViewEdit.validityDate" placeholder="28/03/2020"></td>
+                                 <td><input type="date"[ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                    (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                               </tr> 
                               <tr *ngIf="title=='View'">
                                  <td>Total Quote</td>
