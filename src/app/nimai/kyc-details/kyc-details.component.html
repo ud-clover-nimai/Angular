@@ -36,28 +36,29 @@
                                             <div class="col-md-6">
                                                 <div class="inputDiv selectdiv">
                                                     <select formControlName="busiCountry">
-                                                        <option [ngValue]="null" selected>Select</option>
-                                                        <option value="1" >India</option>
-                                                        <option value="2" >Bangladesh
-                                                        </option>
-                                                        <option value="3" >Kenya</option>
-                                                        <option value="4" >Nigeria</option>
-                                                        <option value="5" >UAE </option>
-                                                        <option value="6" >Qatar</option>
+                                                        <option value=''>Select</option>
+                                                        <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
                                                     </select>
                                                     <label>Select Country</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" *ngIf="isCustomer">
                                                 <div class="inputDiv selectdiv">
                                                     <select formControlName="busiDocument">
                                                         <option [ngValue]="null" selected>Select</option>
-                                                        <option value="1" >Company
-                                                            Registration Document</option>
-                                                        <option value="2" >Bank Account
-                                                            Statement</option>
-                                                        <option value="3" >Tax Receipt
-                                                        </option>
+                                                        <option value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
+                                                        <option value="Address Proof">Address Proof</option>
+                                                        <option value="Tax identification document">Tax identification document</option>
+                                                    </select>
+                                                    <label>Valid Documents</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="isBank">
+                                                <div class="inputDiv selectdiv">
+                                                    <select formControlName="busiDocument">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="Statutory License">Statutory License</option>
+                                                        <option value="Address Proof">Address Proof</option>
                                                     </select>
                                                     <label>Valid Documents</label>
                                                 </div>
@@ -93,14 +94,8 @@
                                                 <div class="inputDiv selectdiv">
 
                                                     <select formControlName="perCountry">
-                                                        <option [ngValue]="null" selected>Select</option>
-                                                        <option value="1" >India</option>
-                                                        <option value="2" >Bangladesh
-                                                        </option>
-                                                        <option value="3" >Kenya</option>
-                                                        <option value="4" >Nigeria</option>
-                                                        <option value="5" >UAE </option>
-                                                        <option value="6" >Qatar</option>
+                                                        <option value=''>Select</option>
+                                                        <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
                                                     </select>
                                                     <label>Select Country</label>
                                                 </div>
@@ -109,11 +104,9 @@
                                                 <div class="inputDiv selectdiv">
                                                     <select formControlName="perDocument">
                                                         <option [ngValue]="null" selected>Select</option>
-                                                        <option value="1" >Passport</option>
-                                                        <option value="2" >Driving License
-                                                        </option>
-                                                        <option value="3" >National Identity
-                                                            Card</option>
+                                                        <option value="Passport" >Passport</option>
+                                                        <option value="Driving License" >Driving License</option>
+                                                        <option value="National Identity Card" >National Identity Card</option>
                                                     </select>
                                                     <label>Valid Documents</label>
                                                 </div>

@@ -20,6 +20,9 @@ export class KycDetailsComponent implements OnInit {
   public subURL: string = "";
   public parentURL: string = "";
   parentRedirection: string = "account-review";
+  isBank: boolean = false;
+  isCustomer: boolean = false;
+  resp: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -45,6 +48,15 @@ export class KycDetailsComponent implements OnInit {
       }
     }
 
+    let userID = sessionStorage.getItem("userID");
+    if((userID.startsWith('BA')) || (userID.startsWith('BC'))){
+      this.isBank = true;
+    }
+    else if(userID.startsWith('CU')){
+      this.isCustomer = true;
+    }
+
+    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
 
