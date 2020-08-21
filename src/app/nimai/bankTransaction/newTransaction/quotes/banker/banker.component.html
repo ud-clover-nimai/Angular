@@ -86,17 +86,9 @@
                               </td>
                            </tr>
                            <tr>
-                              <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right"
-                                    title="Date before which the customer should accept your quote."><i
-                                       class="fas fa-info-circle"
-                                       style="font-size: 11px !important;color: #333;"></i></a> </td>
-                              <td><input type="date" name="validityDate" [(ngModel)]="dataViewEdit.validityDate"
-                                    #validityDate="ngModel"
-                                    [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required>
-                                 <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
-                                    <div *ngIf="validityDate.errors.required">Validity date is required</div>
-                                 </div>
-                              </td>
+                              <td>Validity</td>
+                              <td><input type="date" name="validityDate" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                            </tr>
                            <tr *ngIf="title=='View'">
                               <td>Total Quote</td>

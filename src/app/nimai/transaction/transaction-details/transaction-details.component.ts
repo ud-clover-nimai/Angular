@@ -29,6 +29,7 @@ export class TransactionDetailsComponent {
   public parentURL: string = "";
   public subURL: string = "";
   dataSourceLength: boolean = false;
+  quotationReqType: void;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService ) {
     this.titleService.quote.next(false);
@@ -110,7 +111,7 @@ export class TransactionDetailsComponent {
     
   }
 
-  displayQuoteDetails(transactionId){
+  displayQuoteDetails(transactionId,reqType){
     let data = {
       "userId": sessionStorage.getItem('userID'),
       "transactionId": transactionId,
@@ -120,7 +121,9 @@ export class TransactionDetailsComponent {
     this.nts.getQuotationDetails(data).subscribe(
         (response) => {
           this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
+         this.quotationReqType=reqType;
           console.log(this.quotationdata);
+          console.log(this.quotationReqType)
         },
         (error) => {}
     )
@@ -187,7 +190,7 @@ reOpenTransaction(transactionId){
   if($('#addOptions select').val() == "Rejected"){
   var data = {
     "transactionId":transactionId,
-    "userId":"CU1313"
+    "userId":sessionStorage.getItem('userID'),
     }
     this.nts.custReopenTransaction(data).subscribe(
       (response) => {
