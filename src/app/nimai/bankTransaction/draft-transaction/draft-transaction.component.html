@@ -24,7 +24,7 @@
                                         <td>Draft</td>
                                         <td>{{list.requirementType}}</td>
                                         <td>{{list.transactionId}}</td>
-                                        <td>{{list.insertedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
+                                        <td>{{list.modifiedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
                                         <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>
                                         <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list)">Delete</button></td>
                                    

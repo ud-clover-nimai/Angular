@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   public areaExpandedtra:boolean=false;
   draftData: any;
   draftcount:any;
+  draftcountBank:any;
   nimaiCount: any = "";
   constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
@@ -120,6 +121,21 @@ export class DashboardComponent implements OnInit {
         
       }
       )
+
+      const data = {
+        "bankUserId":sessionStorage.getItem('userID')
+        }
+       this.service.getBankDraftQuotation(data).subscribe(
+          (response) => {
+            this.draftData = JSON.parse(JSON.stringify(response)).data;
+            if(this.draftData.length>0){
+              this.draftcountBank=this.draftData.length;
+            }
+          },(error) =>{
+           
+          }
+          )
+
   }
   search(): void {
 
