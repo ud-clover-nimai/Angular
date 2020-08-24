@@ -118,9 +118,6 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
-
-
-
   onNegotChange(value) {
 
     this.selectMature = 'no';

@@ -69,10 +69,7 @@ export class TrasactionDetailsComponent {
   }
 
   changeStatusCall(status) {
-
     this.getAllnewTransactions(status);
-
-
   }
 
 
@@ -127,6 +124,4 @@ export class TrasactionDetailsComponent {
       (err) => { }
     )
   }
-
-
 } 

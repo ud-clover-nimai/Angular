@@ -7,7 +7,6 @@
             <h4>{{title}}</h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 50px;">
                <div class="tab-pane active" id="pill1">
-                  <!-- <p class="notes">The Customer has reopened this transaction. You can validate your last quote details before submitting it or click cancel if do not want to quote again for this transaction.</p> -->
                   <table class="table">
                      <tbody>
                         <tr>
@@ -76,10 +75,7 @@
                         Preview
                         <div class="ripple-container"></div>
                      </button>
-                     <!-- <button class="btn btn-info" (click)="transaction('ok')">
-                              Save
-                              <div class="ripple-container"></div>
-                           </button> -->
+                    
                   </div>
                </div>
             </div>
@@ -146,7 +142,6 @@
                         Submit
                         <div class="ripple-container"></div>
                      </button>
-                     <!-- <a href="#" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
                      <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
                         Edit
                         <div class="ripple-container"></div>
@@ -222,7 +217,6 @@
                         <table class="table">
                            <tbody>
                               <br>
-                              <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
                               <tr>
                                  <td>Applicable Benchmark , if any</td>
                                  <td><input type="text" name="applicableBenchmark"
@@ -336,7 +330,6 @@
                      </div>
                      <table class="table">
                         <tbody>
-                           <!-- <tr><td>The currency of the quote <b> {{data.lCCurrency}}</b></td></tr> -->
                            <br>
                            <tr>
                               <td>Applicable Benchmark , if any<br><small
@@ -440,12 +433,10 @@
 
 <div id="myModalRef" style="display: none;" class="popupnew modal">
    <div class="modal-dialog modal-md emaildiv">
-      <!-- Modal content-->
       <div class="modal-content">
          <div class="modal-body">
             <h2> Trasaction Fail</h2>
             <div class="padnew">
-               <!--<p><strong>Enter Email ID here</strong></p> -->
                <div class="">
                   <div class="row">
                      <div class="col-md-12">

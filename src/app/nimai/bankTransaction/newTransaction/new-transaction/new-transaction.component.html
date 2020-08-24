@@ -1,352 +1,349 @@
-
 <div class="content">
-  <div class="container-fluid">
-     <div class="row">
-        <div class="col-md-12">
-           <div class="card">
-              <div class="card-header card-header-icon" data-background-color="blue">
-                 <i class="fa fa-th-list"></i>
-              </div>
-              <div class="card-content">
-                 <h4 class="card-title pull-left">New Requests</h4>
-                 
-                 <!-- <h4 class="card-title">
-                  <span id="changetext"> New Requests</span> 
-                  <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn">
-                    <span class="fas fa-long-arrow-alt-left"></span> Back</a>
-                  </h4>    -->
-          
-                 <form>
-                  <div class="row" *ngIf="hasNoRecord">
-                    <div class="col-md-12">
-                        No records available
-                      </div>
-                  </div>
-                    <div class="row" *ngIf="!hasNoRecord">
-                       <div class="col-md-12">
-                          <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
-                             <table class="table table-hover" id="datatables">
-                                <thead>
-                                  <tr>
-                                    <th class="disabled-sorting text-center">#</th> 
-                                    <th style="min-width: 166px;">Date & Time</th>
-                                    <th style="min-width: 166px;">Transaction ID</th>
-                                    <th style="min-width: 150px;">LC Issuing Bank</th>
-                                    <th style="min-width: 130px;">Requirement Type</th>
-                                    <th style="min-width: 80px;">LC Value</th>
-                                    <th style="min-width: 80px;">Goods</th>
-                                    <th style="min-width: 150px;">Applicant Name</th>
-                                    <th style="min-width: 150px;">Beneficiary Name</th>
-                                    <th style="min-width: 150px;">Valid Till</th>                                
-                                    <th style="min-width: 130px;">Action</th>
-                                 </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let record of detail; let i = index">
-                                    <td>{{i+1}}</td>
-                                    <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                                  <td>{{record.transactionId}}</td>
-                                    <td>{{record.lCIssuanceBank}}</td>
-                                    <td>{{record.requirementType}}</td>
-                                    <td>{{record.lCValue}}</td>
-                                    <td>{{record.goodsType}}</td>
-                                    <td>{{record.applicantName}}</td>
-                                    <td>{{record.beneName}}</td>
-                                                                      
-                                    <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
-                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,2,record)"
-                                            class="handle btn btn-info btn-round">Place Quote<div class="ripple-container"></div></a>
-                                            <a href="javascript:void()" (click)="showDetail(record)" style="color: blue;text-decoration: underline;"
-                                            class="handleDetail">Detail<div class="ripple-container"></div></a>
-                                          
-                                          </td>
-                              
-                                          </tr>
-                                </tbody>
-                             </table>
-                          </div>
-                            </div>
-                    </div>
-                    <div class="clearfix"></div>
-                 </form>
-              </div>
-           </div>
-        </div>
-     </div>
-  </div>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header card-header-icon" data-background-color="blue">
+                  <i class="fa fa-th-list"></i>
+               </div>
+               <div class="card-content">
+                  <h4 class="card-title pull-left">New Requests</h4>
+                  <form>
+                     <div class="row" *ngIf="hasNoRecord">
+                        <div class="col-md-12">
+                           No records available
+                        </div>
+                     </div>
+                     <div class="row" *ngIf="!hasNoRecord">
+                        <div class="col-md-12">
+                           <div class="table-responsive material-datatables" id="transactionID" cellspacing="0"
+                              width="100%" style="width:100%">
+                              <table class="table table-hover" id="datatables">
+                                 <thead>
+                                    <tr>
+                                       <th class="disabled-sorting text-center">#</th>
+                                       <th style="min-width: 166px;">Date & Time</th>
+                                       <th style="min-width: 166px;">Transaction ID</th>
+                                       <th style="min-width: 150px;">LC Issuing Bank</th>
+                                       <th style="min-width: 130px;">Requirement Type</th>
+                                       <th style="min-width: 80px;">LC Value</th>
+                                       <th style="min-width: 80px;">Goods</th>
+                                       <th style="min-width: 150px;">Applicant Name</th>
+                                       <th style="min-width: 150px;">Beneficiary Name</th>
+                                       <th style="min-width: 150px;">Valid Till</th>
+                                       <th style="min-width: 130px;">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr *ngFor="let record of detail; let i = index">
+                                       <td>{{i+1}}</td>
+                                       <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                       <td>{{record.transactionId}}</td>
+                                       <td>{{record.lCIssuanceBank}}</td>
+                                       <td>{{record.requirementType}}</td>
+                                       <td>{{record.lCValue}}</td>
+                                       <td>{{record.goodsType}}</td>
+                                       <td>{{record.applicantName}}</td>
+                                       <td>{{record.beneName}}</td>
+
+                                       <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
+                                       <td><a href="javascript:void()"
+                                             (click)="showQuotePage(record.requirementType,2,record)"
+                                             class="handle btn btn-info btn-round">Place Quote<div
+                                                class="ripple-container"></div></a>
+                                          <a href="javascript:void()" (click)="showDetail(record)"
+                                             style="color: blue;text-decoration: underline;" class="handleDetail">Detail
+                                             <div class="ripple-container"></div></a>
+
+                                       </td>
+
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 
 
 
 
 <div id="menubarDetail" [hidden]="!isActive" (blur)="closedQuote()"
-style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
 
-         <div class="popupcontent">
-            <div class="card">
-               <div class="card-content">
-                  <h4>Details</h4>
-                    <div class="tab-content" style="height: 552px;overflow: auto;">
-<div class="tab-pane active" id="pill111" >
+   <div class="popupcontent">
+      <div class="card">
+         <div class="card-content">
+            <h4>Details</h4>
+            <div class="tab-content" style="height: 552px;overflow: auto;">
+               <div class="tab-pane active" id="pill111">
                   <div class="row">
                      <div class="col-md-12" style="padding-right: 0px !important;">
-                     <table class="table table-bordered">
-                        <thead>
-                           <tr>
-                              <th>Transaction ID</th>
-                              <th>{{data.transactionId}}</th>
-                           </tr>                        
-                           <tr>
-                              <th colspan="2">Applicant</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>Name</td>
-                              <td>{{data.applicantName}}</td>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.applicantCountry}}</td>
-                           </tr>
-                           <tr *ngIf="data.userType == 'Beneficiary'">
-                              <td>Contact Person</td>
-                              <td>{{data.applicantContactPerson}}</td>
-                           </tr>
-                           <tr *ngIf="data.userType == 'Beneficiary'">
-                              <td>Email Id</td>
-                              <td>{{data.applicantContactPersonEmail}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <table class="table table-bordered">
-                        <thead></thead>
-                        <tbody>
-                           <tr>
-                              <th colspan="2">Beneficiary</th>
-                           </tr>
-                           <tr>
-                              <td>Name </td>
-                              <td>{{data.beneName}}</td>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.beneCountry}}</td>
-                           </tr>
-                           <tr *ngIf="data.userType == 'Applicant'">
-                              <td>Contact Person</td>
-                              <td>{{data.beneContactPerson}}</td>
-                           </tr>
-                           <tr *ngIf="data.userType == 'Applicant'">
-                              <td>Email Id</td>
-                              <td>{{data.beneContactPersonEmail}}</td>
-                           </tr>
-                           <tr>
-                              <td>Bank</td>
-                              <td>{{data.beneBankName}}</td>
-                           </tr>
-                           <tr>
-                              <td>Swift Code</td>
-                              <td>{{data.beneSwiftCode}}</td>
-                           </tr>
-                           <tr>
-                              <td>Bank Country</td>
-                              <td>{{data.beneBankCountry}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <table class="table table-bordered">
-                        <thead>
-                           <tr>
-                              <th colspan="2">LC Details</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>LC Issuing Bank</td>
-                              <td>{{data.lCIssuanceBank}}</td>
-                           </tr>
-                           <tr>
-                              <td>Branch </td>
-                              <td>{{data.lCIssuanceBranch}}</td>
-                           </tr>
-                           <tr>
-                              <td>Swift Code</td>
-                              <td>{{data.swiftCode}}</td>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.lCIssuanceCountry}}</td>
-                           </tr>
-                           <tr>
-                              <td>Requirement</td>
-                              <td>{{data.requirementType}}</td>
-                           </tr>
-                           <tr>
-                              <td>Amount</td>
-                              <td>{{data.lCValue}}</td>
-                           </tr>
-                           <tr>
-                              <td>Currency</td>
-                              <td>{{data.lCCurrency}}</td>
-                           </tr>
-                           <tr>
-                              <td>LC Issuing Date</td>
-                              <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
-                           </tr>
-                           <tr *ngIf="data.requirementType != 'Refinance'">
-                              <td>LC Negotiation Date</td>
-                              <td>{{data.negotiationDate | date : 'dd-MM-y'}}</td>
-                           </tr>
-                           <tr *ngIf="data.requirementType != 'Refinance'">
-                              <td>Last Shipment Date</td>
-                              <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                           </tr>
-                           <tr>
-                              <td>Goods</td>
-                              <td>{{data.goodsType}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-   
-                     <table class="table table-bordered" *ngIf="data.requirementType != 'Refinance'">
-                        <tbody>
-                           <tr>
-                              <th colspan="2">Tenor of Deferred Payment </th>
-                           </tr>
-                           <tr *ngIf="data.requirementType == 'Banker'">
-                              <td>Period for which financing is required</td>
-                              <td>{{data.discountingPeriod}}</td>
-                           </tr>
-                           <tr *ngIf="data.requirementType == 'Discounting'">
-                              <td>Usance (Days)</td>
-                              <td>{{data.discountingPeriod}}</td>
-                           </tr>
-                           <tr *ngIf="data.requirementType == 'ConfirmAndDiscount' || data.requirementType == 'Confirmation'">
-                              <td>Usance (Days)</td>
-                              <td>{{data.confirmationPeriod}}</td>
-                           </tr>
-                           <tr>
-                              <td>Payments terms to seller as per LC </td>
-                              <td>{{data.paymentTerms}}</td>
-                           </tr>
-                        </tbody>
-                     </table>   
-                     <table class="table table-bordered" *ngIf="data.requirementType == 'Refinance'">
-                        <tbody>
-                           <tr>
-                              <th colspan="2">Tenor of Deferred Payment </th>
-                           </tr>
-                           <tr>
-                              <td>Orignal Usance (Tenor) of LC</td>
-                              <td>{{data.originalTenorDays}}</td>
-                           </tr>
-                           <tr>
-                              <td>Period for which refinancing is required</td>
-                              <td>{{data.refinancingPeriod}}</td>
-                           </tr>
-                           <tr>
-                              <td>LC Maturity Date</td>
-                              <td>{{data.lcMaturityDate | date : "dd-MM-y"}}</td>
-                           </tr>
-                           <tr>
-                              <th colspan="2">Beneficiary Details of Last Transaction</th>
-                           </tr>
-                           <tr>
-                              <td>LC Number</td>
-                              <td>{{data.lcNumber}}</td>
-                           </tr>
-                           <tr>
-                              <td>Beneficiary Bank Name</td>
-                              <td>{{data.lastBeneBank}}</td>
-                           </tr>
-                           <tr>
-                              <td>Swift Code</td>
-                              <td>{{data.lastBeneSwiftCode}}</td>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.lastBankCountry}}</td>
-                           </tr>
+                        <table class="table table-bordered">
+                           <thead>
+                              <tr>
+                                 <th>Transaction ID</th>
+                                 <th>{{data.transactionId}}</th>
+                              </tr>
+                              <tr>
+                                 <th colspan="2">Applicant</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>Name</td>
+                                 <td>{{data.applicantName}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.applicantCountry}}</td>
+                              </tr>
+                              <tr *ngIf="data.userType == 'Beneficiary'">
+                                 <td>Contact Person</td>
+                                 <td>{{data.applicantContactPerson}}</td>
+                              </tr>
+                              <tr *ngIf="data.userType == 'Beneficiary'">
+                                 <td>Email Id</td>
+                                 <td>{{data.applicantContactPersonEmail}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                           <thead></thead>
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Beneficiary</th>
+                              </tr>
+                              <tr>
+                                 <td>Name </td>
+                                 <td>{{data.beneName}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.beneCountry}}</td>
+                              </tr>
+                              <tr *ngIf="data.userType == 'Applicant'">
+                                 <td>Contact Person</td>
+                                 <td>{{data.beneContactPerson}}</td>
+                              </tr>
+                              <tr *ngIf="data.userType == 'Applicant'">
+                                 <td>Email Id</td>
+                                 <td>{{data.beneContactPersonEmail}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Bank</td>
+                                 <td>{{data.beneBankName}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Swift Code</td>
+                                 <td>{{data.beneSwiftCode}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Bank Country</td>
+                                 <td>{{data.beneBankCountry}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                           <thead>
+                              <tr>
+                                 <th colspan="2">LC Details</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>LC Issuing Bank</td>
+                                 <td>{{data.lCIssuanceBank}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Branch </td>
+                                 <td>{{data.lCIssuanceBranch}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Swift Code</td>
+                                 <td>{{data.swiftCode}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.lCIssuanceCountry}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Requirement</td>
+                                 <td>{{data.requirementType}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Amount</td>
+                                 <td>{{data.lCValue}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Currency</td>
+                                 <td>{{data.lCCurrency}}</td>
+                              </tr>
+                              <tr>
+                                 <td>LC Issuing Date</td>
+                                 <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                              </tr>
+                              <tr *ngIf="data.requirementType != 'Refinance'">
+                                 <td>LC Negotiation Date</td>
+                                 <td>{{data.negotiationDate | date : 'dd-MM-y'}}</td>
+                              </tr>
+                              <tr *ngIf="data.requirementType != 'Refinance'">
+                                 <td>Last Shipment Date</td>
+                                 <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Goods</td>
+                                 <td>{{data.goodsType}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
 
-                        </tbody>
-                     </table>                  
-                     <table class="table table-bordered">
-                        <tbody>
-                           <tr>
-                              <th colspan="2">Others</th>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.loadingCountry}}</td>
-                           </tr>
-                           <tr>
-                              <td>Port of Loading</td>
-                              <td>{{data.loadingPort}}</td>
-                           </tr>
-                           <tr>
-                              <td>Country</td>
-                              <td>{{data.dischargeCountry}}</td>
-                           </tr>
-                           <tr>
-                              <td>Port of Discharge</td>
-                              <td>{{data.dischargePort}}</td>
-                           </tr>
-                           <tr>
-                              <td>
-                                 Charges are on
-                              </td>
-                              <td>{{data.chargesType}}</td>
-                           </tr>
-                           <tr>
-                              <td>Validity</td>
-                              <td>{{data.validity | date : 'dd-MM-y'}}</td>
-                           </tr>
-                           <tr>
-                              <td>Pro Forma</td>
-                              <td><a style="cursor: pointer;color:blue;" (click)="showProForma(data.lcProForma)" class="">View</a>
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
+                        <table class="table table-bordered" *ngIf="data.requirementType != 'Refinance'">
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Tenor of Deferred Payment </th>
+                              </tr>
+                              <tr *ngIf="data.requirementType == 'Banker'">
+                                 <td>Period for which financing is required</td>
+                                 <td>{{data.discountingPeriod}}</td>
+                              </tr>
+                              <tr *ngIf="data.requirementType == 'Discounting'">
+                                 <td>Usance (Days)</td>
+                                 <td>{{data.discountingPeriod}}</td>
+                              </tr>
+                              <tr
+                                 *ngIf="data.requirementType == 'ConfirmAndDiscount' || data.requirementType == 'Confirmation'">
+                                 <td>Usance (Days)</td>
+                                 <td>{{data.confirmationPeriod}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Payments terms to seller as per LC </td>
+                                 <td>{{data.paymentTerms}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table table-bordered" *ngIf="data.requirementType == 'Refinance'">
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Tenor of Deferred Payment </th>
+                              </tr>
+                              <tr>
+                                 <td>Orignal Usance (Tenor) of LC</td>
+                                 <td>{{data.originalTenorDays}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Period for which refinancing is required</td>
+                                 <td>{{data.refinancingPeriod}}</td>
+                              </tr>
+                              <tr>
+                                 <td>LC Maturity Date</td>
+                                 <td>{{data.lcMaturityDate | date : "dd-MM-y"}}</td>
+                              </tr>
+                              <tr>
+                                 <th colspan="2">Beneficiary Details of Last Transaction</th>
+                              </tr>
+                              <tr>
+                                 <td>LC Number</td>
+                                 <td>{{data.lcNumber}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Beneficiary Bank Name</td>
+                                 <td>{{data.lastBeneBank}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Swift Code</td>
+                                 <td>{{data.lastBeneSwiftCode}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.lastBankCountry}}</td>
+                              </tr>
+
+                           </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                           <tbody>
+                              <tr>
+                                 <th colspan="2">Others</th>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.loadingCountry}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Port of Loading</td>
+                                 <td>{{data.loadingPort}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Country</td>
+                                 <td>{{data.dischargeCountry}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Port of Discharge</td>
+                                 <td>{{data.dischargePort}}</td>
+                              </tr>
+                              <tr>
+                                 <td>
+                                    Charges are on
+                                 </td>
+                                 <td>{{data.chargesType}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Validity</td>
+                                 <td>{{data.validity | date : 'dd-MM-y'}}</td>
+                              </tr>
+                              <tr>
+                                 <td>Pro Forma</td>
+                                 <td><a style="cursor: pointer;color:blue;" (click)="showProForma(data.lcProForma)"
+                                       class="">View</a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
                      </div>
                   </div>
                </div>
-      
-                     <div class="tab-pane" id="pill2">
-                        Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-                        <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
-                     </div>
-                     <div class="tab-pane" id="pill3">
-                        Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                        <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
-                     </div>
-                  </div>
+
+               <div class="tab-pane" id="pill2">
+                  Efficiently unleash cross-media information without cross-media value. Quickly maximize timely
+                  deliverables for real-time schemas.
+                  <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+               </div>
+               <div class="tab-pane" id="pill3">
+                  Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate
+                  one-to-one customer service with robust ideas.
+                  <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
                </div>
             </div>
          </div>
       </div>
+   </div>
+</div>
 
-      <div id="myModalAttach" class="modal3" style="display: none;">
-         <div class="modal-content-image">
-           <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
-           <div class="modal-body" style="text-align:center">
-             <h4>Attached document</h4>
-             <div class="row">
-               <div class="col-md-12">
-                <img [src]="document" />
-               </div>
-             </div>
-           </div>
+<div id="myModalAttach" class="modal3" style="display: none;">
+   <div class="modal-content-image">
+      <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align:center">
+         <h4>Attached document</h4>
+         <div class="row">
+            <div class="col-md-12">
+               <img [src]="document" />
+            </div>
          </div>
-       </div>
+      </div>
+   </div>
+</div>
 
-  <app-banker></app-banker>
-  <app-confirm-and-discount></app-confirm-and-discount>
-  <app-confirmation></app-confirmation>
-  <app-discounting></app-discounting>
-  <app-refinancing></app-refinancing>
-
-
-
-
+<app-banker></app-banker>
+<app-confirm-and-discount></app-confirm-and-discount>
+<app-confirmation></app-confirmation>
+<app-discounting></app-discounting>
+<app-refinancing></app-refinancing>
