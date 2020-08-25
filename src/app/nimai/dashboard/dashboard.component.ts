@@ -100,6 +100,7 @@ export class DashboardComponent implements OnInit {
     this.getNimaiCount();
   }
   callAllDraftTransaction(){
+    if(this.isCustomer){
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
     if(userIdDetail.startsWith('BC')){
@@ -121,7 +122,8 @@ export class DashboardComponent implements OnInit {
         
       }
       )
-
+    }
+      if(this.isBank){
       const data = {
         "bankUserId":sessionStorage.getItem('userID')
         }
@@ -135,6 +137,7 @@ export class DashboardComponent implements OnInit {
            
           }
           )
+        }
 
   }
   search(): void {
@@ -168,6 +171,9 @@ export class DashboardComponent implements OnInit {
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus );
+        sessionStorage.setItem('companyName', this.nimaiCount.companyname);
+        sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
       },
       error => {}
     )

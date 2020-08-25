@@ -29,7 +29,7 @@ export class BusinessDetailsComponent implements OnInit {
   resp: any;
   parentRedirection: string = "subscription";
   stateName: any = "";
-  countryName: any;
+  countryName: any = "";
 
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
@@ -59,9 +59,16 @@ export class BusinessDetailsComponent implements OnInit {
         this.parentRedirection = "my-profile";
       }
     }
+    let bdUserId = sessionStorage.getItem('userID');
+    if (bdUserId.startsWith('BA') || bdUserId.startsWith('RE')) {
+      this.isCustomer = false;
+    } else if (bdUserId.startsWith('CU') || bdUserId.startsWith('BC')) {
+      this.isCustomer = true;
+
+    }
 
     this.businessDetailsForm = this.fb.group({
-      userId: [''],
+      userId: sessionStorage.getItem('userID'),
       selector: ['', Validators.required],
       companyName: ['', [Validators.required,Validators.minLength(4)]],
       bank_designation: ['', [Validators.required,Validators.minLength(2)]],
@@ -146,11 +153,10 @@ export class BusinessDetailsComponent implements OnInit {
     this.businessDetailsForm.get('companyName').setValidators(Validators.required);
   }
   submit(): void {
-    this.validateCommons();
+    this.setValidators();
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    console.log("items",items.controls)
     console.log("this.businessDetailsForm.invalid",this.businessDetailsForm)
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
@@ -209,12 +215,7 @@ export class BusinessDetailsComponent implements OnInit {
             (response) => {
               let responseData = JSON.parse(JSON.stringify(response));
               this.bd = responseData.data;
-              if (this.bd.userId.startsWith('BA') || this.bd.userId.startsWith('RE')) {
-                this.isCustomer = false;
-              } else if (this.bd.userId.startsWith('CU') || this.bd.userId.startsWith('BC')) {
-                this.isCustomer = true;
-      
-              }
+              
               console.log("this.isCustomer",this.isCustomer)
               this.setValidators();
               this.businessDetailsForm.patchValue({
@@ -251,9 +252,6 @@ export class BusinessDetailsComponent implements OnInit {
               }, 1000);
       
               this.countryName = this.bd.registeredCountry;
-      
-              sessionStorage.setItem('companyName',this.bd.comapanyName);
-              sessionStorage.setItem('registeredCountry',this.bd.registeredCountry);
             },
             (error) => {
               this.titleService.loading.next(false);

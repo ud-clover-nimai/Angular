@@ -70,6 +70,10 @@ export class KycDetailsComponent implements OnInit {
 
     });
 
+    if(sessionStorage.getItem("KYCStatus").toLowerCase() == "pending"){
+      this.router.navigate([this.subURL + '/' + this.parentURL + '/account-review']);
+    }
+
   }
 
   ngOnInit() {
