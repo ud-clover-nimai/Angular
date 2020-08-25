@@ -139,6 +139,26 @@ remove(i: number, type) {
       "personalDocumentList": this.kycDetailsForm.get('personalDocumentList').value,
     }
 
+    let busi = this.kycDetailsForm.get('businessDocumentList') as FormArray;
+    if(busi.controls.length == 0){
+      this.failedError();
+      return;
+    } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select"){
+      this.failedError();
+      return;
+    }
+
+    let pers = this.kycDetailsForm.get('personalDocumentList') as FormArray;
+    if(pers.controls.length == 0){
+      this.failedError();
+      return;
+    } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select"){
+      this.failedError();
+      return;
+    }
+
+    
+
     this.kycService.upload(data)
       .subscribe(
         resp => {
@@ -155,21 +175,25 @@ remove(i: number, type) {
             .catch(console.error);
         },
         err => {
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: 'Oops! Something went wrong while uploading KYC documents',
-              message: '',
-              parent: this.subURL + '/' + this.parentURL + '/kyc-details'
-
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/error`], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-            .catch(console.error);
+          this.failedError();
         });
 
 
 
+  }
+
+  failedError(){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        title: 'Oops! Something went wrong while uploading KYC documents',
+        message: '',
+        parent: this.subURL + '/' + this.parentURL + '/kyc-details'
+
+      }
+    };
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/error`], navigationExtras)
+      .then(success => console.log('navigation success?', success))
+      .catch(console.error);
   }
 
   selectFile(e, data) {
