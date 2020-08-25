@@ -11,12 +11,13 @@
               <div class="card-content">
                  <h4 class="card-title pull-left">Transaction Details</h4>
                  <form>
-                  <div class="row" *ngIf="hasNoRecord">
+                  <!-- <div class="row" *ngIf="hasNoRecord">
                     <div class="col-md-12">
+                    
                         No records available
                       </div>
-                  </div>
-                    <div class="row" *ngIf="!hasNoRecord">
+                  </div> -->
+                    <div class="row">
                        <div class="col-md-12">
                           <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
@@ -889,21 +890,15 @@
               <div class="">
                  <div class="row">
                     <div class="col-md-12">
-                       <label>Select your reason for rejecting the transaction</label>
+                       <label>Enter your reason for rejecting the transaction</label>
                        <div class="form-group"></div>
-                       <div class="inputDiv selectdiv">
-                          <select name="selectReason" [(ngModel)]="selectReason.title" 
-                          #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
-                             <option value=''>Select</option>
-                             <option value="1">Bank not acceptable</option>
-                             <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
-                             <option value="2">Others</option>
-                          </select>
-
-                          <label>Select Reason</label>
+                                               
+                          <div class="inputDiv">
+                             <textarea rows="2" name="selectReason" [(ngModel)]="selectReason.title" 
+                             #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required ></textarea>
+                          </div>
                           <div *ngIf="f.submitted && selectReason.invalid" class="invalid-feedback">
-                           <div *ngIf="selectReason.errors.required">Please select reason to reject</div>
-                       </div>
+                           <div *ngIf="selectReason.errors.required">Please enter reason to reject</div>
                        </div>
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>

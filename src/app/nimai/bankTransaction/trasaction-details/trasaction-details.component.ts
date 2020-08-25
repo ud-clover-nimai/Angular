@@ -46,13 +46,13 @@ export class TrasactionDetailsComponent {
 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
-
         custTrnsactionDetail();
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
         this.getDetail(this.data)
+       
         if (!this.data) {
-          this.hasNoRecord = true;
+          this.hasNoRecord = false;        
         }
       },
       (error) => {
@@ -68,8 +68,9 @@ export class TrasactionDetailsComponent {
     this.specificDetail = detail;
   }
 
-  changeStatusCall(status) {
+  changeStatusCall(status) {       
     this.getAllnewTransactions(status);
+  
   }
 
 
