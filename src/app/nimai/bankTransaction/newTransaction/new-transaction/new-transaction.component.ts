@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { bankNewTransaction, custActiveTransaction } from 'src/assets/js/commons'
+import { bankNewTransaction } from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -30,8 +30,6 @@ export class NewTransactionComponent implements OnInit {
   public isActive: boolean = false;
   document: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
@@ -42,8 +40,6 @@ export class NewTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public detail: any;
-  public test: string = "";
-
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
 
@@ -180,7 +176,6 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-    //pagename='refinancing';
    
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);

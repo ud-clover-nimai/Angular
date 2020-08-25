@@ -175,13 +175,13 @@ export class RefinancingComponent implements OnInit {
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
-      });
+        });
       }
         break;
       case 'preview': {
-        if(this.title=='Edit'){
+        if (this.title == 'Edit') {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
@@ -196,7 +196,7 @@ export class RefinancingComponent implements OnInit {
               this.tab = 'tab1';
             }
           )
-        }else{
+        } else {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
@@ -328,8 +328,5 @@ export class RefinancingComponent implements OnInit {
         )
       }
     }
-
   }
-
-
 }
