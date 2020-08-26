@@ -29,6 +29,49 @@ export class RefinancingComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+
+    this.data = {
+      originalTenorDays:"",
+      refinancingPeriod:"",
+      lcMaturityDate:"",
+      lcNumber:"",
+      lastBeneBank:"",
+      lastBeneSwiftCode:"",
+      lastBankCountry:"",
+      loadingCountry:"",
+      loadingPort:"",
+      dischargeCountry:"",
+      dischargePort:"",
+      chargesType:"",
+      validity:"",
+      lcProForma:"",
+      applicantName:"",
+      applicantCountry:"",
+      userType:"",
+      applicantContactPerson:"",
+      applicantContactPersonEmail:"",
+      beneName:"",
+      beneCountry:"",
+      beneContactPerson:"",
+      beneContactPersonEmail:"",
+      beneBankName:"",
+      beneSwiftCode:"",
+      beneBankCountry:"",
+      lCIssuanceBank:"",
+      lCIssuanceBranch:"",
+      swiftCode:"",
+      lCIssuanceCountry:"",
+      requirementType:"",
+      lCValue:"",
+      lCCurrency:"",
+      lCIssuingDate:"",
+      negotiationDate:"",
+      lastShipmentDate:"",
+      goodsType:"",
+      discountingPeriod:"",
+      confirmationPeriod:"",
+      paymentTerms:"",    
+    }
     
     
   }

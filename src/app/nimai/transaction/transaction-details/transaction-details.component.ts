@@ -24,8 +24,8 @@ export class TransactionDetailsComponent {
   public hasNoRecord: boolean = false;
   public data: any;
   public specificDetail: any = "";
-  quotationdata: any;
-  document: any;
+  quotationdata: any = "";
+  document: any = "";
   public parentURL: string = "";
   public subURL: string = "";
   dataSourceLength: boolean = false;
