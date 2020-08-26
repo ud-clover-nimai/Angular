@@ -17,7 +17,7 @@
                                     <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
 
                                     </td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.4780" weightDirective>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.4780" weightDirective />
                                         <span class="pull-right percent">%</span>
                                         <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
                                     </td>
@@ -31,8 +31,8 @@
                                 </tr>
 
                               <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
-                           </td>
-                        </tr>
+                           
+                        
                         <tr>
                            <td>Minimum Transaction Charges</td>
                            <td>
@@ -43,7 +43,8 @@
                         <tr>
                            <td>Validity</td>
                            <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="dataViewEdit.validityDate = $event"></td>                          </tr>
+                              (ngModelChange)="dataViewEdit.validityDate = $event"></td>
+                            </tr>
                         <tr *ngIf="title=='View'">
                            <td>Total Quote</td>
                            <td>
@@ -222,7 +223,7 @@
 
                                         <tr>
                                             <td>Other Charges</td>
-                                            <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
+                                            <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective></td>
                                         </tr>
                                         <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Customer needs to pay standard swift transfer  &#10; charges" rows="3"></textarea>
 
@@ -232,7 +233,7 @@
                               </tr> -->
                                         <tr>
                                             <td>Minimum Transaction Charges</td>
-                                            <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
+                                            <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective></td>
                                         </tr>
                                         <tr>
                                             <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i

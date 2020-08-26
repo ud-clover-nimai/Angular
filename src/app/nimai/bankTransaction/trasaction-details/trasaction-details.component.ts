@@ -20,10 +20,10 @@ export class TrasactionDetailsComponent {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
-  public specificDetail: any;
+  public specificDetail: any = "";
   public isActive: boolean = false;
-  quotationdata: any;
-  document: any;
+  quotationdata: any = "";
+  document: any = "";
   selectReason: any = {
     title:''
   };

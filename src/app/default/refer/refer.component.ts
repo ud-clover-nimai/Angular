@@ -40,7 +40,6 @@ export class ReferComponent implements OnInit {
       this.showBranchUserId = true;
     }
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    console.log(JSON.parse(sessionStorage.getItem('countryData')));
 
   }
 
