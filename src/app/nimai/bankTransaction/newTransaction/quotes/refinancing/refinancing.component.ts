@@ -69,6 +69,42 @@ export class RefinancingComponent implements OnInit {
       confChgsNegot: 0,
       OtherChargesComments: "",
       termConditionComments: "",
+      //added by sanjeev
+      requirementType: '',
+      lCIssuanceBank: '',
+      lCIssuanceBranch: '',
+      swiftCode: '',
+      lCIssuanceCountry: '',
+      lCIssuingDate: '',
+      lCExpiryDate: '',
+      lCValue: '',
+      lCCurrency: '',
+      lastShipmentDate: '',
+      negotiationDate: '',
+      paymentPeriod: '',
+      paymentTerms: '',
+      tenorEndDate: '',
+      applicantName: '',
+      applicantCountry: '',
+      beneName: '',
+      beneBankCountry: '',
+      beneBankName: '',
+      beneSwiftCode: '',
+      beneCountry: '',
+      loadingCountry: '',
+      loadingPort: '',
+      dischargeCountry: '',
+      dischargePort: '',
+      chargesType: '',
+      validity: '',
+      transactionflag: '',
+      transactionStatus: '',
+      confirmedFlag: '',
+      goodsType: '',
+      quotationReceived: '',
+      discountingPeriod: '',
+      confirmationPeriod: '',
+      refinancingPeriod: ''
     }
 
     this.dataViewEdit = {
@@ -103,6 +139,8 @@ export class RefinancingComponent implements OnInit {
       userId: "",
       validity: null,
       validityDate: null,
+      discountingPeriod: '',
+      refinancingPeriod: ''
     }
   }
 

@@ -70,6 +70,42 @@ export class BankerComponent implements OnInit {
       confChgsNegot: 0,
       OtherChargesComments: "",
       termConditionComments: "",
+      //added by sanjeev
+      requirementType: '',
+      lCIssuanceBank: '',
+      lCIssuanceBranch: '',
+      swiftCode: '',
+      lCIssuanceCountry: '',
+      lCIssuingDate: '',
+      lCExpiryDate: '',
+      lCValue: '',
+      lCCurrency: '',
+      lastShipmentDate: '',
+      negotiationDate: '',
+      paymentPeriod: '',
+      paymentTerms: '',
+      tenorEndDate: '',
+      applicantName: '',
+      applicantCountry: '',
+      beneName: '',
+      beneBankCountry: '',
+      beneBankName: '',
+      beneSwiftCode: '',
+      beneCountry: '',
+      loadingCountry: '',
+      loadingPort: '',
+      dischargeCountry: '',
+      dischargePort: '',
+      chargesType: '',
+      validity: '',
+      transactionflag: '',
+      transactionStatus: '',
+      confirmedFlag: '',
+      goodsType: '',
+      quotationReceived: '',
+      discountingPeriod: '',
+      confirmationPeriod: '',
+      refinancingPeriod: ''
     }
 
     this.dataViewEdit = {
@@ -104,6 +140,8 @@ export class BankerComponent implements OnInit {
       userId: "",
       validity: null,
       validityDate: null,
+      discountingPeriod: '',
+      refinancingPeriod: ''
     }
   }
 
@@ -162,7 +200,7 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'submit': {
-       
+
         this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -178,14 +216,14 @@ export class BankerComponent implements OnInit {
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
-      });
+        });
       }
         break;
       case 'preview': {
-       
-        if(this.title=='Edit'){
+
+        if (this.title == 'Edit') {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
@@ -200,7 +238,7 @@ export class BankerComponent implements OnInit {
               this.tab = 'tab1';
             }
           )
-        }else{
+        } else {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);

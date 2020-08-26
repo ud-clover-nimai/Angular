@@ -8,12 +8,17 @@ export class CustomerCanActiveService implements CanActivate{
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  boolean {
         let userID = sessionStorage.getItem('userID');
+        if(userID){
         if(userID.startsWith('BC') || userID.startsWith('CU'))
         return true;
         else{
-            this.router.navigate(['page-not-found']);
+            this.router.navigate(['/']);
             return false;
         }
+    }else{
+        this.router.navigate(['/']);
+        return false;
+    }
     }
     
 }

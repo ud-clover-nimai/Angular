@@ -10,9 +10,7 @@
 </head>
 
 <body>
-    <!-- <div class="wrapper"> -->
 
-    <!-- <div class="main-panel"> -->
 
     <div class="content">
         <div class="container-fluid">
@@ -29,8 +27,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div>
-                                            <h4 class="card-title col-md-12"
-                                                style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                            <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
                                                 Business KYC
                                             </h4>
                                             <div class="col-md-6">
@@ -56,13 +53,9 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>Upload Document (only pdf, jpeg, png)</label>
-                                                <div class="element" formArrayName="businessDocumentList_html"
-                                                *ngFor="let item of kycDetailsForm.get('businessDocumentList_html').controls; let i = index;">
-                                                <div class="row" [formGroupName]="i">
-                                                    <input formControlName="encodedFileContent" type="file"
-                                                        placeholder="Upload Document"
-                                                        (change)="selectFile($event, item)" name="document[]"
-                                                        id="upload_file{{i+1}}" class="filestyle" multiple=""   />
+                                                <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].businessDocumentList_html['controls'];  let i = index;">
+                                                    <div class="row" [formGroupName]="i">
+                                                        <input formControlName="encodedFileContent" type="file" placeholder="Upload Document" (change)="selectFile($event, item)" name="document[]" id="upload_file{{i+1}}" class="filestyle" multiple="" />
 
                                                         <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
                                                             <div class="inputDiv" *ngIf="i==0">
@@ -70,20 +63,14 @@
                                                                     Add More</a>
                                                             </div>
                                                             <div class="inputDiv" *ngIf="i>0">
-                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore"
-                                                                    (click)="remove(i,'business')">Remove</a>
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,'business')">Remove</a>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                    </div>
                                                 </div>
 
 
-                                                <!-- <div id="moreImageUpload"></div>
-                                                <div class="clear"></div>
-                                                <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
-                                                    <a href="javascript:void(0);" class="attachMore" id="attachMore">+
-                                                        Add More Documents</a>
-                                                </div> -->
+
                                             </div>
                                         </div>
                                     </div>
@@ -91,8 +78,7 @@
 
                                     <div class="col-md-6">
                                         <div>
-                                            <h4 class="card-title col-md-12"
-                                                style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                            <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
                                                 Personal KYC
                                             </h4>
                                             <div class="col-md-6">
@@ -118,52 +104,40 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>Upload Document (only pdf, jpeg, png)</label>
-                                                <div class="element" formArrayName="personalDocumentList_html"
-                                                *ngFor="let item of kycDetailsForm.get('personalDocumentList_html').controls; let i = index;">
-                                                <div class="row" [formGroupName]="i">
-                                                    <input formControlName="encodedFileContent" type="file"
-                                                        placeholder="Upload Document"
-                                                        (change)="selectFile_KYC($event)" name="document[]"
-                                                        id="upload_file4{{i+1}}" class="filestyle" multiple=""   />
+                                                <div class="element" formArrayName="personalDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].personalDocumentList_html['controls'];   let i = index;">
+                                                    <div class="row" [formGroupName]="i">
+                                                        <input formControlName="encodedFileContent" type="file" placeholder="Upload Document" (change)="selectFile_KYC($event)" name="document[]" id="upload_file4{{i+1}}" class="filestyle" multiple="" />
 
                                                         <div class="col-md-3" id="moreImageUploadLink" style="display:none;margin-left: 10px;">
                                                             <div class="inputDiv" *ngIf="i==0">
-                                                                <a href="javascript:void(0);" (click)="add(i)" class="attachMore" id="attachMore">+
+                                                                <a href="javascript:void(0);" (click)="add(i,undefined)" class="attachMore" id="attachMore">+
                                                                     Add More</a>
                                                             </div>
                                                             <div class="inputDiv" *ngIf="i>0">
-                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore"
-                                                                    (click)="remove(i)">Remove</a>
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,undefined)">Remove</a>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                    </div>
                                                 </div>
 
 
-                                                <!-- <div id="moreImageUpload"></div>
-                                                <div class="clear"></div>
-                                                <div id="moreImageUploadLink" style="display:none;margin-left: 10px;">
-                                                    <a href="javascript:void(0);" class="attachMore" id="attachMore">+
-                                                        Add More Documents</a>
-                                                </div> -->
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                        
-                        <button type="submit" class="btn btn-info pull-right">Submit</button>
-                        <div class="clearfix"></div>
-                        </form>
+
+                                <button type="submit" class="btn btn-info pull-right">Submit</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-    </div>
 
-    <!-- </div> -->
-    <!-- </div> -->
     <router-outlet></router-outlet>
 </body>
 

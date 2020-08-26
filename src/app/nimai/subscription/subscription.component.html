@@ -27,8 +27,8 @@
 
                             <div class="col-md-4" *ngFor="let plan of subscriptionDetails">
                                 <div class="plan">
-                                    <div class="divplan" [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}">
-                                        <h3 class="plan-title">{{plan.subscriptionName}} &nbsp;|&nbsp; ${{plan.subscriptionAmount}}</h3>                            
+                                    <div class="divplan" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}">
+                                        <h3 class="plan-title">{{plan.subscriptionName}} &nbsp;|&nbsp; ${{plan.subscriptionAmount}}</h3>
                                     </div>
                                     <ul class="plan-features">
                                         <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
@@ -38,8 +38,8 @@
                                         <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{plan.relationshipManager}}</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" (click)="choosePlan(plan)"
-                                        [ngClass] = "{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}" class="plan-button">Buy Now</a>
+                                        <a href="javascript:void()" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                            class="plan-button">Buy Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -88,8 +88,8 @@
                             <div class="plans">
                                 <div class="col-md-4">
                                     <div class="plan">
-                                        <div class="divplan" [ngClass] = "{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}">
-                                            <h3 class="plan-title">{{choosedPlan.subscriptionName}} &nbsp;|&nbsp; ${{choosedPlan.subscriptionAmount}}</h3>                            
+                                        <div class="divplan" [ngClass]="{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}">
+                                            <h3 class="plan-title">{{choosedPlan.subscriptionName}} &nbsp;|&nbsp; ${{choosedPlan.subscriptionAmount}}</h3>
                                         </div>
                                         <ul class="plan-features">
                                             <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
@@ -127,28 +127,28 @@
                                 <div class="col-md-4">
                                     <div class="boxline" *ngIf="showVASPlan">
                                         <p>
-                                           <strong>Advisory Services</strong>
+                                            <strong>Advisory Services</strong>
                                         </p>
                                         <table>
-                                           <tr>
-                                              <td class="text-left">
-                                                 <ul>
-                                                    <li>{{advDetails.plan_name}}</li>
-                                                    <li>{{advDetails.description_1}}</li>
-                                                    <li>{{advDetails.description_2}}</li>
-                                                 </ul>
-                                              </td>
-                                              <td  class="text-right">
-                                                 <p><strong>US ${{advDetails.pricing}}</strong></p>
-                                              </td>
-                                           </tr>
-                                           <tr>
-                                              <td colspan="2">
-                                                 <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
-                                              </td>
-                                           </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <ul>
+                                                        <li>{{advDetails.plan_name}}</li>
+                                                        <li>{{advDetails.description_1}}</li>
+                                                        <li>{{advDetails.description_2}}</li>
+                                                    </ul>
+                                                </td>
+                                                <td class="text-right">
+                                                    <p><strong>US ${{advDetails.pricing}}</strong></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                                </td>
+                                            </tr>
                                         </table>
-                                     </div>
+                                    </div>
                                     <table class="table">
                                         <tr>
                                             <td>
@@ -162,8 +162,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="" class="coupantext" maxlength="15" />
-                                                <a 
-                                                    class="btn btn-info btn-xs pull-right marginzero">
+                                                <a class="btn btn-info btn-xs pull-right marginzero">
                                                     Apply
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -184,8 +183,7 @@
                                             </th>
                                         </tr>
                                     </table>
-                                    <button type="button" (click)="payNow()"
-                                        class="btn btn-info pull-right">
+                                    <button type="button" (click)="payNow(undefined)" class="btn btn-info pull-right">
                                         Continue
                                         <div class="ripple-container"></div>
                                     </button>
@@ -214,12 +212,11 @@
                                     <li class="active"><a>Payment Details</a></li>
                                 </ol>
                             </h4>
-                            <form [formGroup]="paymentForm"  class="col-md-12">
+                            <form [formGroup]="paymentForm" class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12 selection">
                                         <div class="radio-group">
-                                            <input checked="checked" type="radio" id="option-one" name="colorCheckbox"
-                                                value="red">
+                                            <input checked="checked" type="radio" id="option-one" name="colorCheckbox" value="red">
                                             <label for="option-one">Credit Card</label>
                                             <input type="radio" id="option-two" name="colorCheckbox" value="green">
                                             <label for="option-two">Wire Transfer</label>
@@ -232,8 +229,7 @@
                                                     <input type="text" maxlength="20">
                                                     <label>Card Number</label>
                                                 </div>
-                                                <img src="assets/images/accepted_c22e0.png"
-                                                    style="width: 180px !important;margin: -15px 0 15px 0;" />
+                                                <img src="assets/images/accepted_c22e0.png" style="width: 180px !important;margin: -15px 0 15px 0;" />
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="col-md-6">
@@ -253,8 +249,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="javascript:void()" (click)="payment()"
-                                            class="btn btn-info pull-right">Pay Now</a>
+                                        <a href="javascript:void()" (click)="payment()" class="btn btn-info pull-right">Pay Now</a>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="green box paymentpage col-md-12 form-group">
@@ -294,8 +289,7 @@
                                         <ul class="plan-features">
                                             <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
                                                     Credits</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span
-                                                    class="plan-feature-name">Branches</span></li>                                          
+                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
 
                                             <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer
                                                     Support</span></li>
@@ -308,8 +302,7 @@
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-8">
-                                    <p class="errormessage text-success" style="margin: 0 0 90px 0;">Congratulations!
-                                        Your Payment is Successful!</p>
+                                    <p class="errormessage text-success" style="margin: 0 0 90px 0;">Congratulations! Your Payment is Successful!</p>
                                     <div class="col-md-7">
                                         <div class="row">
                                             <table class="table table-bordered borderless">
@@ -339,7 +332,7 @@
                                     <!--added byashvini - “Next” button in the payment successful  page -->
                                     <div class="clearfix"></div>
                                     <div class="form-group"></div>
-                                    
+
                                     <p>A receipt with payment Transaction ID has been sent to {{custUserEmailId}}</p>
                                     <button class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
                                 </div>
@@ -358,25 +351,25 @@
     </div>
     <div id="myModal4" class="popupnew modal fade in" role="dialog">
         <div class="modal-dialog modal-md emaildiv">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-body">
-              <h2>Wire Transfer Details</h2>
-              <div class="padnew">
-                <!--<p><strong>Enter Email ID here</strong></p> -->
-                <div class="">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p class="head">We have sent bank details to initiate wire transfer payment on your registered email ID.</p> 
-                      <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div class="ripple-container"><div class="ripple ripple-on ripple-out"></div></div></button> 
-                      </div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>Wire Transfer Details</h2>
+                    <div class="padnew">
+                        <!--<p><strong>Enter Email ID here</strong></p> -->
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="head">We have sent bank details to initiate wire transfer payment on your registered email ID.</p>
+                                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div class="ripple-container"><div class="ripple ripple-on ripple-out"></div></div></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div> 
+        </div>
+    </div>
     <router-outlet></router-outlet>
     <!-- </div> -->
     <!-- </div> -->

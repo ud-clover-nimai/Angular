@@ -103,7 +103,13 @@ export class NewTransactionComponent implements OnInit {
       lccountry: [],
       lcgoods: [],
       lcbanks: [],
-      lcbranch: []
+      lcbranch: [],
+      applicantContactPersonEmail: '',
+      beneContactPerson: '',
+      beneContactPersonEmail: '',
+      userType: '',
+      applicantContactPerson: '',
+      closedQuote: '',
     }
   }
   ngOnInit() {
@@ -142,14 +148,14 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
   }
 
-  showProForma(file){
+  showProForma(file) {
     $('#myModalAttach').show();
     this.document = file;
-    }
+  }
 
-    close(){
-      $('#myModalAttach').hide();
-      }
+  close() {
+    $('#myModalAttach').hide();
+  }
 
   showQuotePage(pagename: string, action: Tflag, val: any) {
 
@@ -176,7 +182,7 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-   
+
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);
       this.discounting.isActiveQuote = false;
@@ -184,7 +190,7 @@ export class NewTransactionComponent implements OnInit {
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
-     
+
       this.confirmation.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;

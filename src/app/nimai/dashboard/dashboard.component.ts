@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
-import { ActivatedRoute, Router, NavigationExtras,NavigationEnd  } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras, NavigationEnd } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { load_dashboard } from '../../../assets/js/commons'
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
@@ -21,16 +21,18 @@ export class DashboardComponent implements OnInit {
   public isBank: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
-  public accountPages:string="";
-  public transactionpages:string="";
-  public isCollapsed:string="collapsed";
-  public areaExpandedacc:boolean=false;
-  public areaExpandedtra:boolean=false;
+  public accountPages: string = "";
+  public transactionpages: string = "";
+  public isCollapsed: string = "collapsed";
+  public areaExpandedacc: boolean = false;
+  public areaExpandedtra: boolean = false;
   draftData: any;
-  draftcount:any;
-  draftcountBank:any;
+  draftcount: any;
+  draftcountBank: any;
   nimaiCount: any = "";
-  constructor(public service: UploadLcService,public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute:ActivatedRoute, public router:Router, public getCount: SubscriptionDetailsService) {
+  isQuote = false;
+  loading = false;
+  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
@@ -73,19 +75,18 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     load_dashboard();
-    if (this.router.url===`/${this.parentURL}/dsb/personal-details` || this.router.url===`/${this.parentURL}/dsb/business-details` || this.router.url===`/${this.parentURL}/dsb/subscription` || this.router.url===`/${this.parentURL}/dsb/kyc-details`)
-    {      
-      this.accountPages="in"
-      this.isCollapsed=""
-      this.areaExpandedacc=!this.areaExpandedacc
-    }else if (this.router.url===`/${this.parentURL}/dsb/new-transaction` || this.router.url===`/${this.parentURL}/dsb/active-transaction` || this.router.url===`/${this.parentURL}/dsb/transaction-details` || this.router.url===`/${this.parentURL}/dsb/draft-transaction`){
-      this.transactionpages="in"
-      this.isCollapsed=""
-      this.areaExpandedtra=!this.areaExpandedtra
-    }else if(this.router.url===`/${this.parentURL}/rcs/kyc-details` || this.router.url===`/${this.parentURL}/rcs/personal-details` ){
-      this.accountPages="in"
-      this.isCollapsed=""
-      this.areaExpandedtra=!this.areaExpandedtra
+    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {
+      this.accountPages = "in"
+      this.isCollapsed = ""
+      this.areaExpandedacc = !this.areaExpandedacc
+    } else if (this.router.url === `/${this.parentURL}/dsb/new-transaction` || this.router.url === `/${this.parentURL}/dsb/active-transaction` || this.router.url === `/${this.parentURL}/dsb/transaction-details` || this.router.url === `/${this.parentURL}/dsb/draft-transaction`) {
+      this.transactionpages = "in"
+      this.isCollapsed = ""
+      this.areaExpandedtra = !this.areaExpandedtra
+    } else if (this.router.url === `/${this.parentURL}/rcs/kyc-details` || this.router.url === `/${this.parentURL}/rcs/personal-details`) {
+      this.accountPages = "in"
+      this.isCollapsed = ""
+      this.areaExpandedtra = !this.areaExpandedtra
     }
 
     this.searchForm = this.fb.group({
@@ -99,45 +100,46 @@ export class DashboardComponent implements OnInit {
     this.callAllDraftTransaction();
     this.getNimaiCount();
   }
-  callAllDraftTransaction(){
-    if(this.isCustomer){
-    var userIdDetail = sessionStorage.getItem('userID');
-    var emailId = "";
-    if(userIdDetail.startsWith('BC')){
-      emailId = sessionStorage.getItem('branchUserEmailId');
-    }
-    const param = {
-      userId: sessionStorage.getItem('userID'),
-      "branchUserEmail":emailId
-    }
-    
-    this.service.getCustDraftTransaction(param).subscribe(
-      (response) => {
-        this.draftData = JSON.parse(JSON.stringify(response)).data;  
-        if(this.draftData)      
-        if(this.draftData.length>0){
-          this.draftcount=this.draftData.length;
-        }
-      },(error) =>{
-        
+  callAllDraftTransaction() {
+    if (this.isCustomer) {
+      var userIdDetail = sessionStorage.getItem('userID');
+      var emailId = "";
+      if (userIdDetail.startsWith('BC')) {
+        emailId = sessionStorage.getItem('branchUserEmailId');
       }
+      const param = {
+        userId: sessionStorage.getItem('userID'),
+        "branchUserEmail": emailId
+      }
+
+      this.service.getCustDraftTransaction(param).subscribe(
+        (response) => {
+          this.draftData = JSON.parse(JSON.stringify(response)).data;
+          if (this.draftData) {
+            if (this.draftData.length > 0) {
+              this.draftcount = this.draftData.length;
+            }
+          }
+        }, (error) => {
+
+        }
       )
     }
-      if(this.isBank){
+    if (this.isBank) {
       const data = {
-        "bankUserId":sessionStorage.getItem('userID')
-        }
-       this.service.getBankDraftQuotation(data).subscribe(
-          (response) => {
-            this.draftData = JSON.parse(JSON.stringify(response)).data;
-            if(this.draftData.length>0){
-              this.draftcountBank=this.draftData.length;
-            }
-          },(error) =>{
-           
+        "bankUserId": sessionStorage.getItem('userID')
+      }
+      this.service.getBankDraftQuotation(data).subscribe(
+        (response) => {
+          this.draftData = JSON.parse(JSON.stringify(response)).data;
+          if (this.draftData.length > 0) {
+            this.draftcountBank = this.draftData.length;
           }
-          )
+        }, (error) => {
+
         }
+      )
+    }
 
   }
   search(): void {
@@ -160,23 +162,28 @@ export class DashboardComponent implements OnInit {
           this.titleService.loading.next(false);
         }
       )
-  }  
+  }
 
-  getNimaiCount(){
+  getNimaiCount() {
     let data = {
       "userid": sessionStorage.getItem('userID'),
       "emailAddress": ""
     }
-    
+
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-        sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus );
+        sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
       },
-      error => {}
+      error => { }
     )
   }
 
+
+  public logout():void{
+    sessionStorage.clear();
+    this.router.navigate(['/']);
+  }
 }

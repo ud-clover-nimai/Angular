@@ -23,6 +23,7 @@ import { BankCanActiveService } from './services/guards/BankCanActive.service';
 import { UploadLcDetailsCanDeactivate } from './services/guards/UploadDetailsCanDeactivate';
 import { CustomerLoginComponent } from './default/popups/customer-login/customer-login.component';
 import { TermAndConditionsComponent } from './default/term-and-conditions/term-and-conditions.component';
+import { ActiveTransactionComponent } from './nimai/active-transaction/active-transaction.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { TermAndConditionsComponent } from './default/term-and-conditions/term-a
     //ResetPasswordComponent,
     CustomerLoginComponent,
     TermAndConditionsComponent,
+    ActiveTransactionComponent
     
   ],
   imports: [
