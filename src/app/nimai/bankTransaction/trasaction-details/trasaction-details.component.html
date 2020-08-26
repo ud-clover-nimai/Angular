@@ -17,7 +17,7 @@
                         No records available
                       </div>
                   </div> -->
-                    <div class="row">
+                    <div class="row" >
                        <div class="col-md-12">
                           <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
@@ -86,8 +86,9 @@
          <div class="card-content">
             <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
                 <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
-               <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId)" aria-expanded="true">Quote</a></li>
+               <li><a href="#tab2" data-toggle="tab"  aria-expanded="true">Quote</a></li>
               
+               <!-- <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId)" aria-expanded="true">Quote</a></li> -->
             </ul>
             <div class="tab-content" style="height: 552px;overflow: auto;">
               
@@ -894,7 +895,7 @@
                        <div class="form-group"></div>
                                                
                           <div class="inputDiv">
-                             <textarea rows="2" name="selectReason" [(ngModel)]="selectReason.title" 
+                             <textarea rows="2" name="selectReason" id="selectReason" [(ngModel)]="selectReason.title" 
                              #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required ></textarea>
                           </div>
                           <div *ngIf="f.submitted && selectReason.invalid" class="invalid-feedback">
@@ -903,7 +904,7 @@
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" >Submit</button> 
+                    <button type="submit" (click)="onSubmit()" class="btn btn-info pull-right" >Submit</button> 
                  </div>
               </div>
            </div>

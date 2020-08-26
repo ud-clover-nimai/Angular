@@ -20,11 +20,13 @@ export class TrasactionDetailsComponent {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
-  public specificDetail: any;
+  public specificDetail: any = "";
   public isActive: boolean = false;
-  quotationdata: any;
-  document: any;
-  selectReason: any = {};
+  quotationdata: any = "";
+  document: any = "";
+  selectReason: any = {
+    title:''
+  };
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
 
@@ -52,7 +54,8 @@ export class TrasactionDetailsComponent {
         this.getDetail(this.data)
        
         if (!this.data) {
-          this.hasNoRecord = false;        
+          this.hasNoRecord = false;    
+         //this.getAllnewTransactions(status);
         }
       },
       (error) => {
@@ -104,7 +107,9 @@ export class TrasactionDetailsComponent {
     $('#myModal9').hide();
   }
 
-
+  onSubmit(){
+    $("#selectReason").val(null);
+  }
 
   rejectBankQuote(quoteId) {
 
