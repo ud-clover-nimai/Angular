@@ -1,69 +1,58 @@
-<div id="menubarConfDis" [hidden]="!isActive" (blur)="closed()"
-   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+<div id="menubarConfDis" [hidden]="!isActive" (blur)="closed()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
 
-   <div class="popupcontent">
-      <div class="card">
-         <div class="card-content">
-            <h4>{{title}}</h4>
-            <div class="tab-content" style="overflow: auto;padding-bottom: 60px;" id="tab1" *ngIf="tab==='tab1'">
-               <div class="tab-pane active" id="pill1">
-                  <table class="table">
-                     <tbody>
-                        <tr>
-                           <td>Confirmation Charges p.a.</td>
-                           <td><input type="text" [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00"
-                                 weightDirective><span class="pull-right percent">%</span></td>
-                        </tr>
-                        <tr>
-                           <td>Discounting Charges p.a.</td>
-                           <td><input type="text" [(ngModel)]="dataViewEdit.discountingCharges" placeholder="0.00"
-                                 weightDirective><span class="pull-right percent">%</span></td>
-                        </tr>
+    <div class="popupcontent">
+        <div class="card">
+            <div class="card-content">
+                <h4>{{title}}</h4>
+                <div class="tab-content" style="overflow: auto;padding-bottom: 60px;" id="tab1" *ngIf="tab==='tab1'">
+                    <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Confirmation Charges p.a.</td>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00" weightDirective><span class="pull-right percent">%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Discounting Charges p.a.</td>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.discountingCharges" placeholder="0.00" weightDirective><span class="pull-right percent">%</span></td>
+                                </tr>
 
-                        <tr>
-                           <td>
-                              <input [checked]="chargesEdit1" type="radio" id="optn3" name="chargesEdit1"
-                                 [disabled]="radioid" (change)="onNegotChange($event.target.value)"
-                                 style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance
-                              till negotiation date</td>
-                           <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1"
-                                 [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
-                        </tr>
-                        <tr>
-                           <td>
-                              <input [checked]="chargesEdit2" type="radio" id="optn3" name="chargesEdit1"
-                                 [disabled]="radioid" (change)="onMatureChange($event.target.value)"
-                                 style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance
-                              till date of maturity</td>
-                           <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2"
-                                 [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
-                        </tr>
+                                <tr>
+                                    <td>
+                                        <input [checked]="chargesEdit1" type="radio" id="optn3" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
+                                        date of issuance till negotiation date</td>
+                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input [checked]="chargesEdit2" type="radio" id="optn3" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
+                                        date of issuance till date of maturity</td>
+                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                </tr>
 
-                        <tr>
-                           <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
+                                <tr>
+                                    <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
 
-                           </td>
-                           <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" 
-                                 placeholder="2.8750" weightDirective><span class="pull-right percent">%</span>
-                              <textarea rows="3" placeholder="Comments for Applicable Benchmark"></textarea></td>
-                        </tr>
-                        <tr>
-                           <td>
-                              Negotiation Charges
-                              <select class="halfauto">
+                                    </td>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.8750" weightDirective><span class="pull-right percent">%</span>
+                                        <textarea rows="3" placeholder="Comments for Applicable Benchmark"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Negotiation Charges
+                                        <select class="halfauto">
                                  <option value="Fixed">Fixed</option>
                               </select>
-                           </td>
-                           <td>
-                              <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed"
-                                 weightDirective placeholder="0.00" />
-                             
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                              Negotiation Charges
-                              <select class="halfautoc halfwidthdiv">
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" weightDirective placeholder="0.00" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Negotiation Charges
+                                        <select class="halfautoc halfwidthdiv">
                                  <option value="%">%</option>
                               </select>
                            </td>
@@ -116,268 +105,245 @@
                         <tr>
                            <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <div>
-                     <button type="submit" class="btn btn-info pull-right" id="btnpreview"
-                        (click)="transaction('preview',dataViewEdit)">
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <button type="submit" class="btn btn-info pull-right" id="btnpreview" (click)="transaction('preview',dataViewEdit)">
                         Preview
                         <div class="ripple-container"></div>
                      </button>
-                     <!-- <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
+                            <!-- <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
                            </a> -->
-                  </div>
-               </div>
-            </div>
-            <div class="tab-content" style="    overflow: auto;
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" style="    overflow: auto;
     height: 530px;" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
-               <div class="tab-pane active" id="pill1">
-                  <table class="table">
-                     <tbody>
-                        <tr>
-                           <td>Confirmation Charges p.a.</td>
-                           <td>{{dataViewEdit.confirmationCharges}}</td>
-                        </tr>
-                        <tr>
-                           <td>Discounting Charges p.a.</td>
-                           <td>{{dataViewEdit.discountingCharges}}</td>
-                        </tr>
-                        <tr>
-                           <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                           <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
-                        </tr>
+                    <div class="tab-pane active" id="pill1">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Confirmation Charges p.a.</td>
+                                    <td>{{dataViewEdit.confirmationCharges}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Discounting Charges p.a.</td>
+                                    <td>{{dataViewEdit.discountingCharges}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
+                                    <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
+                                </tr>
 
-                        <tr>
-                           <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                           <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
-                        </tr>
-                        <tr>
-                           <td>Applicable Benchmark p.a. (Libor/Euribor)
-                           </td>
-                           <td>{{dataViewEdit.applicableBenchmark}}%<br><small>Standard Libor applied on the LC
+                                <tr>
+                                    <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                                    <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Applicable Benchmark p.a. (Libor/Euribor)
+                                    </td>
+                                    <td>{{dataViewEdit.applicableBenchmark}}%<br><small>Standard Libor applied on the LC
                                  value</small></td>
-                        </tr>
-                        <tr>
-                           <td>Negotiation Charges (Fixed)</td>
-                           <td>
-                                ${{dataViewEdit.negotiationChargesFixed}}
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Negotiation Charges (%)</td>
-                           <td>
-                              {{dataViewEdit.negotiationChargesPerct}}%
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Document Handling Charges</td>
-                           <td>
-                                ${{dataViewEdit.docHandlingCharges}}
-                           </td>
-                        </tr>
-                       
-                        <tr>
-                           <td>Other Charges<br>
-                           </td>
-                           <td>
-                                ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
+                                </tr>
+                                <tr>
+                                    <td>Negotiation Charges (Fixed)</td>
+                                    <td>
+                                        ${{dataViewEdit.negotiationChargesFixed}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Negotiation Charges (%)</td>
+                                    <td>
+                                        {{dataViewEdit.negotiationChargesPerct}}%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Document Handling Charges</td>
+                                    <td>
+                                        ${{dataViewEdit.docHandlingCharges}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Other Charges<br>
+                                    </td>
+                                    <td>
+                                        ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
                                  transfer charges.</small>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Minimum Handling Charges</td>
-                           <td>
-                                ${{dataViewEdit.minTransactionCharges}}
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Validity</td>
-                           <td>{{dataViewEdit.validityDate| date : "dd-MM-y"}}</td>
-                        </tr>
-                        <!-- <tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Minimum Handling Charges</td>
+                                    <td>
+                                        ${{dataViewEdit.minTransactionCharges}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Validity</td>
+                                    <td>{{dataViewEdit.validityDate| date : "dd-MM-y"}}</td>
+                                </tr>
+                                <!-- <tr>
                            <th>Total Quote</th>
                            <th>  {{dataViewEdit.totalQuoteValue}}</th>
                         </tr> -->
 
-                        <tr *ngIf="title=='View'">
-                           <th>Total Quote</th>
-                           <th>{{dataViewEdit.totalQuoteValue}}</th>
-                        </tr>
-                        <tr *ngIf="title=='Edit'">
-                           <th>Total Quote</th>
-                           <th>{{totalQuotes}}</th>
-                        </tr>
+                                <tr *ngIf="title=='View'">
+                                    <th>Total Quote</th>
+                                    <th>{{dataViewEdit.totalQuoteValue}}</th>
+                                </tr>
+                                <tr *ngIf="title=='Edit'">
+                                    <th>Total Quote</th>
+                                    <th>{{totalQuotes}}</th>
+                                </tr>
 
-                        <tr>
-                           <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
+                                <tr>
+                                    <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <div class="posfix">
-                     <button type="submit" class="btn btn-info pull-right" id="btnSubmit"
-                        (click)="transaction('submit')">
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="posfix">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',undefined)">
                         Submit
                         <div class="ripple-container"></div>
                      </button>
-                     <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit',undefined)">
                         Edit
                         <div class="ripple-container"></div>
                      </button>
 
-                  </div>
-               </div>
-            </div>
-            <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
-               <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
-                  <table class="table">
-                     <tbody>
-                        <tr>
-                           <td colspan="2" class="text-center">
-                              <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see
-                                 your current rank.</p>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <div class="posfix">
-                     <button class="btn btn-info" (click)="transaction('ok')">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                    <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="posfix">
+                            <button class="btn btn-info" (click)="transaction('ok',undefined)">
                         OK
                         <div class="ripple-container"></div>
                      </button>
-                  </div>
-               </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 
 
 
 
 <div [hidden]="!isActiveQuote">
-   <div id="menubarConDisQuote"
-      style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
-      <div class="popupcontent">
-         <div class="card">
-            <div class="card-content">
-               <h4>{{title}}</h4>
+    <div id="menubarConDisQuote" style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+        <div class="popupcontent">
+            <div class="card">
+                <div class="card-content">
+                    <h4>{{title}}</h4>
 
-               <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
-                  <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data)" #f="ngForm"
-                     novalidate>
+                    <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                        <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)" #f="ngForm" novalidate>
 
-                     <div class="tab-pane active" id="pill1">
-                        <div class="tab">
-                           <table>
-                              <tbody>
-                                 <tr>
-                                    <td><b>Requirement</b></td>
-                                    <td>{{data.requirementType}}</td>
+                            <div class="tab-pane active" id="pill1">
+                                <div class="tab">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Requirement</b></td>
+                                                <td>{{data.requirementType}}</td>
 
-                                    <td><b>CCy</b></td>
-                                    <td>{{data.lCCurrency}}</td>
-                                 </tr>
-                                 <tr>
-                                    <td><b>Transaction ID</b></td>
-                                    <td>{{data.transactionId}}</td>
+                                                <td><b>CCy</b></td>
+                                                <td>{{data.lCCurrency}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Transaction ID</b></td>
+                                                <td>{{data.transactionId}}</td>
 
-                                    <td><b>Amount</b></td>
-                                    <td>{{ data.lCValue}}</td>
-                                 </tr>
-                                 <tr>
-                                    <td><b>IB</b></td>
-                                    <td>{{data.lCIssuanceBank}}</td>
+                                                <td><b>Amount</b></td>
+                                                <td>{{ data.lCValue}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>IB</b></td>
+                                                <td>{{data.lCIssuanceBank}}</td>
 
-                                    <td><b>Tenor</b></td>
-                                    <td>{{data.confirmationPeriod}} Days</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                        <table class="table">
-                           <tbody>
-                            <br>
-                              <tr>
-                                 <td>Applicable Benchmark , if any</td>
-                                 <td><input type="text" name="applicableBenchmark"
-                                       [(ngModel)]="data.applicableBenchmark" placeholder="0.00" weightDirective>
-                                    <span class="pull-right percent">%</span></td>
-                              </tr>
+                                                <td><b>Tenor</b></td>
+                                                <td>{{data.confirmationPeriod}} Days</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <table class="table">
+                                    <tbody>
+                                        <br>
+                                        <tr>
+                                            <td>Applicable Benchmark , if any</td>
+                                            <td><input type="text" name="applicableBenchmark" [(ngModel)]="data.applicableBenchmark" placeholder="0.00" weightDirective>
+                                                <span class="pull-right percent">%</span></td>
+                                        </tr>
 
-                              <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark" style="width:312px;margin: 6px 0px 0px;height: 62px;"
-                                 placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
-                                 rows="3"></textarea>
-                              <tr>
-                                 <td>Confirmation interest p.a ( spread over benchmark)</td>
-                                 <td><input type="text" name="confirmationCharges"
-                                       [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective>
-                                    <span class="pull-right percent">%</span></td>
-                              </tr>
-                              <tr>
-                                 <td>Discounting interest p.a ( spread over benchmark)</td>
-                                 <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges"
-                                       placeholder="0.00" weightDirective>
-                                    <span class="pull-right percent">%</span></td>
-                              </tr>
+                                        <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark" style="width:312px;margin: 6px 0px 0px;height: 62px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
+                                        <tr>
+                                            <td>Confirmation interest p.a ( spread over benchmark)</td>
+                                            <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective>
+                                                <span class="pull-right percent">%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discounting interest p.a ( spread over benchmark)</td>
+                                            <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" weightDirective>
+                                                <span class="pull-right percent">%</span></td>
+                                        </tr>
 
-                              <tr>
-                                 <td>
-                                    <input [checked]="charges1" type="radio" id="optn" name="charges1"
-                                       (change)="onNegotChange($event.target.value)"
-                                       style="width: 18px;height: 18px;">Confirmation Charges applicable from date of
-                                    issuance till negotiation date</td>
-                                 <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1"
-                                       [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <input [checked]="charges2" type="radio" id="optn" name="charges1"
-                                       (change)="onMatureChange($event.target.value)"
-                                       style="width: 18px;height: 18px;">Confirmation Charges applicable from date of
-                                    issuance till date of maturity</td>
-                                 <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2"
-                                       [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
-                              </tr>
-                              <tr>
-                                 <td>Negotiation Charges (Fixed)</td>
-                                 <td><input type="text" name="negotiationChargesFixed"
-                                       [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
-                              </tr>
-                              <tr>
-                                 <td>Negotiation Charges (%)</td>
-                                 <td><input type="text" name="negotiationChargesPerct"
-                                       [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
-                                    <span class="pull-right percent">%</span></td>
-                              </tr>
-                              <tr>
-                                 <td>Document Handling Charges</td>
-                                 <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges"
-                                       placeholder="0.00" weightDirective>
-                              </tr>
+                                        <tr>
+                                            <td>
+                                                <input [checked]="charges1" type="radio" id="optn" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                negotiation date</td>
+                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input [checked]="charges2" type="radio" id="optn" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                date of maturity</td>
+                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                        </tr>
+                                        <tr>
+                                            <td>Negotiation Charges (Fixed)</td>
+                                            <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
+                                        </tr>
+                                        <tr>
+                                            <td>Negotiation Charges (%)</td>
+                                            <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
+                                                <span class="pull-right percent">%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Document Handling Charges</td>
+                                            <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
+                                        </tr>
 
-                              <tr>
-                                 <td>Other Charges</td>
-                                 <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges"
-                                       placeholder="0.00" weightDirective>
-                              </tr>
-                              <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)"
-                                 rows="3"></textarea>
+                                        <tr>
+                                            <td>Other Charges</td>
+                                            <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
+                                        </tr>
+                                        <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
-                              <!-- <tr>
+                                        <!-- <tr>
                                     <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
                                     <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
                                   </tr> -->
-                              <tr>
-                                 <td>Minimum Transaction Charges</td>
-                                 <td><input type="text" name="minTransactionCharges"
-                                       [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
-                              </tr>
-                              <tr>
-                                 <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right"
-                                       title="Date before which the customer should accept your quote."><i
+                                        <tr>
+                                            <td>Minimum Transaction Charges</td>
+                                            <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
+                                        </tr>
+                                        <tr>
+                                            <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i
                                           class="fas fa-info-circle"
                                           style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td><input type="date" name="validityDate" onkeydown="return false" [(ngModel)]="data.validityDate"
@@ -395,109 +361,108 @@
                               Save/Generate Quote
                               <div class="ripple-container"></div>
                            </button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
-               <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
-                  <div class="tab-pane active" id="pill1">
-                     <div class="tab">
-                        <table>
-                           <tbody>
-                              <tr>
-                                 <td><b>Requirement</b></td>
-                                 <td>{{data.requirementType}}</td>
+                    <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                        <div class="tab-pane active" id="pill1">
+                            <div class="tab">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Requirement</b></td>
+                                            <td>{{data.requirementType}}</td>
 
-                                 <td><b>CCy</b></td>
-                                 <td>{{data.lCCurrency}}</td>
-                              </tr>
-                              <tr>
-                                 <td><b>Transaction ID</b></td>
-                                 <td>{{data.transactionId}}</td>
+                                            <td><b>CCy</b></td>
+                                            <td>{{data.lCCurrency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Transaction ID</b></td>
+                                            <td>{{data.transactionId}}</td>
 
-                                 <td><b>Amount</b></td>
-                                 <td>{{ data.lCValue}}</td>
-                              </tr>
-                              <tr>
-                                 <td><b>IB</b></td>
-                                 <td>{{data.lCIssuanceBank}}</td>
+                                            <td><b>Amount</b></td>
+                                            <td>{{ data.lCValue}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>IB</b></td>
+                                            <td>{{data.lCIssuanceBank}}</td>
 
-                                 <td><b>Tenor</b></td>
-                                 <td>{{data.confirmationPeriod}} Days</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <table class="table">
-                        <tbody>
-                        <br>
-                           <tr>
-                              <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">{{data.commentsBenchmark}}</small></td>
-                              <td>{{data.applicableBenchmark}}% </td>
-                           </tr>
+                                            <td><b>Tenor</b></td>
+                                            <td>{{data.confirmationPeriod}} Days</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <table class="table">
+                                <tbody>
+                                    <br>
+                                    <tr>
+                                        <td>Applicable Benchmark , if any<br><small style="color: #b6a3a3;">{{data.commentsBenchmark}}</small></td>
+                                        <td>{{data.applicableBenchmark}}% </td>
+                                    </tr>
 
-                           <tr>
-                              <td>Confirmation interest p.a.(spread over benchmark)</td>
-                              <td>{{data.confirmationCharges}}%</td>
-                           </tr>
+                                    <tr>
+                                        <td>Confirmation interest p.a.(spread over benchmark)</td>
+                                        <td>{{data.confirmationCharges}}%</td>
+                                    </tr>
 
-                           <tr>
-                              <td>Discounting interest p.a.(spread over benchmark)</td>
-                              <td>{{data.discountingCharges}}</td>
-                           </tr>
-                           <tr>
-                              <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                              <td>{{detail.confChgsNegot}}</td>
-                           </tr>
-                           <tr>
-                              <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                              <td>{{detail.confChgsMatur}}</td>
-                           </tr>
-                           <tr>
-                              <td>Negotiation Charges</td>
-                              <td>
-                                 {{data.negotiationChargesFixed}}
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Negotiation Charges</td>
-                              <td>
-                                 {{data.negotiationChargesPerct}}
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Document Handling Charges</td>
-                              <td>
-                                 {{data.docHandlingCharges}}
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Other Charges<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
-                              </td>
-                              <td>
-                                 {{data.otherCharges}}
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>Minimum Transaction Charges</td>
-                              <td>
-                                 {{data.minTransactionCharges}}
-                              </td>
-                           </tr>
+                                    <tr>
+                                        <td>Discounting interest p.a.(spread over benchmark)</td>
+                                        <td>{{data.discountingCharges}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                        <td>{{detail.confChgsNegot}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                                        <td>{{detail.confChgsMatur}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Negotiation Charges</td>
+                                        <td>
+                                            {{data.negotiationChargesFixed}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Negotiation Charges</td>
+                                        <td>
+                                            {{data.negotiationChargesPerct}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Document Handling Charges</td>
+                                        <td>
+                                            {{data.docHandlingCharges}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Other Charges<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
+                                        </td>
+                                        <td>
+                                            {{data.otherCharges}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Minimum Transaction Charges</td>
+                                        <td>
+                                            {{data.minTransactionCharges}}
+                                        </td>
+                                    </tr>
 
-                           <tr>
-                              <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right"
-                                    title="Date before which the customer should accept your quote."><i
+                                    <tr>
+                                        <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i
                                        class="fas fa-info-circle"
                                        style="font-size: 11px !important;color: #333;"></i></a> </td>
-                              <td>{{data.validityDate | date : "dd-MM-y"}}</td>
-                           </tr>
-                           <tr>
-                              <th>Total Quote</th>
-                              <th>{{detail.TotalQuote}}</th>
-                           </tr>
-                           <!-- <tr>
+                                        <td>{{data.validityDate | date : "dd-MM-y"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Quote</th>
+                                        <th>{{detail.TotalQuote}}</th>
+                                    </tr>
+                                    <!-- <tr>
                               <td><small>Others terms and conditions</small></td>
                            </tr>
                            <tr>
@@ -505,73 +470,69 @@
                                     date of discounting until the maturity date of bill(s).</small></td>
                            </tr> -->
 
-                           <tr>
-                              <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be applicable as of
+                                    <tr>
+                                        <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be applicable as of
                                     transaction date, actual quote from the bank may differ to that extent.</small></td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <div>
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit"
-                           (click)="transactionForQuotes('confirm',data,detail)">
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('confirm',data,detail)">
                            Confirm
                            <div class="ripple-container"></div>
                         </button>
-                        <button type="submit" class="btn btn-info pull-right" id="btnSubmit"
-                           (click)="transactionForQuotes('edit',data,detail)">
+                                <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transactionForQuotes('edit',data,detail)">
                            Edit
                            <div class="ripple-container"></div>
                         </button>
-                     </div>
-                  </div>
-               </div>
-               <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
-                  <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
-                     <table class="table">
-                        <tbody>
-                           <tr>
-                              <td colspan="2" class="text-center">
-                                 <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see
-                                    your current rank.</p>
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <div class="posfix">
-                        <button class="btn btn-info" (click)="transactionForQuotes('ok',data)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+                        <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            <p>Your Quote has been placed successfully.<br> Check Active Transaction Section to see your current rank.</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="posfix">
+                                <button class="btn btn-info" (click)="transactionForQuotes('ok',data,undefined)">
                            OK
                            <div class="ripple-container"></div>
                         </button>
-                     </div>
-                  </div>
-               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 
 
 <div id="myModalConDis" style="display: none;" class="popupnew modal">
-   <div class="modal-dialog modal-md emaildiv">
-      <!-- Modal content-->
-      <div class="modal-content">
-         <div class="modal-body">
-            <h2> Trasaction Fail</h2>
-            <div class="padnew">
-               <!--<p><strong>Enter Email ID here</strong></p> -->
-               <div class="">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <label id="labConDis"></label>
-                        <div class="form-group"></div>
-                     </div>
-                     <button type="submit" class="btn btn-info pull-right" (click)="redirectToactive()"
-                        data-dismiss="modal">Ok</button>
-                  </div>
-               </div>
+    <div class="modal-dialog modal-md emaildiv">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2> Trasaction Fail</h2>
+                <div class="padnew">
+                    <!--<p><strong>Enter Email ID here</strong></p> -->
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label id="labConDis"></label>
+                                <div class="form-group"></div>
+                            </div>
+                            <button type="submit" class="btn btn-info pull-right" (click)="redirectToactive()" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>

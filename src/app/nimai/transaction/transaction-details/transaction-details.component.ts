@@ -29,7 +29,8 @@ export class TransactionDetailsComponent {
   public parentURL: string = "";
   public subURL: string = "";
   dataSourceLength: boolean = false;
-  quotationReqType: void;
+ // quotationReqType: void; //commented by sanjeev
+ quotationReqType:string;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService ) {
     this.titleService.quote.next(false);

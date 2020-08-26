@@ -24,7 +24,9 @@ export class TrasactionDetailsComponent {
   public isActive: boolean = false;
   quotationdata: any;
   document: any;
-  selectReason: any = {};
+  selectReason: any = {
+    title:''
+  };
 
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
 

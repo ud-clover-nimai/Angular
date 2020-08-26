@@ -6,6 +6,7 @@ import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { ActiveTransactionComponent } from 'src/app/nimai/active-transaction/active-transaction.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TData } from 'src/app/beans/TransBean';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -15,7 +16,7 @@ export class ConfirmationComponent implements OnInit {
   @ViewChild(ActiveTransactionComponent, { static: true }) activeTransaction: ActiveTransactionComponent;
 
   public isActive: boolean = false;
-  public data = {};
+  public data:TData;
   public title: string = "";
   public tab = 'tab2';
   document: any;
