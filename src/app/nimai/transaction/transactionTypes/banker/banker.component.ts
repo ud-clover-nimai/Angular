@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import * as $ from '../../../../../assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TData } from 'src/app/beans/TransBean';
 
 @Component({
   selector: 'app-banker',
@@ -16,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BankerComponent implements OnInit {
 
   public isActive: boolean = false;
-  public data = {};
+  public data:TData;
   public title: string = "";
   public tab = 'tab2';
   document: any;
@@ -39,12 +40,15 @@ export class BankerComponent implements OnInit {
 
   public action(flag: boolean, type: Tflag, data: any) {
 
+    console.log("sanjeev")
+    console.log(data)
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
         // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
+        
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
         this.data = data;

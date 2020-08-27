@@ -5,6 +5,7 @@ import { NewTransactionService } from 'src/app/services/banktransactions/new-tra
 import * as $ from '../../../../../assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TData } from 'src/app/beans/TransBean';
 
 @Component({
   selector: 'app-confirm-and-discount',
@@ -14,7 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ConfirmAndDiscountComponent implements OnInit {
 
   public isActive: boolean = false;
-  public data = {};
+  public data:TData;
   public title: string = "";
   public tab = 'tab2';
   document: any;

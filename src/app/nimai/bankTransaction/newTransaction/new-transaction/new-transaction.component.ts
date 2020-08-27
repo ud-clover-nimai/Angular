@@ -13,6 +13,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
 import { formatDate } from '@angular/common';
 import * as $ from 'src/assets/js/jquery.min';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -40,8 +41,17 @@ export class NewTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public detail: any;
+  public parentURL: string = "";
+  public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder) {
+  constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder,
+     public activatedRoute: ActivatedRoute, public router: Router) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    });
 
     this.titleService.quote.next(false);
 
@@ -103,12 +113,24 @@ export class NewTransactionComponent implements OnInit {
       lccountry: [],
       lcgoods: [],
       lcbanks: [],
-      lcbranch: []
+      lcbranch: [],
+      applicantContactPersonEmail: '',
+      beneContactPerson: '',
+      beneContactPersonEmail: '',
+      userType: '',
+      applicantContactPerson: '',
+      closedQuote: '',
     }
   }
   ngOnInit() {
   }
 
+  
+  refreshPage(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/new-request`]);
+  });
+  }
 
   public getNewRequestsForBank() {
     const data = {
@@ -142,14 +164,14 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
   }
 
-  showProForma(file){
+  showProForma(file) {
     $('#myModalAttach').show();
     this.document = file;
-    }
+  }
 
-    close(){
-      $('#myModalAttach').hide();
-      }
+  close() {
+    $('#myModalAttach').hide();
+  }
 
   showQuotePage(pagename: string, action: Tflag, val: any) {
 
@@ -176,7 +198,7 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-   
+
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);
       this.discounting.isActiveQuote = false;
@@ -184,7 +206,7 @@ export class NewTransactionComponent implements OnInit {
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
-     
+
       this.confirmation.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
