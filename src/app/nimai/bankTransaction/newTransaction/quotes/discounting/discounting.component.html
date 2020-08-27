@@ -56,7 +56,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 <td><input type="date" disabled [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                                     (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                               </tr> 
                               <tr *ngIf="title=='View'">
@@ -225,7 +225,7 @@
                                     <tbody>
                                         <br>
                                         <tr>
-                                            <td>Applicable Benchmark , if any</td>
+                                            <td>Applicable Benchmark (if any)</td>
                                             <td><input type="text" name="applicableBenchmark" [(ngModel)]="data.applicableBenchmark" placeholder="0.00" weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
@@ -247,12 +247,12 @@
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Document Handling Charges</td>
+                                            <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
                                         </tr>
 
                                         <tr>
-                                            <td>Other Charges</td>
+                                            <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
                                         </tr>
                                         <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>

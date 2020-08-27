@@ -4,6 +4,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -22,21 +23,31 @@ export class TrasactionDetailsComponent {
   public data: any;
   public specificDetail: any = "";
   public isActive: boolean = false;
-  quotationdata: any = "";
+  quotationdata: any;
   document: any = "";
-  selectReason: any = {
-    title:''
-  };
+  selectReason: any;
+  public parentURL: string = "";
+  public subURL: string = "";
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
-
+  constructor(public titleService: TitleService, public nts: NewTransactionService, 
+    public activatedRoute: ActivatedRoute, public router: Router) {
+      this.activatedRoute.parent.url.subscribe((urlPath) => {
+        this.parentURL = urlPath[urlPath.length - 1].path;
+      });
+      this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+        this.subURL = urlPath[urlPath.length - 1].path;
+      });
     this.titleService.quote.next(false);
   }
 
   ngOnInit() {
-
     this.getAllnewTransactions('Accepted');
 
+  }
+  refreshPage(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/transaction-details`]);
+  });
   }
 
   public getAllnewTransactions(status) {
@@ -49,30 +60,31 @@ export class TrasactionDetailsComponent {
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
-        this.data = [];
+        this.data =[];
         this.data = JSON.parse(JSON.stringify(response)).data;
-        this.getDetail(this.data)
-       
-        if (!this.data) {
-          this.hasNoRecord = false;        
-        }
+         if (this.data) {
+         this.hasNoRecord=true;
+         this.getDetail(this.data);
+      }
+
       },
       (error) => {
         this.data = null;
-        this.hasNoRecord = true;
+       this.hasNoRecord = false;
 
       }
     )
   }
 
   getDetail(detail) {
-    this.quotationdata = detail;
-    this.specificDetail = detail;
+      this.quotationdata = detail;
+      this.specificDetail = detail;
+
   }
 
-  changeStatusCall(status) {       
+  changeStatusCall(status) {
     this.getAllnewTransactions(status);
-  
+
   }
 
 
@@ -106,7 +118,9 @@ export class TrasactionDetailsComponent {
     $('#myModal9').hide();
   }
 
-
+  onSubmit() {
+    $("#selectReason").val(null);
+  }
 
   rejectBankQuote(quoteId) {
 

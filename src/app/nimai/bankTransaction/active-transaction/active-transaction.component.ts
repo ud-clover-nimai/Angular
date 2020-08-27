@@ -40,7 +40,6 @@ export class ActiveTransactionComponent implements OnInit {
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "quotationStatus": "Placed"
-
     }
 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
