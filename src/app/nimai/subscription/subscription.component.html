@@ -132,10 +132,13 @@
                                         <table>
                                             <tr>
                                                 <td class="text-left">
+                                                    <b>{{advDetails.plan_name}}</b>
                                                     <ul>
-                                                        <li>{{advDetails.plan_name}}</li>
-                                                        <li>{{advDetails.description_1}}</li>
-                                                        <li>{{advDetails.description_2}}</li>
+                                                        <li *ngIf="advDetails.description_1">{{advDetails.description_1}}</li>
+                                                        <li *ngIf="advDetails.description_2">{{advDetails.description_2}}</li>
+                                                        <li *ngIf="advDetails.description_3">{{advDetails.description_3}}</li>
+                                                        <li *ngIf="advDetails.description_4">{{advDetails.description_4}}</li>
+                                                        <li *ngIf="advDetails.description_5">{{advDetails.description_5}}</li>                                                
                                                     </ul>
                                                 </td>
                                                 <td class="text-right">

@@ -25,8 +25,9 @@ export class KycDetailsComponent implements OnInit {
   isBank: boolean = false;
   isCustomer: boolean = false;
   resp: any;
-  imageSrc: any;
   itemData:any = [];
+  imageSrcBusi: any;
+  imageSrcPer: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -133,6 +134,26 @@ remove(i: number, type) {
 
   submit(): void {
 
+    const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
+    businessDocumentList.controls = [];
+    businessDocumentList.push(this.fb.group({
+      documentName: $('#busiDocument').val(),
+      title: ['Personal'],
+      country: $('#busiCountry').val(),
+      encodedFileContent: [this.imageSrcBusi],
+      documentType: ['jpg']      
+    }));
+
+    const personalDocumentList = <FormArray>this.kycDetailsForm.get('personalDocumentList');
+    personalDocumentList.controls = [];
+    personalDocumentList.push(this.fb.group({
+      documentName: $('#perDocument').val(),
+      title: ['Personal'],
+      country: $('#perCountry').val(),
+      encodedFileContent: [this.imageSrcPer],
+      documentType: ['jpg']      
+    }));
+
     var data = {
       "userId" : sessionStorage.getItem("userID"),
       "businessDocumentList": this.kycDetailsForm.get('businessDocumentList').value,
@@ -143,7 +164,8 @@ remove(i: number, type) {
     if(busi.controls.length == 0){
       this.failedError();
       return;
-    } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select"){
+    } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select" || busi.controls[0].value.encodedFileContent == null){
+      businessDocumentList.controls = [];
       this.failedError();
       return;
     }
@@ -152,12 +174,12 @@ remove(i: number, type) {
     if(pers.controls.length == 0){
       this.failedError();
       return;
-    } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select"){
+    } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select" || pers.controls[0].value.encodedFileContent == null){
+      personalDocumentList.controls = [];
       this.failedError();
       return;
     }
-
-    
+    console.log(data);
 
     this.kycService.upload(data)
       .subscribe(
@@ -177,9 +199,6 @@ remove(i: number, type) {
         err => {
           this.failedError();
         });
-
-
-
   }
 
   failedError(){
@@ -197,7 +216,7 @@ remove(i: number, type) {
   }
 
   selectFile(e, data) {
-    $("#moreImageUploadLinkType").show();
+    // $("#moreImageUploadLinkType").show();
     this.itemData = data;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
@@ -214,18 +233,7 @@ remove(i: number, type) {
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
-
-    const control = <FormArray>this.kycDetailsForm.get('businessDocumentList');
-
-     control.push(this.fb.group({
-      documentName: $('#busiDocument').val(),
-      title: ['Personal'],
-      country: $('#busiCountry').val(),
-      encodedFileContent: [this.imageSrc],
-      documentType: ['jpg']      
-    }));
-
+    this.imageSrcBusi = reader.result;
   }
 
   selectFile_KYC(e) {
@@ -246,17 +254,7 @@ remove(i: number, type) {
   }
   _handleReaderLoaded_KYC(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
-
-    const control = <FormArray>this.kycDetailsForm.get('personalDocumentList');
-
-     control.push(this.fb.group({
-      documentName: $('#perDocument').val(),
-      title: ['Personal'],
-      country: $('#perCountry').val(),
-      encodedFileContent: [this.imageSrc],
-      documentType: ['jpg']      
-    }));
+    this.imageSrcPer = reader.result;    
   }
 
   

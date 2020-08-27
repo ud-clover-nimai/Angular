@@ -4,7 +4,7 @@ export function loadFilestyle() {
             var id = parseInt(this.id.replace("upload_file", ""));
             $("#upload_file" + id).change(function() {
                 if ($("#upload_file" + id).val() != "") {
-                    $("#moreImageUploadLink").show();
+                    // $("#moreImageUploadLink").show();
                 }
             });
         });
