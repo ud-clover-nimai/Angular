@@ -26,7 +26,7 @@ export class BusinessDetailsComponent implements OnInit {
   public subURL: string = "";
   public perDetailsSubmit = false;
   public hasValue=false;
-  resp: any;
+  resp: any = "";
   parentRedirection: string = "subscription";
   stateName: any = "";
   countryName: any = "";

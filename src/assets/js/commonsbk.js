@@ -371,7 +371,7 @@ export function bankNewTransaction(){
   
         var slider1 = $("#menubarBankerQuote").slideReveal({
         push: false,
-        width: 510,
+        width: 520,
         position: "right",
         trigger: $(".handle"),
         shown: function(obj){
@@ -391,7 +391,7 @@ export function bankNewTransaction(){
   
             var slider1 = $("#menubarDiscountQuote").slideReveal({
             push: false,
-            width: 510,
+            width: 520,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj){
@@ -411,7 +411,7 @@ export function bankNewTransaction(){
   
                 var slider1 = $("#menubarConDisQuote").slideReveal({
                 push: false,
-                width: 510,
+                width: 520,
                 position: "right",
                 trigger: $(".handle"),
                 shown: function(obj){
@@ -431,7 +431,7 @@ export function bankNewTransaction(){
   
                     var slider1 = $("#menubarRefinanceQuote").slideReveal({
                     push: false,
-                    width: 510,
+                    width: 520,
                     position: "right",
                     trigger: $(".handle"),
                     shown: function(obj){

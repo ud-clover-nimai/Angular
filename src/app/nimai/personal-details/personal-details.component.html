@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <input type="text" maxlength="70" oninput="this.value = this.value.toLowerCase()" [readonly]="true" formControlName="emailId" [ngClass]="hasValue ? 'has-value' : ''" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                                            <input type="text" maxlength="70" oninput="this.value = this.value.toLowerCase()" [readonly]="true" formControlName="emailId" [ngClass]="hasValue ? 'has-value' : ''">
                                             <label>Official Email ID</label>
                                             <div *ngIf="submitted && perDetails.emailId.errors" class="invalid-feedback">
                                             <div *ngIf="submitted && perDetails.emailId.errors?.required">

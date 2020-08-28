@@ -32,12 +32,14 @@
                                                     <th style="min-width: 166px;">Date & Time <br> (Quote Accepted on)</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
                                                     <th style="min-width: 150px;">Requirement</th>
-                                                    <th style="min-width: 120px;">LC Value (USD)</th>
+                                                    <th style="min-width: 120px;">LC Value </th>
+                                                    <th style="min-width: 120px;">Total Quote </th>
                                                     <th style="min-width: 100px;">Goods</th>
                                                     <th style="min-width: 150px;">Applicant's Name</th>
                                                     <th style="min-width: 150px;">Beneficiary Name</th>
                                                     <th class="disabled-sorting text-center" nowrap style="min-width: 150px;">Transaction Status</th>
-                                                    <th class="disabled-sorting text-center">Actions</th>
+                                                    <th style="min-width: 150px;">Rejected By</th>
+                                                    <th class="disabled-sorting text-center" >Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -48,18 +50,22 @@
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>{{record.requirementType}}</td>
                                                     <td>{{record.lCValue}}</td>
+                                                    <td>{{record.totalQuoteValue}}</td>
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
                                                     <td>{{record.beneName}}</td>
                                                     <td>
                                                         <select>
-                                            <option value="Open">Open</option>
-                                            <option value="Close">Close</option>
-                                         </select>
+                                                            <option value="Open">Open</option>
+                                                            <option value="Close">Close</option>
+                                                        </select>
                                                     </td>
+                                                    <td>{{record.bankUserId}}</td>
                                                     <td>
                                                         <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
                                                     </td>
+                                                   
+
                                                 </tr>
                                             </tbody>
                                         </table>

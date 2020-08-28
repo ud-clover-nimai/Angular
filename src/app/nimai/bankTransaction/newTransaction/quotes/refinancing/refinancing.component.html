@@ -9,11 +9,6 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Refinancing Charges p.a.</td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.refinancingCharges" placeholder="1.23" weightDirective>
-                                        <span class="pull-right percent">%</span></td>
-                                </tr>
-                                <tr>
                                     <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
 
                                     </td>
@@ -23,16 +18,26 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Refinancing Charges p.a.</td>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.refinancingCharges" placeholder="1.23" weightDirective>
+                                        <span class="pull-right percent">%</span></td>
+                                </tr>
+                              
+                                <tr>
                                     <td>Document Transaction Charges</td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.docHandlingCharges" placeholder="200.00" weightDirective />
 
                                     </td>
                                 </tr>
+                          
+                              <tr>
+                                <td>Other Charges</td>
+                                <td><input type="text" name="otherCharges" [(ngModel)]="dataViewEdit.otherCharges" placeholder="200.00" weightDirective>
+                                    <textarea name="OtherChargesComments" [(ngModel)]="dataViewEdit.OtherChargesComments" class="textarea-pad" placeholder="Customer needs to pay standard swift transfer charges" rows="3"></textarea>
 
-                              <textarea rows="3" placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
-                           
-                        
+                                </td>
+                            </tr>
                         <tr>
                            <td>Minimum Transaction Charges</td>
                            <td>
@@ -59,14 +64,18 @@
                         </tr>
                      </tbody>
                   </table>
-                  <div>
-                     <button type="submit" class="btn btn-info pull-right" id="btnpreview"
-                        (click)="transaction('preview')">
+                  <div *ngIf="title=='Edit'">
+                    <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview')">
                         Preview
                         <div class="ripple-container"></div>
-                     </button>
-
-                        </div>
+                    </button>
+                </div>
+                <div *ngIf="title=='View'">
+                    <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit')">
+                        Edit
+                        <div class="ripple-container"></div>
+                    </button>
+                </div>
                     </div>
                 </div>
                 <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 50px;">
@@ -74,19 +83,19 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Refinancing Charges p.a.</td>
-                                    <td>{{dataViewEdit.refinancingCharges}}</td>
-                                </tr>
-                                <tr>
                                     <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
                                     </td>
                                     <td>{{dataViewEdit.applicableBenchmark}}%<br><small>Standard Libor applied on the LC
                                  value</small></td>
                                 </tr>
                                 <tr>
+                                    <td>Refinancing Charges p.a.</td>
+                                    <td>{{dataViewEdit.refinancingCharges}}</td>
+                                </tr>
+                                <tr>
                                     <td>Document Transaction Charges</td>
                                     <td>
-                                        ${{dataViewEdit.docHandlingCharges}}
+                                        {{dataViewEdit.docHandlingCharges}}
                                     </td>
                                 </tr>
 
@@ -94,14 +103,14 @@
                                     <td>Other Charges<br>
                                     </td>
                                     <td>
-                                        ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
+                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
                                  transfer charges.</small>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Minimum Transaction Charges</td>
                                     <td>
-                                        ${{dataViewEdit.minTransactionCharges}}
+                                        {{dataViewEdit.minTransactionCharges}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -163,7 +172,7 @@
 </div>
 
 <div [hidden]="!isActiveQuote">
-    <div id="menubarRefinanceQuote" style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+    <div id="menubarRefinanceQuote" style="position: fixed; width: 520px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
 
         <div class="popupcontent">
             <div class="card">

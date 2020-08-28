@@ -69,9 +69,13 @@ export class SubscriptionComponent implements OnInit {
 
   getSubscriptionDetails() {
     this.titleService.loading.next(true);
-    this.subscriptionService.getSubscriptionDetails().subscribe(data => {
+    let req = {
+      "userId": sessionStorage.getItem('userID'),
+      "countryName": sessionStorage.getItem('registeredCountry')
+    }
+    this.subscriptionService.getPlansByCountry(req).subscribe(data => {
       this.isNew = true;
-      this.subscriptionDetails = data.data;
+      this.subscriptionDetails = data.data.customerSplans;
       this.loading = false;
     }
     )

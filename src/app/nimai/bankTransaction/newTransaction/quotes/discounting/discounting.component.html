@@ -38,6 +38,9 @@
                                  <option value="%">%</option>
                               </select>
                                     </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
+                                    </td>
                               </tr>
                           
                               <tr>
@@ -72,12 +75,17 @@
                               </tr> 
                            </tbody>
                         </table>
-                        <div>
-                            <button type="submit" class="btn btn-info pull-right" id="btnpreview" (click)="transaction('preview')">
-                              Preview
-                              <div class="ripple-container" ></div>
-                           </button>
-
+                        <div *ngIf="title=='Edit'">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview')">
+                                Preview
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                        <div *ngIf="title=='View'">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit')">
+                                Edit
+                                <div class="ripple-container"></div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +105,7 @@
                                 <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td>
-                                        ${{dataViewEdit.negotiationChargesFixed}}
+                                        {{dataViewEdit.negotiationChargesFixed}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -109,7 +117,7 @@
                                 <tr>
                                     <td>Document Handling Charges</td>
                                     <td>
-                                        ${{dataViewEdit.docHandlingCharges}}
+                                        {{dataViewEdit.docHandlingCharges}}
                                     </td>
                                 </tr>
 
@@ -117,13 +125,13 @@
                                     <td>Other Charges<br>
                                     </td>
                                     <td>
-                                        ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Minimum Handling Charges</td>
                                     <td>
-                                        ${{dataViewEdit.minTransactionCharges}}
+                                        {{dataViewEdit.minTransactionCharges}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -186,7 +194,7 @@
 </div>
 
 <div [hidden]="!isActiveQuote">
-    <div id="menubarDiscountQuote" style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+    <div id="menubarDiscountQuote" style="position: fixed; width: 520px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">

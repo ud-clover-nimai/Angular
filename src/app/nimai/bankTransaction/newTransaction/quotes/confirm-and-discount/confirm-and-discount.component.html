@@ -108,13 +108,23 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
+                        <!-- <div>
                             <button type="submit" class="btn btn-info pull-right" id="btnpreview" (click)="transaction('preview',dataViewEdit)">
                         Preview
                         <div class="ripple-container"></div>
                      </button>
-                            <!-- <a href="#"  class="pull-right linkbtn" style="margin-right: 5px;">Save
-                           </a> -->
+                        </div> -->
+                        <div *ngIf="title=='Edit'">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview',dataViewEdit)">
+                                Preview
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                        <div *ngIf="title=='View'">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit',dataViewEdit)">
+                                Edit
+                                <div class="ripple-container"></div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -149,7 +159,7 @@
                                 <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td>
-                                        ${{dataViewEdit.negotiationChargesFixed}}
+                                        {{dataViewEdit.negotiationChargesFixed}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -161,7 +171,7 @@
                                 <tr>
                                     <td>Document Handling Charges</td>
                                     <td>
-                                        ${{dataViewEdit.docHandlingCharges}}
+                                        {{dataViewEdit.docHandlingCharges}}
                                     </td>
                                 </tr>
 
@@ -169,14 +179,14 @@
                                     <td>Other Charges<br>
                                     </td>
                                     <td>
-                                        ${{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
+                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
                                  transfer charges.</small>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Minimum Handling Charges</td>
                                     <td>
-                                        ${{dataViewEdit.minTransactionCharges}}
+                                        {{dataViewEdit.minTransactionCharges}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -244,7 +254,7 @@
 
 
 <div [hidden]="!isActiveQuote">
-    <div id="menubarConDisQuote" style="position: fixed; width: 510px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+    <div id="menubarConDisQuote" style="position: fixed; width: 520px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
@@ -291,17 +301,17 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input [checked]="charges1" type="radio" id="optn" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                <input [checked]="charges1" type="radio" id="optn1" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 negotiation date</td>
-                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectidNego" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input [checked]="charges2" type="radio" id="optn" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                <input [checked]="charges2" type="radio" id="optn2" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i
                                                     class="fas fa-info-circle"
                                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
-                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectid2" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
                                             <td>Applicable Benchmark (if any)</td>

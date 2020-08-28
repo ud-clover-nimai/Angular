@@ -17,6 +17,10 @@ export class SubscriptionDetailsService {
       { headers: { 'content-type': 'application/json' } });
   }
 
+  getPlansByCountry(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/viewCustomerSPlan` , data, { headers: { 'content-type': 'application/json' } })
+  }
+
 
   public getPlanByUserId(userID: string): Observable<Subscription> {
     return this.httpClient.get<Subscription>(`${environment.domain}/nimaiSPlan/getSPlan/` + userID, { headers: { 'content-type': 'application/json' } })
