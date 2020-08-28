@@ -28,7 +28,7 @@ export class TrasactionDetailsComponent {
   selectReason: any;
   public parentURL: string = "";
   public subURL: string = "";
-
+  
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
       this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -56,7 +56,7 @@ export class TrasactionDetailsComponent {
       "quotationStatus": status
 
     }
-
+ 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
