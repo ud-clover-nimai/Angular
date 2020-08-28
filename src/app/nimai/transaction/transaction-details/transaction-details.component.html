@@ -74,24 +74,26 @@
                               <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Status </th>
                                 <td mat-cell *matCellDef="let row">
-                                    <select>
-                                        <option value="Open">Re-open</option>
+                                    <select id="closedTrans" *ngIf="row.transactionStatus == 'Accepted'" (change)="onCloseTransactionPopup(row.transactionId)">
+                                        <option value="Open">Open</option>
                                         <option value="Close">Close</option>
                                      </select>
+                                     <span *ngIf="row.transactionStatus == 'Closed' || row.transactionStatus == 'Rejected' || row.transactionStatus == 'Expired'">Closed</span>
                                 </td>
                               </ng-container>
                               <ng-container matColumnDef="detail1">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                                 <td mat-cell *matCellDef="let row"> 
-                                    <a style="cursor: pointer;" (click)="getDetail(row);openNav3();openOffcanvas();">Detail</a>
+                                    <a style="cursor: pointer;" (click)="getDetail(row);openNav3();openOffcanvas();">Detail</a><br/>
+                                    <a style="cursor: pointer;" (click)="cloneTransaction(row.transactionId)">Clone</a>
                                 </td>
                               </ng-container>
-                              <ng-container matColumnDef="detail2">
+                              <!-- <ng-container matColumnDef="detail2">
                                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                                  <td mat-cell *matCellDef="let row"> 
                                      <a style="cursor: pointer;" (click)="cloneTransaction(row.transactionId)">Clone</a>
                                  </td>
-                               </ng-container>
+                               </ng-container> -->
                               
                         
                               <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
@@ -581,7 +583,7 @@
                         </table>
                      </div>
                    
-                     <div class="col-md-12 pull-right">
+                     <div class="col-md-12 pull-right" *ngIf="NotAllowed">
                         <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
                         <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
 
@@ -1074,7 +1076,7 @@
      </div>
   </div>
 </div>
-<div id="myModal4" style="display: none;" class="popupnew modal fade" role="dialog">
+<div id="closePopup" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->
      <div class="modal-content">
@@ -1089,12 +1091,12 @@
                           <p>By clicking the Closed button you ensure that the transaction has been closed with the customer</p>
                           <label>Remarks (Optional)</label>
                           <div class="inputDiv">
-                             <textarea rows="4"></textarea>
+                             <textarea rows="2" id="closeReason"></textarea>
                           </div>
                        </div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info pull-right">OK</button>
+                    <button type="submit" class="btn btn-info pull-right" (click)="onClosePopDismiss()">Close</button>
+                    <button type="submit" class="btn btn-info pull-right" (click)="closedTransaction()">OK</button>
                  </div>
               </div>
            </div>

@@ -75,7 +75,14 @@ export class SubscriptionComponent implements OnInit {
     }
     this.subscriptionService.getPlansByCountry(req).subscribe(data => {
       this.isNew = true;
-      this.subscriptionDetails = data.data.customerSplans;
+      var userid = sessionStorage.getItem("userID");
+      if((userid.startsWith('CU'))){
+        this.subscriptionDetails = data.data.customerSplans;
+      }
+      else{
+      this.subscriptionDetails = data.data.banksSplans;
+      }
+      
       this.loading = false;
     }
     )

@@ -14,7 +14,7 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent {
-  displayedColumns: string[] = ['id', 'txnID', 'dateTime', 'lcBank', 'requirement', 'lCValue', 'goods', 'applicantName', 'beneName', 'status', 'detail1', 'detail2'];
+  displayedColumns: string[] = ['id', 'txnID', 'dateTime', 'lcBank', 'requirement', 'lCValue', 'goods', 'applicantName', 'beneName', 'status', 'detail1'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -31,6 +31,8 @@ export class TransactionDetailsComponent {
   dataSourceLength: boolean = false;
   quotationReqType: string;
   onReject: boolean = false;
+  NotAllowed: boolean = true;
+  forCloseTransactionId: any = "";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -48,12 +50,20 @@ export class TransactionDetailsComponent {
   }
 
   public getAllnewTransactions(status) {
+
     if (status == "Rejected") {
       this.onReject = true;
+      this.NotAllowed = true;
     }
-    else {
+    else if(status == "Expired") {
       this.onReject = false;
+      this.NotAllowed = true;
     }
+    else if(status == "Accepted") {
+      this.onReject = false;
+      this.NotAllowed = true;
+    }
+
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
     if (userIdDetail.startsWith('BC')) {
@@ -100,16 +110,14 @@ export class TransactionDetailsComponent {
   }
 
   getDetail(detail) {
-    // $("#menu-barnew li").removeClass("active");
-    // $("#menu-barnew li:first").addClass("active");
     console.log(detail);
     this.specificDetail = detail;
 
   }
 
   changeStatusCall(status) {
-    this.getAllnewTransactions(status);
     custTrnsactionDetail();
+    this.getAllnewTransactions(status);
   }
 
   displayQuoteDetails(transactionId, reqType) {
@@ -203,9 +211,33 @@ export class TransactionDetailsComponent {
     }
   }
 
-  redirectAsReopen() {
-
+  onCloseTransactionPopup(transactionId){
+    if($('#closedTrans').val() == "Close"){
+      $("#closeReason").val("");
+      $("#closePopup").show();
+      this.openNav3();
+      this.forCloseTransactionId = transactionId;
+    }
   }
 
+  onClosePopDismiss(){
+    $("#closePopup").hide();
+    this.closeOffcanvas();
+    $('#closedTrans').val("Open").change();
+  }
 
+  closedTransaction() {
+      var request = {
+        "transactionId":this.forCloseTransactionId,
+        "userId":sessionStorage.getItem('userID'),
+        "statusReason":$("#closeReason").val()
+      }
+      this.nts.custCloseTransaction(request).subscribe(
+        (response) => {
+        this.closeOffcanvas();
+        $("#closePopup").hide();
+        },
+        (err) => { }
+      )
+  }
 }

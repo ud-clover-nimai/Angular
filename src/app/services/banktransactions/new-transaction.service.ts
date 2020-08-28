@@ -80,4 +80,8 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/reopenTransactionByTxnIdUserId`, data , { headers: { 'content-types': 'application/json' } });
   }
 
+  public custCloseTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/closeTransaction`, data , { headers: { 'content-types': 'application/json' } });
+  }
+
 }
