@@ -43,6 +43,7 @@ export class NewTransactionComponent implements OnInit {
   public detail: any;
   public parentURL: string = "";
   public subURL: string = "";
+  public detailInfo: string = "";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder,
      public activatedRoute: ActivatedRoute, public router: Router) {
@@ -162,6 +163,20 @@ export class NewTransactionComponent implements OnInit {
     this.isActive = true;
     this.data = data;
     this.titleService.quote.next(true);
+
+    const transactionId = {
+      "transactionId": data
+    }
+
+    this.nts.getSpecificTxnDetailByTxnId(transactionId).subscribe(
+      (response) => {
+        this.detailInfo = JSON.parse(JSON.stringify(response)).data;
+      
+      }, (error) => {
+        this.hasNoRecord = true;
+      }
+    )
+
   }
 
   showProForma(file) {

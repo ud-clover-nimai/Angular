@@ -1915,7 +1915,8 @@ vertical-align: top;
       background: #eee;
     box-shadow: none;
     border: 0;
-    padding: 3px;
+    padding: 0px;
+  
  }
 
  .popupcontent input,.popupcontent select{

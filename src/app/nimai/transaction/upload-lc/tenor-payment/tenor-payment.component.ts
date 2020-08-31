@@ -104,7 +104,7 @@ export class TenorPaymentComponent implements OnInit {
     let reader = e.target;
     this.imageSrc = reader.result;
     this.LcDetail.get('tenor_file').setValue(this.imageSrc);
-    this.LcDetail.get('lcMaturityDate').setValue("");
+    // this.LcDetail.get('lcMaturityDate').setValue("");
 
   }
 
