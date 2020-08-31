@@ -33,6 +33,7 @@ export class TransactionDetailsComponent {
   onReject: boolean = false;
   NotAllowed: boolean = true;
   forCloseTransactionId: any = "";
+  showTransactionStatusCol: boolean = true;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -54,14 +55,17 @@ export class TransactionDetailsComponent {
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
+      this.showTransactionStatusCol = false;
     }
     else if(status == "Expired") {
       this.onReject = false;
-      this.NotAllowed = true;
+      this.NotAllowed = false;
+      this.showTransactionStatusCol = false;
     }
     else if(status == "Accepted") {
       this.onReject = false;
       this.NotAllowed = true;
+      this.showTransactionStatusCol = true;
     }
 
     var userIdDetail = sessionStorage.getItem('userID');
@@ -129,6 +133,7 @@ export class TransactionDetailsComponent {
 
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
+        this.quotationdata = "";
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
         this.quotationReqType = reqType;
       },
@@ -236,6 +241,8 @@ export class TransactionDetailsComponent {
         (response) => {
         this.closeOffcanvas();
         $("#closePopup").hide();
+        this.getAllnewTransactions('Accepted');
+        custTrnsactionDetail();
         },
         (err) => { }
       )
