@@ -172,8 +172,8 @@ export class ConfirmationComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
+        $('textarea').attr('readonly', true);
         this.title = 'View';
-        this.radioid = true;
         this.dataViewEdit = data;
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
@@ -200,6 +200,21 @@ export class ConfirmationComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
+        if (data.confChgsIssuanceToMatur === 'yes') {
+          this.charges2 = true;
+          this.charges1 = false;
+          data.confChgsIssuanceToMatur = "";
+          data.confChgsIssuanceToNegot = "";
+          this.selectMature = 'yes';
+          this.selectNego = 'no';
+        } else if (data.confChgsIssuanceToNegot === 'yes') {
+          this.charges1 = true;
+          this.charges2 = false;
+          data.confChgsIssuanceToNegot = "";
+          data.confChgsIssuanceToMatur = "";
+          this.selectMature = 'no';
+          this.selectNego = 'yes';
+        }
       }
     } else {
       this.isActive = flag;
@@ -225,15 +240,17 @@ export class ConfirmationComponent implements OnInit {
 
 
   public transaction(act: string, dataViewEdit: any) {
+    this.radioid = true;
     this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
     this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
-
+   
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
         this.title = 'Edit';
         this.radioid = false;
         $('input').attr('readonly', false);
+        $('textarea').attr('readonly', false);
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -276,7 +293,6 @@ export class ConfirmationComponent implements OnInit {
       }
         break;
       case 'preview': {
-       
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -297,6 +313,7 @@ export class ConfirmationComponent implements OnInit {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
+            $('textarea').attr('readonly', true);
           }, 200);
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
             (response) => {
@@ -312,6 +329,7 @@ export class ConfirmationComponent implements OnInit {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
+            $('textarea').attr('readonly', true);
           }, 200);
         }
        
@@ -435,7 +453,7 @@ export class ConfirmationComponent implements OnInit {
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;
-        this.ts.saveQuotationToDraft(this.data).subscribe(
+          this.ts.saveQuotationToDraft(this.data).subscribe(
           (response) => {
             if (JSON.parse(JSON.stringify(response)).status === 'Failure') {
               this.errmessage = `Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`

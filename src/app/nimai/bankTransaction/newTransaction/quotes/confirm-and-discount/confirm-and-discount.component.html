@@ -107,7 +107,7 @@
                                  placeholder="0.00" weightDirective />
                            </td>
                         </tr>
-                        <textarea name="OtherChargesComments" [(ngModel)]="dataViewEdit.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                        <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                         <tr>
                            <td>Minimum Transaction Charges</td>
@@ -214,12 +214,12 @@
                                     <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                     <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
                                 </tr>
+                               
                                 <tr>
-                                    <td>Applicable Benchmark p.a.  (if any)
-                                    </td>
-                                    <td>{{dataViewEdit.applicableBenchmark}}%<br><small>Standard Libor applied on the LC
-                                 value</small></td>
+                                    <td>Applicable Benchmark (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.commentsBenchmark}}</small></td>
+                                    <td>{{dataViewEdit.applicableBenchmark}}% </td>
                                 </tr>
+
                                 <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td>
@@ -240,13 +240,14 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Other Charges (if any)<br>
+                                    <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
                                     </td>
                                     <td>
-                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
-                                 transfer charges.</small>
+                                        {{dataViewEdit.otherCharges}}
                                     </td>
                                 </tr>
+
+
                                 <tr>
                                     <td>Minimum Handling Charges</td>
                                     <td>
@@ -270,7 +271,12 @@
                                     <th>Total Quote</th>
                                     <th>{{totalQuotes}}</th>
                                 </tr>
-
+                                <tr>
+                                    <td><small>Others terms and conditions</small></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
+                                </tr>
                                 <tr>
                                     <td colspan="2"><small>Note : The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>
@@ -411,7 +417,7 @@
                                             <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
                                         </tr>
-                                        <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                                        <textarea name="chargesType" [(ngModel)]="data.chargesType" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                                         <!-- <tr>
                                     <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
@@ -423,8 +429,8 @@
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
-                                 <td><input type="date" name="validityDate" onkeydown="return false" [(ngModel)]="data.validityDate"
-                                       #validityDate="ngModel"
+                                 <td><input type="date" name="validityDate" onkeydown="return false" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="data.validityDate = $event"   #validityDate="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required>
                                     <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
                                        <div *ngIf="validityDate.errors.required">Validity date is required</div>
@@ -528,7 +534,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
+                                        <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>
                                         <td>
                                             {{data.otherCharges}}

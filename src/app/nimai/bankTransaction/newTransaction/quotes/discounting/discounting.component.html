@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-content">
                 <h4>{{title}}</h4>
-                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 50px;">
+                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -78,7 +78,7 @@
                                     <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
                                  </td>
                               </tr>
-                              <textarea name="OtherChargesComments" [(ngModel)]="dataViewEdit.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                              <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                               <tr>
                                  <td>Minimum Transaction Charges</td>
@@ -153,11 +153,11 @@
                                     <td>Discounting Charges p.a.</td>
                                     <td>{{dataViewEdit.discountingCharges}}%</td>
                                 </tr>
-                                <tr>
-                                    <td>Applicable Benchmark (if any)
-                                    </td>
-                                    <td>{{dataViewEdit.applicableBenchmark}}%<br><small>Standard Libor applied on the LC value</small></td>
+                                 <tr>
+                                    <td>Applicable Benchmark (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.commentsBenchmark}}</small></td>
+                                    <td>{{dataViewEdit.applicableBenchmark}}% </td>
                                 </tr>
+
                                 <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td>
@@ -178,12 +178,13 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Other Charges (if any)<br>
+                                    <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
                                     </td>
                                     <td>
-                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
+                                        {{dataViewEdit.otherCharges}}
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td>Minimum Handling Charges</td>
                                     <td>
@@ -319,7 +320,7 @@
                                             <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="200.00" weightDirective>
                                         </tr>
-                                        <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                                        <textarea name="chargesType" [(ngModel)]="data.chargesType" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                                         <!-- <tr>
                                     <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
@@ -332,8 +333,8 @@
                                  </tr>
                                  <tr>
                                     <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
-                                    <td><input type="date" onkeydown="return false" name="validityDate" [(ngModel)]="data.validityDate" 
-                                       #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
+                                    <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="data.validityDate = $event"  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                        <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
                                           <div *ngIf="validityDate.errors.required">Validity date is required</div>
                                       </div>
@@ -415,7 +416,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
+                                        <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>
                                         <td>
                                             {{data.otherCharges}}

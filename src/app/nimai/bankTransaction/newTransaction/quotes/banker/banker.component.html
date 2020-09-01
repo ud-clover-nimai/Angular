@@ -108,7 +108,7 @@
                                                 weightDirective />
                                         </td>
                                     </tr>
-                                    <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments"
+                                    <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType"
                                     style="width:325px;margin: 6px 0px 0px;height: 50px;"
                                     placeholder="Customer needs to pay standard swift transfer  &#10; charges"
                                     rows="3"></textarea>
@@ -200,13 +200,13 @@
                                     <td>Banker's Acceptance Charges p.a.</td>
                                     <td>{{dataViewEdit.bankerAcceptCharges}}</td>
                                 </tr>
+                               
                                 <tr>
                                     <td>Applicable Benchmark (if any)<br><small
-                                        style="color: #b6a3a3;">{{data.commentsBenchmark}}</small>
-                                    </td>
-                                    <td>{{dataViewEdit.applicableBenchmark}}<br><small>Standard Libor applied on the LC
-                                            value</small></td>
+                                            style="color: #b6a3a3;">{{dataViewEdit.commentsBenchmark}}</small></td>
+                                    <td>{{dataViewEdit.applicableBenchmark}}% </td>
                                 </tr>
+
                                 <tr>
                                     <td>Negotiation Charges (Fixed)</td>
                                     <td>
@@ -226,14 +226,15 @@
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>Other Charges (if any)<br>
+                                     <tr>
+                                    <td>Other Charges (if any)<br><small
+                                            style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
                                     </td>
                                     <td>
-                                        {{dataViewEdit.otherCharges}} <br><small
-                                        style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
+                                        {{dataViewEdit.otherCharges}}
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td>Minimum Handling Charges</td>
                                     <td>
@@ -395,8 +396,8 @@
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges"
                                                     placeholder="200.00" weightDirective>
                                         </tr>
-                                        <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments"
-                                            style="width:331px;margin: 6px 0px 0px;height: 50px;"
+                                        <textarea name="chargesType" [(ngModel)]="data.chargesType"
+                                        style="width:331px;margin: 6px 0px 0px;height: 50px;"
                                             placeholder="Customer needs to pay standard swift transfer  &#10; charges"
                                             rows="3"></textarea>
 
@@ -412,9 +413,8 @@
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
-                                            <td><input type="date" onkeydown="return false" name="validityDate"
-                                                    [(ngModel)]="data.validityDate" #validityDate="ngModel"
-                                                    [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
+                                            <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
                                                 <div *ngIf="f.submitted && validityDate.invalid"
                                                     class="invalid-feedback">
@@ -514,7 +514,7 @@
                                     </tr>
                                     <tr>
                                         <td>Other Charges (if any)<br><small
-                                                style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
+                                                style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>
                                         <td>
                                             {{data.otherCharges}}

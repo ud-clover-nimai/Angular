@@ -41,11 +41,11 @@ export class DraftTransactionComponent implements OnInit {
 
   ngAfterViewInit() {
     this.callAllDraftTransaction();
-    this.confirmation.isActive = false;
-    this.confirmAndDiscount.isActive = false;
-   this.discounting.isActive = false;
-    this.refinancing.isActive = false;
-    this.banker.isActive = false;
+    this.confirmation.isActiveQuote = false;
+    this.confirmAndDiscount.isActiveQuote = false;
+    this.discounting.isActiveQuote = false;
+    this.refinancing.isActiveQuote = false;
+    this.banker.isActiveQuote = false;
     
   }
 
@@ -70,44 +70,44 @@ export class DraftTransactionComponent implements OnInit {
 
 
 
-  editDraft(pagename: string,action:Tflag,val:any) {
+  editDraft(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
    
 
-    if (pagename == 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,val);
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
+    if (pagename == 'confirmation' || pagename === 'Confirmation') {
+      this.confirmation.action(true, action, data);
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
-      this.confirmation.isActive = false;
-      this.discounting.action(true,action,val);
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {    
-      this.confirmAndDiscount.action(true,action,val);
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.isActive = false;
-    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename==='refinance') {
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,val);
-      this.banker.isActive = false;
+
+      this.confirmation.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+      this.discounting.action(true, action, data);
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
+      this.confirmAndDiscount.action(true, action, data);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+      this.refinancing.action(true, action, data);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
     } else if (pagename === 'banker' || pagename === "Banker") {
-      this.confirmation.isActive = false;
-      this.discounting.isActive = false;
-      this.confirmAndDiscount.isActive = false;
-      this.refinancing.isActive = false;
-      this.banker.action(true,action,val);
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.action(true, action, data);
     }
   }
-
   deleteDraft(val){
     const index = this.draftData.indexOf(val);
     this.draftData.splice(index, 1);
