@@ -70,6 +70,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   addSubsidiary() {
     $("#addsub").show();
     this.manageSubForm.reset();
+    this.respMessage = "";
   }
 
   onSubmit() {

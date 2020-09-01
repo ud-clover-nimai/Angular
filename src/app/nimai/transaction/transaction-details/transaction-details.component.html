@@ -583,7 +583,7 @@
                         </table>
                      </div>
                    
-                     <div class="col-md-12 pull-right" *ngIf="NotAllowed">
+                     <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
                         <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
                         <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
 

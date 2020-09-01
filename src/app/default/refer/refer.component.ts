@@ -93,6 +93,7 @@ export class ReferComponent implements OnInit {
   addRefer() {
     $("#addsub").show();
     this.referForm.reset();
+    this.respMessage = "";
   }
 
   onSubmit() {

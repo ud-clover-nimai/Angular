@@ -116,6 +116,9 @@ export class TransactionDetailsComponent {
   getDetail(detail) {
     console.log(detail);
     this.specificDetail = detail;
+    $('.active').removeClass('active');
+    $('#menu-barnew li:first').addClass('active');
+    $('.tab-content #pill111').addClass('active');
 
   }
 
