@@ -8,6 +8,7 @@ import { ForgetPasswordService } from 'src/app/services/forget-password/forget-p
 import { formatDate } from '@angular/common';
 import { ReferService } from 'src/app/services/refer/refer.service';
 import { loads} from '../../../assets/js/commons'
+import { SignupService } from 'src/app/services/signup/signup.service';
 @Component({
   selector: 'app-refer',
   templateUrl: './refer.component.html',
@@ -26,7 +27,7 @@ export class ReferComponent implements OnInit {
   referViewDetails : any;
   respMessage: string;
   total_references:number;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -117,7 +118,36 @@ export class ReferComponent implements OnInit {
       branchUserId: 'TEST',//this.referForm.get('branchUserId').value,
       insertedBy: this.referForm.get('firstName').value,
       modifiedBy: this.referForm.get('firstName').value
-    }    
+    }  
+    
+    let request = {
+
+      firstName: this.referForm.get('firstName').value,
+      lastName: this.referForm.get('lastName').value,
+      emailAddress: this.referForm.get('emailAddress').value,
+      mobileNum: this.referForm.get('mobileNo').value,
+      countryName: this.referForm.get('countryName').value,
+      landLinenumber: "",
+      companyName: this.referForm.get('companyName').value,
+      designation: '',
+      businessType: '',
+      userId: sessionStorage.getItem('userID'),
+      bankType: 'customer',
+      subscriberType: 'customer',
+
+      minLCValue: '0',
+      interestedCountry: [],
+      blacklistedGoods: [],
+      account_source: sessionStorage.getItem('userID'),
+      account_type: "REFER",
+      account_status: "ACTIVE",
+      account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
+      regCurrency: "",
+      emailAddress1: "",
+      emailAddress2: "",
+      emailAddress3: ""
+
+    }
     
     this.submitted = false;
     this.CompanyName = this.referForm.get('companyName').value;
@@ -127,6 +157,7 @@ export class ReferComponent implements OnInit {
       "event": 'ADD_REFER',
       "userId": sessionStorage.getItem('userID')
     }
+    this.signUpService.signUp(request).subscribe((response) => {
 
     this.service.addRefer(data)
       .subscribe(
@@ -149,7 +180,16 @@ export class ReferComponent implements OnInit {
           this.resetPopup();
           this.respMessage = "Service not working! Please try again later."
         }
-      )
+      )},
+      (error) => {
+        $('#authemaildiv').slideDown();
+        $('#paradiv').slideDown();
+        $('#okbtn').hide();
+        $('#btninvite').show();  
+        this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;
+      }
+    )
+
 
   }
 

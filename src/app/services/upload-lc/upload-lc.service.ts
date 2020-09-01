@@ -32,6 +32,9 @@ export class UploadLcService {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getDraftQuotationByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
   }
   
+  public getCustDraftTransactionDelete(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/deleteDraftTransactionByTxnId`, body,{headers:{'content-type':'application/json'}})
+  }
 
   public getCustspecificDraftTransaction(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getSpecificDraftTxnDetailByTxnId`,data, { headers: { 'content-type': 'application/json' } });
