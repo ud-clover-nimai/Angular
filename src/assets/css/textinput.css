@@ -1911,7 +1911,7 @@ vertical-align: top;
     }
  
 
- .popupcontent input:read-only {
+ .popupcontent input:read-only,.popupcontent textarea:read-only {
       background: #eee;
     box-shadow: none;
     border: 0;

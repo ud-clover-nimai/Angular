@@ -152,6 +152,7 @@ export class RefinancingComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
+        $('textarea').attr('readonly', true);
         this.title = 'View';
         this.dataViewEdit = data;
       } else if (type === Tflag.EDIT) {
@@ -192,6 +193,7 @@ export class RefinancingComponent implements OnInit {
         this.tab = 'tab1'
         setTimeout(() => {
           $('input').attr('readonly', false);
+          $('textarea').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
       }
@@ -223,6 +225,8 @@ export class RefinancingComponent implements OnInit {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
+            $('textarea').attr('readonly', true);
+
           }, 200);
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
             (response) => {
@@ -238,6 +242,8 @@ export class RefinancingComponent implements OnInit {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
+            $('textarea').attr('readonly', true);
+
           }, 200);
         }
       }

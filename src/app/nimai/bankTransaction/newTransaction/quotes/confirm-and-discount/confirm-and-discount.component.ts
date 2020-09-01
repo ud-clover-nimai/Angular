@@ -171,6 +171,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
+        $('textarea').attr('readonly', true);
         this.title = 'View';
         this.radioid = true;
         this.dataViewEdit = data;
@@ -231,6 +232,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         this.title = 'Edit';
         this.radioid = false;
         $('input').attr('readonly', false);
+        $('textarea').attr('readonly', false);
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -293,6 +295,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
           this.tab = 'tab2';
           setTimeout(() => {
             $('input').attr('readonly', true);
+            $('textarea').attr('readonly', true);
           }, 200);
           console.log(this.dataViewEdit)
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
