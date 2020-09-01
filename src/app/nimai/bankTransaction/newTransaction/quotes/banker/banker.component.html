@@ -9,6 +9,33 @@
                     <form name="form" (ngSubmit)="f.form.valid " #f="ngForm" novalidate>
 
                         <div class="tab-pane active" id="pill1">
+                            <div class="tab">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Requirement</b></td>
+                                            <td>{{dataViewEdit.requirementType}}</td>
+    
+                                            <td><b>CCy</b></td>
+                                            <td>{{dataViewEdit.lCCurrency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Transaction ID</b></td>
+                                            <td>{{dataViewEdit.transactionId}}</td>
+    
+                                            <td><b>Amount</b></td>
+                                            <td>{{ dataViewEdit.lCValue}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>IB</b></td>
+                                            <td>{{dataViewEdit.lCIssuanceBank}}</td>
+    
+                                            <td><b>Tenor</b></td>
+                                            <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <table class="table">
                                 <tbody>
                                     <tr>
@@ -18,16 +45,18 @@
                                                 weightDirective><span class="pull-right percent">%</span></td>
                                     </tr>
                                     <tr>
-                                        <td>Applicable Benchmark p.a. (Libor/Euribor)<br>
+                                        <td>Applicable Benchmark  (if any)<br>
 
                                         </td>
                                         <td><input type="text" name="applicableBenchmark"
                                                 [(ngModel)]="dataViewEdit.applicableBenchmark" readonly
                                                 placeholder="2.4780" weightDirective>
-                                            <span class="pull-right percent">%</span>
-                                            <textarea rows="3"
-                                                placeholder="Comments for Applicable Benchmark"></textarea></td>
+                                            <span class="pull-right percent">%</span></td>
                                     </tr>
+                                    <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark"
+                                    style="width:325px;margin: 6px 0px 0px;height: 50px;"
+                                    placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
+                                    rows="3"></textarea>
                                     <tr>
                                         <td>
                                             Negotiation Charges
@@ -60,7 +89,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Document Handling Charges</td>
+                                        <td>Document Handling Charges (if any)</td>
                                         <td>
 
                                             <input type="text" name="docHandlingCharges"
@@ -71,16 +100,18 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Other Charges<br>
+                                        <td>Other Charges (if any)<br>
                                         </td>
                                         <td>
                                             <input type="text" name="otherCharges"
                                                 [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00"
                                                 weightDirective />
-                                            <textarea rows="3"
-                                                placeholder="Specify the type charge (Swift, P&T, etc)"></textarea>
                                         </td>
                                     </tr>
+                                    <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments"
+                                    style="width:325px;margin: 6px 0px 0px;height: 50px;"
+                                    placeholder="Customer needs to pay standard swift transfer  &#10; charges"
+                                    rows="3"></textarea>
                                     <tr>
                                         <td>Minimum Transaction Charges</td>
                                         <td>
@@ -103,6 +134,14 @@
                                                 weightDirective />
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>Other terms and conditions</td>
+                                    </tr>
+
+                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments"
+                                        placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."
+                                        rows="3"
+                                        style="margin: 6px 0px 0px; width: 320px; height: 50px;"></textarea>
 
                                     <tr>
                                         <td colspan="2">Note: The applicable benchmark will be applicable as of
@@ -128,6 +167,33 @@
                 </div>
                 <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
                     <div class="tab-pane active" id="pill1">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{dataViewEdit.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{dataViewEdit.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{dataViewEdit.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ dataViewEdit.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -135,7 +201,8 @@
                                     <td>{{dataViewEdit.bankerAcceptCharges}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Applicable Benchmark p.a. (Libor/Euribor)
+                                    <td>Applicable Benchmark (if any)<br><small
+                                        style="color: #b6a3a3;">{{data.commentsBenchmark}}</small>
                                     </td>
                                     <td>{{dataViewEdit.applicableBenchmark}}<br><small>Standard Libor applied on the LC
                                             value</small></td>
@@ -153,19 +220,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Document Handling Charges</td>
+                                    <td>Document Handling Charges (if any)</td>
                                     <td>
                                         {{dataViewEdit.docHandlingCharges}}
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>Other Charges<br>
+                                    <td>Other Charges (if any)<br>
                                     </td>
                                     <td>
-                                        {{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift
-                                            transfer
-                                            charges.</small>
+                                        {{dataViewEdit.otherCharges}} <br><small
+                                        style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
                                     </td>
                                 </tr>
                                 <tr>
@@ -185,6 +251,12 @@
                                 <tr *ngIf="title=='Edit'">
                                     <th>Total Quote</th>
                                     <th>{{totalQuote}}</th>
+                                </tr>
+                                <tr>
+                                    <td><small>Others terms and conditions</small></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><small>Note: The applicable benchmark will be applicable as of
@@ -414,7 +486,7 @@
                                 <tbody>
                                     <br>
                                     <tr>
-                                        <td>Applicable Benchmark , if any<br><small
+                                        <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{data.commentsBenchmark}}</small></td>
                                         <td>{{data.applicableBenchmark}}% </td>
                                     </tr>
@@ -435,13 +507,13 @@
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
                                     <tr>
-                                        <td>Document Handling Charges</td>
+                                        <td>Document Handling Charges (if any)</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Other Charges<br><small
+                                        <td>Other Charges (if any)<br><small
                                                 style="color: #b6a3a3;">{{data.OtherChargesComments}}</small>
                                         </td>
                                         <td>
@@ -469,7 +541,12 @@
                                         <th>Total Quote</th>
                                         <th *ngIf="detail">{{detail.TotalQuote}}</th>
                                     </tr>
-
+                                    <tr>
+                                        <td><small>Others terms and conditions</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div>

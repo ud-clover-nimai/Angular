@@ -5,6 +5,33 @@
                 <h4>{{title}}</h4>
                 <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
                     <div class="tab-pane active" id="pill1">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{dataViewEdit.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{dataViewEdit.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{dataViewEdit.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ dataViewEdit.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -27,16 +54,15 @@
 
                               
                               <tr>
-                                 <td>Other Charges</td>
+                                 <td>Other Charges (if any)</td>
                                  <td>
                                     <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective  />
-                                  
-                                    <textarea placeholder="Specify the type charge (Swift, P&T, etc)" rows="3"></textarea>
                                  </td>
                               </tr>
-                              
+                              <textarea name="OtherChargesComments" [(ngModel)]="data.OtherChargesComments" style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+
                               <tr>
-                                 <td>Minimum Transaction Charges</td>
+                                 <td>Minimum Transaction Charges (if any)</td>
                                  <td>
                                     <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" weightDirective placeholder="0.00"  />
                                    
@@ -55,18 +81,18 @@
                                  </td>
                               </tr>
                               <tr>
+                                <td>Other terms and conditions</td>
+                             </tr>
+                            
+                             <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                             rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
+                            
+                              <tr>
                                  <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
                            </tbody>
                         </table>
-                        <!-- <div>
-                            <button type="submit" class="btn btn-info pull-right" id="btnpreview" (click)="transaction('preview',dataViewEdit)">
-                              Preview
-                              <div class="ripple-container" ></div>
-                           </button>
-
-                        </div> -->
-                        <div *ngIf="title=='Edit'">
+                       <div *ngIf="title=='Edit'">
                             <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview',dataViewEdit)">
                                 Preview
                                 <div class="ripple-container"></div>
@@ -83,6 +109,33 @@
 
                 <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
                     <div class="tab-pane active" id="pill1">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{dataViewEdit.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{dataViewEdit.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{dataViewEdit.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ dataViewEdit.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -100,12 +153,12 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Other Charges</td>
+                                    <td>Other Charges (if any)</td>
                                     <td>{{dataViewEdit.otherCharges}} <br><small>Customer needs to pay standard swift transfer charges.</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Minimum Transaction Charges</td>
+                                    <td>Minimum Transaction Charges (if any)</td>
                                     <td>
                                         {{dataViewEdit.minTransactionCharges}}
                                     </td>
@@ -325,7 +378,7 @@
                                         <td>{{data.confChgsMatur}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Other Charges<br><small style="color: #b6a3a3;"> {{data.OtherChargesComments}}</small>
+                                        <td>Other Charges (if any)<br><small style="color: #b6a3a3;"> {{data.OtherChargesComments}}</small>
                                         </td>
                                         <td>
                                             {{data.otherCharges}}
@@ -333,7 +386,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Minimum Transaction Charges</td>
+                                        <td>Minimum Transaction Charges (if any)</td>
                                         <td>
                                             {{data.minTransactionCharges}}
                                         </td>

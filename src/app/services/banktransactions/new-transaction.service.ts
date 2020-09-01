@@ -42,6 +42,11 @@ export class NewTransactionService {
   public confirmQuotation(data: any): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/confirmQuotation`, data, { headers: { 'content-types': 'application/json' } });
   }
+  
+  
+  public getSpecificTxnDetailByTxnId(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getSpecificTxnDetailByTxnId`,data , { headers: { 'content-types': 'application/json' } });
+  }
 
   public getAllNewBankRequest(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllNewRequestsForBank`,data , { headers: { 'content-types': 'application/json' } });

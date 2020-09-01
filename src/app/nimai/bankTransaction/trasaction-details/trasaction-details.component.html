@@ -29,7 +29,7 @@
                                                 <tr>
                                                     <th class="disabled-sorting text-center">#</th>
                                                     <th style="min-width: 150px;">Transaction ID</th>
-                                                    <th style="min-width: 166px;">Date & Time <br> (Quote Accepted on)</th>
+                                                    <th style="min-width: 166px;">Date & Time <br>{{dateTimeStatus}}</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
                                                     <th style="min-width: 150px;">Requirement</th>
                                                     <th style="min-width: 120px;">LC Value </th>
@@ -37,9 +37,9 @@
                                                     <th style="min-width: 100px;">Goods</th>
                                                     <th style="min-width: 150px;">Applicant's Name</th>
                                                     <th style="min-width: 150px;">Beneficiary Name</th>
-                                                    <th class="disabled-sorting text-center" nowrap style="min-width: 150px;">Transaction Status</th>
-                                                    <th style="min-width: 150px;">Rejected By</th>
-                                                    <th class="disabled-sorting text-center" >Actions</th>
+                                                    <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 150px;" >Transaction Status</th>
+                                                    <th [hidden]="!rejectedStatus" style="min-width: 150px;" >Rejected By</th>
+                                                    <th [hidden]="!acceptedStatus" class="disabled-sorting text-center" >Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -54,14 +54,17 @@
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
                                                     <td>{{record.beneName}}</td>
-                                                    <td>
+                                                    <td [hidden]="!acceptedStatus">
                                                         <select>
                                                             <option value="Open">Open</option>
                                                             <option value="Close">Close</option>
                                                         </select>
                                                     </td>
-                                                    <td>{{record.bankUserId}}</td>
-                                                    <td>
+                                                    <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+
+                                                    </td>
+                                                    <td [hidden]="!acceptedStatus">
                                                         <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
                                                     </td>
                                                    
@@ -1081,7 +1084,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h2>Reject Trasaction</h2>
-                <form name="form" (ngSubmit)="f.form.valid && rejectBankQuote(quotationdata.quotationId)" #f="ngForm" novalidate>
+                <form name="form" (ngSubmit)="f.form.valid && rejectBankQuote(quotationdata.quotationId,selectReason.title)" #f="ngForm" novalidate>
 
            <div class="padnew">
               <div class="">

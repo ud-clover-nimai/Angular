@@ -28,7 +28,10 @@ export class TrasactionDetailsComponent {
   selectReason: any;
   public parentURL: string = "";
   public subURL: string = "";
-  
+  public dateTimeStatus:string="";
+  acceptedStatus: boolean = true;
+  rejectedStatus:boolean=true;
+
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
       this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -51,6 +54,23 @@ export class TrasactionDetailsComponent {
   }
 
   public getAllnewTransactions(status) {
+    
+    if(status == "Accepted") {
+      this.dateTimeStatus='(Quote Accepted on)';
+      this.rejectedStatus=false;
+      this.acceptedStatus = true;
+    }
+    else  if (status == "Rejected") {
+      this.dateTimeStatus='(Quote Rejected on)';
+      this.rejectedStatus=true;
+      this.acceptedStatus = false;
+    }
+    else if(status == "Expired") {
+      this.dateTimeStatus='(Quote Expired on)';
+      this.rejectedStatus=false;
+      this.acceptedStatus = false;
+    }
+
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "quotationStatus": status
@@ -122,15 +142,15 @@ export class TrasactionDetailsComponent {
     $("#selectReason").val(null);
   }
 
-  rejectBankQuote(quoteId) {
+  rejectBankQuote(quoteId,statusReason) {
 
     $('#myModal5').hide();
     $('.modal-backdrop').hide();
-
     let data = {
-      "statusReason": "ABC"
+       "userId": sessionStorage.getItem('userID'),
+      "statusReason": statusReason
     }
-
+   
     this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
         this.closeOffcanvas();
