@@ -62,7 +62,16 @@ export class DraftTransactionComponent implements OnInit {
   }
 
   deleteDraft(data){
-    const index = this.draftData.indexOf(data);
-    this.draftData.splice(index, 1);
+    var req = {
+      "transactionId": data.transactionId
+      }
+    this.service.getCustDraftTransactionDelete(req).subscribe(
+      (response) => {
+        const index = this.draftData.indexOf(data);
+        this.draftData.splice(index, 1);
+      },(error) =>{
+      }
+      )
+    
   }
 }

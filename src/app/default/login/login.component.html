@@ -5,6 +5,8 @@
    <title>NIMAI</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!--Rahul Change-->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 
 <body>
@@ -20,7 +22,7 @@
                               <div class="">
                                  <div>
                                     <h2> <span style="position: absolute;font-size: 15px;top: 14px;font-weight: 500;background: #fff;color: #00bcd4;display: inline-block;left: 14px;border-radius: 5px;padding: 10px;">NIMAITRADE</span>Sign Up!<br> <small>Create your account</small></h2>
-                                    <div class="col-md-2 heightdiv" style="position: relative;">
+                                    <div class="col-md-2 col-sm-2 heightdiv" style="position: relative;">
                                        <div class="row">
                                           <div class="radio-tile-group">
                                              <div class="input-container">
@@ -69,8 +71,8 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-10 heightdiv"
-                                       style="box-shadow: 7px -12px 13px inset #0000001c;padding: 25px 30px 0;">
+                                    <!--Rahul changes-->
+                                    <div class="col-md-10 col-sm-10 heightdiv" style="-webkit-box-shadow: 7px -12px 13px inset rgb(0 0 0 / 11%); -moz-box-shadow:7px -12px 13px inset rgb(0 0 0 / 11%);box-shadow: 7px -12px 13px inset rgb(0 0 0 / 11%);padding: 25px 30px 0;">
                     
                                        <div class="selection text-left">
                                           <ul class="list-inline list-unstyled">
@@ -88,19 +90,19 @@
                                           </ul>
                                        </div>
                                        <div class="clearfix marbtm25" style="margin-bottom: 10px;"></div>
-                                       <!-- <div class="col-md-4">
+                                       <!-- <div class="col-md-4 col-sm-4">
                                           <div _ngcontent-lxg-c1="" class="inputDiv"><input _ngcontent-lxg-c1="" formcontrolname="firstName" type="text" ng-reflect-name="firstName" class="ng-pristine ng-touched ng-invalid"><label _ngcontent-lxg-c1="">First Name</label>
                                           <div _ngcontent-lxg-c1="" class="invalid-feedback">
                                              <div _ngcontent-lxg-c1=""> First Name is required </div></div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div _ngcontent-lxg-c1="" class="inputDiv"><input _ngcontent-lxg-c1="" formcontrolname="firstName" type="text" ng-reflect-name="firstName" class="ng-pristine ng-touched ng-invalid"><label _ngcontent-lxg-c1="">Last Name</label>
                                           <div _ngcontent-lxg-c1="" class="invalid-feedback">
                                              <div _ngcontent-lxg-c1=""> Last Name is required </div></div>
                                           </div>
                                        </div> -->
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
                                              <input type="text" maxlength="20" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>First Name</label>
@@ -112,7 +114,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
                                              <input type="text" maxlength="20" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>Last Name</label>
@@ -124,7 +126,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
                                              <input type="text" formControlName="officialMailId"  oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()">
                                              <label>Official Email ID</label>
@@ -139,7 +141,7 @@
                                               </div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv selectdiv">
                                              <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
                                                 <option value=''>Select</option>
@@ -155,7 +157,7 @@
                                           </div>
                     
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv divmob">
                                              <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
                                              <ng-template #other_content></ng-template>
@@ -172,7 +174,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4">
+                                       <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
                                              <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                                              <label>Landline No.</label>
@@ -188,7 +190,7 @@
                                           </div>
                                        </div>
 
-                                       <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
+                                       <div class="col-md-4 col-sm-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="companyName">
                                              <label>Company Name</label>
@@ -201,7 +203,7 @@
                                           </div>
                                        </div>
 
-                                       <div class="col-md-4 bankfields" *ngIf="isBank">
+                                       <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank">
                                           <!-- <div class="inputDiv">                                          
                                              <select class="selectpicker" data-style="select-with-transition" multiple
                                                 title="Countries Interested" data-size="7" formControlName="countriesInt" >
@@ -226,7 +228,7 @@
                                              <img src="assets/images/countries.png" class="blackListedGoodsList_img"/>
                                          </div>
                                        </div>
-                                       <div class="col-md-4 bankfields" *ngIf="isBank">
+                                       <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
                                              <input type="text" class="currencyleft" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
                                              <label>Min LC Value</label>
@@ -242,7 +244,7 @@
                                              </select>
                                           </div>
                                        </div>
-                                       <div class="col-md-4 bankfields" *ngIf="isBank">
+                                       <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank">
                                           <!-- <div class="inputDiv">
                                              <select class="selectpicker" data-style="select-with-transition" multiple
                                                 title="Blacklisted Goods" data-size="7" formControlName="blacklistedGC">
@@ -266,7 +268,7 @@
                                              <img src="assets/images/blacklisted.png" class="blackListedGoodsList_img" />
                                          </div>
                                        </div>
-                                       <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
+                                       <div class="col-md-4 col-sm-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
                                              <input type="text" maxlength="30" formControlName="designation">
                                              <label>Designation</label>
@@ -278,7 +280,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="col-md-4 referrerdiv" *ngIf="isReferrer">
+                                       <div class="col-md-4 col-sm-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">
                                              <select formControlName="businessType">
                                                 <option value="">Select</option> 
@@ -297,7 +299,7 @@
                                              </div>
                                           </div>
                                        </div>
-                    
+                                       <div class="clearfix"></div>
                                         <div class="col-md-12">
                                           <div class="rc-anchor rc-anchor-normal rc-anchor-light form-group">
                                              <div class="rc-anchor-content">
@@ -337,10 +339,10 @@
                                        </div> 
                                        <div class="clearfix"></div>
                                        <div class="checkbox">
-                                          <label>
-                                             <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()" formControlName="termsAndcondition">
+                                          <label><!--Rahul Changes-->
+                                             <input type="checkbox" id="isCheckedForTerms" (change)="acceptTerms()" formControlName="termsAndcondition">                    I agree to
                                           </label>
-                                          I agree to <a (click)="openTermAndServiceDialog('Terms and Conditions')" class='terms_condition'> terms of service and privacy policy</a>
+                        <a (click)="openTermAndServiceDialog('Terms and Conditions')" class='terms_condition'> terms of service and privacy policy</a>
                                           <div id="checkboxError" style="color:#ff0330;font-size: 11px;font-weight: 400;" *ngIf="submittedSignup && suf.termsAndcondition.errors">
                                              Kindly accept terms of service and privacy policy
                                           </div>

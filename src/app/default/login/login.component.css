@@ -212,3 +212,17 @@ select.currency {
         color: #00bcd4;
         font-size: 13px !important;
     } 
+
+    @media(max-width: 768px){
+
+        .loginbody .inputDiv{
+            margin-bottom: 15px !important;
+        }
+
+        .rc-anchor-normal{
+            display: none;
+        }
+
+        .terms_condition{
+            margin: 0;        }
+    }

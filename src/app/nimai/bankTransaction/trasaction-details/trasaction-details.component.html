@@ -29,14 +29,19 @@
                                                 <tr>
                                                     <th class="disabled-sorting text-center">#</th>
                                                     <th style="min-width: 150px;">Transaction ID</th>
-                                                    <th style="min-width: 166px;">Date & Time <br>{{dateTimeStatus}}</th>
+                                                    <th  [hidden]="!acceptedStatus" style="min-width: 166px;">Date & Time <br>(Quote Accepted on)</th>
+                                                    <th  [hidden]="!rejectedStatus" style="min-width: 166px;">Date & Time <br>(Quote Rejected on)</th>
+                                                    <th  [hidden]="!expiredStatus" style="min-width: 166px;">Date & Time <br>(Quote Expired on)</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
                                                     <th style="min-width: 150px;">Requirement</th>
                                                     <th style="min-width: 120px;">LC Value </th>
                                                     <th style="min-width: 120px;">Total Quote </th>
                                                     <th style="min-width: 100px;">Goods</th>
                                                     <th style="min-width: 150px;">Applicant's Name</th>
-                                                    <th style="min-width: 150px;">Beneficiary Name</th>
+                                                    <th style="min-width: 150px;">Beneficiary Name</th> 
+                                                    <th [hidden]="!expiredStatus" style="min-width: 150px;">Your Quote</th>
+                                                    <th [hidden]="!expiredStatus" style="min-width: 150px;">Accepted Quote</th>
+                                                    <th [hidden]="!expiredStatus" class="disabled-sorting" style="min-width: 150px;"></th>
                                                     <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 150px;" >Transaction Status</th>
                                                     <th [hidden]="!rejectedStatus" style="min-width: 150px;" >Rejected By</th>
                                                     <th [hidden]="!acceptedStatus" class="disabled-sorting text-center" >Actions</th>
@@ -46,7 +51,9 @@
                                                 <tr *ngFor="let record of data; let i = index">
                                                     <td>{{i+1}}</td>
                                                     <td>{{record.transactionId}}</td>
-                                                    <td>{{record.acceptedOn| date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td [hidden]="!acceptedStatus">{{record.acceptedOn| date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td [hidden]="!rejectedStatus">{{record.modifiedDate| date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td [hidden]="!expiredStatus">{{record.validityDate| date : "dd-MM-y h:mm:ss z"}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>{{record.requirementType}}</td>
                                                     <td>{{record.lCValue}}</td>
@@ -54,6 +61,8 @@
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
                                                     <td>{{record.beneName}}</td>
+                                                    <td [hidden]="!expiredStatus">{{record.totalQuoteValue}}</td>  
+                                                     <td [hidden]="!expiredStatus">{{record.acceptedQuoteValue}}</td>
                                                     <td [hidden]="!acceptedStatus">
                                                         <select>
                                                             <option value="Open">Open</option>
@@ -61,13 +70,15 @@
                                                         </select>
                                                     </td>
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                        <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
 
                                                     </td>
                                                     <td [hidden]="!acceptedStatus">
-                                                        <a style="cursor: pointer;" (click)="getDetail(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Accepted');openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
                                                     </td>
-                                                   
+                                                    <td [hidden]="!expiredStatus">
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Expired');getQuotes(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                    </td>
 
                                                 </tr>
                                             </tbody>

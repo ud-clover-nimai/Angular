@@ -167,6 +167,7 @@ export class TransactionDetailsComponent {
   rejectBankQuote(quoteId, transactionID) {
     var statusReason = $("#rejectReason option:selected").text();
     let data = {
+      "userId": sessionStorage.getItem('userID'),
       "statusReason": statusReason
     }
     let emailBody = {
