@@ -24,13 +24,14 @@ export class TrasactionDetailsComponent {
   public specificDetail: any = "";
   public isActive: boolean = false;
   quotationdata: any;
+  public quotes:any;
   document: any = "";
   selectReason: any;
   public parentURL: string = "";
   public subURL: string = "";
-  public dateTimeStatus:string="";
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
+  expiredStatus :boolean=true;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -56,19 +57,19 @@ export class TrasactionDetailsComponent {
   public getAllnewTransactions(status) {
     
     if(status == "Accepted") {
-      this.dateTimeStatus='(Quote Accepted on)';
       this.rejectedStatus=false;
       this.acceptedStatus = true;
+      this.expiredStatus=false;
     }
     else  if (status == "Rejected") {
-      this.dateTimeStatus='(Quote Rejected on)';
       this.rejectedStatus=true;
       this.acceptedStatus = false;
+      this.expiredStatus=false;
     }
     else if(status == "Expired") {
-      this.dateTimeStatus='(Quote Expired on)';
       this.rejectedStatus=false;
       this.acceptedStatus = false;
+      this.expiredStatus=true;
     }
 
     const data = {
@@ -84,7 +85,7 @@ export class TrasactionDetailsComponent {
         this.data = JSON.parse(JSON.stringify(response)).data;
          if (this.data) {
          this.hasNoRecord=true;
-         this.getDetail(this.data);
+         this.getDetail(this.data,status);
       }
 
       },
@@ -96,9 +97,38 @@ export class TrasactionDetailsComponent {
     )
   }
 
-  getDetail(detail) {
+  getDetail(detail,status) {
+    
       this.quotationdata = detail;
       this.specificDetail = detail;
+    if(status=='Accepted'){
+      $('.active').removeClass('active');
+      $('#menu-barnew li:first').addClass('active');
+      $('.tab-content #pill111').addClass('active');
+    }else if(status=='Rejected'){
+      $('.active').removeClass('active');
+      $('#menubarDetailreject li:first').addClass('active');
+      $('.tab-content #pill112').addClass('active');
+    }else if(status=='Expired'){  
+      $('.active').removeClass('active');   
+      $('#menuDetailexpired li:first').addClass('active');
+      $('.tab-content #pill113').addClass('active');
+    }
+  
+  }
+  getQuotes(val){
+const data = {
+  "transactionId": val.transactionId,
+ }
+    this.nts.getQuotationOfAcceptedQuote(data).subscribe(
+      (response) => {
+      console.log(response)
+      this.quotes=JSON.parse(JSON.stringify(response)).data;
+
+      },
+      (error) => {
+            }
+    )
 
   }
 

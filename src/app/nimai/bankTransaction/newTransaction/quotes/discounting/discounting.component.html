@@ -50,10 +50,7 @@
 
                                 <tr>
                                     <td>
-                                        Negotiation Charges
-                                        <select class="halfauto">
-                                       <option value="Fixed">Fixed</option>
-                                    </select>
+                                        Negotiation Charges (Fixed)
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
@@ -61,10 +58,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Negotiation Charges
-                                        <select class="halfautoc halfwidthdiv">
-                                 <option value="%">%</option>
-                              </select>
+                                        Negotiation Charges (%)
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
@@ -99,9 +93,20 @@
                                        weightDirective />
                                  </td>
                               </tr>
+                              <br>
                               <tr>
-                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                              </tr> 
+                                  <td>Other terms and conditions</td>
+                              </tr>
+                              <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments"
+                                  placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."
+                                  rows="3"
+                                  style="margin: 6px 0px 0px; width: 330px; height: 60px;"></textarea>
+                              <tr>
+                                  <td>
+                                      Disclaimer:Note: The application benchmark/taxes will be applicable as
+                                      of transaction date,actual quote from the bank may differ to the extent
+                                  </td>
+                              </tr>
                            </tbody>
                         </table>
                         <div *ngIf="title=='Edit'">
@@ -207,8 +212,20 @@
                                     <th>Total Quote</th>
                                     <th>{{totalQuotes}}</th>
                                 </tr>
+                               <br><br>
                                 <tr>
-                                    <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                    <td><small>Others terms and conditions</small></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><small
+                                            style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be
+                                            applicable as of
+                                            transaction date, actual quote from the bank may differ to that
+                                            extent.</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -340,8 +357,20 @@
                                       </div>
                                     </td>
                                  </tr>
-                                
-                                
+                                 <br>
+                                        <tr>
+                                            <td>Other terms and conditions</td>
+                                        </tr>
+                                        <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments"
+                                            placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."
+                                            rows="3"
+                                            style="margin: 6px 0px 0px; width: 330px; height: 60px;"></textarea>
+                                        <tr>
+                                            <td>
+                                                Disclaimer:Note: The application benchmark/taxes will be applicable as
+                                                of transaction date,actual quote from the bank may differ to the extent
+                                            </td>
+                                        </tr>                                
                               </tbody>
                            </table>
                           <br>
@@ -441,11 +470,18 @@
                                     <br>
                                   
                                     <tr>
-                                        <td colspan="2"><small style="color: #b6a3a3;">Discounting commission applicable from the date of discounting until the maturity date of bill(s).</small></td>
+                                        <td><small>Others terms and conditions</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><small
+                                                style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                                     </tr>
 
                                     <tr>
-                                        <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                        <td colspan="2"><small>Disclaimer:Note : The applicable benchmark will be
+                                                applicable as of
+                                                transaction date, actual quote from the bank may differ to that
+                                                extent.</small></td>
                                     </tr>
                                 </tbody>
                             </table>
