@@ -87,8 +87,8 @@
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">
               <div class="inputDiv">
-                <input type="text" style=" text-align: center; font-weight: bold;" [(ngModel)]="passValue" (click)="passCodeValue()" (keypress)="validateRegexFields($event, 'number')" maxlength="5">
-                <label style="margin-left: 25%;">Enter Passcode</label>
+                <input type="text" style=" text-align: center;" [(ngModel)]="passValue" (click)="passCodeValue()" (keypress)="validateRegexFields($event, 'number')" maxlength="5">
+                <label style="margin-left: 25%; font-weight: bold;">Enter Passcode</label>
                 <div class="invalid-feedback">{{errMessage}}</div>
               </div>
             </div>
