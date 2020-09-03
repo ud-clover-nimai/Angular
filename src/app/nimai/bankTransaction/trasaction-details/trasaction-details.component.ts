@@ -67,9 +67,9 @@ export class TrasactionDetailsComponent {
       this.expiredStatus=false;
     }
     else if(status == "Expired") {
+      this.expiredStatus=true;
       this.rejectedStatus=false;
       this.acceptedStatus = false;
-      this.expiredStatus=true;
     }
 
     const data = {
@@ -98,23 +98,23 @@ export class TrasactionDetailsComponent {
   }
 
   getDetail(detail,status) {
-    
       this.quotationdata = detail;
       this.specificDetail = detail;
-    if(status=='Accepted'){
-      $('.active').removeClass('active');
-      $('#menu-barnew li:first').addClass('active');
-      $('.tab-content #pill111').addClass('active');
-    }else if(status=='Rejected'){
-      $('.active').removeClass('active');
-      $('#menubarDetailreject li:first').addClass('active');
-      $('.tab-content #pill112').addClass('active');
-    }else if(status=='Expired'){  
-      $('.active').removeClass('active');   
-      $('#menuDetailexpired li:first').addClass('active');
-      $('.tab-content #pill113').addClass('active');
-    }
-  
+    // if(status=='Accepted'){
+    //   $('.active').removeClass('active');
+    //   $('#menu-barDetailnew li:first').addClass('active');
+    //   $('.tab-content #pill111').addClass('active');
+    // }
+    // else if(status=='Rejected'){
+    //   $('.active').removeClass('active');
+    //   $('#menubarDetailrejected li:first').addClass('active');
+    //   $('.tab-content #pill112').addClass('active');
+    // }
+    // else if(status=='Expired'){  
+    //   $('.active').removeClass('active');   
+    //   $('#menuDetailexpired li:first').addClass('active');
+    //   $('.tab-content #pill113').addClass('active');
+    // }
   }
   getQuotes(val){
 const data = {
@@ -122,14 +122,15 @@ const data = {
  }
     this.nts.getQuotationOfAcceptedQuote(data).subscribe(
       (response) => {
-      console.log(response)
       this.quotes=JSON.parse(JSON.stringify(response)).data;
 
       },
       (error) => {
             }
     )
-
+    // $('.active').removeClass('active');   
+    // $('#menuDetailexpired li:first').addClass('active');
+    // $('.tab-content #pill113').addClass('active');
   }
 
   changeStatusCall(status) {
@@ -140,12 +141,12 @@ const data = {
 
   openOffcanvas(status) {
     if (status === "Accepted") {
-      document.getElementById("menu-barnew").style.width = "450px";
+      document.getElementById("menu-barDetailnew").style.width = "530px";
+    }else if (status === "Expired") {
+      document.getElementById("menuDetailsExpired").style.width = "530px";
     } else if (status === "Rejected") {
-      document.getElementById("menubarDetailreject").style.width = "450px";
-    } else if (status === "Expired") {
-      document.getElementById("menuDetailexpired").style.width = "450px";
-    }
+      document.getElementById("menubarDetailrejected").style.width = "530px";
+    } 
 
   }
   openNav3() {
@@ -154,9 +155,9 @@ const data = {
     document.getElementById("myCanvasNav").style.opacity = "0.6";
   }
   closeOffcanvas() {
-    document.getElementById("menu-barnew").style.width = "0%";
-    document.getElementById("menuDetailexpired").style.width = "0%";
-    document.getElementById("menubarDetailreject").style.width = "0%";
+    document.getElementById("menu-barDetailnew").style.width = "0%";
+    document.getElementById("menuDetailsExpired").style.width = "0%";
+    document.getElementById("menubarDetailrejected").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
   }

@@ -67,7 +67,7 @@
 
                                 <tr>
                                     <td>
-                                        Negotiation Charges (Fixed)
+                                        *Negotiation Charges (Fixed)
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" weightDirective placeholder="0.00" />
@@ -76,7 +76,9 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Negotiation Charges (%)
+                                        *Negotiation Charges (%) <br>
+                                        &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small>
+                                   
                            </td>
                            <td>
                               <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00"

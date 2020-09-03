@@ -96,7 +96,7 @@
 </div>
 
 
-<div id="menu-barnew" class="offcanvas">
+<div id="menu-barDetailnew" class="offcanvas">
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
@@ -419,7 +419,7 @@
     </div>
 </div>
 
-<div id="menubarDetailreject" class="offcanvas">
+<div id="menubarDetailrejected" class="offcanvas">
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
@@ -741,18 +741,18 @@
 </div>
 
 
-<div id="menuDetailexpired" class="offcanvas">
+<div id="menuDetailsExpired" class="offcanvas">
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
                 <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                    <li class="active"><a href="#pill113" data-toggle="tab" aria-expanded="false">Details</a></li>
-                    <li><a href="#tab4" data-toggle="tab" aria-expanded="true">Quote</a></li>
+                    <li class="active"><a href="#pill1131" data-toggle="tab" aria-expanded="false">Details</a></li>
+                    <li><a href="#tab41" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
                 </ul>
                 <div class="tab-content" style="height: 552px;overflow: auto;">
 
-                    <div class="tab-pane active" id="pill113">
+                    <div class="tab-pane active" id="pill1131">
                         <div class="row">
                             <div class="col-md-12" style="padding-right: 0px !important;">
                                 <table class="table table-bordered">
@@ -977,13 +977,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab4">
+                    <div class="tab-pane" id="tab41">
                         <div class="form-group clearfix"></div>
 
                         <div class="row" *ngIf="hasNoRecord">
                             <div class="col-md-12">
                                 <table class="table">
                                     <tbody>
+                                        <tr> <td></td>
+                                            <td style="width: 50%;">Accepted Quote</td>
+                                            <td>Your Quote</td>
+                                        </tr>
                                         <tr>
                                             <td style="width: 50%;">Date & Time</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
@@ -1203,3 +1207,6 @@
         </div>
     </div>
 </div>
+
+
+
