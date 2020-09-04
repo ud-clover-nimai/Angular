@@ -32,6 +32,8 @@ export class TrasactionDetailsComponent {
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
   expiredStatus :boolean=true;
+  forCloseTransactionId: any = "";
+  forCloseUserId: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -100,21 +102,21 @@ export class TrasactionDetailsComponent {
   getDetail(detail,status) {
       this.quotationdata = detail;
       this.specificDetail = detail;
-    // if(status=='Accepted'){
-    //   $('.active').removeClass('active');
-    //   $('#menu-barDetailnew li:first').addClass('active');
-    //   $('.tab-content #pill111').addClass('active');
-    // }
-    // else if(status=='Rejected'){
-    //   $('.active').removeClass('active');
-    //   $('#menubarDetailrejected li:first').addClass('active');
-    //   $('.tab-content #pill112').addClass('active');
-    // }
-    // else if(status=='Expired'){  
-    //   $('.active').removeClass('active');   
-    //   $('#menuDetailexpired li:first').addClass('active');
-    //   $('.tab-content #pill113').addClass('active');
-    // }
+    if(status=='Accepted'){
+      $('.active').removeClass('active');
+      $('#menu-barDetailnew li:first').addClass('active');
+      $('.tab-content #pill111').addClass('active');
+    }
+    else if(status=='Rejected'){
+      $('.active').removeClass('active');
+      $('#menubarDetailrejected li:first').addClass('active');
+      $('.tab-content #pill112').addClass('active');
+    }
+    else if(status=='Expired'){  
+      $('.active').removeClass('active');   
+      $('#menuDetailsExpired li:first').addClass('active');
+      $('.tab-content #pill1131').addClass('active');
+    }
   }
   getQuotes(val){
 const data = {
@@ -122,15 +124,16 @@ const data = {
  }
     this.nts.getQuotationOfAcceptedQuote(data).subscribe(
       (response) => {
-      this.quotes=JSON.parse(JSON.stringify(response)).data;
-
+        if(JSON.parse(JSON.stringify(response)).data==null){
+          this.quotes="";    
+            }else{
+              this.quotes=JSON.parse(JSON.stringify(response)).data[0];
+          }
       },
       (error) => {
             }
     )
-    // $('.active').removeClass('active');   
-    // $('#menuDetailexpired li:first').addClass('active');
-    // $('.tab-content #pill113').addClass('active');
+    
   }
 
   changeStatusCall(status) {
@@ -140,12 +143,14 @@ const data = {
 
 
   openOffcanvas(status) {
+    console.log(status)
+
     if (status === "Accepted") {
-      document.getElementById("menu-barDetailnew").style.width = "530px";
+        document.getElementById("menu-barDetailnew").style.width = "510px";
     }else if (status === "Expired") {
-      document.getElementById("menuDetailsExpired").style.width = "530px";
+      document.getElementById("menuDetailsExpired").style.width = "520px";
     } else if (status === "Rejected") {
-      document.getElementById("menubarDetailrejected").style.width = "530px";
+      document.getElementById("menubarDetailrejected").style.width = "510px";
     } 
 
   }
@@ -175,7 +180,7 @@ const data = {
 
   rejectBankQuote(quoteId,statusReason) {
 
-    $('#myModal5').hide();
+    $('#myModalReject').hide();
     $('.modal-backdrop').hide();
     let data = {
        "userId": sessionStorage.getItem('userID'),
@@ -192,4 +197,39 @@ const data = {
       (err) => { }
     )
   }
+
+
+  onCloseTransactionPopup(record,val){
+    if(val == "Close"){
+      $("#closeReasonForQuote").val("");
+      $("#closePopupForQuote").show();
+      this.openNav3();
+      this.forCloseTransactionId = record.transactionId;
+      this.forCloseUserId=record.userId;
+    }
+  }
+
+  onClosePopDismiss(){
+    $("#closePopupForQuote").hide();
+    this.closeOffcanvas();
+    $(".closedStatus").val(2).change();
+  }
+
+  closedTransaction() {
+      var request = {
+        "transactionId":this.forCloseTransactionId,
+        "userId":this.forCloseUserId,
+        "statusReason":$("#closeReasonForQuote").val()
+      }
+      this.nts.custCloseTransaction(request).subscribe(
+        (response) => {
+        this.closeOffcanvas();
+        $("#closePopupForQuote").hide();
+        this.getAllnewTransactions('Accepted');
+        custTrnsactionDetail();
+        },
+        (err) => { }
+      )
+  }
+
 } 
