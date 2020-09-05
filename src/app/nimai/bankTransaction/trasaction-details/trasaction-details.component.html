@@ -63,21 +63,25 @@
                                                     <td>{{record.beneName}}</td>
                                                     <td [hidden]="!expiredStatus">{{record.totalQuoteValue}}</td>  
                                                      <td [hidden]="!expiredStatus">{{record.acceptedQuoteValue}}</td>
-                                                    <td [hidden]="!acceptedStatus">
-                                                        <select>
+                                                    <td [hidden]="!acceptedStatus" >
+                                                        <select id="closedStatus" *ngIf="record.transactionStatus == 'Accepted'"  
+                                                         (change)="onCloseTransactionPopup(record,$event.target.value)">
+                                                         
                                                             <option value="Open">Open</option>
                                                             <option value="Close">Close</option>
                                                         </select>
+                                                        <span *ngIf="record.transactionStatus == 'Closed'">Closed</span>
+
                                                     </td>
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">Detail</a>
 
                                                     </td>
                                                     <td [hidden]="!acceptedStatus">
-                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Accepted');openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Accepted');openNav3();openOffcanvas('Accepted');">Detail</a>
                                                     </td>
                                                     <td [hidden]="!expiredStatus">
-                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Expired');getQuotes(record);openNav3();openOffcanvas(record.transactionStatus);">Detail</a>
+                                                        <a style="cursor: pointer;" (click)="getDetail(record,'Expired');getQuotes(record);openNav3();openOffcanvas('Expired');">Detail</a>
                                                     </td>
 
                                                 </tr>
@@ -408,8 +412,8 @@
                                 </table>
                             </div>
 
-                            <div class="col-md-12 pull-right">
-                                <a href="#" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
+                            <div class="col-md-12 pull-right" *ngIf="quotationdata.transactionStatus != 'Closed'">
+                                <a href="#" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModalReject"> Reject</a>
                             </div>
                         </div>
                     </div>
@@ -985,71 +989,98 @@
                                 <table class="table">
                                     <tbody>
                                         <tr> <td></td>
-                                            <td style="width: 50%;">Accepted Quote</td>
-                                            <td>Your Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 30px;">Accepted Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 8px;">Your Quote</td>
                                         </tr>
-                                        <tr>
+                                        <br>
+                                        <!-- <tr>
                                             <td style="width: 50%;">Date & Time</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
-                                        </tr>
+                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
+                                        </tr> -->
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
-                                            <td>Applicable Benchmark , if any</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
+                                            <td>Applicable Benchmark (if any)</td>
+                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
                                             <td>Confirmation Charges p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
+                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}</td>
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
                                             <td>Discounting Charges p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
+                                            <td *ngIf="quotes">{{quotes.discountingCharges}}</td>
+
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
                                             <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
+                                            <td *ngIf="quotes">{{quotes.confChgsIssuanceToNegot}}</td>
+
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
                                             <td>
                                                 Confirmation Charges from Date of Issuance till date of maturity</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
+                                            <td *ngIf="quotes">{{quotes.confChgsIssuanceToMatur}}</td>
+
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
                                             <td>Banker's Acceptance interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
+                                            <td *ngIf="quotes">{{quotes.bankerAcceptCharges}}</td>
+
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance'">
                                             <td>Refinancing interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
+                                            <td *ngIf="quotes">{{quotes.refinancingCharges}}</td>
+
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
                                             <td>Negotiation Charges p.a. (Fixed)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
+                                            <td *ngIf="quotes">{{quotes.negotiationChargesFixed}}</td>
+
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
                                             <td>Negotiation Charges p.a.(%)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
+                                            <td *ngIf="quotes">{{quotes.negotiationChargesPerct}}</td>
+
                                         </tr>
                                         <tr>
                                             <td>Document Handling Charges</td>
                                             <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.docHandlingCharges}}</td>
+
                                         </tr>
                                         <tr>
                                             <td>Other Charges</td>
                                             <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.otherCharges}}</td>
+
                                         </tr>
                                         <tr>
                                             <td>Min.Trancation Charges </td>
                                             <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.minTransactionCharges}}</td>
+
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
                                             <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
+                                            <td *ngIf="quotes">{{quotes.validityDate | date : "dd-MM-y"}}</td>
+
                                         </tr>
                                         <tr>
                                             <th>Total Quote</th>
                                             <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
+                                            <td *ngIf="quotes">{{quotes.totalQuoteValue}}</td>
+
                                         </tr>
 
 
@@ -1094,7 +1125,7 @@
         </div>
     </div>
 </div>
-<div id="myModal5" style="display: none;z-index: 9999;" class="popupnew modal fade" role="dialog">
+<div id="myModalReject" style="display: none;z-index: 9999;" class="popupnew modal fade" >
     <div class="modal-dialog modal-md emaildiv">
         <div class="modal-content">
             <div class="modal-body">
@@ -1208,5 +1239,32 @@
     </div>
 </div>
 
-
+<div id="closePopupForQuote" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>Transaction Closed</h2>
+             <div class="padnew">
+                <div class="row">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12">
+                            <p>By clicking the Closed button you ensure that the transaction has been closed with the customer</p>
+                            <label>Remarks (Optional)</label>
+                            <div class="inputDiv">
+                               <textarea rows="2" id="closeReasonForQuote"></textarea>
+                            </div>
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="onClosePopDismiss()">Close</button>
+                      <button type="submit" class="btn btn-info pull-right" (click)="closedTransaction()">OK</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
 
