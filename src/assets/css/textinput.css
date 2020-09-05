@@ -1524,6 +1524,22 @@ vertical-align: top;
     height: 150px;
   }
         /* Error Page */
+/* New Changes Page */
+        .main-panel > .content{
+padding: 30px 0 !important;
+        }
+        .tabbable-line > .nav-tabs{
+          padding: 0;
+        }
+        .tabbable-line > .nav-tabs > li.active{
+          border-bottom: 0px solid #06aabf !important;
+          position: relative;
+          background: #00bcd4;
+        }
+        .card .card-header.card-header-icon + .card-content .card-title{
+          padding-bottom: 10px;
+        }
+      
 }
 
 .sol-container {
@@ -1856,6 +1872,8 @@ vertical-align: top;
 
 .radio input[type=radio]:checked ~ .check {
     background-color: #00bcd4;
+    top:2.2px;
+    left: 10px;
 }
 
 .sidebar .nav i{

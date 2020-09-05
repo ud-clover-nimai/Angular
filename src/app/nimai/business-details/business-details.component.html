@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3" *ngIf="isCustomer">
+                                <div class="col-md-3 col-sm-4" *ngIf="isCustomer">
                                     <div class="inputDiv">
                                         <input type="text" formControlName="companyName" [ngClass]="hasValue ? 'has-value' : ''" maxlength="30">
                                         <label>Company Name</label>
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-3">
+                                <!-- <div class="col-md-3 col-sm-4">
                                         <div class="inputDiv">
                                             <input type="text" formControlName="designation">
                                             <label>Designation</label>
@@ -61,7 +61,7 @@
                                 <div class="clearfix"></div>
 
                                 <!-- Bank Details-->
-                                <div class="col-md-3" *ngIf="!isCustomer">
+                                <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="30" formControlName="bankNbfcName" (keydown)="validateRegexFields($event, 'alphaNspace')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Bank Name</label>
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3" *ngIf="!isCustomer">
+                                <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="30" formControlName="branchName" (keydown)="validateRegexFields($event, 'alphaNspace')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Branch Name</label>
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3" *ngIf="!isCustomer">
+                                <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="11" formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Swift Code</label>
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                                 <!--added by ashvini - designation field added for bank-->
-                                <div class="col-md-3" *ngIf="!isCustomer">
+                                <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                                     <div class="inputDiv">
                                         <input type="text" formControlName="bank_designation">
                                         <label>Designation</label>
@@ -112,7 +112,7 @@
                                 </div>
                                 <!-- Bank Details-->
                                 <!-- Bank Details-->
-                                <!-- <div class="col-md-3" *ngIf="!isCustomer">
+                                <!-- <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                            <div class="inputDiv">
                                <input type="text" formControlName="minimumValueofLC">
                                <label>Minimum Value of LC</label>
@@ -124,13 +124,13 @@
                            </div>
                            </div> -->
                                 <!-- Bank Details-->
-                                <!-- <div class="col-md-3" *ngIf="!isCustomer">
+                                <!-- <div class="col-md-3 col-sm-4" *ngIf="!isCustomer">
                            <div class="inputDiv">
                                <input type="text" formControlName="lCCurrencyValue">
                                <label>LC Currency Value</label>
                            </div>
                            </div> -->
-                                <!-- <div class="col-md-3">
+                                <!-- <div class="col-md-3 col-sm-4">
                                         <div class="inputDiv selectdiv" *ngIf="!isCustomer">
                                             <select formControlName="lCCurrencyValue">
                                                 <option value="">Select</option>
@@ -145,7 +145,7 @@
                                     <div class="col-md-12 items" id="items" formArrayName="owners" *ngFor="let item of businessDetailsForm['controls'].owners['controls']; let i = index;">
                                         <div class="row" [formGroupName]="i">
                                             <input type="hidden" formControlName="ownerID">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-sm-4">
                                                 <div class="inputDiv">
                                                     <input type="text" maxlength="30" formControlName="ownerFirstName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                                     <label>MD/CEO/Owner’s First Name</label>
@@ -156,7 +156,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-sm-4">
                                                 <div class="inputDiv">
                                                     <input type="text" maxlength="30" formControlName="ownerLastName" (keydown)="validateRegexFields($event, 'name_validation')" [ngClass]="hasValue ? 'has-value' : ''">
                                                     <label>MD/CEO/Owner’s Last Name</label>
@@ -167,7 +167,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-sm-4">
                                                 <div class="inputDiv">
                                                     <input type="text" maxlength="30" formControlName="designation" (keypress)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                                     <label>Designation</label>
@@ -178,7 +178,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-sm-4">
                                                 <div class="inputDiv" *ngIf="i==0">
                                                     <button type="button" class="btn btn-info btn-xs add_button" (click)="add(i)">Add
                                                             More</button>
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <!-- Bank Details-->
-                                <!-- <div class="col-md-3">
+                                <!-- <div class="col-md-3 col-sm-4">
                            <div class="inputDiv">
                                <input type="text" formControlName="blacklistGoodsCommodities">
                                <label>Blacklist Goods/Commodities</label>
@@ -201,7 +201,7 @@
                                 <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
                                     Registered Address Details
                                 </h4>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv selectdiv" id="addOptions">
                                         <select formControlName="country" [ngClass]="hasValue ? 'has-value' : ''" (ngModelChange)="showState($event)">
                                                 <option value=''>Select</option>
@@ -213,7 +213,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv selectdiv">
                                         <select formControlName="provinceName" [ngClass]="hasValue ? 'has-value' : ''">
                                                 <option value=''>Select</option>
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="15" formControlName="city" (keydown)="validateRegexFields($event, 'alpha')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>City</label>
@@ -263,7 +263,7 @@
                               </select>
                               </div> -->
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="30" formControlName="addressLine1" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Address Line 1</label>
@@ -275,7 +275,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="30" formControlName="addressLine2" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Address Line 2</label>
@@ -289,7 +289,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" maxlength="30" formControlName="addressLine3" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Address Line 3 / Landmark</label>
@@ -303,7 +303,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" formControlName="pincode" maxlength="6" (keypress)="validateRegexFields($event, 'alphaNum')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Pincode/Zipcode</label>
@@ -315,7 +315,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-4">
                                     <div class="inputDiv">
                                         <input type="text" formControlName="telephone" maxlength="12" (keypress)="validateRegexFields($event, 'number')" [ngClass]="hasValue ? 'has-value' : ''">
                                         <label>Telephone</label>
