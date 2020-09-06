@@ -2217,3 +2217,66 @@ margin: 0;
   background-color:#fff;
 }
 }
+
+
+
+
+/*sandesh css */
+
+.btn, .navbar .navbar-nav > li > a.btn {
+  margin: 0px 0px;
+}
+
+@media screen and (max-width: 767px) and (min-width: 319px){
+
+  .modal-content{
+    width:90% !important;
+  }
+
+  ul.list-unstyled.list-inline li {
+    display: inline;
+    margin: 0px;
+}
+.inputDivNew {
+  top: 10px;
+}
+ul.list-unstyled.list-inline li small {
+  text-align: center;
+  position: relative;
+  top: 10px;
+  left: 100px;
+  text-transform: uppercase;
+}
+.btn, .navbar .navbar-nav > li > a.btn {
+  margin: 0px 0px;
+}  
+
+ul.pull-right.list-unstyled.list-inline.statusbar li label {
+  padding: 10px 0px 0px;
+}
+ul.pull-right.list-unstyled.list-inline.statusbar {
+  float: none !important;
+  margin: 10px 0px;
+}
+a.btn.btn-info.pull-right {
+  float: none !important;
+}
+div#datatables_wrapper .col-sm-6 {
+  float: left;
+  padding: 20px 0px 0px;
+}
+
+.form-group.form-group-sm {
+  padding-bottom: 0px;
+  margin: 0px 0 0 0;
+}
+.navbar-absolute {
+  z-index: 10;
+}
+.modal-dialog[_ngcontent-pjk-c3] {
+  width: auto !important;
+}
+div#addsub .modal-content {
+  width: 100% !important;
+}
+}
