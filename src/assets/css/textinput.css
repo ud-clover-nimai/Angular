@@ -2279,4 +2279,17 @@ div#datatables_wrapper .col-sm-6 {
 div#addsub .modal-content {
   width: 100% !important;
 }
+.left-shadow-overlay {
+  box-shadow: 10px 0 15px 10px #585858;
+  width: 100% !important;
+}
+.popupcontent textarea {
+  width: 100% !important;
+}
+div#menu-bar-con {
+  width: 100% !important;
+}
+.mat-form-field-infix {
+  width: 100% !important;
+} 
 }
