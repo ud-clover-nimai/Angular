@@ -328,8 +328,9 @@
                                         </tr>
                                         <tr>
                                             <td>Pro Forma</td>
-                                            <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
-                                            </td>
+                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
+                                              </td>
+                                              <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
                                     </tbody>
                                 </table>
