@@ -34,6 +34,8 @@ export class TrasactionDetailsComponent {
   expiredStatus :boolean=true;
   forCloseTransactionId: any = "";
   forCloseUserId: any;
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -117,6 +119,16 @@ export class TrasactionDetailsComponent {
       $('#menuDetailsExpired li:first').addClass('active');
       $('.tab-content #pill1131').addClass('active');
     }
+   
+    if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
+
   }
   getQuotes(val){
 const data = {
