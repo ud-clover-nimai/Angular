@@ -104,7 +104,7 @@
                                        </div> -->
                                        <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="20" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                             <input type="text" maxlength="20" formControlName="firstName" (keyup)="validateRegexFields($event, 'name_validation')" (keydown)="validateRegexFields($event, 'name_validation')">
                                              <label>First Name</label>
                                              <img src="assets/images/user.png" />
                                              <div *ngIf="submittedSignup && suf.firstName.errors" class="invalid-feedback">

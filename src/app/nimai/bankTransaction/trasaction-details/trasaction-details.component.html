@@ -64,7 +64,7 @@
                                                     <td [hidden]="!expiredStatus">{{record.totalQuoteValue}}</td>  
                                                      <td [hidden]="!expiredStatus">{{record.acceptedQuoteValue}}</td>
                                                     <td [hidden]="!acceptedStatus" >
-                                                        <select id="closedStatus" *ngIf="record.transactionStatus == 'Accepted'"  
+                                                        <select id="closedStatus" *ngIf="record.transactionStatus != 'Closed'"  
                                                          (change)="onCloseTransactionPopup(record,$event.target.value)">
                                                          
                                                             <option value="Open">Open</option>
@@ -320,7 +320,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -644,7 +644,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -966,7 +966,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -990,8 +990,8 @@
                                 <table class="table">
                                     <tbody>
                                         <tr> <td></td>
-                                            <td style="width: 26%;background: gainsboro;right: 30px;">Accepted Quote</td>
-                                            <td style="width: 26%;background: gainsboro;right: 8px;">Your Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 30px;">Your Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 15px;">Accepted Quote</td>
                                         </tr>
                                         <br>
                                         <!-- <tr>
@@ -1000,8 +1000,8 @@
                                         </tr> -->
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
                                             <td>Applicable Benchmark (if any)</td>
-                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.applicableBenchmark}}</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
                                             <td>Confirmation Charges p.a.</td>

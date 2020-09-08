@@ -87,7 +87,7 @@
                                 <tr>
                                     <td>Validity</td>
                                     <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
-                                            disabled (ngModelChange)="dataViewEdit.validityDate = $event"></td>
+                                        onkeydown="return false" (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                                 </tr>
                                 <tr *ngIf="title=='View'">
                                     <td>Total Quote</td>

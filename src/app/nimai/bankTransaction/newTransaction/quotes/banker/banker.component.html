@@ -119,7 +119,7 @@
                                     </tr>
                                     <tr>
                                         <td>Validity</td>
-                                        <td><input type="date" disabled name="validityDate"
+                                        <td><input type="date" onkeydown="return false" name="validityDate"
                                                 [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                                     </tr>
