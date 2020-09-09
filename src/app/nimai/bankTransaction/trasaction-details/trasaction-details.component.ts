@@ -179,11 +179,12 @@ const data = {
     document.getElementById("myCanvasNav").style.opacity = "0";
   }
   showProForma(file) {
-    $('#myModal9').show();
+    $('#myModal91').show();
     this.document = file;
+    console.log(this.document)
   }
   close() {
-    $('#myModal9').hide();
+    $('#myModal91').hide();
   }
 
   onSubmit() {
