@@ -26,7 +26,8 @@ export class PersonalDetailsComponent implements OnInit {
   public personalDetailsForm: FormGroup;
   public personalDetails: signup = null;
   public isReferrer: boolean = false;
-  public isBank: boolean = false;
+  public isBankCustomer: boolean = false;
+  public isBankUnderwriter: boolean = false;
   public username: string = "";
   public submitted:boolean = false;
 
@@ -156,17 +157,30 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalDetailsForm.get('designation').setValidators([Validators.required])
     this.personalDetailsForm.get('designation').updateValueAndValidity();
   }
-  setBankValidators(){
+  setBankAsUnderwriterValidators(){
     this.personalDetailsForm.get('blacklistedGC').setValidators([Validators.required])
     this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
     this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
     this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
     this.personalDetailsForm.get('mobileNo').clearValidators();
+    this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
+    this.personalDetailsForm.get('landLineNo').setValidators([Validators.required,Validators.minLength(7)])
+    this.personalDetailsForm.get('landLineNo').updateValueAndValidity();
+   }
+   setBankAsCustomerValidators(){
+    console.log("hii")
+    this.personalDetailsForm.get('mobileNo').clearValidators();
+    this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
+    this.personalDetailsForm.get('landLineNo').setValidators([Validators.required,Validators.minLength(7)])
+    this.personalDetailsForm.get('landLineNo').updateValueAndValidity();
+    
    }
   submit(): void {
     // let items = this.personalDetailsForm.get('otherEmails') as FormArray;
     // console.log("items",items.controls)
     this.submitted = true;
+    console.log("this.personalDetailsForm--",this.personalDetailsForm)
+    console.log("this.personalDetailsForm.invalid--",this.personalDetailsForm.invalid)
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -250,16 +264,26 @@ export class PersonalDetailsComponent implements OnInit {
 
           let subscriptionType = this.personalDetailsForm.get('subscriberType').value;
           let bankType = this.personalDetails.bankType
+          console.log("subscriptionType",subscriptionType)
+          console.log("bankType",bankType)
           if (subscriptionType === 'REFERRER') {
             this.isReferrer = true;
-            this.isBank = false;
+            this.isBankCustomer = false;
+            this.isBankUnderwriter = false;
             this.setReferrerValidators();
-          } else if (subscriptionType === 'BANK' && bankType === 'UNDERWRITER') {
-            this.isBank = true;
+          } else if ((subscriptionType === 'BANK' && bankType === 'UNDERWRITER')) {
+            this.isBankUnderwriter = true;
+            this.isBankCustomer = false;
             this.isReferrer = false;
-            this.setBankValidators();
+            this.setBankAsUnderwriterValidators();
+          }else if ((subscriptionType === 'BANK' && bankType === 'CUSTOMER')) {
+            this.isBankCustomer = true;
+            this.isBankUnderwriter = false;
+            this.isReferrer = false;
+            this.setBankAsCustomerValidators();
           } else {
-            this.isBank = false;
+            this.isBankUnderwriter = false;
+            this.isBankCustomer = false;
             this.isReferrer = false;
           }
           setTimeout(() => {
