@@ -135,6 +135,8 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+
 .invalid-feedback {
 	display: block;
     position: absolute;

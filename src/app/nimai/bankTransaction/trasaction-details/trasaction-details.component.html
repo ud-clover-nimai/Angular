@@ -64,7 +64,7 @@
                                                     <td [hidden]="!expiredStatus">{{record.totalQuoteValue}}</td>  
                                                      <td [hidden]="!expiredStatus">{{record.acceptedQuoteValue}}</td>
                                                     <td [hidden]="!acceptedStatus" >
-                                                        <select id="closedStatus" *ngIf="record.transactionStatus == 'Accepted'"  
+                                                        <select id="closedStatus" *ngIf="record.transactionStatus != 'Closed'"  
                                                          (change)="onCloseTransactionPopup(record,$event.target.value)">
                                                          
                                                             <option value="Open">Open</option>
@@ -112,6 +112,7 @@
                 <div class="tab-content" style="height: 552px;overflow: auto;">
 
                     <div class="tab-pane active" id="pill111">
+                        
                         <div class="row">
                             <div class="col-md-12" style="padding-right: 0px !important;">
                                 <table class="table table-bordered">
@@ -320,7 +321,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -338,8 +339,36 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab2">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{specificDetail.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{specificDetail.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{specificDetail.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ specificDetail.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="form-group clearfix"></div>
 
+                        <br>
                         <div class="row" *ngIf="hasNoRecord">
                             <div class="col-md-12">
                                 <table class="table">
@@ -644,7 +673,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -661,6 +690,34 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab3">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{specificDetail.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{specificDetail.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{specificDetail.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ specificDetail.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                         <div class="form-group clearfix"></div>
 
                         <div class="row" *ngIf="hasNoRecord">
@@ -966,7 +1023,7 @@
                                             <td>
                                                 Charges are on
                                             </td>
-                                            <td>{{specificDetail.chargesType}}</td>
+                                            <td>{{specificDetail.userType}}</td>
                                         </tr>
                                         <tr>
                                             <td>Validity</td>
@@ -983,6 +1040,33 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab41">
+                        <div class="tab">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Requirement</b></td>
+                                        <td>{{specificDetail.requirementType}}</td>
+
+                                        <td><b>CCy</b></td>
+                                        <td>{{specificDetail.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Transaction ID</b></td>
+                                        <td>{{specificDetail.transactionId}}</td>
+
+                                        <td><b>Amount</b></td>
+                                        <td>{{ specificDetail.lCValue}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="form-group clearfix"></div>
 
                         <div class="row" *ngIf="hasNoRecord">
@@ -990,8 +1074,8 @@
                                 <table class="table">
                                     <tbody>
                                         <tr> <td></td>
-                                            <td style="width: 26%;background: gainsboro;right: 30px;">Accepted Quote</td>
-                                            <td style="width: 26%;background: gainsboro;right: 8px;">Your Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 30px;">Your Quote</td>
+                                            <td style="width: 26%;background: gainsboro;right: 15px;">Accepted Quote</td>
                                         </tr>
                                         <br>
                                         <!-- <tr>
@@ -1000,8 +1084,8 @@
                                         </tr> -->
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
                                             <td>Applicable Benchmark (if any)</td>
-                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.applicableBenchmark}}</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
                                             <td>Confirmation Charges p.a.</td>
@@ -1226,14 +1310,14 @@
         </div>
     </div>
 </div>
-<div id="myModal9" class="modal3" style="display: none;">
+<div id="myModal91" class="modal3" style="display: none;">
     <div class="modal-content-image">
         <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
         <div class="modal-body" style="text-align:center">
             <h4>Attached document</h4>
             <div class="row">
                 <div class="col-md-12">
-                    <img [src]="document" />
+                    <img [src]="document" style="height:350px; width: 100%;"/>
                 </div>
             </div>
         </div>
