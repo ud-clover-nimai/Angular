@@ -46,8 +46,12 @@
                                       <td>{{record.beneName}}</td>
                                       <td>{{record.lCValue}}</td>
                                       <td>{{record.totalQuoteValue}}</td>
-                                      <td nowrap>{{record.validity| date : "dd-MM-y"}}</td>
-                                      <td nowrap>{{record.validityDate| date : "dd-MM-y"}}</td>
+                                      <td nowrap>{{record.validity| date : "dd-MM-y"}}
+                                         <p>{{record.transactionDaysCountdown}}</p>
+                                      </td>
+                                      <td nowrap>{{record.validityDate| date : "dd-MM-y"}}
+                                         <p>{{record.quoteDaysCountdown}}</p>
+                                      </td>
                                       <td>{{record.requirementType}}</td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"

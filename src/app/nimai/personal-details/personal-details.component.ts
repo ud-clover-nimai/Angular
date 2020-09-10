@@ -63,7 +63,7 @@ export class PersonalDetailsComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]],
-      mobileNo: ['', [Validators.minLength(0)]],
+      mobileNo: ['', [Validators.required,Validators.minLength(7)]],
       landLineNo: ['',Validators.minLength(7)],
       country: ['', Validators.required],
       companyName: [''],
