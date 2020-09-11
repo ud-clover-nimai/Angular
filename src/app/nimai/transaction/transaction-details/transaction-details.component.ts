@@ -14,11 +14,7 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent {
-  displayedColumns: string[] = ['id', 'txnID', 'dateTime', 'lcBank', 'requirement', 'lCValue', 'goods', 'applicantName', 'beneName', 'status', 'detail1'];
-  dataSource: MatTableDataSource<any>;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
@@ -34,6 +30,9 @@ export class TransactionDetailsComponent {
   NotAllowed: boolean = true;
   forCloseTransactionId: any = "";
   showTransactionStatusCol: boolean = true;
+  acceptedStatus: boolean = true;
+  rejectedStatus:boolean=true;
+  expiredStatus :boolean=true;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -46,7 +45,6 @@ export class TransactionDetailsComponent {
   }
 
   ngOnInit() {
-    custTrnsactionDetail();
     this.getAllnewTransactions('Accepted');
   }
 
@@ -55,17 +53,23 @@ export class TransactionDetailsComponent {
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
-      this.showTransactionStatusCol = false;
+      this.rejectedStatus=true;
+      this.acceptedStatus = false;
+      this.expiredStatus=false;
     }
     else if(status == "Expired") {
       this.onReject = false;
       this.NotAllowed = false;
-      this.showTransactionStatusCol = false;
+      this.expiredStatus=true;
+      this.rejectedStatus=false;
+      this.acceptedStatus = false;
     }
     else if(status == "Accepted") {
       this.onReject = false;
       this.NotAllowed = true;
-      this.showTransactionStatusCol = true;
+      this.rejectedStatus=false;
+      this.acceptedStatus = true;
+      this.expiredStatus=false;
     }
 
     var userIdDetail = sessionStorage.getItem('userID');
@@ -80,50 +84,48 @@ export class TransactionDetailsComponent {
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
+        custTrnsactionDetail();
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.data);
-
-        if (!this.data) {
-          this.dataSourceLength = true;
-        }
-        else {
-          this.dataSourceLength = false;
-          this.dataSource = new MatTableDataSource(this.data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-
-
+    
+        if (this.data) {
+          this.hasNoRecord=true;
+          this.getDetail(this.data,status);
+       }
 
       },
       (error) => {
-        this.dataSourceLength = false;
+       
 
       }
     )
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  getDetail(detail) {
-    console.log(detail);
+  getDetail(detail,status) {
     this.specificDetail = detail;
-    $('.active').removeClass('active');
-    $('#menu-barnew li:first').addClass('active');
-    $('.tab-content #pill111').addClass('active');
+    if(status=='Accepted'){
+      $('.active').removeClass('active');
+      $('#menu-barnew li:first').addClass('active');
+      $('.tab-content #pill111').addClass('active');
+
+    }
+    else if(status=='Rejected'){
+      $('.active').removeClass('active');
+      $('#menubarDetailreject li:first').addClass('active');
+      $('.tab-content #pill112').addClass('active');
+
+    }
+    else if(status=='Expired'){  
+      $('.active').removeClass('active');   
+      $('#menubarDetailexpired li:first').addClass('active');
+      $('.tab-content #pill131').addClass('active');
+
+    }
 
   }
 
   changeStatusCall(status) {
-    custTrnsactionDetail();
     this.getAllnewTransactions(status);
   }
 
@@ -144,14 +146,24 @@ export class TransactionDetailsComponent {
     )
   }
 
-  openOffcanvas() {
-    document.getElementById("menu-barnew").style.width = "450px";
+  openOffcanvas(status) {
+
+    if (status === "Accepted") {
+      document.getElementById("menu-barnew").style.width = "510px";
+  }else if (status === "Expired") {
+    document.getElementById("menubarDetailexpired").style.width = "520px";
+  } else if (status === "Rejected") {
+    document.getElementById("menubarDetailreject").style.width = "510px";
+  } 
+
   }
   openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
     document.getElementById("myCanvasNav").style.opacity = "0.6";
   }
   closeOffcanvas() {
+    document.getElementById("menubarDetailexpired").style.width = "0%";
+    document.getElementById("menubarDetailreject").style.width = "0%";
     document.getElementById("menu-barnew").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
@@ -188,7 +200,11 @@ export class TransactionDetailsComponent {
       (err) => { }
     )
   }
-
+  refreshPage(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/transaction-details`]);
+  });
+  }
   cloneTransaction(transactionId) {
 
     const navigationExtras: NavigationExtras = {

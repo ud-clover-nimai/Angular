@@ -155,8 +155,6 @@ const data = {
 
 
   openOffcanvas(status) {
-    console.log(status)
-
     if (status === "Accepted") {
         document.getElementById("menu-barDetailnew").style.width = "510px";
     }else if (status === "Expired") {
