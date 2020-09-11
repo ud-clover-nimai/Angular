@@ -30,7 +30,7 @@ export class BusinessDetailsComponent implements OnInit {
   parentRedirection: string = "subscription";
   stateName: any = "";
   countryName: any = "";
-
+  public addMoreFlag=false;
   constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
@@ -79,7 +79,7 @@ export class BusinessDetailsComponent implements OnInit {
       addressLine2: ['', [Validators.required,Validators.minLength(2)]],
       addressLine3: ['',Validators.minLength(2)],
       pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
-      telephone: ['',Validators.minLength(7)],
+      telephone: ['',[Validators.required,Validators.minLength(7)]],
       bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
       branchName: ['', [Validators.required,Validators.minLength(3)]],
       swiftCode: ['', [Validators.required,Validators.minLength(3)]],
@@ -124,7 +124,6 @@ export class BusinessDetailsComponent implements OnInit {
   });
  }
   setValidators() {
-  console.log("this.isCustomer",this.isCustomer)
     if (this.isCustomer == false) {
       this.businessDetailsForm.get("bankNbfcName").enable();
       this.businessDetailsForm.get("branchName").enable();
@@ -133,7 +132,8 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").disable();
       this.businessDetailsForm.get("selector").disable();
       this.businessDetailsForm.get("bank_designation").enable();
-      this.businessDetailsForm.get('telephone').setValidators([Validators.required,Validators.minLength(7)]);
+      // this.businessDetailsForm.get('telephone').setValidators([Validators.required,Validators.minLength(7)]);
+      // this.businessDetailsForm.get('telephone').updateValueAndValidity();
 
     } else {
       this.businessDetailsForm.get("bankNbfcName").disable();
@@ -143,8 +143,8 @@ export class BusinessDetailsComponent implements OnInit {
       this.businessDetailsForm.get("owners").enable();
       this.businessDetailsForm.get("selector").enable();
       this.businessDetailsForm.get("bank_designation").disable();
-      this.businessDetailsForm.get('telephone').setValidators(Validators.minLength(7));
-
+      // this.businessDetailsForm.get('telephone').setValidators(Validators.minLength(7));
+      // this.businessDetailsForm.get('telephone').updateValueAndValidity();
     }
 
   }
@@ -157,7 +157,8 @@ export class BusinessDetailsComponent implements OnInit {
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    console.log("this.businessDetailsForm.invalid",this.businessDetailsForm)
+    console.log("businessDetailsForm--",this.businessDetailsForm)    
+    console.log("invalid--",this.businessDetailsForm.invalid)   
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;
@@ -324,13 +325,18 @@ export class BusinessDetailsComponent implements OnInit {
 
   add(i: number) {
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    if (items.length < 3)
+    console.log("controls",this.businessDetailsForm['controls'].owners.status)
+    if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")
     {
       items.push(this.getOwners());
+      this.addMoreFlag=false;
+    }else{
+      this.addMoreFlag=true;
     }
   }
 
   remove(i: number) {
+    this.addMoreFlag=false;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     items.removeAt(i);
   }
@@ -357,7 +363,7 @@ export class BusinessDetailsComponent implements OnInit {
       }    
     }else if(type=="name_validation"){
       var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
           event.preventDefault();
       }    
     }
