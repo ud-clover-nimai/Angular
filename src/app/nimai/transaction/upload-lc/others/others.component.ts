@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
+import { LoginService } from 'src/app/services/login/login.service';
+import * as $ from 'src/assets/js/jquery.min';
+
 
 @Component({
   selector: 'app-others',
@@ -12,24 +15,36 @@ export class OthersComponent implements OnInit {
   @Input() public LcDetail:FormGroup;
   fileToUpload: File = null;
   private imageSrc: string = '';
+  countryName: any;
   
 
-  constructor(public rds:DataServiceService) {
+  constructor(public rds:DataServiceService,public loginService: LoginService) {
 
     
    }
 
   ngOnInit() {
-    
+    this.getCountryData();
 
   }
-
+  getCountryData(){
+    this.loginService.getCountryMasterData().
+      subscribe(
+        (response) => {
+          this.countryName = JSON.parse(JSON.stringify(response));
+          sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
+  }
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();
     if (!file.type.match(pattern)) {
       alert('invalid format');
+      $('#upload_file2').val('');
       return;
     }
     else{

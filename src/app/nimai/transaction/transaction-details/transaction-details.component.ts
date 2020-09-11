@@ -22,6 +22,7 @@ export class TransactionDetailsComponent {
   public specificDetail: any = "";
   quotationdata: any = "";
   document: any = "";
+  selectReason: any;
   public parentURL: string = "";
   public subURL: string = "";
   dataSourceLength: boolean = false;
@@ -33,6 +34,8 @@ export class TransactionDetailsComponent {
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
   expiredStatus :boolean=true;
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -104,6 +107,7 @@ export class TransactionDetailsComponent {
 
   getDetail(detail,status) {
     this.specificDetail = detail;
+  
     if(status=='Accepted'){
       $('.active').removeClass('active');
       $('#menu-barnew li:first').addClass('active');
@@ -122,7 +126,16 @@ export class TransactionDetailsComponent {
       $('.tab-content #pill131').addClass('active');
 
     }
+    console.log(detail.lcProForma)
 
+    if(detail.lcProForma==null || detail.lcProForma=="" || detail.lcProForma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
   }
 
   changeStatusCall(status) {
@@ -149,11 +162,11 @@ export class TransactionDetailsComponent {
   openOffcanvas(status) {
 
     if (status === "Accepted") {
-      document.getElementById("menu-barnew").style.width = "510px";
+      document.getElementById("menu-barnew").style.width = "540px";
   }else if (status === "Expired") {
-    document.getElementById("menubarDetailexpired").style.width = "520px";
+    document.getElementById("menubarDetailexpired").style.width = "530px";
   } else if (status === "Rejected") {
-    document.getElementById("menubarDetailreject").style.width = "510px";
+    document.getElementById("menubarDetailreject").style.width = "540px";
   } 
 
   }
@@ -175,9 +188,16 @@ export class TransactionDetailsComponent {
   close() {
     $('#myModal9').hide();
   }
+  
+  onSubmit() {
+    $("#selectReason").val(null);
+  }
 
-  rejectBankQuote(quoteId, transactionID) {
-    var statusReason = $("#rejectReason option:selected").text();
+  rejectBankQuote(quoteId, transactionID,statusReason) {
+    $('#myModal5').hide();
+    $('.modal-backdrop').hide();
+
+    //var statusReason = $("#rejectReason option:selected").text();
     let data = {
       "userId": sessionStorage.getItem('userID'),
       "statusReason": statusReason
@@ -193,7 +213,6 @@ export class TransactionDetailsComponent {
         this.upls.confirmLcMailSent(emailBody).subscribe((resp) => { console.log("mail sent successfully"); }, (err) => { },);
 
         this.getAllnewTransactions('Rejected');
-        custTrnsactionDetail();
         this.closeOffcanvas();
         $('#addOptions select').val('Rejected').change();
       },
@@ -205,6 +224,8 @@ export class TransactionDetailsComponent {
       this.router.navigate([`/${this.subURL}/${this.parentURL}/transaction-details`]);
   });
   }
+
+  
   cloneTransaction(transactionId) {
 
     const navigationExtras: NavigationExtras = {
@@ -235,13 +256,14 @@ export class TransactionDetailsComponent {
       )
     }
   }
+  
 
-  onCloseTransactionPopup(transactionId){
+  onCloseTransactionPopup(record,val){
     if($('#closedTrans').val() == "Close"){
       $("#closeReason").val("");
       $("#closePopup").show();
       this.openNav3();
-      this.forCloseTransactionId = transactionId;
+      this.forCloseTransactionId = record.transactionId;
     }
   }
 

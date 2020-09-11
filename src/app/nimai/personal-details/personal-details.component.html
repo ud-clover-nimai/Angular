@@ -150,9 +150,12 @@
                           *ngIf="submitted && perDetails.landLineNo.errors"
                           class="invalid-feedback"
                         >
-                          <div *ngIf="perDetails.landLineNo.errors?.minlength">
-                            Landline No atleast of 7 digits.
+                          <div *ngIf="submitted && perDetails.landLineNo.errors?.required">
+                            Landline No is required
                           </div>
+                        </div>
+                        <div *ngIf="submitted && perDetails.landLineNo.errors?.minlength" class="invalid-feedback">
+                          Landline No atleast of 7 digits.
                         </div>
                       </div>
                     </div>
@@ -269,7 +272,7 @@
                     </div>
                     <div
                       class="col-sm-6 col-md-6 col-lg-3 bankfields"
-                      *ngIf="isBank"
+                      *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv">
                         <input
@@ -284,7 +287,7 @@
                     </div>
                     <div
                       class="col-sm-6 col-md-6 col-lg-3 bankfields"
-                      *ngIf="isBank"
+                      *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv multiselect-dropdown">
                         <ng-multiselect-dropdown-angular7
@@ -314,7 +317,7 @@
                     </div>
                     <div
                       class="col-sm-6 col-md-6 col-lg-3 bankfields"
-                      *ngIf="isBank"
+                      *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv">
                         <ng-multiselect-dropdown-angular7

@@ -10,6 +10,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import  { ValidateRegex } from '../../../beans/Validations';
 import { call } from 'src/assets/js/bootstrap-filestyle.min'
 import { loads } from 'src/assets/js/commons'
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 
@@ -47,10 +48,11 @@ export class UploadLCComponent implements OnInit {
   cloneData: any;
   dateToPass: any;
   document: any;
+  countryName: any;
 
 
   // rds: refinance Data Service
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
     this.checkLcCount();
 
     this.titleService.changeTitle(this.title);
@@ -92,6 +94,7 @@ export class UploadLCComponent implements OnInit {
     setTimeout(() => {
       loads();
     }, 500);
+    this.getCountryData();
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -147,6 +150,17 @@ export class UploadLCComponent implements OnInit {
   });
  }
 
+ getCountryData(){
+  this.loginService.getCountryMasterData().
+    subscribe(
+      (response) => {
+        this.countryName = JSON.parse(JSON.stringify(response));
+        sessionStorage.setItem('countryData', JSON.stringify(response));
+        
+      },
+      (error) => {}
+    )
+}
   public next() {
     this.previewShow = false;
     this.titleService.loading.next(true);
@@ -352,8 +366,8 @@ export class UploadLCComponent implements OnInit {
   }
 
   public confirm() {
-    this.titleService.loading.next(true);
-    this.loading = true;
+  //  this.titleService.loading.next(true);
+    //this.loading = true;
     let body = {
       transactionId: this.transactionID,
       userId: sessionStorage.getItem('userID')
@@ -389,11 +403,11 @@ export class UploadLCComponent implements OnInit {
           else{            
           this.setForm();
           this.edit();
-          this.loading = false;
-          this.titleService.loading.next(false);
+      
           this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
           
-          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {console.log("bank mail sent successfully");},(err) => {},);
+          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
+            console.log("bank mail sent successfully");},(err) => {},);
         
           const navigationExtras: NavigationExtras = {
             state: {
@@ -681,7 +695,6 @@ export class UploadLCComponent implements OnInit {
         (response) => {
 
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-          console.log(this.cloneData);
          
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,

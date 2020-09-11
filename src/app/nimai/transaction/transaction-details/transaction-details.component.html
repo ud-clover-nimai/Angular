@@ -400,8 +400,10 @@
                            </tr>
                            <tr>
                               <td>Pro Forma</td>
-                              <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                            
+                              <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
                               </td>
+                              <td [hidden]="noFileDisable">No such file attached</td>
                            </tr>
                         </tbody>
                      </table>
@@ -422,7 +424,7 @@
                      </div>
                   </div>
                   <div class="form-group clearfix"></div>
-                  <div class="row" style="background: #eee;
+                  <!-- <div class="row" style="background: #eee;
                      padding: 5px 0;">
                      <div class="col-md-12">
                         <table class="table">
@@ -455,7 +457,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.branchName}}</td>
                               </tr>
                               <tr>
-                                 <th nowrap>Name</th>
+                                 <th nowrap>Contact Person</th>
                                  <td *ngIf="quotationdata">{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
                               </tr>
                            </tbody>
@@ -481,7 +483,39 @@
                            </tbody>
                         </table>
                      </div>                     
-                  </div>                  
+                  </div>                   -->
+
+
+                  <div class="tab">
+                     <table>
+                         <tbody>
+                            <tr>
+                               <td><b>Bank Details</b></td>
+                            </tr>
+                             <tr>
+                                 <td><b>Bank</b></td>
+                                 <td>{{quotationdata.bankName}}</td>
+
+                                 <td><b>Branch</b></td>
+                                 <td>{{quotationdata.branchName}}</td>
+                             </tr>
+                             <tr>
+                                 <td><b>Country</b></td>
+                                 <td>{{quotationdata.countryName}}</td>
+
+                                 <td><b>Contact Person</b></td>
+                                 <td>{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
+                             </tr>
+                             <tr>
+                                 <td><b>Email</b></td>
+                                 <td>{{quotationdata.emailAddress}}</td>
+
+                                 <td><b>Contact Number</b></td>
+                                 <td>{{quotationdata.mobileNumber}} </td>
+                             </tr>
+                         </tbody>
+                     </table>
+                 </div>
                   
                   <div class="row" > 
                      <div class="col-md-12">
@@ -797,8 +831,10 @@
                                 </tr>
                                 <tr>
                                     <td>Pro Forma</td>
-                                    <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                                    <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
                                     </td>
+                                    <td [hidden]="noFileDisable">No such file attached</td>
+                                   
                                 </tr>
                             </tbody>
                         </table>
@@ -819,66 +855,36 @@
                   </div>
                </div>
                <div class="form-group clearfix"></div>
-               <div class="row" style="background: #eee;
-                  padding: 5px 0;">
-                  <div class="col-md-12">
-                     <table class="table">
-                        <tbody>
-                           <tr>
-                              <th colspan="2">Bank Details</th>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div class="col-md-6">
-                     <table class="table">
-                        <tbody>
-                           <tr>
-                              <th style="width: 50%;">Bank</th>
-                              <td *ngIf="quotationdata">{{quotationdata.bankName}}</td>
-                           </tr>
-                           <tr>
-                              <th>Country</th>
-                              <td *ngIf="quotationdata">{{quotationdata.countryName}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div class="col-md-6">
-                     <table class="table">
-                        <tbody>
-                           <tr>
-                              <th style="width: 50%;">Branch</th>
-                              <td *ngIf="quotationdata">{{quotationdata.branchName}}</td>
-                           </tr>
-                           <tr>
-                              <th nowrap>Name</th>
-                              <td *ngIf="quotationdata">{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div class="col-md-12">
-                     <table class="table">
-                        <tbody>                              
-                           <tr>
-                              <th>Mobile No.</th>
-                              <td *ngIf="quotationdata">{{quotationdata.mobileNumber}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div class="col-md-12">
-                     <table class="table">
-                        <tbody>                              
-                           <tr>
-                              <th>Email</th>
-                              <td *ngIf="quotationdata">{{quotationdata.emailAddress}}</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>                     
-               </div>        
+               <div class="tab">
+                  <table>
+                      <tbody>
+                         <tr>
+                            <td><b>Bank Details</b></td>
+                         </tr>
+                          <tr>
+                              <td><b>Bank</b></td>
+                              <td>{{quotationdata.bankName}}</td>
+
+                              <td><b>Branch</b></td>
+                              <td>{{quotationdata.branchName}}</td>
+                          </tr>
+                          <tr>
+                              <td><b>Country</b></td>
+                              <td>{{quotationdata.countryName}}</td>
+
+                              <td><b>Contact Person</b></td>
+                              <td>{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
+                          </tr>
+                          <tr>
+                              <td><b>Email</b></td>
+                              <td>{{quotationdata.emailAddress}}</td>
+
+                              <td><b>Contact Number</b></td>
+                              <td>{{quotationdata.mobileNumber}} </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
                 
                 <div class="form-group clearfix"></div>
 
@@ -1194,8 +1200,9 @@
                                 </tr>
                                 <tr>
                                     <td>Pro Forma</td>
-                                    <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                                    <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
                                     </td>
+                                    <td [hidden]="noFileDisable">No such file attached</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1241,30 +1248,37 @@
      <!-- Modal content-->
      <div class="modal-content">
         <div class="modal-body">
-           <h2>Reject Trasaction</h2>
+           <h2>Reject Transaction</h2>
+           <form name="form" (ngSubmit)="f.form.valid && rejectBankQuote(quotationdata.quotationId,quotationdata.transactionId,selectReason.title)" #f="ngForm" novalidate>
            <div class="padnew">
-              <!--<p><strong>Enter Email ID here</strong></p> -->
               <div class="">
                  <div class="row">
                     <div class="col-md-12">
                        <label>Select your reason for rejecting the transaction</label>
                        <div class="form-group"></div>
+                      
                        <div class="inputDiv selectdiv">
-                          <select id="rejectReason">
-                             <option value=''>Select</option>
-                             <option value="1">Bank not acceptable</option>
-                             <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
-                             <option value="2">Others</option>
-                          </select>
-                          <label>Select Reason</label>
-                       </div>
+                        <select name="selectReason" [(ngModel)]="selectReason.title" 
+                        #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
+                           <option value=''>Select</option>
+                           <option value="1">Bank not acceptable</option>
+                           <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
+                           <option value="2">Others</option>
+                        </select>
+
+                        <label>Select Reason</label>
+                        <div *ngIf="f.submitted && selectReason.invalid" class="invalid-feedback">
+                         <div *ngIf="selectReason.errors.required">Please select reason to reject</div>
+                     </div>
+                     </div>
                        <div class="form-group"></div>
                        <small>Note : 1 Transaction Credit will be refunded if you reject this transaction.</small>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right" data-dismiss="modal" (click)="rejectBankQuote(quotationdata.quotationId,quotationdata.transactionId)">Submit</button> 
+                    <button type="submit" (click)="onSubmit()" class="btn btn-info pull-right" >Submit</button> 
                  </div>
               </div>
            </div>
+         </form>
         </div>
      </div>
   </div>
@@ -1346,7 +1360,7 @@
        <div class="row">
          <!--<p><strong>Enter Email ID here</strong></p> -->
          <div class="col-md-12">
-          <img [src]="document" />
+          <img [src]="document" style="height:100%; width: 100%;" alt="No Document Uploaded"/>
          </div>
          <!-- <button type="submit" class="btn btn-info"  data-dismiss="modal">Close</button>-->
        </div>

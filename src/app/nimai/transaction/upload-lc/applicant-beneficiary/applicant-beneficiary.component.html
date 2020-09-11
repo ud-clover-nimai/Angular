@@ -63,12 +63,9 @@
 
                 <select name='country' formControlName="beneCountry">
                     <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
+                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                    
+
                 </select>
                 <label>Country</label>
             </div>
@@ -100,12 +97,8 @@
 
                 <select name='country' formControlName="beneBankCountry" class="select_country">
                     <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
+                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                  
                 </select>
                 <label>Country of Beneficiary Bank</label>
             </div>
@@ -143,6 +136,7 @@
                 <input type="text" maxlength="50" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Country</label>
             </div>
+
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
@@ -157,14 +151,10 @@
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
     
-                <select name='country' formControlName="beneBankCountry">
-                    <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
+                <select name='Country' formControlName="beneBankCountry">
+                     <option [ngValue]="null" selected>Select</option>
+                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                  
                 </select>
                 <label>Country of Beneficiary Bank</label>
             </div>
@@ -192,12 +182,7 @@
     
                 <select name='country' formControlName="applicantCountry">
                     <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
+                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                 </select>
                 <label>Country</label>
             </div>

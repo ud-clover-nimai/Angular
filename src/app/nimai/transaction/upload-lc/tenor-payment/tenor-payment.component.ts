@@ -4,6 +4,7 @@ import { DataServiceService } from 'src/app/services/upload-lc/data-service.serv
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
+import { LoginService } from 'src/app/services/login/login.service';
 @Component({
   selector: 'app-tenor-payment',
   templateUrl: './tenor-payment.component.html',
@@ -20,8 +21,9 @@ export class TenorPaymentComponent implements OnInit {
   public bankerBool: boolean = false;
   fileToUpload: File = null;
   private imageSrc: string = '';
+  countryName: any;
 
-  constructor(public rds:DataServiceService) {
+  constructor(public rds:DataServiceService,public loginService: LoginService) {
 
   }
 
@@ -35,9 +37,21 @@ export class TenorPaymentComponent implements OnInit {
       } 
     });
     this.selectors('Confirmation');
+    this.getCountryData();
 
   }
 
+  getCountryData(){
+    this.loginService.getCountryMasterData().
+      subscribe(
+        (response) => {
+          this.countryName = JSON.parse(JSON.stringify(response));
+          sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
+  }
 
   public selectors(selector: string) {
     this.selector = selector;
@@ -95,6 +109,7 @@ export class TenorPaymentComponent implements OnInit {
     var reader = new FileReader();
     if (!file.type.match(pattern)) {
       alert('invalid format');
+      $('#upload_file1').val('');
       return;
     }
     reader.onload = this._handleReaderLoaded.bind(this);

@@ -358,6 +358,11 @@
                             >
                               Add More
                             </button>
+                            <div
+                            *ngIf="addMoreFlag"
+                            class="invalid-feedback" style="right: 81px!important;">
+                            Please fill all three fields.
+                          </div>
                           </div>
                           <div class="inputDiv" *ngIf="i > 0">
                             <button
