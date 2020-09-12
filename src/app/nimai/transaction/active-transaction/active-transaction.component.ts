@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ConfirmationComponent } from '../transactionTypes/confirmation/confirmation.component';
 import { DiscountingComponent } from '../transactionTypes/discounting/discounting.component';
 import { ConfirmAndDiscountComponent } from '../transactionTypes/confirm-and-discount/confirm-and-discount.component';
@@ -19,15 +18,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
   templateUrl: './active-transaction.component.html',
   styleUrls: ['./active-transaction.component.css']
 })
-export class ActiveTransactionComponent implements OnInit {
-  // displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goods', 'requirement', 'receivedQuotes', 'star'];
-  displayedColumns: string[] = ['id','txnID', 'beneficiary', 'applicant', 'amount', 'requirement', 'receivedQuotes','validity', 'star'];
-  dataSource: MatTableDataSource<any>;
-  public ntData: any[] = [];
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
+export class ActiveTransactionComponent implements OnInit { 
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
@@ -68,36 +59,24 @@ export class ActiveTransactionComponent implements OnInit {
     }
     this.nts.getAllNewTransaction(data).subscribe(
       (response) => {
+        custActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
+        console.log("Detail--",this.detail)
         if (!this.detail) {
           this.hasNoRecord = true;
         }
         else{
           this.hasNoRecord = false;
-          this.dataSource = new MatTableDataSource(this.detail);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
         }
-        
-
       },(error) =>{
         this.hasNoRecord = true;
       }
     )
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   ngOnInit() {
-    this.paginator._intl.itemsPerPageLabel="Transactions per page";
-    custActiveTransaction();
+   // this.paginator._intl.itemsPerPageLabel="Transactions per page";
+    //custActiveTransaction();
       $('#TransactionDetailDiv').hide();
       $('.acceptedPopupDetails').hide();
       $('.acceptedErrorDetails').hide();
@@ -210,7 +189,7 @@ export class ActiveTransactionComponent implements OnInit {
  } 
 
   getQRDetail(detail){
-    this.getSpecificDetail = detail;
+    this.getSpecificDetail = detail;    
  }
 
  showAcceptedDetails(index,qId, tId, quotationDetails){
@@ -224,7 +203,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.acceptedDetails = quotationDetails;
       
       this.nts.acceptBankQuote(req).subscribe(
-        (response) => {
+        (response) => {          
           var acceptQuoteResp = JSON.parse(JSON.stringify(response));
           if(acceptQuoteResp.status.toLowerCase() == "failure"){
             $('.acceptedErrorDetails').show();
