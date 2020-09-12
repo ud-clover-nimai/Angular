@@ -84,12 +84,9 @@
                                                                         <div class="inputDiv selectdiv">
                                                                             <a class="textddlV" data-toggle="tooltip" data-placement="auto" title=""><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
                                                                             <select formControlName="lCIssuanceCountry">
-                                                                                <!-- <option value="">Select Country</option> -->
-                                                                                <option value="INDIA">India</option>
-                                                                                <option value="AUSTRALIA">Australia
-                                                                                </option>
-                                                                                <option value="BANGLADESH">Bangladesh
-                                                                                </option>
+                                                                                <option [ngValue]="null" selected>Select</option>
+                                                                                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                                                                              
                                                                             </select>
                                                                             <label>Select Country</label>
                                                                         </div>
@@ -330,7 +327,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Branch</span>
+                                            <span class="customspan">Issuance branch</span>
                                             <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
                                         </div>
@@ -362,7 +359,7 @@
                                     </div>                
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Amount</span>
+                                            <span class="customspan">LC value</span>
                                             <span class="labeltext">{{lc.lCCurrency}} {{lc.lCValue}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
@@ -457,7 +454,7 @@
                                         </div> -->
                                 </div>
                                 <div class="row" [hidden]="!previewShow" *ngIf="lc.selector == 'Refinance'">
-                                    <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
+                                    <p class="col-md-12"><strong>Tenor</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Orignal Usance (Tenor) of LC </span>
@@ -516,7 +513,7 @@
                                     <p class="col-md-12"><strong>Other Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Country</span>
+                                            <span class="customspan">Country of port of loading</span>
                                             <span class="labeltext">{{lc.loadingCountry}}</span>
                                             <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
                                         </div>
@@ -530,7 +527,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Country</span>
+                                            <span class="customspan">country of port of discharge</span>
                                             <span class="labeltext">{{lc.dischargeCountry}}</span>
                                             <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
                                         </div>

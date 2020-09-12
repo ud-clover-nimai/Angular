@@ -102,6 +102,15 @@ export class TrasactionDetailsComponent {
   }
 
   getDetail(detail,status) {
+    console.log(detail.lcProforma)
+    if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
       this.quotationdata = detail;
       this.specificDetail = detail;
     if(status=='Accepted'){
@@ -120,14 +129,7 @@ export class TrasactionDetailsComponent {
       $('.tab-content #pill1131').addClass('active');
     }
    
-    if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
-      this.noFileDisable=false;
-      this.viewDisable=true;
-
-     }else{
-      this.viewDisable=false;
-      this.noFileDisable=true;
-     }
+   
 
   }
   getQuotes(val){
@@ -155,6 +157,7 @@ const data = {
 
 
   openOffcanvas(status) {
+
     if (status === "Accepted") {
         document.getElementById("menu-barDetailnew").style.width = "510px";
     }else if (status === "Expired") {
@@ -179,7 +182,6 @@ const data = {
   showProForma(file) {
     $('#myModal91').show();
     this.document = file;
-    console.log(this.document)
   }
   close() {
     $('#myModal91').hide();

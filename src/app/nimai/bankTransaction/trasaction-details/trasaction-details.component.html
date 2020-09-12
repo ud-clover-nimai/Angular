@@ -329,7 +329,7 @@
                                         </tr>
                                         <tr>
                                             <td>Pro Forma</td>
-                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
+                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
                                               </td>
                                               <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
@@ -368,7 +368,6 @@
                         </div>
                         <div class="form-group clearfix"></div>
 
-                        <br>
                         <div class="row" *ngIf="hasNoRecord">
                             <div class="col-md-12">
                                 <table class="table">
@@ -681,8 +680,9 @@
                                         </tr>
                                         <tr>
                                             <td>Pro Forma</td>
-                                            <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
                                             </td>
+                                            <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1031,8 +1031,9 @@
                                         </tr>
                                         <tr>
                                             <td>Pro Forma</td>
-                                            <td><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)" class="">View</a>
+                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
                                             </td>
+                                            <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1214,7 +1215,7 @@
     <div class="modal-dialog modal-md emaildiv">
         <div class="modal-content">
             <div class="modal-body">
-                <h2>Reject Trasaction</h2>
+                <h2>Reject Transaction</h2>
                 <form name="form" (ngSubmit)="f.form.valid && rejectBankQuote(quotationdata.quotationId,selectReason.title)" #f="ngForm" novalidate>
 
            <div class="padnew">
@@ -1317,7 +1318,7 @@
             <h4>Attached document</h4>
             <div class="row">
                 <div class="col-md-12">
-                    <img [src]="document" style="height:350px; width: 100%;"/>
+                    <img [src]="document" style="height:100%; width: 100%;"/>
                 </div>
             </div>
         </div>

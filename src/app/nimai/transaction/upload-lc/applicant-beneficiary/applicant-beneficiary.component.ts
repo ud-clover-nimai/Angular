@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Component({
@@ -12,11 +13,14 @@ import * as $ from 'src/assets/js/jquery.min';
 export class ApplicantBeneficiaryComponent implements OnInit {
 
   @Input() public LcDetail:FormGroup;
+  countryName: any;
 
-  constructor() { }
+  constructor(public loginService: LoginService) { }
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");
+    this.getCountryData();
+
   }
 
   onItemChange(e){
@@ -37,6 +41,18 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.LcDetail.get('beneName').setValue('');
        this.LcDetail.get('beneCountry').setValue('');
     }
+  }
+
+  getCountryData(){
+    this.loginService.getCountryMasterData().
+      subscribe(
+        (response) => {
+          this.countryName = JSON.parse(JSON.stringify(response));
+          sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
   }
 
   validateRegexFields(event, type){

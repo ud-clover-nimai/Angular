@@ -138,12 +138,9 @@
         <div class="inputDiv selectdiv">
 
             <select name="country" formControlName="lastBankCountry">
-                <option value="INDIA">India</option>
-                <option value="BANGLADESH">Bangladesh</option>
-                <option value="KENYA">Kenya</option>
-                <option value="NIGERIA">Nigeria</option>
-                <option value="UAE">UAE</option>
-                <option value="QATAR">Qatar</option>
+                <option [ngValue]="null" selected>Select</option>
+                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+            
             </select>
             <label>Country</label>
         </div>
