@@ -61,7 +61,6 @@ export class ActiveTransactionComponent implements OnInit {
       (response) => {
         custActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
-        console.log("Detail--",this.detail)
         if (!this.detail) {
           this.hasNoRecord = true;
         }
