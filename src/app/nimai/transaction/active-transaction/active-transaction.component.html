@@ -1,346 +1,324 @@
 <div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
-
 <div class="content">
-    <div class="container-fluid">
+   <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-icon" data-background-color="blue">
-              <i class="fa fa-check-square-o"></i>
-            </div>
-            <div class="card-content">
-              <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>   
-              <!-- <form> -->
-              <div class="row" [hidden]="!hasNoRecord">
-                <div class="col-12">
-                  <table class="table">
-                    <thead>
-                      <th>
-                        <p>No records available. </p>
-                      </th>
-                    </thead>
-  
-                  </table>
-                </div>
-              </div>
-              <div class="row" [hidden]="hasNoRecord">
-                <div class="col-md-12">
-                  <mat-form-field id="transactionFilter" style="padding-left: 75%;">
-                    <mat-label>Search</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. CU002">
-                  </mat-form-field>
-  
-                  <!-- <div class="mat-elevation-z8 table-responsive table-bordered material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%"> -->
-                  <div class="table-responsive material-datatables" id="transactionID"  width="100%" style="width:100%">
-
-                    <table mat-table [dataSource]="dataSource" matSort>
-  
-                      <!-- ID Column -->
-                      <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SR </th>
-                        <td style="padding-left:0px !important" mat-cell *matCellDef="let row; let i = index"> {{i+1}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="txnID" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction ID </th>
-                        <td mat-cell *matCellDef="let row"> {{row.transactionId}} </td>
-                      </ng-container>
-                      <!-- Progress Column -->
-                      <ng-container matColumnDef="beneficiary"  >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary </th>
-                        <td mat-cell *matCellDef="let row"> {{row.beneName}} </td>
-                      </ng-container>
-                      <!-- <ng-container matColumnDef="bcountry" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-                        <td mat-cell *matCellDef="let row"> {{row.beneCountry}} </td>
-                      </ng-container> -->
-  
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="applicant" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant </th>
-                        <td mat-cell *matCellDef="let row"> {{row.applicantName}} </td>
-                      </ng-container>
-                      <!-- <ng-container matColumnDef="acountry" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-                        <td mat-cell *matCellDef="let row"> {{row.applicantCountry}} </td>
-                      </ng-container> -->
-  
-                      <!-- Color Column -->
-                     
-                      
-                      <!-- <ng-container matColumnDef="dateTime" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date&Time </th>
-                        <td mat-cell *matCellDef="let row"> {{row.insertedDate | date : "dd-MM-y h:mm:ss z"}} </td>
-                      </ng-container> -->
-                      
-                      <!-- <ng-container matColumnDef="ib">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> IB </th>
-                        <td mat-cell *matCellDef="let row"> {{row.lCIssuanceBank}} </td>
-                      </ng-container> -->
-                      <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
-                        <td mat-cell *matCellDef="let row"> {{row.lCValue}} </td>
-                      </ng-container>
-                      <!-- <ng-container matColumnDef="ccy">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ccy </th>
-                        <td mat-cell *matCellDef="let row"> {{row.lCCurrency}} </td>
-                      </ng-container> -->
-                      <!-- <ng-container matColumnDef="goods">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Goods </th>
-                        <td mat-cell *matCellDef="let row"> {{row.goodsType}} </td>
-                      </ng-container> -->
-                      <ng-container matColumnDef="requirement">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Requirement </th>
-                        <td mat-cell *matCellDef="let row"> {{row.requirementType}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="receivedQuotes">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Received Quotes </th>
-                        <td mat-cell *matCellDef="let row" >
-                          <div *ngIf="row.quotationReceived == 0"> 
-                            {{row.quotationReceived}}
-                          </div>
-                          <div *ngIf="row.quotationReceived != 0"> 
-                            <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(row.transactionId)" class="transactionDiv">
-                              {{row.quotationReceived}}
-                            </span>
-                          </div>
-                        </td>
-                      </ng-container>
-                      <ng-container matColumnDef="validity" >
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Validity </th>
-                        <td mat-cell *matCellDef="let row"> {{row.validity | date : "dd-MM-y"}} </td>
-                      </ng-container>
-                      
-                      <ng-container matColumnDef="star">
-                        <th mat-header-cell *matHeaderCellDef="let row">Actions</th>
-                        <td mat-cell *matCellDef="let row">
-                          <a (click)="openNav3();showQuotePage(row.requirementType,0,row)"
-                                            class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
-                        </td>
-                      </ng-container>
-                      
-  
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                      </tr>
-                    </table>
-  
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header card-header-icon" data-background-color="blue">
+                  <i class="fa fa-check-square-o"></i>
+               </div>
+               <div class="card-content">
+                  <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                  <!-- <form> -->
+                  <div class="row" *ngIf="hasNoRecord">
+                     <div class="col-12">
+                        <table class="table">
+                           <thead>
+                              <th>
+                                 <p>No records available. </p>
+                              </th>
+                           </thead>
+                        </table>
+                     </div>
                   </div>
-
-                  <div class="table-responsive material-datatables" id="TransactionDetailDiv" cellspacing="0" width="100%"
-                            style="width:100%">
-                            <div *ngIf="noQRdetail">
-                              No Records available
-                            </div>
-                            <table class="table table-hover" id="" *ngIf="!noQRdetail">
+                  <div class="row" *ngIf="!hasNoRecord">
+                     <div class="col-md-12">
+                        <div class="table-responsive" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                           <table class="table table-hover" id="datatables">
                               <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Transaction ID</th>
-                                  <th>Bank</th>
-                                  <th>Total Quote</th>
-                                  <th>Ccy</th>
-                                  <th>Valid Till</th>
-                                  <th>Action</th>
-                                </tr>
+                                 <tr>
+                                    <th class="disabled-sorting text-center">#</th>
+                                    <th nowrap>Transaction ID</th>
+                                    <th style="min-width: 150px;">Applicant Name</th>
+                                    <th style="min-width: 150px;">Beneficiary Name</th>
+                                    <th style="min-width: 80px;">LC Value</th>
+                                    <th style="min-width: 80px;">Ccy</th>
+                                    <th style="min-width: 100px;">Validity</th>
+                                    <th style="min-width: 130px;">Requirement</th>                                  
+                                    <th style="min-width: 80px;">Quotes Received</th>
+                                    <th class="disabled-sorting" style="min-width: 80px;">Action</th>
+
+                                 </tr>
                               </thead>
                               <tbody>
-                                
-                                <tr *ngFor="let QRrecord of QRdetail; let i = index" >
-                                  <td>{{i + 1}}</td>
-                                  <td>{{QRrecord.transactionId}}</td>
-                                  <td class="showBankDetails">**** <br>
-                                    Quotes placed till date 214<br>
-                                    Quotes for Matress 23</td>
-                                  <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
-                                  <td>USD</td>
-                                  <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                                  <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
-                                </tr>                          
+                                 <tr *ngFor="let record of detail; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{record.transactionId}}</td>
+                                    <td>{{record.applicantName}}</td>
+                                    <td>{{record.beneName}}</td>
+                                    <td>{{record.lCValue}}</td>
+                                    <td>{{record.lCCurrency}}</td>
+                                    <td >{{record.validity | date : "dd-MM-y"}}</td>
+                                    <td>{{record.requirementType}}</td>
+                                   
+                                    <td>
+                                       <div *ngIf="record.quotationReceived == 0"> 
+                                          {{record.quotationReceived}}
+                                       </div>
+                                       <div *ngIf="record.quotationReceived != 0"> 
+                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
+                                          {{record.quotationReceived}}
+                                          </span>
+                                       </div>
+                                    </td>
+                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas()"
+                                       class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
+                  
+                                 </tr>
                               </tbody>
-                            </table>
-                          
-                          </div>
-                          <div class="text-right downloaddiv">
-                            <ul class="list-unstyled list-inline">
-                              <li>Download</li>
-                              <li><a href="javascript:void()" class="pdf"><span class="fas fa-file-pdf"></span></a></li>
-                              <li><a href="javascript:void()" class="excel"><span class="fas fa-file-excel"></span></a></li>
-                            </ul>
-                          </div>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <!-- </form> -->
+                           </table>
+                        </div>                    
+                     </div>
+                     <div class="table-responsive" id="TransactionDetailDiv" cellspacing="0" width="100%"
+                     style="width:100%;display: none;">
+                     <div *ngIf="noQRdetail">
+                       No Records available
+                     </div>
+                     <table class="table table-hover" id="" *ngIf="!noQRdetail" id="datatables">
+                       <thead>
+                         <tr>
+                           <th>#</th>
+                           <th>Transaction ID</th>
+                           <th>Bank</th>
+                           <th>Total Quote</th>
+                           <th>Ccy</th>
+                           <th>Valid Till</th>
+                           <th>Action</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         
+                         <tr *ngFor="let QRrecord of QRdetail; let i = index" >
+                           <td>{{i + 1}}</td>
+                           <td>{{QRrecord.transactionId}}</td>
+                           <td class="showBankDetails">**** <br>
+                             Quotes placed till date 214<br>
+                             Quotes for Matress 23</td>
+                           <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                           <td>USD</td>
+                           <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
+                         </tr>                          
+                       </tbody>
+                     </table>
+                     </div> 
+                     <div class="text-right downloaddiv">
+                        <ul class="list-unstyled list-inline">
+                           <li>Download</li>
+                           <li><a href="javascript:void()" class="pdf"><span class="fas fa-file-pdf"></span></a></li>
+                           <li><a href="javascript:void()" class="excel"><span class="fas fa-file-excel"></span></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               <div class="clearfix"></div>
+               <!-- </form> -->
             </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  </div>
-
+   </div>
+</div>
+</div>
 <div id="menu-barnew" class="offcanvas">
-  <div class="popupcontent">
-    <div class="card">
-      <div class="card-content">
-        <h4>Place Quote</h4>
-        <div class="tab-content" id="tab1">
-          <div class="tab-pane active" id="pill1">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Bank</td>
-                  <td>** <br>
-                    Quotes placed till date 214
-                    Quotes for Matress 23</td>
-                </tr>
-                <tr>
-                  <td>Confirmation Charges</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
-                </tr>
-                <tr>
-                  <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
-                </tr>
-                <tr>
-                  <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
-                </tr>
-                <tr>
-                  <td>Minimum Transaction Charges</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
-                </tr>
-                <tr>
-                  <td>Other Charges</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}} <br>
-                    Comment: SWIFT Charges</td>
-                </tr>
-                <tr>
-                  <td>Valid Till</td>
-                  <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                </tr>
-                <tr>
-                  <th>Total Quote</th>
-                  <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}} </th>
-                </tr>
-                <tr>
-                  <td colspan="2">Note : The applicable benchmark will be applicable as of transaction date, actual
-                    quote from the bank may differ to that extent.</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="posfix">
-              <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
-                Ok
-                <div class="ripple-container"></div>
-              </button>
-              <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+   <div class="popupcontent">
+      <div class="card">
+         <div class="card-content">
+            <h4> Bank Quote</h4>
+            <div class="tab-content" id="tab1">
+               <div class="tab-pane active" id="pill1">
+                <div class="table-responsive"  cellspacing="0" width="100%"
+                style="width:100%;">
+                  <table class="table table-hover" id="datatables">                    
+                     <tbody>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
+                      
+                     </tr>
+                     <tr>
+                        <td>The currency of the quote <b> {{lCCurrencyReq}}</b></td>
+                     </tr><br>
+                       
+                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
+                           <td>Applicable Benchmark , if any</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}</td>
+                        </tr>
+                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
+                           <td>Confirmation Charges p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
+                        </tr>
+                       
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                           <td>Discounting Charges p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                           <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                           <td>
+                              Confirmation Charges from Date of Issuance till date of maturity</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
+                        </tr>
+                       
+                        <tr *ngIf="quotationReqType == 'Banker'">
+                           <td>Banker's Acceptance interest p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankerAcceptCharges}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'Refinance'">
+                           <td>Refinancing interest p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                           <td>Negotiation Charges p.a. </td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                           <td>Negotiation Charges p.a.(%)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}</td>
+                        </tr>
+                        <tr>
+                           <td>Document Handling Charges</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>
+                        </tr>
+                        <tr>
+                           <td>Other Charges</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}}</td>
+                        </tr>
+                        <tr>
+                           <td>Min.Trancation Charges </td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
+                        </tr>
+                        <tr>
+                           <td>Validity</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate | date : "dd-MM-y"}}</td>
+                        </tr>
+                        <tr>
+                           <th>Total Quote</th>
+                           <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}}</th>
+                        </tr>
+                        <br>
+                        <tr>
+                           <td>Others terms and conditions</td>
+                       </tr>
+                       <tr>
+                           <td>{{getSpecificDetail.termConditionComments}}</td>
+                       </tr>
+                        
+<br>
+                        <tr>
+                           <td colspan="2">Note: The applicable benchmark will be applicable as of transaction date, actual
+                              quote from the bank may differ to that extent.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                </div>  
+                  <div class="posfix">
+                     <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
+                        Ok
+                        <div class="ripple-container"></div>
+                     </button>
+                     <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab3">
-          <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td colspan="2" class="text-center">
-                    <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active Transaction
-                      Section to see your current rank.</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="posfix">
-              <a (click)="closeOffcanvas()" class="btn btn-info">
-                OK
-                <div class="ripple-container"></div>
-              </a>
+            <div class="tab-content" id="tab3">
+               <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                  <table class="table">
+                     <tbody>
+                        <tr>
+                           <td colspan="2" class="text-center">
+                              <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active Transaction
+                                 Section to see your current rank.
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div class="posfix">
+                     <a (click)="closeOffcanvas()" class="btn btn-info">
+                        OK
+                        <div class="ripple-container"></div>
+                     </a>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  </div>
+   </div>
 </div>
-
 <div id="myModal4" class="popupnew modal fade in acceptedPopupDetails" role="dialog">
-  <div class="modal-dialog modal-md emaildiv">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <h2>Quote Accepted</h2>
-        <div class="padnew">
-          <!--<p><strong>Enter Email ID here</strong></p> -->
-          <div class="">
-            <div class="row">
-              <div class="col-md-12">
-                <!-- <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
-                  this Bid.</p> -->
-
-                <ul class="list-unstyled">
-                  <li><strong>Bank Details</strong></li>
-                  <li>Bank : {{acceptedDetails.bankName}}</li>
-                  <li>Branch : {{acceptedDetails.branchName}}</li>
-                  <li>Country : {{acceptedDetails.countryName}}</li>
-                  <li>Email : {{acceptedDetails.emailAddress}}</li>
-                  <li>Contact : {{acceptedDetails.mobileNumber}}</li>
-                  <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li>
-                </ul>
-                <p>Details are saved in the Transaction Details section.</p>
-                <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">Ok<div
-                    class="ripple-container">
-                    <div class="ripple ripple-on ripple-out"
-                      style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
-                    </div>
-                  </div></button>
-              </div>
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Quote Accepted</h2>
+            <div class="padnew">
+               <!--<p><strong>Enter Email ID here</strong></p> -->
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <!-- <p class="head"><strong>Congratulations!</strong><br />You've saved <strong>$100</strong> by accepting
+                           this Bid.</p> -->
+                        <ul class="list-unstyled">
+                           <li><strong>Bank Details</strong></li>
+                           <li>Bank : {{acceptedDetails.bankName}}</li>
+                           <li>Branch : {{acceptedDetails.branchName}}</li>
+                           <li>Country : {{acceptedDetails.countryName}}</li>
+                           <li>Email : {{acceptedDetails.emailAddress}}</li>
+                           <li>Contact : {{acceptedDetails.mobileNumber}}</li>
+                           <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li>
+                        </ul>
+                        <p>Details are saved in the Transaction Details section.</p>
+                        <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">
+                           Ok
+                           <div
+                              class="ripple-container">
+                              <div class="ripple ripple-on ripple-out"
+                                 style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                              </div>
+                           </div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-
-        </div>
-
+         </div>
       </div>
-    </div>
-  </div>
+   </div>
 </div>
-
 <div id="myModal4" class="popupnew modal fade in acceptedErrorDetails" role="dialog">
-  <div class="modal-dialog modal-md emaildiv">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <h2>Quote Accepted Error</h2>
-        <div class="padnew">
-          <!--<p><strong>Enter Email ID here</strong></p> -->
-          <div class="">
-            <div class="row">
-              <div class="col-md-12">                
-                <p>{{acceptedErrorDetail}}</p>
-                <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok<div
-                    class="ripple-container">
-                    <div class="ripple ripple-on ripple-out"
-                      style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
-                    </div>
-                  </div></button>
-              </div>
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Quote Accepted Error</h2>
+            <div class="padnew">
+               <!--<p><strong>Enter Email ID here</strong></p> -->
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>{{acceptedErrorDetail}}</p>
+                        <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">
+                           Ok
+                           <div
+                              class="ripple-container">
+                              <div class="ripple ripple-on ripple-out"
+                                 style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                              </div>
+                           </div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-
-        </div>
-
+         </div>
       </div>
-    </div>
-  </div>
+   </div>
 </div>
-
-  <app-banker></app-banker>
-  <app-confirm-and-discount></app-confirm-and-discount>
-  <app-confirmation></app-confirmation>
-  <app-discounting></app-discounting>
-  <app-refinancing></app-refinancing>
+<app-banker></app-banker>
+<app-confirm-and-discount></app-confirm-and-discount>
+<app-confirmation></app-confirmation>
+<app-discounting></app-discounting>
+<app-refinancing></app-refinancing>

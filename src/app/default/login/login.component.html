@@ -230,7 +230,7 @@
                                        </div>
                                        <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank">
                                           <div class="inputDiv">
-                                             <input type="text" class="currencyleft" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
+                                             <input type="text" class="has-value currencyleft" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
                                              <label>Min LC Value</label>
                                              <img src="assets/images/cash.png" style="height: 14px;width: 10px;" />
                                              <!-- <div *ngIf="submittedSignup && suf.minLCValue.errors" class="invalid-feedback">
@@ -242,6 +242,11 @@
                                                 <option value=''>Select</option>
                                                 <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
                                              </select>
+                                             <div *ngIf="submittedSignup && suf.regCurrency.errors" class="invalid-feedback">
+                                                <div *ngIf="suf.regCurrency.errors.required">
+                                                   Currency is required.
+                                                </div>
+                                             </div>
                                           </div>
                                        </div>
                                        <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank">

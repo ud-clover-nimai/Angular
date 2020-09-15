@@ -126,8 +126,7 @@ export class TransactionDetailsComponent {
       $('.tab-content #pill131').addClass('active');
 
     }
-    console.log(detail.lcProForma)
-
+    
     if(detail.lcProForma==null || detail.lcProForma=="" || detail.lcProForma==undefined){
       this.noFileDisable=false;
       this.viewDisable=true;

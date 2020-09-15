@@ -145,3 +145,6 @@ background: slategray;
 .unlimitedbox{
 background: #00bcd4;
 }
+.plan-features {
+    height: 200px!important;
+}

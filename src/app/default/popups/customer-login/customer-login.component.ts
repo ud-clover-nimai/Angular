@@ -66,7 +66,8 @@ export class CustomerLoginComponent implements OnInit {
     }
     this.submitted = false;
 
-    this.emailAddress = this.customerLoginForm.get('email_id').value;
+    this.emailAddress = this.customerLoginForm.get('email_id').value.trim();
+    this.customerLoginForm.get('email_id').setValue(this.customerLoginForm.get('email_id').value.trim())
     let userID: string = sessionStorage.getItem('userID');
     this.Service.userBranch(this.customerLoginForm.value,userID).subscribe(
       (response) => {

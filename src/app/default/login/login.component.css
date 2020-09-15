@@ -133,7 +133,7 @@
     font-weight: 500!important;
     letter-spacing: 0.4px!important;
     position: absolute!important;
-    top: -7px!important;
+    top: -6px!important;
     left: 5px!important;
     transform: translateY(-50%)!important;
     color: #999!important;
@@ -142,12 +142,11 @@
 }
 
 ::ng-deep .multiselect-dropdown .dropdown-btn span {
-    margin-left: 10px!important;
-    margin-top: 4px!important;
+    margin-left: 15px!important;
+    margin-top: 13px!important;
 }
 .blackListedGoodsList_img{
-    margin-left: 5px!important;
-    top:9px!important;
+    top:15px!important;
 }
 .loginbody .inputDiv .invalid-feedback{
     top: 33px!important;

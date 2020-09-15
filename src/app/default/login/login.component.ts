@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     loads();
     loadLogin();
     this.loginForm = this.fb.group({
@@ -207,32 +208,27 @@ export class LoginComponent implements OnInit {
       }
 
     }
-    // if(!isChecked){
-    // $('#checkboxError').show();
-    //   return;
-    // }
 
     this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
-
-      let res = JSON.parse(JSON.stringify(response)).data;
-      let emailResetPassworData: Email = {
-        event: 'ACCOUNT_ACTIVATE',
-        email: res.emailAddress
-      }
-      let saveResponse = JSON.parse(JSON.stringify(response)).errMessage;
-      this.rsc.sendRegistrationEmail(emailResetPassworData).
-        subscribe(
-          (response) => {
-            this.resetSignUpForm();
-            this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
-            this.submittedSignup = false;
-            this.clearSignupValidation();
-            this.updateValidation();
-            const navigationExtras: NavigationExtras = {
-              state: {
-                title: 'Congratulations! Your account has been successfully created!',
-                message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
-                parent: 'login'
+    let res = JSON.parse(JSON.stringify(response)).data;
+    let emailResetPassworData: Email = {
+      event: 'ACCOUNT_ACTIVATE',
+      email: res.emailAddress
+    }
+    let saveResponse = JSON.parse(JSON.stringify(response)).errMessage;
+    this.rsc.sendRegistrationEmail(emailResetPassworData).
+      subscribe(
+        (response) => {
+          this.resetSignUpForm();
+          this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
+          this.submittedSignup = false;
+          this.clearSignupValidation();
+          this.updateValidation();
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Congratulations! Your account has been successfully created!',
+              message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
+              parent: 'login'
               }
             };
             this.router.navigate(['/login/success'], navigationExtras)
@@ -404,11 +400,18 @@ export class LoginComponent implements OnInit {
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();
-    this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);
+    this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);    
+    var minValue = this.signupForm.get('minLCValue').value;
+    if(minValue>0)
+    {      
+      this.signupForm.get('regCurrency').setValidators(Validators.required);
+      this.signupForm.get('regCurrency').updateValueAndValidity();
+    }else{
+      this.signupForm.get('regCurrency').clearValidators()
+      this.signupForm.get('regCurrency').updateValueAndValidity();
+    }
     this.updateValidation();
   }
-
-
   removeReferrerValidation() {
     this.signupForm.get('designation').clearValidators();
     this.signupForm.get('companyName').clearValidators();

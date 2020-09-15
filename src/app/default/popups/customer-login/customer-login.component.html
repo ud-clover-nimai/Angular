@@ -40,7 +40,7 @@
                 <div *ngIf="submitted && custLogDetails.email_id.errors?.required" class="invalid-feedback">
                   Email is required
                 </div>
-                <div *ngIf="custLogDetails.email_id.touched && custLogDetails.email_id.errors?.pattern" class="invalid-feedback">
+                <div *ngIf="submitted && custLogDetails.email_id.touched && custLogDetails.email_id.errors?.pattern" class="invalid-feedback">
                   Invalid Email id
               </div>
               </div>
