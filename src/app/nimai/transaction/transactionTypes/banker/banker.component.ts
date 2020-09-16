@@ -22,7 +22,9 @@ export class BankerComponent implements OnInit {
   public tab = 'tab2';
   document: any;
   public parentURL: string = "";
-  public subURL: string = "";
+  public subURL: string = "";  
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
   // public data = {};
 
   constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -104,6 +106,16 @@ export class BankerComponent implements OnInit {
       // $('input').attr('readonly', true);
 
     }
+    
+    if(data.lcProForma==null || data.lcProForma=="" || data.lcProForma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
+
   }
 
   public closed() {

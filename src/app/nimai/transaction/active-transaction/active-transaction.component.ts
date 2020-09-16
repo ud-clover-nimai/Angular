@@ -30,6 +30,8 @@ export class ActiveTransactionComponent implements OnInit {
   QRdetail: any = "";
   noQRdetail: boolean = false;
   getSpecificDetail: any = "";
+  quotationReqType: string;
+  lCCurrencyReq:string;
   acceptedDetails: any = "";
   public parentURL: string = "";
   public subURL: string = "";
@@ -141,7 +143,7 @@ export class ActiveTransactionComponent implements OnInit {
     }
   }
 
-  showQuoteDetail(transactionId){
+  showQuoteDetail(transactionId,requirementType,lCCurrency){
     $('#changetext').html('Bank Quotes');
     $('#transactionID').slideUp();
     $('#TransactionDetailDiv').slideDown();
@@ -156,7 +158,9 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
-        this.QRdetail = this.QRdetail.map(item => ({
+        this.quotationReqType =requirementType;
+        this.lCCurrencyReq=lCCurrency;
+          this.QRdetail = this.QRdetail.map(item => ({
           ...item,
           isSelected: false
         }));
@@ -187,8 +191,10 @@ export class ActiveTransactionComponent implements OnInit {
     document.getElementById("myCanvasNav").style.opacity = "0"; 
  } 
 
-  getQRDetail(detail){
+  getQRDetail(detail,requirementType,lCCurrency){
     this.getSpecificDetail = detail;    
+    this.quotationReqType = requirementType;
+    this.lCCurrencyReq=lCCurrency;
  }
 
  showAcceptedDetails(index,qId, tId, quotationDetails){

@@ -21,6 +21,8 @@ export class DiscountingComponent implements OnInit {
   document: any;
   public parentURL: string = "";
   public subURL: string = "";
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -101,6 +103,16 @@ export class DiscountingComponent implements OnInit {
       // $('input').attr('readonly', true);
 
     }
+    
+    if(data.lcProForma==null || data.lcProForma=="" || data.lcProForma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
+
   }
 
   public closed() {
