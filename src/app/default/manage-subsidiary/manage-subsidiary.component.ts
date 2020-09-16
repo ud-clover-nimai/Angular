@@ -117,40 +117,27 @@ export class ManageSubsidiaryComponent implements OnInit {
     this.signUpService.signUp(data).subscribe((response) => {
       this.respMessage = JSON.parse(JSON.stringify(response)).message;
 
-    this.fps.sendRegistrationEmail(fg)
-      .subscribe(
-        (response) => {
-          this.respMessage = JSON.parse(JSON.stringify(response)).message;
-          
-          if(this.respMessage.indexOf('not match') > -1){
-            this.respMessage = "Domain Name does not match!";
 
-            $('#authemaildiv').slideDown();
-            $('#paradiv').slideDown();
-            $('#okbtn').hide();
-            $('#btninvite').show();   
-          }
-          else{
-            this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
-            
-            $('#authemaildiv').slideUp();
-            $('#paradiv').slideDown();
-            $('#okbtn').show();
-            $('#btninvite').hide();
-            this.manageSubForm.reset();
-          }
-          
-        },
-        (error) => {
-          $('#authemaildiv').slideUp();
-          $('#paradiv').slideDown();
-          $('#okbtn').show();
-          $('#btninvite').hide();
-          this.manageSubForm.reset();
-          this.respMessage = "Service not working! Please try again later."
-        }
-      )
-    },
+    // .................changes done by dhiraj.....................
+      if(this.respMessage.indexOf('not match') > -1){
+        this.respMessage = "Domain Name does not match!";
+
+        $('#authemaildiv').slideDown();
+        $('#paradiv').slideDown();
+        $('#okbtn').hide();
+        $('#btninvite').show();   
+      }
+      else{
+        this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
+        
+        $('#authemaildiv').slideUp();
+        $('#paradiv').slideDown();
+        $('#okbtn').show();
+        $('#btninvite').hide();
+        this.manageSubForm.reset();
+      }
+
+    
     (err) =>{
         $('#authemaildiv').slideDown();
         $('#paradiv').slideDown();
@@ -159,25 +146,22 @@ export class ManageSubsidiaryComponent implements OnInit {
       this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
 
     }
-    )
-    
+  })    
+ }
+ validateRegexFields(event, type){
+  if(type == "number"){
+    ValidateRegex.validateNumber(event);
   }
-
-  validateRegexFields(event, type){
-    if(type == "number"){
-      ValidateRegex.validateNumber(event);
-    }
-    else if(type == "alpha"){
-      ValidateRegex.alphaOnly(event);
-    }
-    else if(type == "alphaNum"){
-      ValidateRegex.alphaNumeric(event);
-    }else if(type=="name_validation"){
-      var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
-          event.preventDefault();
-      }    
-    }
+  else if(type == "alpha"){
+    ValidateRegex.alphaOnly(event);
   }
-
+  else if(type == "alphaNum"){
+    ValidateRegex.alphaNumeric(event);
+  }else if(type=="name_validation"){
+    var key = event.keyCode;
+    if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+        event.preventDefault();
+    }    
+  }
+}
 }
