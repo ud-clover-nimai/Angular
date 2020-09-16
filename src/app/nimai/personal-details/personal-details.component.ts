@@ -48,7 +48,6 @@ export class PersonalDetailsComponent implements OnInit {
   public hasValue=false;
   resp: any;
   parentRedirection: string = "business-details";
-
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
     {

@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
-
-
+import { FormGroup, FormControl } from '@angular/forms';
+import {Validators} from '@angular/forms';
 @Component({
   selector: 'app-applicant-beneficiary',
   templateUrl: './applicant-beneficiary.component.html',
@@ -12,17 +11,34 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class ApplicantBeneficiaryComponent implements OnInit {
 
-  @Input() public LcDetail:FormGroup;
+   @Input() public LcDetail:FormGroup;
   countryName: any;
 
-  constructor(public loginService: LoginService) { }
+  constructor(public loginService: LoginService) { 
+  }
+  LcDetailForm = new FormGroup({
+    beneContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
+    beneBankName: new FormControl(''),
+    beneSwiftCode: new FormControl(''),
+    beneBankCountry: new FormControl(''),
+    beneName: new FormControl(''),
+    beneCountry: new FormControl(''),    
+    beneContactPerson: new FormControl(''),
+    applicantName: new FormControl(''),
+    applicantCountry: new FormControl(''),
+    userType: new FormControl(''),
+    applicantContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
+    applicantContactPerson: new FormControl('')
+  })
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");
     this.getCountryData();
-
   }
 
+  get lcDetailsData() {
+    return this.LcDetailForm.controls;
+  }
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
     if (e == "Beneficiary") {

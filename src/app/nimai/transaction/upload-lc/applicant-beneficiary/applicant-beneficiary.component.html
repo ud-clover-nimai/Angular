@@ -1,4 +1,4 @@
-<div class="row" [formGroup]="LcDetail">
+<div class="row" [formGroup]="LcDetailForm">
     <div class="col-md-12 ">
 
         <ul class="list-unstyled list-inline">
@@ -42,14 +42,14 @@
                     <option value='Nigeria'>Nigeria</option>
                     <option value='UAE'>UAE </option>
                     <option value='Qatar'>Qatar</option>
-                </select> -->
-                <input type="text" maxlength="50" formControlName="applicantCountry" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
+                </select> --> 
+                <input type="text" maxlength="50"  class="has-value" formControlName="applicantCountry" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Country</label>
             </div>
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="applicantName" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <input type="text" maxlength="50"  class="has-value" formControlName="applicantName" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Applicant's Name </label>
             </div>
         </div>
@@ -86,6 +86,9 @@
             <div class="inputDiv">
                 <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
                 <label>Contact Person's Email</label>
+                <div *ngIf="lcDetailsData.beneContactPersonEmail.touched && lcDetailsData.beneContactPersonEmail.errors?.pattern" class="invalid-feedback">
+                    Invalid Email id
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -133,14 +136,14 @@
                     <option value='UAE'>UAE </option>
                     <option value='Qatar'>Qatar</option>
                 </select> -->
-                <input type="text" maxlength="50" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <input type="text" maxlength="50" class="has-value" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Country</label>
             </div>
 
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <input type="text" maxlength="50" class="has-value" formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Beneficiary's Name </label>
             </div>
         </div>
@@ -203,7 +206,11 @@
             <div class="inputDiv">
                 <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
                 <label>Contact Person's Email</label>
+                <div *ngIf="lcDetailsData.applicantContactPersonEmail.touched && lcDetailsData.applicantContactPersonEmail.errors?.pattern" class="invalid-feedback">
+                    Invalid Email id
+                </div>
             </div>
+           
         </div>
     </div>
     
