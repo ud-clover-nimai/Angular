@@ -373,17 +373,6 @@ export class UploadLCComponent implements OnInit {
       userId: sessionStorage.getItem('userID')
     }
 
-    let emailBody = {
-      "transactionid": this.transactionID,
-      "userId": sessionStorage.getItem('userID'),
-      "event": "LC_UPLOAD"
-      }
-    
-    let emailBankBody = {
-      "transactionId": this.transactionID,
-      "customerUserId": sessionStorage.getItem('userID'),
-      "event": "LC_UPLOAD_ALERT_ToBanks"
-      }
     this.upls.confirmLc(body)
       .subscribe(
         (response) => {
@@ -404,10 +393,10 @@ export class UploadLCComponent implements OnInit {
           this.setForm();
           this.edit();
       
-          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+          // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
           
-          this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
-            console.log("bank mail sent successfully");},(err) => {},);
+          // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
+          //   console.log("bank mail sent successfully");},(err) => {},);
         
           const navigationExtras: NavigationExtras = {
             state: {

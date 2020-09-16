@@ -90,6 +90,8 @@ export class LoginComponent implements OnInit {
       allowSearchFilter: false
     }
     this.getCountryData();
+    sessionStorage.removeItem('subscriptionType');
+    sessionStorage.removeItem('selector');
   }
 
   ngAfterViewInit() {     
@@ -182,6 +184,8 @@ export class LoginComponent implements OnInit {
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
+    sessionStorage.setItem('subscriptionType', subscriptionType);
+    sessionStorage.setItem('selector', selector);
     if (subscriptionType == 'referrer') {
       this.validateCommons();
       this.validateReferrerForm();
@@ -208,61 +212,37 @@ export class LoginComponent implements OnInit {
       }
 
     }
-
+//...........changes done by dhiraj........................................//
     this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
-    let res = JSON.parse(JSON.stringify(response)).data;
-    let emailResetPassworData: Email = {
-      event: 'ACCOUNT_ACTIVATE',
-      email: res.emailAddress
-    }
-    let saveResponse = JSON.parse(JSON.stringify(response)).errMessage;
-    this.rsc.sendRegistrationEmail(emailResetPassworData).
-      subscribe(
-        (response) => {
-          this.resetSignUpForm();
-          this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
-          this.submittedSignup = false;
-          this.clearSignupValidation();
-          this.updateValidation();
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: 'Congratulations! Your account has been successfully created!',
-              message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
-              parent: 'login'
-              }
-            };
-            this.router.navigate(['/login/success'], navigationExtras)
-              .then(success => console.log('navigation success?', success))
-              .catch(console.error);
-          },
-          (error) => {
+      let res = JSON.parse(JSON.stringify(response)).data;
+      this.resetSignUpForm();
+             this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
+             this.submittedSignup = false;
+             this.clearSignupValidation();
+             this.updateValidation();
             const navigationExtras: NavigationExtras = {
               state: {
-                title: JSON.parse(JSON.stringify(error)).error.errMessage,
-                message: '',
+                title: 'Congratulations! Your account has been successfully created!',
+                message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
                 parent: 'login'
               }
             };
-            this.router.navigate(['/login/error'], navigationExtras)
-              .then(success => console.log('navigation success?', success))
-              .catch(console.error);
-          }
-        )
+           this.router.navigate(['/login/success'], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+             .catch(console.error);
+    },  error => {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          title: JSON.parse(JSON.stringify(error)).error.errMessage,
+          message: '',
+          parent: 'login'
+        }
+      };
+      this.router.navigate(['/login/error'], navigationExtras)
+        .then(success => console.log('navigation success?', success))
+        .catch(console.error);
 
-    },
-      error => {
-        const navigationExtras: NavigationExtras = {
-          state: {
-            title: JSON.parse(JSON.stringify(error)).error.errMessage,
-            message: '',
-            parent: 'login'
-          }
-        };
-        this.router.navigate(['/login/error'], navigationExtras)
-          .then(success => console.log('navigation success?', success))
-          .catch(console.error);
-
-      })
+    })
     
   }
 
@@ -271,6 +251,39 @@ export class LoginComponent implements OnInit {
     this.clearSignupValidation();
     this.updateValidation();
     this.resetLoginForm();
+    let subscriptionType=sessionStorage.getItem('subscriptionType');
+    let selector=sessionStorage.getItem('selector');
+
+    if (subscriptionType === 'customer') {
+      this.isBank = false;
+      this.isReferrer = false;
+      this.resetSignUpForm();
+      this.signupForm.patchValue({ radio: 'customer' })
+    } else  if (subscriptionType == 'bank' && selector == 'customer') {
+      this.resetSignUpForm();
+      this.signupForm.patchValue({ radio: 'bank', selector: 'customer' })
+      this.isBank = false;
+      this.isReferrer = false;
+      setTimeout(function () { loads() }, 100);
+    } else  if (subscriptionType == 'bank' && selector == 'underwriter') {
+      this.resetSignUpForm();
+      this.signupForm.patchValue({ radio: 'bank', selector: 'underwriter' })
+      this.isBank = true;
+      this.isReferrer = false;
+      setTimeout(function () { loads() }, 100);
+    }else if (subscriptionType === 'referrer') {
+      this.resetSignUpForm();
+      this.signupForm.patchValue({ radio: 'referrer' })
+      this.isBank = false;
+      this.isReferrer = true;
+      setTimeout(function () { loads() }, 100)
+    }else{
+      this.isBank = false;
+      this.isReferrer = false;
+      this.resetSignUpForm();
+      this.signupForm.patchValue({ radio: 'customer' })
+    }
+
   }
   public checkUserType(value: string) {
     this.hasCountrycode=false;
