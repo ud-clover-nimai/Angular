@@ -21,7 +21,7 @@ export class TenorPaymentComponent implements OnInit {
   public bankerBool: boolean = false;
   fileToUpload: File = null;
   private imageSrc: string = '';
-  countryName: any;
+  public countryName: any;
 
   constructor(public rds:DataServiceService,public loginService: LoginService) {
 
@@ -100,6 +100,8 @@ export class TenorPaymentComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
+    }else if(type == "alphaNumericNoSpace"){
+      ValidateRegex.alphaNumericNoSpace(event);
     }
   }
 

@@ -69,14 +69,11 @@ export class KycDetailsComponent implements OnInit {
       businessDocumentList_html: this.fb.array([this.getBusiList()]),
       personalDocumentList_html: this.fb.array([this.getPersList()]),
 
-    });
-
+    }); 
     if(sessionStorage.getItem("KYCStatus").toLowerCase() == "pending"){
       this.router.navigate([this.subURL + '/' + this.parentURL + '/account-review']);
     }
-
   }
-
   ngOnInit() {
    
     loads();
