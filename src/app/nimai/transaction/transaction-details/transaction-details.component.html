@@ -69,15 +69,15 @@
 
                                                  </td>
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">Detail</a><br/>
+                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
                                                  </td>
                                                  <td [hidden]="!acceptedStatus">
-                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted');openNav3();openOffcanvas('Accepted');">Detail</a><br/>
+                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted',record.transactionId);openNav3();openOffcanvas('Accepted');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
                                                    </td>
                                                  <td [hidden]="!expiredStatus">
-                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Expired');openNav3();openOffcanvas('Expired');">Detail</a><br/>
+                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Expired',record.transactionId);openNav3();openOffcanvas('Expired');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
                                                    </td>
 
@@ -190,7 +190,7 @@
                         <thead>
                            <tr>
                               <th>Transaction ID</th>
-                              <th>{{specificDetail.transactionId}}</th>
+                              <th>{{detailInfo.transactionId}}</th>
                            </tr>                        
                            <tr>
                               <th colspan="2">Applicant</th>
@@ -199,19 +199,19 @@
                         <tbody>
                            <tr>
                               <td>Name</td>
-                              <td>{{specificDetail.applicantName}}</td>
+                              <td>{{detailInfo.applicantName}}</td>
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.applicantCountry}}</td>
+                              <td>{{detailInfo.applicantCountry}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.userType == 'Beneficiary'">
                               <td>Contact Person</td>
-                              <td>{{specificDetail.applicantContactPerson}}</td>
+                              <td>{{detailInfo.applicantContactPerson}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.userType == 'Beneficiary'">
                               <td>Email Id</td>
-                              <td>{{specificDetail.applicantContactPersonEmail}}</td>
+                              <td>{{detailInfo.applicantContactPersonEmail}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -223,31 +223,31 @@
                            </tr>
                            <tr>
                               <td>Name </td>
-                              <td>{{specificDetail.beneName}}</td>
+                              <td>{{detailInfo.beneName}}</td>
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.beneCountry}}</td>
+                              <td>{{detailInfo.beneCountry}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.userType == 'Applicant'">
                               <td>Contact Person</td>
-                              <td>{{specificDetail.beneContactPerson}}</td>
+                              <td>{{detailInfo.beneContactPerson}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.userType == 'Applicant'">
                               <td>Email Id</td>
-                              <td>{{specificDetail.beneContactPersonEmail}}</td>
+                              <td>{{detailInfo.beneContactPersonEmail}}</td>
                            </tr>
                            <tr>
                               <td>Bank</td>
-                              <td>{{specificDetail.beneBankName}}</td>
+                              <td>{{detailInfo.beneBankName}}</td>
                            </tr>
                            <tr>
                               <td>Swift Code</td>
-                              <td>{{specificDetail.beneSwiftCode}}</td>
+                              <td>{{detailInfo.beneSwiftCode}}</td>
                            </tr>
                            <tr>
                               <td>Bank Country</td>
-                              <td>{{specificDetail.beneBankCountry}}</td>
+                              <td>{{detailInfo.beneBankCountry}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -260,47 +260,47 @@
                         <tbody>
                            <tr>
                               <td>LC Issuing Bank</td>
-                              <td>{{specificDetail.lCIssuanceBank}}</td>
+                              <td>{{detailInfo.lCIssuanceBank}}</td>
                            </tr>
                            <tr>
                               <td>Branch </td>
-                              <td>{{specificDetail.lCIssuanceBranch}}</td>
+                              <td>{{detailInfo.lCIssuanceBranch}}</td>
                            </tr>
                            <tr>
                               <td>Swift Code</td>
-                              <td>{{specificDetail.swiftCode}}</td>
+                              <td>{{detailInfo.swiftCode}}</td>
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.lCIssuanceCountry}}</td>
+                              <td>{{detailInfo.lCIssuanceCountry}}</td>
                            </tr>
                            <tr>
                               <td>Requirement</td>
-                              <td>{{specificDetail.requirementType}}</td>
+                              <td>{{detailInfo.requirementType}}</td>
                            </tr>
                            <tr>
                               <td>Amount</td>
-                              <td>{{specificDetail.lCValue}}</td>
+                              <td>{{detailInfo.lCValue}}</td>
                            </tr>
                            <tr>
                               <td>Currency</td>
-                              <td>{{specificDetail.lCCurrency}}</td>
+                              <td>{{detailInfo.lCCurrency}}</td>
                            </tr>
                            <tr>
                               <td>LC Issuing Date</td>
-                              <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                              <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.requirementType != 'Refinance'">
                               <td>LC Negotiation Date</td>
-                              <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
+                              <td>{{detailInfo.negotiationDate | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.requirementType != 'Refinance'">
                               <td>Last Shipment Date</td>
-                              <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
+                              <td>{{detailInfo.lastShipmentDate | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr>
                               <td>Goods</td>
-                              <td>{{specificDetail.goodsType}}</td>
+                              <td>{{detailInfo.goodsType}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -312,19 +312,19 @@
                            </tr>
                            <tr *ngIf="specificDetail.requirementType == 'Banker'">
                               <td>Period for which financing is required</td>
-                              <td>{{specificDetail.discountingPeriod}}</td>
+                              <td>{{detailInfo.discountingPeriod}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.requirementType == 'Discounting'">
                               <td>Usance (Days)</td>
-                              <td>{{specificDetail.discountingPeriod}}</td>
+                              <td>{{detailInfo.discountingPeriod}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation'">
                               <td>Usance (Days)</td>
-                              <td>{{specificDetail.confirmationPeriod}}</td>
+                              <td>{{detailInfo.confirmationPeriod}}</td>
                            </tr>
                            <tr>
                               <td>Payments terms to seller as per LC </td>
-                              <td>{{specificDetail.paymentTerms}}</td>
+                              <td>{{detailInfo.paymentTerms}}</td>
                            </tr>
                         </tbody>
                      </table>   
@@ -335,34 +335,34 @@
                            </tr>
                            <tr>
                               <td>Orignal Usance (Tenor) of LC</td>
-                              <td>{{specificDetail.originalTenorDays}}</td>
+                              <td>{{detailInfo.originalTenorDays}}</td>
                            </tr>
                            <tr>
                               <td>Period for which refinancing is required</td>
-                              <td>{{specificDetail.refinancingPeriod}}</td>
+                              <td>{{detailInfo.refinancingPeriod}}</td>
                            </tr>
                            <tr>
                               <td>LC Maturity Date</td>
-                              <td>{{specificDetail.lcMaturityDate | date : "dd-MM-y"}}</td>
+                              <td>{{detailInfo.lcMaturityDate | date : "dd-MM-y"}}</td>
                            </tr>
                            <tr>
                               <th colspan="2">Beneficiary Details of Last Transaction</th>
                            </tr>
                            <tr>
                               <td>LC Number</td>
-                              <td>{{specificDetail.lcNumber}}</td>
+                              <td>{{detailInfo.lcNumber}}</td>
                            </tr>
                            <tr>
                               <td>Beneficiary Bank Name</td>
-                              <td>{{specificDetail.lastBeneBank}}</td>
+                              <td>{{detailInfo.lastBeneBank}}</td>
                            </tr>
                            <tr>
                               <td>Swift Code</td>
-                              <td>{{specificDetail.lastBeneSwiftCode}}</td>
+                              <td>{{detailInfo.lastBeneSwiftCode}}</td>
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.lastBankCountry}}</td>
+                              <td>{{detailInfo.lastBankCountry}}</td>
                            </tr>
 
                         </tbody>
@@ -374,29 +374,29 @@
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.loadingCountry}}</td>
+                              <td>{{detailInfo.loadingCountry}}</td>
                            </tr>
                            <tr>
                               <td>Port of Loading</td>
-                              <td>{{specificDetail.loadingPort}}</td>
+                              <td>{{detailInfo.loadingPort}}</td>
                            </tr>
                            <tr>
                               <td>Country</td>
-                              <td>{{specificDetail.dischargeCountry}}</td>
+                              <td>{{detailInfo.dischargeCountry}}</td>
                            </tr>
                            <tr>
                               <td>Port of Discharge</td>
-                              <td>{{specificDetail.dischargePort}}</td>
+                              <td>{{detailInfo.dischargePort}}</td>
                            </tr>
                            <tr>
                               <td>
                                  Charges are on
                               </td>
-                              <td>{{specificDetail.chargesType}}</td>
+                              <td>{{detailInfo.chargesType}}</td>
                            </tr>
                            <tr>
                               <td>Validity</td>
-                              <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
+                              <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr>
                               <td>Pro Forma</td>

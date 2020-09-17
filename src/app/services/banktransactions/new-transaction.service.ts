@@ -16,7 +16,10 @@ export class NewTransactionService {
   public getAllNewTransaction(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllTxnByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
   }
-
+  public getTxnForCustomerByUserIdAndStatus(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTxnForCustomerByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
+  }
+  
 
   public getTransactionDetailByUserId(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransactionDetailByUserId`, data, { headers: { 'content-types': 'application/json' } })

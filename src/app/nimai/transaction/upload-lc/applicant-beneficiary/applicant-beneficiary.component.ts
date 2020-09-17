@@ -16,29 +16,29 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
   constructor(public loginService: LoginService) { 
   }
-  LcDetailForm = new FormGroup({
-    beneContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
-    beneBankName: new FormControl(''),
-    beneSwiftCode: new FormControl(''),
-    beneBankCountry: new FormControl(''),
-    beneName: new FormControl(''),
-    beneCountry: new FormControl(''),    
-    beneContactPerson: new FormControl(''),
-    applicantName: new FormControl(''),
-    applicantCountry: new FormControl(''),
-    userType: new FormControl(''),
-    applicantContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
-    applicantContactPerson: new FormControl('')
-  })
+  // LcDetailForm = new FormGroup({
+  //   beneContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
+  //   beneBankName: new FormControl(''),
+  //   beneSwiftCode: new FormControl(''),
+  //   beneBankCountry: new FormControl(''),
+  //   beneName: new FormControl(''),
+  //   beneCountry: new FormControl(''),    
+  //   beneContactPerson: new FormControl(''),
+  //   applicantName: new FormControl(''),
+  //   applicantCountry: new FormControl(''),
+  //   userType: new FormControl(''),
+  //   applicantContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
+  //   applicantContactPerson: new FormControl('')
+  // })
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");
     this.getCountryData();
   }
 
-  get lcDetailsData() {
-    return this.LcDetailForm.controls;
-  }
+  // get lcDetailsData() {
+  //   return this.LcDetailForm.controls;
+  // }
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
     if (e == "Beneficiary") {
