@@ -570,7 +570,11 @@ export class UploadLCComponent implements OnInit {
     }
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
-    }else if(type == "date_validation"){     
+    }
+    else if(type == "alphaNumericNoSpace"){
+      ValidateRegex.alphaNumericNoSpace(event);
+    }
+    else if(type == "date_validation"){     
       if (key!=191 && key!=189 && key > 31 && (key < 48 || key > 57)) {
         event.preventDefault();
       }

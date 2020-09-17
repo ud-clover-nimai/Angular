@@ -130,7 +130,7 @@
     </div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNum')" formControlName="lastBeneSwiftCode">
+            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')" formControlName="lastBeneSwiftCode">
             <label>Swift Code</label>
         </div>
     </div>
@@ -144,5 +144,6 @@
             </select>
             <label>Country</label>
         </div>
+        
     </div>
 </div>

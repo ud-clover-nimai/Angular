@@ -1258,6 +1258,7 @@
                        <div class="form-group"></div>
                       
                        <div class="inputDiv selectdiv">
+                          <p style="padding-bottom: 14px;"> <label>Select Reason</label></p>
                         <select name="selectReason" [(ngModel)]="selectReason.title" 
                         #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
                            <option value=''>Select</option>
@@ -1266,7 +1267,7 @@
                            <option value="2">Others</option>
                         </select>
 
-                        <label>Select Reason</label>
+                        <!-- <label>Select Reason</label> -->
                         <div *ngIf="f.submitted && selectReason.invalid" class="invalid-feedback">
                          <div *ngIf="selectReason.errors.required">Please select reason to reject</div>
                      </div>

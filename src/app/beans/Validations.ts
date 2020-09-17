@@ -34,6 +34,14 @@ export class ValidateRegex {
         }
     }
 
+    static alphaNumericNoSpace(e): any { //// on keypress
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        if (!((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8  || (k >= 48 && k <= 57))) {
+            event.preventDefault();
+        }
+    }
+
     static numWithDecimal(evt): any { //// on keypress
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if (charCode != 46 && charCode > 31
