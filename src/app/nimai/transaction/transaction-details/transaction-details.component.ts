@@ -36,6 +36,8 @@ export class TransactionDetailsComponent {
   expiredStatus :boolean=true;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
+  public detailInfo: string = "";
+
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -85,7 +87,8 @@ export class TransactionDetailsComponent {
       "transactionStatus": status,
       "branchUserEmail": emailId
     }
-    this.nts.getAllNewTransaction(data).subscribe(
+    // this.nts.getAllNewTransaction(data).subscribe(
+     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
         this.data = [];
@@ -93,7 +96,7 @@ export class TransactionDetailsComponent {
     
         if (this.data) {
           this.hasNoRecord=true;
-          this.getDetail(this.data,status);
+        //  this.getDetail(this.data,status,undefined);
        }
 
       },
@@ -105,7 +108,9 @@ export class TransactionDetailsComponent {
   }
 
 
-  getDetail(detail,status) {
+  getDetail(detail,status,transactionId) {
+    this.displayDetails(transactionId);
+    console.log(transactionId)
     this.specificDetail = detail;
   
     if(status=='Accepted'){
@@ -139,6 +144,19 @@ export class TransactionDetailsComponent {
 
   changeStatusCall(status) {
     this.getAllnewTransactions(status);
+  }
+
+  displayDetails(transactionId){
+    let data = {
+      "transactionId": transactionId,
+    }
+    this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
+      (response) => {
+        this.detailInfo = JSON.parse(JSON.stringify(response)).data;
+        
+      },
+      (error) => { }
+    )
   }
 
   displayQuoteDetails(transactionId, reqType) {

@@ -31,7 +31,7 @@ export class SubscriptionComponent implements OnInit {
   addedAmount: any;
   showVASPlan = false;
   custUserEmailId: string;
-
+  public isCustomer = false;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -66,7 +66,6 @@ export class SubscriptionComponent implements OnInit {
     }
   }
   subscriptionDetails = [];
-
   getSubscriptionDetails() {
     this.titleService.loading.next(true);
     let req = {
@@ -76,13 +75,17 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService.getPlansByCountry(req).subscribe(data => {
       this.isNew = true;
       var userid = sessionStorage.getItem("userID");
-      if((userid.startsWith('CU'))){
-        this.subscriptionDetails = data.data.customerSplans;
+      if(data)
+      {
+        if((userid.startsWith('CU'))){
+          this.subscriptionDetails = data.data.customerSplans;
+          this.isCustomer=true;
+        }
+        else{
+        this.subscriptionDetails = data.data.banksSplans;
+          this.isCustomer=false;
+        }
       }
-      else{
-      this.subscriptionDetails = data.data.banksSplans;
-      }
-      
       this.loading = false;
     }
     )
@@ -160,6 +163,9 @@ export class SubscriptionComponent implements OnInit {
 
   public payment() {
     this.titleService.loading.next(true);
+    const formData: FormData = new FormData();
+    formData.append('eventName', 'Cust_Splan_email');
+    formData.append('emailStatus', 'pending');
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -182,8 +188,7 @@ export class SubscriptionComponent implements OnInit {
       .subscribe(
         response => {
 
-          this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];
-          console.log(this.choosedPlan);
+          this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];          
           if(this.choosedPlan.status.toLowerCase() != "active"){
             this.getSubscriptionDetails();
           }

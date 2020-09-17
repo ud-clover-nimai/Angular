@@ -115,9 +115,7 @@ export class ManageSubsidiaryComponent implements OnInit {
       email: this.manageSubForm.get('emailId').value,
     }
     this.signUpService.signUp(data).subscribe((response) => {
-      this.respMessage = JSON.parse(JSON.stringify(response)).message;
-
-
+    this.respMessage = JSON.parse(JSON.stringify(response)).message;
     // .................changes done by dhiraj.....................
       if(this.respMessage.indexOf('not match') > -1){
         this.respMessage = "Domain Name does not match!";

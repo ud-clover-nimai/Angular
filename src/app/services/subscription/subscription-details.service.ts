@@ -28,7 +28,7 @@ export class SubscriptionDetailsService {
 
 
   public saveSplan(userID: string, plan: Subscription): Observable<Subscription> {
-    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/saveUserSubscriptionPlan/` + userID, plan, { headers: { 'content-type': 'application/json' } })
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/saveUserSubscriptionPlan/` + userID, plan,{ headers: { 'content-type': 'application/json' } })
   }
 
   public viewAdvisory(data): Observable<any> {

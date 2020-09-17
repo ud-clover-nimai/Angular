@@ -165,9 +165,7 @@ export class BusinessDetailsComponent implements OnInit {
     }
     sessionStorage.setItem('companyName',this.businessDetailsForm.get('companyName').value);
     sessionStorage.setItem('registeredCountry',this.countryName);
-
     this.perDetailsSubmit = false;
-
     this.bds.updateBusinessDetails(this.getBusinessData(), this.businessDetailsForm.get('userId').value).subscribe(
       (response) => {
         this.titleService.loading.next(false);
