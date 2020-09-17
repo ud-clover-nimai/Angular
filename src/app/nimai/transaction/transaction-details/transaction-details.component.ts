@@ -93,7 +93,7 @@ export class TransactionDetailsComponent {
         custTrnsactionDetail();
         this.data = [];
         this.data = JSON.parse(JSON.stringify(response)).data;
-    
+        
         if (this.data) {
           this.hasNoRecord=true;
         //  this.getDetail(this.data,status,undefined);
