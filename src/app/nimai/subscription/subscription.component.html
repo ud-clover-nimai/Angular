@@ -32,7 +32,8 @@
                                     </div>
                                     <ul class="plan-features">
                                         <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
-                                        <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                        <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
+                                        <ng-template #elseBlock> <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li></ng-template>                                       
                                         <li class="plan-feature">{{plan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
                                         <li class="plan-feature">{{plan.subscriptionValidity}} <span class="plan-feature-name">Month Validity</span></li>
                                         <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{plan.relationshipManager}}</span></li>
@@ -50,9 +51,9 @@
                                         <p class="plan-price"> </p>
                                     </div>
                                     <ul class="plan-features">
-                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Transaction
-                                                Credits</span></li>
-                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Branches</span></li>
+                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Transaction Credits</span></li>
+                                        <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">ubsidiaries</span></li></div>
+                                        <ng-template #elseBlock> <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Branches</span></li></ng-template>                                       
                                         <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
                                         <li class="plan-feature">1 <span class="plan-feature-name">Month Validity</span></li>
                                         <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - Yes</span></li>
@@ -92,8 +93,9 @@
                                             <h3 class="plan-title">{{choosedPlan.subscriptionName}} &nbsp;|&nbsp; ${{choosedPlan.subscriptionAmount}}</h3>
                                         </div>
                                         <ul class="plan-features">
-                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li>
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>                                           
+                                            <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
+                                            <ng-template #elseBlock> <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li></ng-template>                                       
                                             <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
                                             <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Month Validity</span></li>
                                             <li class="plan-feature"> <span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>
@@ -290,22 +292,47 @@
                                         <h3 class="plan-title-old">{{choosedPlan.subscriptionName}}</h3>
                                         <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
                                         <ul class="plan-features">
-                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
-                                                    Credits</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li>
-
-                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer
-                                                    Support</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year
-                                                    Validity</span></li>
-                                            <li class="plan-feature">{{choosedPlan.relationshipManager}} <span class="plan-feature-name">Relationship
-                                                    Manager</span></li>
+                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC Credits</span></li>
+                                            <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
+                                            <ng-template #elseBlock> <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li></ng-template>                                       
+                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
+                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year Validity</span></li>
+                                            <li class="plan-feature">{{choosedPlan.relationshipManager}} <span class="plan-feature-name">Relationship Manager</span></li>
                                         </ul>
                                     </div>
                                 </div>
+                                <div class='col-md-8'><p class="errormessage text-success" style="margin-bottom: 15px;">Congratulations! Your Payment is Successful!</p></div>                                
+                                <div class="col-md-5">
+                                    <div class="boxline" *ngIf="showVASPlan">
+                                        <p>
+                                            <strong>Advisory Services</strong>
+                                        </p>
+                                        <table>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <b>{{advDetails.plan_name}}</b>
+                                                    <ul>
+                                                        <li *ngIf="advDetails.description_1">{{advDetails.description_1}}</li>
+                                                        <li *ngIf="advDetails.description_2">{{advDetails.description_2}}</li>
+                                                        <li *ngIf="advDetails.description_3">{{advDetails.description_3}}</li>
+                                                        <li *ngIf="advDetails.description_4">{{advDetails.description_4}}</li>
+                                                        <li *ngIf="advDetails.description_5">{{advDetails.description_5}}</li>                                                
+                                                    </ul>
+                                                </td>
+                                                <td class="text-right">
+                                                    <p><strong>US ${{advDetails.pricing}}</strong></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>                                
+                                </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-8">
-                                    <p class="errormessage text-success" style="margin: 0 0 90px 0;">Congratulations! Your Payment is Successful!</p>
                                     <div class="col-md-7">
                                         <div class="row">
                                             <table class="table table-bordered borderless">
@@ -314,7 +341,7 @@
                                                         Amount Paid
                                                     </th>
                                                     <th class="text-center">
-                                                        US ${{choosedPlan.subscriptionAmount}}
+                                                        US ${{addedAmount}}
                                                     </th>
                                                 </tr>
                                                 <tr>
