@@ -23,7 +23,6 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     this.onItemChange("Applicant");
     this.getCountryData();
   }
-
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
 
