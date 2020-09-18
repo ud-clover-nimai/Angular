@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="beneName" (keydown)="validateRegexFields($event, 'namewithspace')">
+                <input type="text" maxlength="50"   formControlName="beneName" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Beneficiary's Name</label>
             </div>
         </div>
@@ -84,12 +84,16 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown)=onKeydownEvent($event)>
                 <label>Contact Person's Email</label>
+                <div *ngIf="isValid" class="invalid-feedback">
+                    Invalid Email id
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
 
+        
         <div class="clearfix"></div>
         <p class="col-md-12"><strong>Beneficiary Bank Details</strong></p>
         <div class="col-md-3">
@@ -106,7 +110,7 @@
 
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Swift Code</label>
             </div>
         </div>
@@ -123,17 +127,8 @@
         </p>
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
-    
-                <!-- <select name='country' formControlName="beneCountry">
-                    <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
-                </select> -->
-                <input type="text" maxlength="50" formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+
+                <input type="text" maxlength="50"  formControlName="beneCountry" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
                 <label>Country</label>
             </div>
 
@@ -162,7 +157,7 @@
     
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Swift Code</label>
             </div>
         </div>
@@ -201,8 +196,11 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100">
+                <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown)=onKeydownEvent($event)>
                 <label>Contact Person's Email</label>
+                <div *ngIf="isValid" class="invalid-feedback">
+                    Invalid Email id
+                </div>
             </div>
         </div>
     </div>

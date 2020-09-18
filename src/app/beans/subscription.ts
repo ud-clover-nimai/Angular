@@ -1,5 +1,3 @@
-
-
 export class Subscription {
     userId: string;
     subscriptionId: string;
@@ -15,5 +13,5 @@ export class Subscription {
     subscriptionValidity:string;
     subsidiaries:string;
     relationshipManager:string;
-    customerSupport:string;
+    customerSupport:string;  
 }
