@@ -178,4 +178,27 @@ export class RefinancingComponent implements OnInit {
     $('#myModalR').show();
     this.document = file;
   }
+
+  // handleFileInput31(e) {
+  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     $('#upload_file2').val('');
+  //     return;
+  //   }
+  //   else{
+  //     reader.onload = this._handleReaderLoaded.bind(this);
+  //     reader.readAsDataURL(file);
+  //   }
+    
+  // }
+  // _handleReaderLoaded(e) {
+  //   let reader = e.target;
+  //   this.imageSrc = reader.result;
+  //   this.LcDetail.get('lcProForma').setValue(this.imageSrc);
+
+  // }
+
 }

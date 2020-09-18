@@ -52,7 +52,13 @@
                                       <td nowrap>{{record.validityDate| date : "dd-MM-y"}}
                                          <p>{{record.quoteDaysCountdown}}</p>
                                       </td>
-                                      <td>{{record.requirementType}}</td>
+                                      <td> 
+                                         <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                       <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                       <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                       <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+                                    </td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                               class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>

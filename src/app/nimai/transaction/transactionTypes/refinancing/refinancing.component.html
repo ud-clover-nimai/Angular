@@ -312,7 +312,7 @@
                         </tr>
                      </tbody>
                   </table>
-
+                  <br><br><br>
                </div>
                <div class="posfix">
                   <button type="submit" class="btn btn-info pull-right" id="btnpreview"
@@ -511,12 +511,14 @@
                         <tr>
                            <td>Pro Forma</td>
                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
+                              <input (change)="handleFileInput31($event)" type="file" placeholder="Document" name="upload_file31" id="upload_file31"/>
+
                            </td>
                            <td [hidden]="noFileDisable">No such file attached</td>
                         </tr>
                      </tbody>
                   </table>
-
+                  <br><br><br>
             </div>
             <div class="posfix">
                <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">

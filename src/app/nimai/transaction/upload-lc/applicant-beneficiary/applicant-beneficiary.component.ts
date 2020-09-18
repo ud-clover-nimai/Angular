@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ElementRef } from '@angular/core';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -13,34 +13,20 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
    @Input() public LcDetail:FormGroup;
   countryName: any;
-
-  constructor(public loginService: LoginService) { 
+  public hasValue=false;
+  public isValid=false;
+  constructor(public loginService: LoginService,private el: ElementRef) { 
   }
-  // LcDetailForm = new FormGroup({
-  //   beneContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
-  //   beneBankName: new FormControl(''),
-  //   beneSwiftCode: new FormControl(''),
-  //   beneBankCountry: new FormControl(''),
-  //   beneName: new FormControl(''),
-  //   beneCountry: new FormControl(''),    
-  //   beneContactPerson: new FormControl(''),
-  //   applicantName: new FormControl(''),
-  //   applicantCountry: new FormControl(''),
-  //   userType: new FormControl(''),
-  //   applicantContactPersonEmail: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
-  //   applicantContactPerson: new FormControl('')
-  // })
+  
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");
     this.getCountryData();
   }
 
-  // get lcDetailsData() {
-  //   return this.LcDetailForm.controls;
-  // }
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
+
     if (e == "Beneficiary") {
        $('#divApplicant').hide();
        $('#divBene').show();
@@ -48,6 +34,11 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.LcDetail.get('applicantCountry').setValue('');
        this.LcDetail.get('beneName').setValue(sessionStorage.getItem('companyName'));
        this.LcDetail.get('beneCountry').setValue(sessionStorage.getItem('registeredCountry'));
+       let elements = document.getElementsByTagName('input');
+       for (var i = 0; i < elements.length; i++) {
+         if(elements[i].value)
+         elements[i].classList.add('has-value')
+       }
     }
     else if (e == "Applicant") {
        $('#divApplicant').show();
@@ -56,9 +47,19 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.LcDetail.get('applicantCountry').setValue(sessionStorage.getItem('registeredCountry'));
        this.LcDetail.get('beneName').setValue('');
        this.LcDetail.get('beneCountry').setValue('');
+       this.hasValue=true;
     }
   }
-
+  
+  onKeydownEvent(event){    
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if(!emailPattern.test(event.target.value))
+    {
+      this.isValid=true;
+    }​else{
+      this.isValid=false;
+    }
+  }
   getCountryData(){
     this.loginService.getCountryMasterData().
       subscribe(

@@ -52,7 +52,14 @@
                                                  <td >{{record.insertedDate| date : "dd-MM-y h:mm:ss z"}}</td>
                                                  <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                  <td>{{record.lCIssuanceBank}}</td>
-                                                 <td>{{record.requirementType}}</td>
+                                                 <td>
+                                                   <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                                   <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                                   <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                   <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                                   <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+
+                                                    </td>
                                                  <td>{{record.lCValue}}</td>
                                                  <td>{{record.goodsType}}</td>
                                                  <td>{{record.applicantName}}</td>

@@ -49,7 +49,12 @@
                                     <td>{{record.lCValue}}</td>
                                     <td>{{record.lCCurrency}}</td>
                                     <td >{{record.validity | date : "dd-MM-y"}}</td>
-                                    <td>{{record.requirementType}}</td>
+                                    <td> <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                       <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                       <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                       <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+                                   </td>
                                    
                                     <td>
                                        <div *ngIf="record.quotationReceived == 0"> 

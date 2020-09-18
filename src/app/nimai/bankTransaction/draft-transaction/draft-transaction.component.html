@@ -22,7 +22,13 @@
                                     <tr *ngFor="let list of draftData; let i = index">
                                         <td>{{i+1}}</td>
                                         <td>Draft</td>
-                                        <td>{{list.requirementType}}</td>
+                                        <td>
+                                             <div *ngIf="list.requirementType=='Banker'">Banker’s Acceptance</div>
+                                            <div *ngIf="list.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                            <div *ngIf="list.requirementType=='Refinance'">Refinancing </div>
+                                            <div *ngIf="list.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="list.requirementType=='Confirmation'">Confirmation</div>
+                                         </td>
                                         <td>{{list.transactionId}}</td>
                                         <td>{{list.modifiedDate  | date : "dd-MM-y h:mm:ss z"}}</td>
                                         <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>

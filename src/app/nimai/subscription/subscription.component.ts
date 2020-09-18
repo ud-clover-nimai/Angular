@@ -55,6 +55,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("init")
     this.custUserEmailId = sessionStorage.getItem('custUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
