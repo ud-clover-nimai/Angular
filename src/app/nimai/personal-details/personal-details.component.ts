@@ -257,10 +257,13 @@ export class PersonalDetailsComponent implements OnInit {
 
           })
           sessionStorage.setItem('custUserEmailId',this.personalDetails.emailAddress);
+         if(this.personalDetails.interestedCountry)
+         this.intCntTemp = this.filterDataINCT(this.personalDetails.interestedCountry);
+         if(this.personalDetails.blacklistedGoods)
+          this.blgTemp = this.filterDataBG(this.personalDetails.blacklistedGoods); 
 
-          this.intCntTemp = this.personalDetails.interestedCountry;
-          this.blgTemp = this.personalDetails.blacklistedGoods;
-
+          console.log(this.intCntTemp);
+          console.log(this.blgTemp)
           let subscriptionType = this.personalDetailsForm.get('subscriberType').value;
           let bankType = this.personalDetails.bankType
           console.log("subscriptionType",subscriptionType)
@@ -328,6 +331,32 @@ export class PersonalDetailsComponent implements OnInit {
         }
       )
   }
+  filterDataBG(blacklistedGoods: import("../../beans/blacklistedgoods").BlackListedGoods[]): any[] {
+    var data:any[]=[];
+    for(var acdata of blacklistedGoods){
+      if(acdata.blackListGoods){
+      var d={
+        id:acdata.goodsMId,
+        name:acdata.blackListGoods
+      }
+      data.push(d);
+    }
+    }
+    return data;
+  }
+  filterDataINCT(interestedCountry: import("../../beans/interestedcountry").InterestedCountry[]): any[] {
+    var data:any[]=[];
+    for(var acdata of interestedCountry){
+      if(acdata.countriesIntrested){
+      var d={
+        id:acdata.ccid,
+        name:acdata.countriesIntrested
+      }
+      data.push(d);
+    }
+    }
+    return data;
+  }
   public pdb(): signup {
     let data = {
       subscriberType: this.personalDetailsForm.get('subscriberType').value,
@@ -343,8 +372,8 @@ export class PersonalDetailsComponent implements OnInit {
       userId: this.personalDetailsForm.get('userId').value,
       bankType: this.personalDetailsForm.get('bankType').value,
       minLCValue: this.personalDetailsForm.get('minLCVal').value,
-      interestedCountry: this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value),
-      blacklistedGoods: this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value),
+      interestedCountry: this.filterForSaveIntCon(this.intCntTemp),
+      blacklistedGoods: this.filterForSaveBlg(this.blgTemp),
       emailAddress1: this.personalDetailsForm.get('emailAddress1').value,
       emailAddress2: this.personalDetailsForm.get('emailAddress2').value,
       emailAddress3: this.personalDetailsForm.get('emailAddress3').value,
@@ -372,22 +401,55 @@ export class PersonalDetailsComponent implements OnInit {
   getCountryName(ccid: number) {
     return this.countryService().filter((res) => res.id == ccid)[0];
   }
-
   onItemSelect(item: any) {
-    console.log(item);
-    console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
-    console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
+    //this.intCntTemp.push(item);
+     console.log(this.intCntTemp);
+    // console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
+    // console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
   }
 
   onSelectAll(item: any) {
-    console.log(item);
+    console.log(this.intCntTemp);
+    //this.intCntTemp=item;
   }
+  onItemDeSelect(item:any){
+    console.log(this.intCntTemp)
+    // const index: number = this.intCntTemp.indexOf(item);
+    // if (index !== -1) {
+    //     this.intCntTemp.splice(index, 1);
+    // } 
+  }
+
+  onItemSelectBG(item: any) {
+    //this.blgTemp.push(item);
+    if(item.id === 0){
+     this.blgTemp=[];
+     this.blgTemp.push(item)
+    }
+     console.log( this.blgTemp);
+    // console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
+    // console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
+  }
+
+  onSelectAllBG(item: any) {
+    console.log(this.blgTemp);
+   // this.blgTemp=item;
+  }
+  onItemDeSelectBG(item:any){
+    console.log(this.blgTemp)
+    // const index: number = this.blgTemp.indexOf(item);
+    // if (index !== -1) {
+    //     this.blgTemp.splice(index, 1);
+    // } 
+  }
+  
+ 
 
 
   filterInterestedCountry(data: any[]) {
     let dataArr: any[] = [];
 
-    if (data != null)
+    if (data != null){
       for (let d of data) {
         let dd = {
           id: d.ccid,
@@ -395,6 +457,9 @@ export class PersonalDetailsComponent implements OnInit {
         }
         dataArr.push(dd);
       }
+    }else{
+
+    }
     return dataArr;
 
   }
@@ -415,27 +480,19 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
 
-  filterForSaveIntCon(data: any[], data1: any[]) {
+  filterForSaveIntCon(data: any[]) {
+    
     let dataArr: any[] = [];
-    for (let d1 of data1) {
+    for (let d1 of data) {
 
-      let d2 = data.filter((res) => res.ccid === d1.id)[0];
-
-      if (d2 != null) {
-        let dd = {
-          countryID: d2.countryID,
-          countriesIntrested: d2.countriesIntrested,
-          ccid: d2.ccid
-        }
-        dataArr.push(dd)
-      } else {
+      
         let dd = {
           countryID: null,
           countriesIntrested: d1.name,
           ccid: d1.id
         }
         dataArr.push(dd)
-      }
+      
 
 
     }
@@ -445,31 +502,22 @@ export class PersonalDetailsComponent implements OnInit {
 
 
 
-  filterForSaveBlg(data: any[], data1: any[]) {
+  filterForSaveBlg(data: any[]) {
     let dataArr: any[] = [];
-    for (let d1 of data1) {
-      let d2 = data.filter((res) => res.goodsMId == d1.id)[0];
-      if (d2 != null) {
-        let dd = {
-          goods_ID: d2.goods_ID,
-          blackListGoods: d2.blackListGoods,
-          goodsMId: d2.goodsMId
-        }
-        dataArr.push(dd)
-      } else {
+    for (let d1 of data) {
+      
         let dd = {
           goods_ID: null,
           blackListGoods: d1.name,
           goodsMId: d1.id
         }
         dataArr.push(dd)
-      }
+      
 
 
     }
     return dataArr;
   }
-
   validateRegexFields(event, type) {
     if (type == "number") {
       ValidateRegex.validateNumber(event);

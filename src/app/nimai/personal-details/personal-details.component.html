@@ -290,16 +290,8 @@
                       *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv multiselect-dropdown">
-                        <ng-multiselect-dropdown-angular7
-                          [data]="interestedCountryList"
-                          formControlName="countriesInt"
-                          [settings]="dropdownSetting"
-                          (onSelect)="onItemSelect($event)"
-                          (onSelectAll)="onSelectAll($event)"
-                        ></ng-multiselect-dropdown-angular7>
-                        <label class="dropdownlabel"
-                          >Countries Interested</label
-                        >
+                        <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [(ngModel)]="intCntTemp" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
+                        <label class="dropdownlabel">Countries Interested</label>
                         <div
                           *ngIf="submitted && perDetails.countriesInt.errors"
                           class="invalid-feedback"
@@ -320,13 +312,7 @@
                       *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv">
-                        <ng-multiselect-dropdown-angular7
-                          [data]="blackListedGoodsList"
-                          formControlName="blacklistedGC"
-                          [settings]="dropdownSetting"
-                          (onSelect)="onItemSelect($event)"
-                          (onSelectAll)="onSelectAll($event)"
-                        ></ng-multiselect-dropdown-angular7>
+                        <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelectBG($event)" (onSelectAll)="onSelectAllBG($event)" (onDeSelect)="onItemDeSelectBG($event)" [(ngModel)]="blgTemp"></ng-multiselect-dropdown-angular7>
                         <label class="dropdownlabel">Blacklisted Goods</label>
                         <div
                           *ngIf="submitted && perDetails.blacklistedGC.errors"

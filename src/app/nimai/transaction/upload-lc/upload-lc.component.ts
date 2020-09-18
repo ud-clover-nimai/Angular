@@ -83,6 +83,12 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
+    let elements = document.getElementsByTagName('input');
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].value)
+      elements[i].classList.add('has-value')
+    }
+    
     this.rds.refinanting.subscribe(flag => this.refinancing = flag);
     const lcd = this;
     $(document).ready(function () {
@@ -95,6 +101,7 @@ export class UploadLCComponent implements OnInit {
       loads();
     }, 500);
     this.getCountryData();
+    
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -162,6 +169,13 @@ export class UploadLCComponent implements OnInit {
     )
 }
   public next() {
+    let elementTextarea = document.getElementsByTagName('textarea')    
+    for (var i = 0; i < elementTextarea.length; i++) {
+      if(elementTextarea[i].value){        
+        elementTextarea[i].classList.add('has-value')
+      }
+     
+    }
     this.previewShow = false;
     this.titleService.loading.next(true);
 
@@ -601,8 +615,9 @@ export class UploadLCComponent implements OnInit {
         this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
 
          this.draftData = JSON.parse(JSON.stringify(response)).data;
-         console.log(this.draftData);
+         console.log("draftdata--",this.draftData);
         this.dateToPass = new Date(this.draftData.lCIssuingDate); 
+        this.ngOnInit();
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
@@ -688,7 +703,7 @@ export class UploadLCComponent implements OnInit {
         (response) => {
 
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-         
+          this.ngOnInit();
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
