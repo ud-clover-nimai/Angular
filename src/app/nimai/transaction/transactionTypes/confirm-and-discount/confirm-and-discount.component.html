@@ -6,7 +6,7 @@
          <div class="card-content">
             <h4>{{title}} Transaction  <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
-               <div class="tab-pane active" id="pill1" style="height: 530px;overflow: auto;padding-bottom: 30px;">
+               <div class="tab-pane active" id="pill1" style="height: 410px;overflow: auto;">
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
@@ -14,18 +14,14 @@
                         </tr>
                         <tr>
                            <td>Name</td>
-                           <td><input type="text" [(ngModel)]="data.applicantName"></td>
+                           <td><input type="text" [(ngModel)]="data.applicantName" readonly></td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.applicantCountry">
-                                 <option value='India'>India</option>
-                                 <option value='Bangladesh'>Bangladesh</option>
-                                 <option value='Kenya'>Kenya</option>
-                                 <option value='Nigeria'>Nigeria</option>
-                                 <option value='UAE'>UAE </option>
-                                 <option value='Qatar'>Qatar</option>
+                              <select [(ngModel)]="data.applicantCountry">
+                                 <option>{{data.applicantCountry}}</option>
+                                
                              </select>
                            </td>
                         </tr>
@@ -46,19 +42,14 @@
                         </tr>
                         <tr>
                            <td>Name </td>
-                           <td><input type="text" [(ngModel)]="data.beneName"></td>
+                           <td><input type="text" [(ngModel)]="data.beneName" readonly></td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.beneCountry">
-                                 <option value='India'>India</option>
-                                 <option value='Bangladesh'>Bangladesh</option>
-                                 <option value='Kenya'>Kenya</option>
-                                 <option value='Nigeria'>Nigeria</option>
-                                 <option value='UAE'>UAE </option>
-                                 <option value='Qatar'>Qatar</option>
-                             </select>
+                              <select [(ngModel)]="data.beneCountry">
+                                 <option>{{data.beneCountry}}</option>
+                                  </select>
                            </td>
                         </tr>
                         <tr *ngIf="data.userType == 'Applicant'">
@@ -80,14 +71,10 @@
                         <tr>
                            <td>Bank Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.beneBankCountry">
-                                 <option value='India'>India</option>
-                                 <option value='Bangladesh'>Bangladesh</option>
-                                 <option value='Kenya'>Kenya</option>
-                                 <option value='Nigeria'>Nigeria</option>
-                                 <option value='UAE'>UAE </option>
-                                 <option value='Qatar'>Qatar</option>
-                             </select>
+                              <select [(ngModel)]="data.beneBankCountry">
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                          </select>
                            </td>
                         </tr>
                      </tbody>
@@ -114,12 +101,10 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.lCIssuanceCountry">
-                                 <option value="INDIA">India</option>
-                                 <option value="AUSTRALIA">Australia</option>
-                                 <option value="BANGLADESH">Bangladesh
-                                 </option>
-                             </select>
+                              <select [(ngModel)]="data.lCIssuanceCountry">
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                         </select>
                            </td>
                         </tr>
                         <tr>
@@ -193,20 +178,10 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.loadingCountry">
-                                 <option value="INDIA">
-                                     India</option>
-                                 <option value="BANGLADESH">
-                                     Bangladesh</option>
-                                 <option value="KENYA">
-                                     Kenya</option>
-                                 <option value="NIGERIA">
-                                     Nigeria</option>
-                                 <option value="UAE">UAE
-                                 </option>
-                                 <option value="QATAR">
-                                     Qatar</option>
-                             </select>
+                              <select [(ngModel)]="data.loadingCountry">
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                         </select>
                            </td>
                         </tr>
                         <tr>
@@ -230,20 +205,10 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.dischargeCountry">
-                              <option value="INDIA">
-                                  India</option>
-                              <option value="BANGLADESH">
-                                  Bangladesh</option>
-                              <option value="KENYA">
-                                  Kenya</option>
-                              <option value="NIGERIA">
-                                  Nigeria</option>
-                              <option value="UAE">UAE
-                              </option>
-                              <option value="QATAR">
-                                  Qatar</option>
-                          </select></td>
+                              <select [(ngModel)]="data.dischargeCountry">
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                         </select></td>
                         </tr>
                         <tr>
                            <td>Port of Discharge</td>
@@ -279,21 +244,19 @@
                         </tr>
                      </tbody>
                   </table>
-                  <br><br><br>
-               </div>
-               <div class="posfix">
+                  <br>
                   <button type="submit" class="btn btn-info pull-right" id="btnpreview"
-                     (click)="transaction('preview')">
-                     Preview
-                     <div class="ripple-container"></div>
-                  </button>
-
+                  (click)="transaction('preview')">
+                  Preview
+                  <div class="ripple-container"></div>
+               </button>
                </div>
+              
             </div>
 
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                <div class="tab-pane active datadiv" id="pill1"
-                  style="height: 530px;overflow: auto;padding-bottom: 30px;">
+                  style="height: 410px;overflow: auto;">
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
@@ -460,18 +423,17 @@
                         </tr>
                      </tbody>
                   </table>
-                  <br><br><br>
+                  <br>
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                     Submit
+                     <div class="ripple-container"></div>
+                  </button>
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                     Edit
+                     <div class="ripple-container"></div>
+                  </button>
             </div>
-            <div class="posfix">
-               <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
-                  Submit
-                  <div class="ripple-container"></div>
-               </button>
-               <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
-                  Edit
-                  <div class="ripple-container"></div>
-               </button>
-            </div>
+           
          </div>
          <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
             <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">

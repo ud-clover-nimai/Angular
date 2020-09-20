@@ -33,16 +33,6 @@
         </p>
         <div class="col-md-3">
             <div class="inputDiv selectdiv">
-
-                <!-- <select name='country' formControlName="applicantCountry" [disabled]="true">
-                    <option [ngValue]="null" selected>Select</option>
-                    <option value='India'>India</option>
-                    <option value='Bangladesh'>Bangladesh</option>
-                    <option value='Kenya'>Kenya</option>
-                    <option value='Nigeria'>Nigeria</option>
-                    <option value='UAE'>UAE </option>
-                    <option value='Qatar'>Qatar</option>
-                </select> -->
                 <input type="text" maxlength="50" formControlName="applicantCountry" readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Country</label>
             </div>
@@ -64,9 +54,7 @@
                 <select name='country' formControlName="beneCountry">
                     <option [ngValue]="null" selected>Select</option>
                     <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
-                    
-
-                </select>
+                 </select>
                 <label>Country</label>
             </div>
         </div>
