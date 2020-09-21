@@ -14,4 +14,5 @@ export class Subscription {
     subsidiaries:string;
     relationshipManager:string;
     customerSupport:string;  
+    emailID:string;
 }

@@ -1,3 +1,7 @@
+export function uploadFileRefinance() {
+    $(":file").filestyle('clear');
+    $(":file").filestyle('placeholder', 'No file');        
+}
 export function loadFilestyle() {
     $(document).ready(function() {
         $("input[id^='upload_file']").each(function() {
