@@ -81,20 +81,9 @@ export class ConfirmationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCountryData();
+    this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
-  getCountryData(){
-    this.loginService.getCountryMasterData().
-      subscribe(
-        (response) => {
-          this.countryName = JSON.parse(JSON.stringify(response));
-          sessionStorage.setItem('countryData', JSON.stringify(response));
-          
-        },
-        (error) => {}
-      )
-  }
-
+ 
   public action(flag: boolean, type: Tflag, data: any) {
   
     if (flag) {
