@@ -104,7 +104,8 @@ export class UploadLCComponent implements OnInit {
     setTimeout(() => {
       loads();
     }, 500);
-    this.getCountryData();
+    this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+    
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -159,18 +160,8 @@ export class UploadLCComponent implements OnInit {
     });
   });
  }
+
  
- getCountryData(){
-  this.loginService.getCountryMasterData().
-    subscribe(
-      (response) => {
-        this.countryName = JSON.parse(JSON.stringify(response));
-        sessionStorage.setItem('countryData', JSON.stringify(response));
-        
-      },
-      (error) => {}
-    )
-}
   public next() {
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {

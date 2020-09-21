@@ -67,7 +67,7 @@
                                        </div>
                                     </td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas()"
-                                       class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
+                                       class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                   
                                  </tr>
                               </tbody>
@@ -100,7 +100,7 @@
                              Quotes placed till date 214<br>
                              Quotes for Matress 23</td>
                            <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
-                           <td>USD</td>
+                           <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
                            <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
                          </tr>                          
@@ -129,8 +129,8 @@
          <div class="card-content">
             <h4> Bank Quote</h4>
             <div class="tab-content" id="tab1">
-               <div class="tab-pane active" id="pill1">
-                <div class="table-responsive"  cellspacing="0" style="height: 410px;overflow: auto;">
+               <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+                <div class="table-responsive"  cellspacing="0" >
                   <table class="table table-hover" id="datatables">                    
                      <tbody>
                     <tr>
@@ -139,22 +139,22 @@
                       
                      </tr>
                      <tr>
-                        <td>The currency of the quote <b> {{lCCurrencyReq}}</b></td>
-                     </tr><br>
+                        <td>Currency</td>
+                        <td><b> {{lCCurrencyReq}}</b></td>
+                     </tr>
                        
                            <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
-                           <td>Applicable Benchmark , if any</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}</td>
+                           <td>Applicable Benchmark (if any)<br><small
+                              style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}%
+
                         </tr>
                          <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
                            <td>Confirmation Charges p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
                         </tr>
                        
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
-                           <td>Discounting Charges p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}</td>
-                        </tr>
+                      
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
                            <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
@@ -164,37 +164,47 @@
                               Confirmation Charges from Date of Issuance till date of maturity</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                         </tr>
-                       
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                           <td>Discounting Charges p.a.(spread over benchmark)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}%</td>
+                        </tr>
                         <tr *ngIf="quotationReqType == 'Banker'">
-                           <td>Banker's Acceptance interest p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankerAcceptCharges}}</td>
+                           <td>Banker's Acceptance Charges p.a.(spread over benchmark)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankAcceptCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'Refinance'">
                            <td>Refinancing interest p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges p.a. </td>
+                           <td>Negotiation Charges (Fixed)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges p.a.(%)</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}</td>
+                           <td>Negotiation Charges  (%)
+                              <br>
+                              &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
                         </tr>
-                        <tr>
-                           <td>Document Handling Charges</td>
+                        <tr *ngIf="quotationReqType != 'Confirmation'">
+                           <td>Document Handling Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>
                         </tr>
                         <tr>
-                           <td>Other Charges</td>
+                           <td>Other Charges (if any)<br><small
+                              style="color: #b6a3a3;">{{getSpecificDetail.chargesType}}</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}}</td>
                         </tr>
                         <tr>
-                           <td>Min.Trancation Charges </td>
+                           <td>Minimum Transaction Charges </td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                         </tr>
                         <tr>
-                           <td>Validity</td>
+                           <td>Validity
+                              <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Validity Date"><i
+                                 class="fas fa-info-circle"
+                                 style="font-size: 11px !important;color: #333;"></i></a> 
+                           </td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate | date : "dd-MM-y"}}</td>
                         </tr>
                         <tr>
@@ -203,12 +213,9 @@
                         </tr>
                         <br>
                         <tr>
-                           <td>Others terms and conditions</td>
+                           <td colspan="2">Others terms and conditions <br> <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small> </td>
                        </tr>
-                       <tr>
-                           <td>{{getSpecificDetail.termConditionComments}}</td>
-                       </tr>
-                        
+                    
 <br>
                         <tr>
                            <td colspan="2">Note: The applicable benchmark will be applicable as of transaction date, actual

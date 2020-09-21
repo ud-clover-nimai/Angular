@@ -1,12 +1,12 @@
-<!-- <div id="menu-bar-refinancing" [hidden]="!isActive" (blur)="closed()"
-   style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;"> -->
+<!-- <div id="menu-bar-refinancing" [hidden]="!isActive" (blur)="closed()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; 
+   height: 100%; top: 0px; right: 0px; z-index:1049;"> -->
    <div id="menu-bar-ref" class="offcanvas" [hidden]="!isActive">
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
             <h4>{{title}} Transaction<button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
-               <div class="tab-pane active" id="pill1" style="height: 410px;overflow: auto;">
+               <div class="tab-pane active" id="pill1"  style="overflow: auto;height: 100%;padding-bottom: 70px;">
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
@@ -284,7 +284,7 @@
 
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
                <div class="tab-pane active datadiv" id="pill1"
-                  style="height: 410px;overflow: auto;">
+               style="overflow: auto;height: 100%;padding-bottom: 70px;">
                   <table class="table table-bordered">
                      <tbody>
                         <tr>

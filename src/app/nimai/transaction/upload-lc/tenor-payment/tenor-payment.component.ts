@@ -37,22 +37,12 @@ export class TenorPaymentComponent implements OnInit {
       } 
     });
     this.selectors('Confirmation');
-    this.getCountryData();
+    this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+
 
   }
 
-  getCountryData(){
-    this.loginService.getCountryMasterData().
-      subscribe(
-        (response) => {
-          this.countryName = JSON.parse(JSON.stringify(response));
-          sessionStorage.setItem('countryData', JSON.stringify(response));
-          
-        },
-        (error) => {}
-      )
-  }
-
+ 
   public selectors(selector: string) {
     this.selector = selector;
     if (this.selector === 'Discounting') {

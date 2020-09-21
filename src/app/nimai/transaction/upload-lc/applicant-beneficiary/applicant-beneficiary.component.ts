@@ -21,7 +21,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");
-    this.getCountryData();
+    this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
@@ -59,17 +59,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
       this.isValid=false;
     }
   }
-  getCountryData(){
-    this.loginService.getCountryMasterData().
-      subscribe(
-        (response) => {
-          this.countryName = JSON.parse(JSON.stringify(response));
-          sessionStorage.setItem('countryData', JSON.stringify(response));
-          
-        },
-        (error) => {}
-      )
-  }
+ 
 
   validateRegexFields(event, type){
     if(type == "number"){
