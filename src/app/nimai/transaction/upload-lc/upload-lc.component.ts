@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output,ElementRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output,ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import * as $ from '../../../../assets/js/jquery.min';
@@ -11,6 +11,7 @@ import  { ValidateRegex } from '../../../beans/Validations';
 import { call } from 'src/assets/js/bootstrap-filestyle.min'
 import { loads } from 'src/assets/js/commons'
 import { LoginService } from 'src/app/services/login/login.service';
+import { ApplicantBeneficiaryComponent } from './applicant-beneficiary/applicant-beneficiary.component';
 
 
 
@@ -20,7 +21,7 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./upload-lc.component.css']
 })
 export class UploadLCComponent implements OnInit {
-
+  @ViewChild(ApplicantBeneficiaryComponent, { static: true }) ApplicantBeneficiary: ApplicantBeneficiaryComponent;
   public lcDetailForm: FormGroup
   public selector: string = "Confirmation";
   public title: string = "New Transaction";
@@ -46,7 +47,6 @@ export class UploadLCComponent implements OnInit {
   isUpdate: boolean = false;
   draftData: any;
   cloneData: any;
-  dateToPass: any;
   document: any;
   countryName: any;
 
@@ -566,7 +566,7 @@ export class UploadLCComponent implements OnInit {
       modifiedBy:sessionStorage.getItem('userID'),
       transactionflag:[''],
       transactionStatus:[''],
-      userType:['Applicant'],
+      userType:[''],
       applicantContactPerson:[''],
       applicantContactPersonEmail:[''],
       beneContactPerson:[''],
@@ -621,7 +621,6 @@ export class UploadLCComponent implements OnInit {
         this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
         this.draftData = JSON.parse(JSON.stringify(response)).data;
         this.ngOnInit();
-        this.dateToPass = new Date(this.draftData.lCIssuingDate); 
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
@@ -632,9 +631,9 @@ export class UploadLCComponent implements OnInit {
       
           lCValue: this.draftData.lCValue,
           lCCurrency: this.draftData.lCCurrency,
-          lCIssuingDate: this.draftData.lCIssuingDate,
-          lastShipmentDate: this.draftData.lastShipmentDate,
-          negotiationDate: this.draftData.negotiationDate,
+          lCIssuingDate: this.setDateFromApi(this.draftData.lCIssuingDate),
+          lastShipmentDate: this.setDateFromApi(this.draftData.lastShipmentDate),
+          negotiationDate: this.setDateFromApi(this.draftData.negotiationDate),
           goodsType:this.draftData.goodsType,
       
       
@@ -674,7 +673,7 @@ export class UploadLCComponent implements OnInit {
           dischargePort:this.draftData.dischargePort,
       
           chargesType: this.draftData.chargesType,
-          validity:this.draftData.validity,
+          validity:this.setDateFromApi(this.draftData.validity),
           lcProForma:this.draftData.lcProForma,
       
           lCExpiryDate:this.draftData.lCExpiryDate,    
@@ -707,7 +706,8 @@ export class UploadLCComponent implements OnInit {
         (response) => {
 
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-          this.ngOnInit();          
+          this.ngOnInit();    
+          this.ApplicantBeneficiary.onItemChange(this.cloneData.userType);   
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
@@ -718,9 +718,9 @@ export class UploadLCComponent implements OnInit {
       
           lCValue: this.cloneData.lCValue,
           lCCurrency: this.cloneData.lCCurrency,
-          lCIssuingDate: this.cloneData.lCIssuingDate,
-          lastShipmentDate: this.cloneData.lastShipmentDate,
-          negotiationDate: this.cloneData.negotiationDate,
+          lCIssuingDate: this.setDateFromApi(this.cloneData.lCIssuingDate),
+          lastShipmentDate: this.setDateFromApi(this.cloneData.lastShipmentDate),
+          negotiationDate: this.setDateFromApi(this.cloneData.negotiationDate),
           goodsType:this.cloneData.goodsType,
       
       
@@ -760,7 +760,7 @@ export class UploadLCComponent implements OnInit {
           dischargePort:this.cloneData.dischargePort,
       
           chargesType: this.cloneData.chargesType,
-          validity:this.cloneData.validity,
+          validity:this.setDateFromApi(this.cloneData.validity),
           lcProForma:this.cloneData.lcProForma,
       
           lCExpiryDate:this.cloneData.lCExpiryDate,    
@@ -780,6 +780,16 @@ export class UploadLCComponent implements OnInit {
         },
         (err) => {}
     ) 
+  }
+
+  setDateFromApi(inDate){
+    if(inDate == undefined){
+      inDate = '';
+    }
+    else{
+      inDate = new Date(inDate);
+    }
+    return inDate;
   }
 
   openDocument(file){
