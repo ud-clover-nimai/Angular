@@ -36,6 +36,7 @@ export class ActiveTransactionComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   acceptedErrorDetail: any;
+  detailInfo: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
@@ -59,7 +60,7 @@ export class ActiveTransactionComponent implements OnInit {
       "transactionStatus": 'Active',
       "branchUserEmail":emailId
     }
-    this.nts.getAllNewTransaction(data).subscribe(
+    this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
@@ -102,11 +103,22 @@ export class ActiveTransactionComponent implements OnInit {
     this.getAllnewTransactions();
   }
 
-  showQuotePage(pagename: string,action:Tflag,data:any) {
+
+
+   showQuotePage(pagename: string,action:Tflag,val:any) {
+    
+    let data = {
+      "transactionId": val.transactionId,
+    }
+    this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
+      (response) => {
+        this.detailInfo = JSON.parse(JSON.stringify(response)).data;
+        
+     
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,data);
+      this.confirmation.action(true,action,this.detailInfo);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
@@ -114,7 +126,7 @@ export class ActiveTransactionComponent implements OnInit {
       document.getElementById("menu-bar-con").style.width = "450px"; 
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
-      this.discounting.action(true,action,data);
+      this.discounting.action(true,action,this.detailInfo);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
@@ -122,7 +134,7 @@ export class ActiveTransactionComponent implements OnInit {
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
-      this.confirmAndDiscount.action(true,action,data);
+      this.confirmAndDiscount.action(true,action,this.detailInfo);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-conAndDis").style.width = "450px"; 
@@ -130,7 +142,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,data);
+      this.refinancing.action(true,action,this.detailInfo);
       this.banker.isActive = false;
       document.getElementById("menu-bar-ref").style.width = "450px"; 
     } else if (pagename === 'banker' || pagename === 'Banker') {
@@ -138,9 +150,12 @@ export class ActiveTransactionComponent implements OnInit {
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.action(true,action,data);
+      this.banker.action(true,action,this.detailInfo);
       document.getElementById("menu-bar-bank").style.width = "450px";  
     }
+  },
+  (error) => { }
+)
   }
 
   showQuoteDetail(transactionId,requirementType,lCCurrency){

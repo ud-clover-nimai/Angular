@@ -9,6 +9,14 @@
                <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
                   <table class="table table-bordered">
                      <tbody>
+                       
+                     <tr>
+                        <td colspan="2"><strong style="padding-right: 30px;">You are</strong>
+                            <input [checked]="applicant" type="radio" id="applicantid" name="applicantEdit1"  (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">&nbsp;Applicant &nbsp;&nbsp;&nbsp;
+                            <input [checked]="beneficiary" type="radio" id="applicantid" name="applicantEdit1"  (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">&nbsp;Beneficiary</td>
+                    </tr>
+                    <br>
+
                         <tr>
                            <th colspan="2">Applicant</th>
                         </tr>

@@ -523,7 +523,9 @@
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Validity</td>
+                                 <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                    class="fas fa-info-circle"
+                                    style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
                               </tr>
                               <tr>
@@ -841,48 +843,48 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 50%;">Date & Time</td>
-                                    <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
+                                    <td *ngIf="quotationdata">{{quotationdata.modifiedDate | date : "dd-MM-y h:mm:ss z"}}</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
                                     <td>Applicable Benchmark , if any</td>
                                     <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
+                                <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
                                     <td>Confirmation Charges p.a.</td>
                                     <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                 </tr>
 
-                                <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
+                                <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
                                     <td>Discounting Charges p.a.</td>
                                     <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
+                                <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
                                     <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                     <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
+                                <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
                                     <td>
                                         Confirmation Charges from Date of Issuance till date of maturity</td>
                                     <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                 </tr>
 
-                                <tr *ngIf="quotationdata.requirementType == 'Banker'">
+                                <tr *ngIf="quotationReqType == 'Banker'">
                                     <td>Banker's Acceptance interest p.a.</td>
                                     <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'Refinance'">
+                                <tr *ngIf="quotationReqType == 'Refinance'">
                                     <td>Refinancing interest p.a.</td>
                                     <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
+                                <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
                                     <td>Negotiation Charges p.a. (Fixed)</td>
                                     <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
+                                <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
                                     <td>Negotiation Charges p.a.(%)</td>
                                     <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                 </tr>
-                                <tr *ngIf="quotationdata.requirementType != 'Confirmation'">
+                                <tr *ngIf="quotationReqType != 'Confirmation'">
                                     <td>Document Handling Charges</td>
                                     <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
                                 </tr>
@@ -895,7 +897,9 @@
                                     <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Validity</td>
+                                    <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                       class="fas fa-info-circle"
+                                       style="font-size: 11px !important;color: #333;"></i></a> </td>
                                     <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
                                 </tr>
                                 <tr>

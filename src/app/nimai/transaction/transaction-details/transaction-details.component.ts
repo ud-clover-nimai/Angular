@@ -174,7 +174,9 @@ export class TransactionDetailsComponent {
       },
       (error) => { }
     )
+    console.log(reqType);
   }
+ 
 
   openOffcanvas(status) {
 

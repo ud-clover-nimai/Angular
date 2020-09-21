@@ -87,6 +87,32 @@ export class BankerComponent implements OnInit {
 
   }
  
+  onItemChange(e){
+    var radioValue = $("input[name='userType']:checked").val();
+
+    if (e == "Beneficiary") {
+      //  $('#divApplicant').hide();
+      //  $('#divBene').show();
+      //  this.LcDetail.get('applicantName').setValue('');
+      //  this.LcDetail.get('applicantCountry').setValue('');
+      //  this.LcDetail.get('beneName').setValue(sessionStorage.getItem('companyName'));
+      //  this.LcDetail.get('beneCountry').setValue(sessionStorage.getItem('registeredCountry'));
+       let elements = document.getElementsByTagName('input');
+       for (var i = 0; i < elements.length; i++) {
+         if(elements[i].value)
+         elements[i].classList.add('has-value')
+       }
+    }
+    else if (e == "Applicant") {
+      //  $('#divApplicant').show();
+      //  $('#divBene').hide();
+      //  this.LcDetail.get('applicantName').setValue(sessionStorage.getItem('companyName'));
+      //  this.LcDetail.get('applicantCountry').setValue(sessionStorage.getItem('registeredCountry'));
+      //  this.LcDetail.get('beneName').setValue('');
+      //  this.LcDetail.get('beneCountry').setValue('');
+      //  this.hasValue=true;
+    }
+  }
 
   public action(flag: boolean, type: Tflag, data: any) {
 

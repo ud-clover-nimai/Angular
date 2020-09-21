@@ -85,7 +85,6 @@ export class ConfirmationComponent implements OnInit {
   }
  
   public action(flag: boolean, type: Tflag, data: any) {
-  
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
@@ -105,8 +104,7 @@ export class ConfirmationComponent implements OnInit {
 
     }
 
-
-    if(data.lcProForma==null || data.lcProForma=="" || data.lcProForma==undefined){
+    if(data.lcProForma == "" ){
       this.noFileDisable=false;
       this.viewDisable=true;
 
