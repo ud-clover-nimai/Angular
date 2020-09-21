@@ -24,20 +24,10 @@ export class OthersComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getCountryData();
+    this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
-  getCountryData(){
-    this.loginService.getCountryMasterData().
-      subscribe(
-        (response) => {
-          this.countryName = JSON.parse(JSON.stringify(response));
-          sessionStorage.setItem('countryData', JSON.stringify(response));
-          
-        },
-        (error) => {}
-      )
-  }
+ 
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
