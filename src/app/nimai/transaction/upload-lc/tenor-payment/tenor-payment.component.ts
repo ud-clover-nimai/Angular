@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ElementRef,ViewChild} from '@angular/core';
 import { Subject } from 'rxjs';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import { FormGroup } from '@angular/forms';
 import  { ValidateRegex } from '../../../../beans/Validations';
+import { uploadFileRefinance } from 'src/assets/js/commons'
 import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
 @Component({
@@ -10,10 +11,11 @@ import { LoginService } from 'src/app/services/login/login.service';
   templateUrl: './tenor-payment.component.html',
   styleUrls: ['./tenor-payment.component.css']
 })
+
 export class TenorPaymentComponent implements OnInit {
-
-
   @Input() public LcDetail:FormGroup;
+  @ViewChild('myInput',{ static: true })
+  myInputVariable: ElementRef;
   public selector: string;
   public discount: boolean = false;
   public refinancing: boolean = false;
@@ -22,12 +24,12 @@ export class TenorPaymentComponent implements OnInit {
   fileToUpload: File = null;
   private imageSrc: string = '';
   public countryName: any;
-
-  constructor(public rds:DataServiceService,public loginService: LoginService) {
-
+  isUpload=false;
+  constructor(public rds:DataServiceService,public loginService: LoginService) { 
   }
 
   ngOnInit() {
+   
     $("input[name='optionsRadios']").click(function() {
       var radioValue1 = $("input[name='optionsRadios']:checked").val();
       if (radioValue1 == "rdmaturity") {
@@ -40,7 +42,12 @@ export class TenorPaymentComponent implements OnInit {
     this.getCountryData();
 
   }
-
+  deleteFileContent(){    
+    this.myInputVariable.nativeElement.value = ""; 
+    this.LcDetail.get('tenor_file').setValue("");
+    this.isUpload = false;
+    uploadFileRefinance();
+  }
   getCountryData(){
     this.loginService.getCountryMasterData().
       subscribe(
@@ -114,6 +121,7 @@ export class TenorPaymentComponent implements OnInit {
       $('#upload_file1').val('');
       return;
     }
+    this.isUpload=true;
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
   }
