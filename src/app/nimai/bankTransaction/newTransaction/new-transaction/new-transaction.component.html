@@ -44,7 +44,14 @@
                                                     <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
                                                     <td>{{record.transactionId}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
-                                                    <td>{{record.requirementType}}</td>
+                                                    <td>
+                                                        <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                                        <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+
+                                                    </td>
                                                     <td>{{record.lCValue}}</td>
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
@@ -305,6 +312,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <br><br><br>
                             </div>
                         </div>
                     </div>
@@ -331,7 +339,7 @@
             <h4>Attached document</h4>
             <div class="row">
                 <div class="col-md-12">
-                    <img [src]="document" />
+                    <img [src]="document" style="height:100%; width: 100%;"/>
                 </div>
             </div>
         </div>

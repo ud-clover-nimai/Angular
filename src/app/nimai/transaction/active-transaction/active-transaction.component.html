@@ -49,7 +49,12 @@
                                     <td>{{record.lCValue}}</td>
                                     <td>{{record.lCCurrency}}</td>
                                     <td >{{record.validity | date : "dd-MM-y"}}</td>
-                                    <td>{{record.requirementType}}</td>
+                                    <td> <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                       <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                       <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                       <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+                                   </td>
                                    
                                     <td>
                                        <div *ngIf="record.quotationReceived == 0"> 
@@ -125,8 +130,7 @@
             <h4> Bank Quote</h4>
             <div class="tab-content" id="tab1">
                <div class="tab-pane active" id="pill1">
-                <div class="table-responsive"  cellspacing="0" width="100%"
-                style="width:100%;">
+                <div class="table-responsive"  cellspacing="0" style="height: 410px;overflow: auto;">
                   <table class="table table-hover" id="datatables">                    
                      <tbody>
                     <tr>
@@ -213,17 +217,15 @@
                         </tr>
                      </tbody>
                   </table>
+                  <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
+                     Ok
+                     <div class="ripple-container"></div>
+                  </button>
                 </div>  
-                  <div class="posfix">
-                     <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
-                        Ok
-                        <div class="ripple-container"></div>
-                     </button>
-                     <!--    <a href="javascript:void()" id="btnEdit" class="pull-right linkbtn" style="margin-right: 5px;">Edit</a> -->
-                  </div>
+                
                </div>
             </div>
-            <div class="tab-content" id="tab3">
+            <!-- <div class="tab-content" id="tab3">
                <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
                   <table class="table">
                      <tbody>
@@ -243,7 +245,7 @@
                      </a>
                   </div>
                </div>
-            </div>
+            </div> -->
          </div>
       </div>
    </div>

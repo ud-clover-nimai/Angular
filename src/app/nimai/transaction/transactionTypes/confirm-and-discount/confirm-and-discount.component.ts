@@ -6,6 +6,7 @@ import * as $ from '../../../../../assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-confirm-and-discount',
@@ -23,8 +24,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
   public subURL: string = "";
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
+  countryName: any;
 
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+  constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -78,6 +80,18 @@ export class ConfirmAndDiscountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCountryData();
+  }
+  getCountryData(){
+    this.loginService.getCountryMasterData().
+      subscribe(
+        (response) => {
+          this.countryName = JSON.parse(JSON.stringify(response));
+          sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
   }
 
   public action(flag: boolean, type: Tflag, data: any) {

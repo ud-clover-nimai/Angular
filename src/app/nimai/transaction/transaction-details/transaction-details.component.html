@@ -52,7 +52,14 @@
                                                  <td >{{record.insertedDate| date : "dd-MM-y h:mm:ss z"}}</td>
                                                  <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                  <td>{{record.lCIssuanceBank}}</td>
-                                                 <td>{{record.requirementType}}</td>
+                                                 <td>
+                                                   <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
+                                                   <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
+                                                   <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                   <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
+                                                   <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+
+                                                    </td>
                                                  <td>{{record.lCValue}}</td>
                                                  <td>{{record.goodsType}}</td>
                                                  <td>{{record.applicantName}}</td>
@@ -181,7 +188,7 @@
                <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" aria-expanded="true">Quote</a></li>
               
             </ul>
-            <div class="tab-content" style="height: 552px;overflow: auto;">
+            <div class="tab-content" style="height: 480px;overflow: auto;">
               
                <div class="tab-pane active" id="pill111" >
                   <div class="row">
@@ -527,13 +534,14 @@
                               
                            </tbody>
                         </table>
+                        <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
+                           <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
+                           <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+   
+                        </div>
                      </div>
                    
-                     <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
-                        <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
-                        <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
-
-                     </div>
+                    
                   </div>
                </div>
             </div>
@@ -551,7 +559,7 @@
               <li  class="active"><a href="#tab3" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
            </ul>
-           <div class="tab-content" style="height: 552px;overflow: auto;">
+           <div class="tab-content" style="height: 480px;overflow: auto;">
 
             <div class="tab-pane active" id="pill112">
                 <div class="row">
@@ -920,7 +928,7 @@
               padding: 10px 15px 0;">
               <li class="active"><a href="#pill131" data-toggle="tab" aria-expanded="false">Details</a></li>
            </ul>
-           <div class="tab-content" style="height: 552px;overflow: auto;">
+           <div class="tab-content" style="height: 480px;overflow: auto;">
 
             <div class="tab-pane active" id="pill131">
                 <div class="row">

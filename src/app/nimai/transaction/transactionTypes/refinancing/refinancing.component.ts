@@ -6,6 +6,7 @@ import * as $ from '../../../../../assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-refinancing',
@@ -23,8 +24,9 @@ export class RefinancingComponent implements OnInit {
   public subURL: string = "";
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
+  countryName: any;
 
-  constructor(public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+  constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -79,8 +81,19 @@ export class RefinancingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCountryData();
   }
-
+  getCountryData(){
+    this.loginService.getCountryMasterData().
+      subscribe(
+        (response) => {
+          this.countryName = JSON.parse(JSON.stringify(response));
+          sessionStorage.setItem('countryData', JSON.stringify(response));
+          
+        },
+        (error) => {}
+      )
+  }
   public action(flag: boolean, type: Tflag, data: any) {
 
     if (flag) {
@@ -178,4 +191,27 @@ export class RefinancingComponent implements OnInit {
     $('#myModalR').show();
     this.document = file;
   }
+
+  // handleFileInput31(e) {
+  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     $('#upload_file2').val('');
+  //     return;
+  //   }
+  //   else{
+  //     reader.onload = this._handleReaderLoaded.bind(this);
+  //     reader.readAsDataURL(file);
+  //   }
+    
+  // }
+  // _handleReaderLoaded(e) {
+  //   let reader = e.target;
+  //   this.imageSrc = reader.result;
+  //   this.LcDetail.get('lcProForma').setValue(this.imageSrc);
+
+  // }
+
 }
