@@ -30,6 +30,9 @@ export class NewTransactionComponent implements OnInit {
   public ntData: any[] = [];
   public isActive: boolean = false;
   document: any;
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
+  viewData:any;
 
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
@@ -165,13 +168,22 @@ export class NewTransactionComponent implements OnInit {
     this.titleService.quote.next(true);
 
     const transactionId = {
-      "transactionId": data
+      "transactionId": data.transactionId
     }
+    console.log(transactionId)
 
     this.nts.getSpecificTxnDetailByTxnId(transactionId).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-      
+        this.viewData=this.detailInfo;
+        if(this.viewData.lcProForma==null || this.viewData.lcProForma=="" || this.viewData.lcProForma==undefined){
+          this.noFileDisable=false;
+          this.viewDisable=true;
+    
+         }else{
+          this.viewDisable=false;
+          this.noFileDisable=true;
+         }
       }, (error) => {
         this.hasNoRecord = true;
       }

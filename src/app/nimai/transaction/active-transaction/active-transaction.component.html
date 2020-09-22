@@ -146,7 +146,7 @@
                            <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
                            <td>Applicable Benchmark (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}%
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
 
                         </tr>
                          <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
@@ -173,7 +173,7 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankAcceptCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'Refinance'">
-                           <td>Refinancing interest p.a.</td>
+                           <td>Refinancing Charges p.a.</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
@@ -213,7 +213,9 @@
                         </tr>
                         <br>
                         <tr>
-                           <td colspan="2">Others terms and conditions <br> <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small> </td>
+                           <td colspan="2">Others terms and conditions <br>
+                               <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small>
+                               </td>
                        </tr>
                     
 <br>

@@ -11,18 +11,13 @@ import * as $ from 'src/assets/js/jquery.min';
   styleUrls: ['./others.component.css']
 })
 export class OthersComponent implements OnInit {
-  
   @Input() public LcDetail:FormGroup;
   fileToUpload: File = null;
   private imageSrc: string = '';
   countryName: any;
-  
-
+  minDate = new Date;
   constructor(public rds:DataServiceService,public loginService: LoginService) {
-
-    
-   }
-
+  }
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 

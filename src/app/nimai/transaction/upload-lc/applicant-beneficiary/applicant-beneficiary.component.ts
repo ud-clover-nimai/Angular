@@ -23,10 +23,9 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     this.onItemChange("Applicant");
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
-
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
-
+    this.LcDetail.get('userType').setValue(e);
     if (e == "Beneficiary") {
        $('#divApplicant').hide();
        $('#divBene').show();

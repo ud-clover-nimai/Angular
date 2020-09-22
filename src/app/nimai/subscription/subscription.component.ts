@@ -55,7 +55,6 @@ export class SubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("init")
     this.custUserEmailId = sessionStorage.getItem('custUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
@@ -76,7 +75,7 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService.getPlansByCountry(req).subscribe(data => {
       this.isNew = true;
       var userid = sessionStorage.getItem("userID");
-      if(data)
+    if(data)
       {
         if((userid.startsWith('CU'))){
           this.subscriptionDetails = data.data.customerSplans;
@@ -164,9 +163,7 @@ export class SubscriptionComponent implements OnInit {
 
   public payment() {
     this.titleService.loading.next(true);
-    const formData: FormData = new FormData();
-    formData.append('eventName', 'Cust_Splan_email');
-    formData.append('emailStatus', 'pending');
+    this.choosedPlan.emailID=this.custUserEmailId
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {

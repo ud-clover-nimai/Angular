@@ -25,6 +25,10 @@ export class ConfirmAndDiscountComponent implements OnInit {
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   countryName: any;
+  public applicantType: boolean = true;
+  public beneficiaryType: boolean = true;
+  applicant: boolean = false;
+  beneficiary: boolean = false;
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -83,7 +87,15 @@ export class ConfirmAndDiscountComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
  
-
+  onNegotChange(val){
+    if (val === 'applicant') {
+      this.applicantType=true;
+      this.beneficiaryType=false;
+    } else if (val === 'beneficiary') {
+      this.applicantType=false;
+      this.beneficiaryType=true;
+    }    
+  }
   public action(flag: boolean, type: Tflag, data: any) {
 
     if (flag) {
@@ -92,6 +104,19 @@ export class ConfirmAndDiscountComponent implements OnInit {
         // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
+        if (this.data.userType === 'Applicant') {
+          this.beneficiary = false;
+          this.applicant = true;
+          this.applicantType=true;
+          this.beneficiaryType=false;
+          data.applicantCountry= data.applicantCountry.toUpperCase();
+
+        } else if (this.data.userType === 'Beneficiary') {
+          this.applicant = false;
+          this.beneficiary = true;
+          this.applicantType=false;
+          this.beneficiaryType=true;
+        }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
         this.data = data;

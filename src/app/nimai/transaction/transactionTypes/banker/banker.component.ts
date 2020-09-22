@@ -27,6 +27,10 @@ export class BankerComponent implements OnInit {
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   countryName: any;
+  public applicantType: boolean = true;
+  public beneficiaryType: boolean = true;
+  applicant: boolean = false;
+  beneficiary: boolean = false;
   // public data = {};
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -86,45 +90,37 @@ export class BankerComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
- 
-  onItemChange(e){
-    var radioValue = $("input[name='userType']:checked").val();
-
-    if (e == "Beneficiary") {
-      //  $('#divApplicant').hide();
-      //  $('#divBene').show();
-      //  this.LcDetail.get('applicantName').setValue('');
-      //  this.LcDetail.get('applicantCountry').setValue('');
-      //  this.LcDetail.get('beneName').setValue(sessionStorage.getItem('companyName'));
-      //  this.LcDetail.get('beneCountry').setValue(sessionStorage.getItem('registeredCountry'));
-       let elements = document.getElementsByTagName('input');
-       for (var i = 0; i < elements.length; i++) {
-         if(elements[i].value)
-         elements[i].classList.add('has-value')
-       }
-    }
-    else if (e == "Applicant") {
-      //  $('#divApplicant').show();
-      //  $('#divBene').hide();
-      //  this.LcDetail.get('applicantName').setValue(sessionStorage.getItem('companyName'));
-      //  this.LcDetail.get('applicantCountry').setValue(sessionStorage.getItem('registeredCountry'));
-      //  this.LcDetail.get('beneName').setValue('');
-      //  this.LcDetail.get('beneCountry').setValue('');
-      //  this.hasValue=true;
-    }
+  onNegotChange(val){
+    if (val === 'applicant') {
+      this.applicantType=true;
+      this.beneficiaryType=false;
+    } else if (val === 'beneficiary') {
+      this.applicantType=false;
+      this.beneficiaryType=true;
+    }    
   }
+  
 
   public action(flag: boolean, type: Tflag, data: any) {
-
-    console.log("sanjeev")
-    console.log(data)
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
         // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
-        
+        if (this.data.userType === 'Applicant') {
+          this.beneficiary = false;
+          this.applicant = true;
+          this.applicantType=true;
+          this.beneficiaryType=false;
+          data.applicantCountry= data.applicantCountry.toUpperCase();
+
+        } else if (this.data.userType === 'Beneficiary') {
+          this.applicant = false;
+          this.beneficiary = true;
+          this.applicantType=false;
+          this.beneficiaryType=true;
+        }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
         this.data = data;

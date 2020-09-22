@@ -53,7 +53,7 @@
                                                         </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="tab_default_1">
-                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm">
+                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm" >
                                                                 </app-applicant-beneficiary>
                                                             </div>
                                                             <div class="tab-pane" id="tab_default_2">
@@ -159,7 +159,7 @@
                                                                         <div class="col-md-3">
                                                                             <mat-form-field>
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">LC Issuance Date</mat-label>
-                                                                                <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput [(ngModel)]="dateToPass"
+                                                                                <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
                                                                                     [matDatepicker]="lcIssuDt"
                                                                                     formControlName="lCIssuingDate">
                                                                                 <mat-datepicker-toggle matSuffix

@@ -22,3 +22,9 @@ select{
     transition-duration: 0.3s;
 
 }
+.deleteFile{
+    float: right;
+    margin-right: -165px;
+    cursor: pointer;
+    margin-top: -38px;
+}
