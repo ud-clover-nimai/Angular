@@ -33,11 +33,11 @@
 
                            </td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Beneficiary'" >
+                        <tr [hidden]="applicantType">
                            <td>Contact Person</td>
                            <td><input type="text" [(ngModel)]="data.applicantContactPerson"></td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Beneficiary'">
+                        <tr [hidden]="applicantType">
                            <td>Email Id</td>
                            <td><input type="text" [(ngModel)]="data.applicantContactPersonEmail"></td>
                         </tr>
@@ -61,11 +61,11 @@
                           </select>
                            </td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Applicant'">
+                        <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
                            <td><input type="text" [(ngModel)]="data.beneContactPerson"></td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Applicant'">
+                        <tr [hidden]="beneficiaryType">
                            <td>Email Id</td>
                            <td><input type="text" [(ngModel)]="data.beneContactPersonEmail"></td>
                         </tr>
@@ -279,11 +279,11 @@
                            <td>Country</td>
                            <td>{{data.applicantCountry}}</td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Beneficiary'">
+                        <tr [hidden]="applicantType">
                            <td>Contact Person</td>
                            <td>{{data.applicantContactPerson}}</td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Beneficiary'">
+                        <tr [hidden]="applicantType">
                            <td>Email Id</td>
                            <td>{{data.applicantContactPersonEmail}}</td>
                         </tr>
@@ -302,11 +302,11 @@
                            <td>Country</td>
                            <td>{{data.beneCountry}}</td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Applicant'">
+                        <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
                            <td>{{data.beneContactPerson}}</td>
                         </tr>
-                        <tr *ngIf="data.userType == 'Applicant'">
+                        <tr [hidden]="beneficiaryType">
                            <td>Email Id</td>
                            <td>{{data.beneContactPersonEmail}}</td>
                         </tr>

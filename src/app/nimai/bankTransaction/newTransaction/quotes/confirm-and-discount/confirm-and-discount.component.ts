@@ -167,6 +167,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
 
   public action(flag: boolean, type: Tflag, data: any) {
+    if(data.termConditionComments=='null'){
+      data.termConditionComments='';
+    } if(data.chargesType=='null'){
+      data.chargesType='';
+    } if(data.commentsBenchmark=='null'){
+      data.commentsBenchmark='';
+    }
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
@@ -384,9 +391,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
               "transactionId": data.transactionId,
               "bankEmail": sessionStorage.getItem('custUserEmailId')
             }
-            this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => { console.log("Email sent successfully"); }, (err) => { },);
+            // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => { console.log("Email sent successfully"); }, (err) => { },);
 
-            this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => { console.log("bank mail sent successfully"); }, (err) => { },);
+            // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => { console.log("bank mail sent successfully"); }, (err) => { },);
 
           },
           error => {

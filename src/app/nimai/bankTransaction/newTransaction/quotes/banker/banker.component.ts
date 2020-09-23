@@ -149,7 +149,13 @@ export class BankerComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+    if(data.termConditionComments=='null'){
+      data.termConditionComments='';
+    } if(data.chargesType=='null'){
+      data.chargesType='';
+    } if(data.commentsBenchmark=='null'){
+      data.commentsBenchmark='';
+    }
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
@@ -232,9 +238,16 @@ export class BankerComponent implements OnInit {
             $('textarea').attr('readonly', true);
           }, 200);
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+         
             (response) => {
               this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+              console.log(this.totalQuote)
             },
+          // this.ts.saveQuotationToDraft(this.data).subscribe(
+          //   (response) => {
+          //     this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+          //     console.log(this.totalQuote)
+          //   },
             error => {
               alert('error')
               this.closed();
@@ -301,9 +314,9 @@ export class BankerComponent implements OnInit {
               "transactionId": data.transactionId,
               "bankEmail": sessionStorage.getItem('custUserEmailId')
             }
-            this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => { console.log("Email sent successfully"); }, (err) => { },);
+            // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => { console.log("Email sent successfully"); }, (err) => { },);
 
-            this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => { console.log("bank mail sent successfully"); }, (err) => { },);
+            // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => { console.log("bank mail sent successfully"); }, (err) => { },);
 
           },
           error => {

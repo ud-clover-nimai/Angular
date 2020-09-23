@@ -30,7 +30,7 @@ export class SubscriptionComponent implements OnInit {
   choosedPrice: any;
   addedAmount: any;
   showVASPlan = false;
-  custUserEmailId: string;
+  branchUserEmailId: string;
   public isCustomer = false;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
@@ -54,8 +54,8 @@ export class SubscriptionComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.custUserEmailId = sessionStorage.getItem('custUserEmailId');
+  ngOnInit() {    
+    this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
     // this.getSubscriptionDetails();
@@ -163,7 +163,7 @@ export class SubscriptionComponent implements OnInit {
 
   public payment() {
     this.titleService.loading.next(true);
-    this.choosedPlan.emailID=this.custUserEmailId
+    this.choosedPlan.emailID=this.branchUserEmailId    
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -178,25 +178,19 @@ export class SubscriptionComponent implements OnInit {
         }
       )
   }
-
-
   public getPlan(userID: string) {
-
     this.subscriptionService.getPlanByUserId(userID)
       .subscribe(
         response => {
-
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];          
           if(this.choosedPlan.status.toLowerCase() != "active"){
             this.getSubscriptionDetails();
           }
-
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
-
         },
         (error) => {
           this.titleService.loading.next(false);

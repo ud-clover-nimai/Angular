@@ -72,6 +72,7 @@ export class CustomerLoginComponent implements OnInit {
       (response) => {
       let responseData = JSON.parse(JSON.stringify(response));
       var matches = responseData.data.match(/\d+/g)
+      sessionStorage.setItem('custUserEmailId', this.emailAddress);
       if (matches != null) {
       
         let sendEmail = {

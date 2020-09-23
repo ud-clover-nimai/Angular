@@ -29,6 +29,7 @@ export class DiscountingComponent implements OnInit {
   public beneficiaryType: boolean = true;
   applicant: boolean = false;
   beneficiary: boolean = false;
+  public userTypes:string='';
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -91,9 +92,19 @@ export class DiscountingComponent implements OnInit {
     if (val === 'applicant') {
       this.applicantType=true;
       this.beneficiaryType=false;
+      this.userTypes='Applicant';
+      this.data.applicantName=this.data.beneName;
+      this.data.applicantCountry=this.data.beneCountry;
+    this.data.beneName='';
+    this.data.beneCountry='';
     } else if (val === 'beneficiary') {
       this.applicantType=false;
       this.beneficiaryType=true;
+      this.userTypes='Beneficiary';
+      this.data.beneName=this.data.applicantName;
+      this.data.applicantName='';
+      this.data.beneCountry=this.data.applicantCountry;
+      this.data.applicantCountry='';
     }    
   }
 
@@ -166,6 +177,7 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'submit': {
+        this.data.userType=this.userTypes;
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';

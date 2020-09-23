@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-content">
                 <h4>{{title}}</h4>
-                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -59,7 +59,8 @@
                                     <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective  />
                                  </td>
                               </tr>
-                              <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                              <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType"
+                               style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                               <tr>
                                  <td>Minimum Transaction Charges (if any)</td>
@@ -81,11 +82,12 @@
                                  </td>
                               </tr>
                               <tr>
-                                <td>Other terms and conditions</td>
+                                <td colspan="2">Other terms and conditions <br>
+                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                                    rows="3" style="margin: 6px 0px 0px; width: 460px; height: 60px;"></textarea></td>
                              </tr>
                             
-                             <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
-                             rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
+                             
                             
                               <tr>
                                  <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
@@ -107,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 70px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -235,7 +237,7 @@
             <div class="card">
                 <div class="card-content">
                     <h4>{{title}}</h4>
-                    <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                    <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                         <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)" #f="ngForm" novalidate>
                             <div class="tab-pane active" id="pill1">
                                 <div class="tab">
@@ -343,7 +345,7 @@
                         </form>
                     </div>
 
-                    <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                    <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 70px;">
                         <div class="tab-pane active" id="pill1">
                             <div class="tab">
                                 <table>

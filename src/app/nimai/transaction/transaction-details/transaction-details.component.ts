@@ -233,7 +233,7 @@ export class TransactionDetailsComponent {
 
     this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
-        this.upls.confirmLcMailSent(emailBody).subscribe((resp) => { console.log("mail sent successfully"); }, (err) => { },);
+        // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => { console.log("mail sent successfully"); }, (err) => { },);
 
         this.getAllnewTransactions('Rejected');
         this.closeOffcanvas();

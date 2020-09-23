@@ -132,6 +132,7 @@ export class DashboardComponent implements OnInit {
       this.service.getBankDraftQuotation(data).subscribe(
         (response) => {
           this.draftData = JSON.parse(JSON.stringify(response)).data;
+          if(this.draftData)
           if (this.draftData.length > 0) {
             this.draftcountBank = this.draftData.length;
           }
