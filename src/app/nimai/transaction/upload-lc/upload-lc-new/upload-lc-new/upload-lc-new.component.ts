@@ -206,7 +206,7 @@ export class UploadLcNewComponent implements OnInit {
           this.edit();
           this.loading = false;
           this.titleService.loading.next(false);
-          this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
+          // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("mail sent successfully");},(err) => {},);
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
@@ -396,7 +396,7 @@ export class UploadLcNewComponent implements OnInit {
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
 
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+        // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
 
          this.draftData = JSON.parse(JSON.stringify(response)).data;
          console.log(this.draftData);

@@ -609,9 +609,11 @@ export class UploadLCComponent implements OnInit {
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
 
-        this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
+        // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
         this.draftData = JSON.parse(JSON.stringify(response)).data;
+      //  console.log("this.draftData---",this.draftData)
         this.ngOnInit();
+        this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
