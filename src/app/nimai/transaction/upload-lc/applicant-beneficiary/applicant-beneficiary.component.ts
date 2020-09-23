@@ -51,7 +51,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   }
   
   onKeydownEvent(event){    
-    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
     if(!emailPattern.test(event.target.value))
     {
       this.isValid=true;
