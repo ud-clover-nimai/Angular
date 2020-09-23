@@ -102,7 +102,6 @@ export class TrasactionDetailsComponent {
   }
 
   getDetail(detail,status) {
-    console.log(detail.lcProforma)
     if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
       this.noFileDisable=false;
       this.viewDisable=true;
@@ -113,6 +112,13 @@ export class TrasactionDetailsComponent {
      }
       this.quotationdata = detail;
       this.specificDetail = detail;
+      if(this.quotationdata.termConditionComments=='null'){
+        this.quotationdata.termConditionComments='';
+      } if(this.quotationdata.chargesType=='null'){
+        this.quotationdata.chargesType='';
+      } if(this.quotationdata.commentsBenchmark=='null'){
+        this.quotationdata.commentsBenchmark='';
+      }
     if(status=='Accepted'){
       $('.active').removeClass('active');
       $('#menu-barDetailnew li:first').addClass('active');
@@ -138,11 +144,13 @@ const data = {
  }
     this.nts.getQuotationOfAcceptedQuote(data).subscribe(
       (response) => {
-        if(JSON.parse(JSON.stringify(response)).data==null){
+          if(JSON.parse(JSON.stringify(response)).data==null){
           this.quotes="";    
             }else{
               this.quotes=JSON.parse(JSON.stringify(response)).data[0];
           }
+
+        
       },
       (error) => {
             }

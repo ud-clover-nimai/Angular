@@ -110,7 +110,6 @@ export class TransactionDetailsComponent {
 
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
-    console.log(transactionId)
     this.specificDetail = detail;
   
     if(status=='Accepted'){
@@ -169,8 +168,15 @@ export class TransactionDetailsComponent {
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
         this.quotationdata = "";
-        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];
+        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];       
         this.quotationReqType = reqType;
+        if(this.quotationdata.termConditionComments=='null'){
+          this.quotationdata.termConditionComments='';
+        } if(this.quotationdata.chargesType=='null'){
+          this.quotationdata.chargesType='';
+        } if(this.quotationdata.commentsBenchmark=='null'){
+          this.quotationdata.commentsBenchmark='';
+        }
       },
       (error) => { }
     )
