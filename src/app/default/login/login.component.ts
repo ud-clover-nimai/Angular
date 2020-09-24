@@ -212,39 +212,64 @@ export class LoginComponent implements OnInit {
       }
 
     }
-//...........changes done by dhiraj........................................//
-    this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
-      let res = JSON.parse(JSON.stringify(response)).data;
-      this.resetSignUpForm();
-             this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
-             this.submittedSignup = false;
-             this.clearSignupValidation();
-             this.updateValidation();
-            const navigationExtras: NavigationExtras = {
-              state: {
-                title: 'Congratulations! Your account has been successfully created!',
-                message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
-                parent: 'login'
-              }
-            };
-           this.router.navigate(['/login/success'], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-             .catch(console.error);
-    },  error => {
-      const navigationExtras: NavigationExtras = {
-        state: {
-          title: JSON.parse(JSON.stringify(error)).error.errMessage,
-          message: '',
-          parent: 'login'
-        }
-      };
-      this.router.navigate(['/login/error'], navigationExtras)
-        .then(success => console.log('navigation success?', success))
-        .catch(console.error);
-
-    })
     
+//...........changes done by dhiraj........................................//
+this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
+  let res = JSON.parse(JSON.stringify(response)).data;
+  let emailResetPassworData: Email = {
+    event: 'ACCOUNT_ACTIVATE',
+    email: res.emailAddress
   }
+ let saveResponse = JSON.parse(JSON.stringify(response)).errMessage;
+ this.rsc.sendRegistrationEmail(emailResetPassworData).
+   subscribe(
+     (response) => {
+       this.resetSignUpForm();
+       this.signupForm.patchValue({ radio: 'customer', selector: 'customer' })
+    
+       this.submittedSignup = false;
+       this.clearSignupValidation();
+       this.updateValidation();
+       const navigationExtras: NavigationExtras = {
+         state: {
+           title: 'Congratulations! Your account has been successfully created!',
+           message: 'Soon you will receive login credentials on your registered email address '+res.emailAddress+' to securely activate your account. Kindly follow the instructions mentioned in the email to proceed further.',
+           parent: 'login'
+        }
+       };
+      this.router.navigate(['/login/success'], navigationExtras)
+       .then(success => console.log('navigation success?', success))
+        .catch(console.error);
+    },
+      (error) => {
+        const navigationExtras: NavigationExtras = {
+          state: {
+            title: JSON.parse(JSON.stringify(error)).error.errMessage,
+            message: '',
+            parent: 'login'
+          }
+        };
+        this.router.navigate(['/login/error'], navigationExtras)
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
+      }
+    )
+
+},
+  error => {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        title: JSON.parse(JSON.stringify(error)).error.errMessage,
+        message: '',
+        parent: 'login'
+      }
+    };
+    this.router.navigate(['/login/error'], navigationExtras)
+      .then(success => console.log('navigation success?', success))
+      .catch(console.error);
+
+  })
+}
 
   public sugnUpView() {
     this.hasCountrycode=false;

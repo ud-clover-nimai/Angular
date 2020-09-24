@@ -39,11 +39,12 @@
   }
   .addOptions{
     padding: 0;
-    width: 200px;
+    width: 220px;
     position: absolute;
     right: 30%;
-    top: 4px;
+    top: 9px;
     z-index: 1;
+    margin-right: -117px;
   }
   .card .card-header.card-header-icon + .card-content .card-title {
     padding-bottom: 15px;
@@ -148,4 +149,7 @@
     border-radius: 5px;
     font-size: 10px;
     font-weight: 400;
+}
+.parentOfSelect{
+  position: static;
 }
