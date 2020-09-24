@@ -60,10 +60,7 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.changeTitle(this.title);
     // this.getSubscriptionDetails();
     // this.getPlan(sessionStorage.getItem("userID"));
-    var userid = sessionStorage.getItem("userID");
-    if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
-      this.showVASPlan = true;
-    }
+    
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
@@ -105,6 +102,10 @@ export class SubscriptionComponent implements OnInit {
   }
 
   viewVASPlans(){
+    var userid = sessionStorage.getItem("userID");
+    if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
+      this.showVASPlan = true;
+    }
     let data = {
       "country_name": sessionStorage.getItem("registeredCountry")
     }
