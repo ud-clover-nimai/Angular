@@ -140,7 +140,7 @@
                                                                             <div class="inputDiv">
                                                                                 <input type="text" maxlength="15"
                                                                                     formControlName="lCValue" (keypress)="validateRegexFields($event, 'number')">
-                                                                                <label>LC Value</label>
+                                                                                <label>Amount</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3">
@@ -359,7 +359,7 @@
                                     </div>                
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC value</span>
+                                            <span class="customspan">Amount</span>
                                             <span class="labeltext">{{lc.lCCurrency}} {{lc.lCValue}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
@@ -392,7 +392,7 @@
                                             <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Goods</span>
                                             <span class="labeltext">{{lc.goodsType}}</span>
@@ -476,7 +476,13 @@
                                             <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-3" *ngIf="lc.tenor_file">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Multiple Maturity Date</span>                                            
+                                            <span class="labeltext" *ngIf="lc.tenor_file" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenor_file)">View</span>
+                                            <span class="labeltext" *ngIf="!lc.tenor_file">-</span>
+                                        </div>
+                                    </div>
                                     <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
                                 
                                     <div class="col-md-3">

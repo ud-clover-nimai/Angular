@@ -288,6 +288,7 @@ export class UploadLCComponent implements OnInit {
           // sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
           this.lc = this.lcDetailForm.value;
+          console.log("lc-----",this.lc)
           this.previewShow = true;
           this.isPrev = false;
           this.isNext = false;
