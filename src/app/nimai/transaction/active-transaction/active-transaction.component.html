@@ -66,7 +66,7 @@
                                           </span>
                                        </div>
                                     </td>
-                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas()"
+                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
                                        class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
                   
                                  </tr>
@@ -99,7 +99,7 @@
                            <td class="showBankDetails">**** <br>
                              Quotes placed till date 214<br>
                              Quotes for Matress 23</td>
-                           <td><a (click)="openNav3();openOffcanvas();getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                           <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
                            <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>

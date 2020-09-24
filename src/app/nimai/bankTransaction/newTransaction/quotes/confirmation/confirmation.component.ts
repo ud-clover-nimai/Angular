@@ -168,6 +168,13 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
+    if(data.termConditionComments=='null'){
+      data.termConditionComments='';
+    } if(data.chargesType=='null'){
+      data.chargesType='';
+    } if(data.commentsBenchmark=='null'){
+      data.commentsBenchmark='';
+    }
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
@@ -319,6 +326,11 @@ export class ConfirmationComponent implements OnInit {
             (response) => {
               this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
             },
+          // this.ts.saveQuotationToDraft(this.dataViewEdit).subscribe(
+          //   (response) => {
+          //     this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+          //     console.log(this.totalQuote)
+          //   },
             error => {
               alert('error')
               this.closed();

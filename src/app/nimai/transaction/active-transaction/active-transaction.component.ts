@@ -123,35 +123,35 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-      document.getElementById("menu-bar-con").style.width = "450px"; 
+      document.getElementById("menu-bar-con").style.width = "500px"; 
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
       this.discounting.action(true,action,this.detailInfo);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-      document.getElementById("menu-bar-dis").style.width = "450px"; 
+      document.getElementById("menu-bar-dis").style.width = "500px"; 
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,this.detailInfo);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-      document.getElementById("menu-bar-conAndDis").style.width = "450px"; 
+      document.getElementById("menu-bar-conAndDis").style.width = "500px"; 
     } else if (pagename === 'refinance' || pagename === 'Refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,this.detailInfo);
       this.banker.isActive = false;
-      document.getElementById("menu-bar-ref").style.width = "450px"; 
+      document.getElementById("menu-bar-ref").style.width = "500px"; 
     } else if (pagename === 'banker' || pagename === 'Banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.action(true,action,this.detailInfo);
-      document.getElementById("menu-bar-bank").style.width = "450px";  
+      document.getElementById("menu-bar-bank").style.width = "500px";  
     }
   },
   (error) => { }
@@ -188,9 +188,12 @@ export class ActiveTransactionComponent implements OnInit {
     )
   }
 
-  openOffcanvas() {
-    document.getElementById("menu-barnew").style.width = "450px";
- }
+  openOffcanvas(act) {
+    if(act=='quote'){
+      document.getElementById("menu-barnew").style.width = "500px";
+    }
+    }
+   
  openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
     document.getElementById("myCanvasNav").style.opacity = "0.6";  

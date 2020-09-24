@@ -38,7 +38,10 @@ export class NewTransactionService {
   public saveQuotationToDraft(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/saveQuotationToDraft`, data, { headers: { 'content-types': 'application/json' } })
   }
-
+  public calculateQuote(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/calculateQuote`, data, { headers: { 'content-types': 'application/json' } })
+  }
+  
   public updateCustomerTransaction(data: any): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterLC`, data, { headers: { 'content-types': 'application/json' } });
   }

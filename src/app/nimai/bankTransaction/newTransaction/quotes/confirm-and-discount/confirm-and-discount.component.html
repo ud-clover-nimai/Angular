@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-content">
                 <h4>{{title}}</h4>
-                <div class="tab-content" style="overflow: auto;padding-bottom: 60px;" id="tab1" *ngIf="tab==='tab1'">
+                <div class="tab-content" style="overflow: auto;padding-bottom: 70px;" id="tab1" *ngIf="tab==='tab1'">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -63,7 +63,8 @@
                                     </td>
                                     <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.8750" weightDirective><span class="pull-right percent">%</span>
                                 </tr>
-                                <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark" style="width:312px;margin: 6px 0px 0px;height: 62px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
+                                <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark" 
+                                style="width:302px;margin: 6px 0px 0px;height: 62px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
 
                                 <tr>
                                     <td>
@@ -103,7 +104,8 @@
                                  placeholder="0.00" weightDirective />
                            </td>
                         </tr>
-                        <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                        <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad" 
+                        placeholder="Specify the type of charge (Swift, P&T, etc)" style="width:315px;margin: 6px 0px 0px;height: 62px;"rows="3"></textarea>
 
                         <tr>
                            <td>Minimum Transaction Charges</td>
@@ -127,10 +129,11 @@
                            </td>
                         </tr>
                         <tr>
-                            <td>Other terms and conditions</td>
-                         </tr>
+                            <td colspan="2">Other terms and conditions <br>
                                 <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."
-                                 rows="3" style="margin: 6px 0px 0px; width: 320px; height: 60px;"></textarea>
+                                rows="3" style="margin: 6px 0px 0px; width: 460px; height: 60px;"></textarea></td>
+                         </tr>
+                               
                                    <tr>
                                        <td>
                                            Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date,actual quote from the bank may differ to the extent
@@ -162,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 70px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -326,7 +329,7 @@
                 <div class="card-content">
                     <h4>{{title}}</h4>
 
-                    <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 60px;">
+                    <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                         <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)" #f="ngForm" novalidate>
 
                             <div class="tab-pane active" id="pill1">
@@ -455,7 +458,7 @@
                         </form>
                     </div>
 
-                    <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 60px;">
+                    <div class="tab-content" id="tab2" *ngIf="tab==='tab2'" style="overflow: auto;padding-bottom: 70px;">
                         <div class="tab-pane active" id="pill1">
                             <div class="tab">
                                 <table>

@@ -148,6 +148,14 @@ export class RefinancingComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
+   
+    if(data.termConditionComments=='null'){
+      data.termConditionComments='';
+    } if(data.chargesType=='null'){
+      data.chargesType='';
+    } if(data.commentsBenchmark=='null'){
+      data.commentsBenchmark='';
+    }
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;

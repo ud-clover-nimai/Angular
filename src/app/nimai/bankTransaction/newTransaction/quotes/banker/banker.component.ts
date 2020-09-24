@@ -149,7 +149,13 @@ export class BankerComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+    if(data.termConditionComments=='null'){
+      data.termConditionComments='';
+    } if(data.chargesType=='null'){
+      data.chargesType='';
+    } if(data.commentsBenchmark=='null'){
+      data.commentsBenchmark='';
+    }
     if (flag) {
       if (type === Tflag.VIEW) {
         this.isActive = flag;
@@ -232,9 +238,16 @@ export class BankerComponent implements OnInit {
             $('textarea').attr('readonly', true);
           }, 200);
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
+         
             (response) => {
               this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+              console.log(this.totalQuote)
             },
+          // this.ts.saveQuotationToDraft(this.data).subscribe(
+          //   (response) => {
+          //     this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+          //     console.log(this.totalQuote)
+          //   },
             error => {
               alert('error')
               this.closed();

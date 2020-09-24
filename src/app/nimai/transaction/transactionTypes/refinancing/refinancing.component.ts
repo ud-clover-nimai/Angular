@@ -94,10 +94,18 @@ export class RefinancingComponent implements OnInit {
       this.applicantType=true;
       this.beneficiaryType=false;
       this.userTypes='Applicant';
+      this.data.applicantName=this.data.beneName;
+      this.data.applicantCountry=this.data.beneCountry;
+    this.data.beneName='';
+    this.data.beneCountry='';
     } else if (val === 'beneficiary') {
       this.applicantType=false;
       this.beneficiaryType=true;
       this.userTypes='Beneficiary';
+      this.data.beneName=this.data.applicantName;
+      this.data.applicantName='';
+      this.data.beneCountry=this.data.applicantCountry;
+      this.data.applicantCountry='';
     }    
   }
   public action(flag: boolean, type: Tflag, data: any) {
