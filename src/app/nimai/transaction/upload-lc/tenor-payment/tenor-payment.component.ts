@@ -45,7 +45,7 @@ export class TenorPaymentComponent implements OnInit {
 
   deleteFileContent(){    
     this.myInputVariable.nativeElement.value = ""; 
-    this.LcDetail.get('tenor_file').setValue("");
+    this.LcDetail.get('tenorFile').setValue("");
     this.isUpload = false;
     uploadFileRefinance();
   }
@@ -118,7 +118,7 @@ export class TenorPaymentComponent implements OnInit {
   _handleReaderLoaded(e) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    this.LcDetail.get('tenor_file').setValue(this.imageSrc);
+    this.LcDetail.get('tenorFile').setValue(this.imageSrc);
     // this.LcDetail.get('lcMaturityDate').setValue("");
 
   }

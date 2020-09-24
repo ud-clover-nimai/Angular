@@ -36,8 +36,8 @@ export class TransactionDetailsComponent {
   expiredStatus :boolean=true;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
-  public detailInfo: string = "";
-
+  public detailInfo: any = "";
+public statusReason:string="";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -152,7 +152,16 @@ export class TransactionDetailsComponent {
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
+        if(this.detailInfo.statusReason=='1'){
+          this.statusReason="Bank not acceptable";
         
+        }else if(this.detailInfo.statusReason=='2'){
+          this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
+        
+        }else if(this.detailInfo.statusReason=='3'){
+          this.statusReason="Others";
+        
+        }
       },
       (error) => { }
     )
@@ -177,6 +186,9 @@ export class TransactionDetailsComponent {
         } if(this.quotationdata.commentsBenchmark=='null'){
           this.quotationdata.commentsBenchmark='';
         }
+
+    
+
       },
       (error) => { }
     )

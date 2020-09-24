@@ -393,7 +393,7 @@
                                             <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">Goods</span>
                                             <span class="labeltext">{{lc.goodsType}}</span>
@@ -477,7 +477,13 @@
                                             <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-3" *ngIf="lc.tenorFile">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Multiple Maturity Date</span>                                            
+                                            <span class="labeltext" *ngIf="lc.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenorFile)">View</span>
+                                            <span class="labeltext" *ngIf="!lc.tenorFile">-</span>
+                                        </div>
+                                    </div>
                                     <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
                                 
                                     <div class="col-md-3">
