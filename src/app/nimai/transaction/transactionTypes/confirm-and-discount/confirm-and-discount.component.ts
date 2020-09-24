@@ -80,6 +80,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",    
+      tenorFile:""
     }
     
   }

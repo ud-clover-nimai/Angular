@@ -113,19 +113,19 @@ export class TransactionDetailsComponent {
     this.specificDetail = detail;
   
     if(status=='Accepted'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menu-barnew li:first').addClass('active');
       $('.tab-content #pill111').addClass('active');
 
     }
     else if(status=='Rejected'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menubarDetailreject li:first').addClass('active');
       $('.tab-content #pill112').addClass('active');
 
     }
     else if(status=='Expired'){  
-      $('.active').removeClass('active');   
+      $('.activeTab').removeClass('active');   
       $('#menubarDetailexpired li:first').addClass('active');
       $('.tab-content #pill131').addClass('active');
 
@@ -168,6 +168,7 @@ export class TransactionDetailsComponent {
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
         this.quotationdata = "";
+        if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];       
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){

@@ -80,7 +80,8 @@ export class ConfirmationComponent implements OnInit {
       goodsType:"",
       discountingPeriod:"",
       confirmationPeriod:"",
-      paymentTerms:"",    
+      paymentTerms:"",   
+      tenorFile:"" 
     }
     
   }

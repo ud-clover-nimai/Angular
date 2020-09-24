@@ -182,6 +182,13 @@
                               (ngModelChange)="data.lcMaturityDate = $event"></td>
                         </tr>
                         <tr>
+                           <td>LC Maturity Date</td>
+                           <td>
+                              <input  #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 85%;"/>
+                              <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
+                           </td>
+                        </tr>
+                        <tr>
                            <th colspan="2">Beneficiary Details of Last Transaction</th>
                         </tr>
                         <tr>
@@ -422,6 +429,10 @@
                         <tr>
                            <td>LC Maturity Date</td>
                            <td>{{data.lcMaturityDate | date : "dd-MM-y"}}</td>
+                        </tr>
+                        <tr *ngIf="data.tenorFile">
+                           <td>Multiple Maturity Date</td>
+                           <td><a style="cursor: pointer;color:blue;" (click)="openDocument(data.tenorFile)">View</a></td>
                         </tr>
                         <tr>
                            <th colspan="2">Beneficiary Details of Last Transaction</th>

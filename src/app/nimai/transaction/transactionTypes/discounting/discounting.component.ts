@@ -80,6 +80,8 @@ export class DiscountingComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",    
+      tenorFile:""
+
     }
     
     

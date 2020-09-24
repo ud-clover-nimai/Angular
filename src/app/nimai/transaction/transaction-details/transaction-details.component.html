@@ -119,11 +119,11 @@
      <div class="card">
         <div class="card-content">
            <ul class="nav nav-pills nav-pills-info">
-              <li class="active"><a href="#pill1" data-toggle="tab" aria-expanded="true">Details</a></li>
+              <li class="activeTab"><a href="#pill1" data-toggle="tab" aria-expanded="true">Details</a></li>
               <li class=""><a href="#pill2" data-toggle="tab" aria-expanded="false">Quote</a></li>
            </ul>
            <div class="tab-content">
-              <div class="tab-pane active" id="pill1">
+              <div class="tab-pane activeTab" id="pill1">
                  <table class="table table-bordered">
                     <thead>
                        <tr>
@@ -188,13 +188,13 @@
       <div class="card">
          <div class="card-content">
             <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
+                <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
                <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" aria-expanded="true">Quote</a></li>
               
             </ul>
             <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
               
-               <div class="tab-pane active" id="pill111" >
+               <div class="tab-pane activeTab" id="pill111" >
                   <div class="row">
                      <div class="col-md-12" style="padding-right: 0px !important;">
                      <table class="table table-bordered">
@@ -571,12 +571,12 @@
            <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
               padding: 10px 15px 0;">
               <li><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
-              <li  class="active"><a href="#tab3" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li>
+              <li  class="activeTab"><a href="#tab3" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
            </ul>
            <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
-            <div class="tab-pane active" id="pill112">
+            <div class="tab-pane activeTab" id="pill112">
                 <div class="row">
                     <div class="col-md-12" style="padding-right: 0px !important;">
                         <table class="table table-bordered">
@@ -952,11 +952,11 @@
         <div class="card-content">
            <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
               padding: 10px 15px 0;">
-              <li class="active"><a href="#pill131" data-toggle="tab" aria-expanded="false">Details</a></li>
+              <li class="activeTab"><a href="#pill131" data-toggle="tab" aria-expanded="false">Details</a></li>
            </ul>
            <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
-            <div class="tab-pane active" id="pill131">
+            <div class="tab-pane activeTab" id="pill131">
                 <div class="row">
                     <div class="col-md-12" style="padding-right: 0px !important;">
                         <table class="table table-bordered">
@@ -1270,7 +1270,7 @@
               <div class="">
                  <div class="row">
                     <div class="col-md-12">
-                       <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
+                       <label>Your transaction has been reopened. Check the activeTab transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
                     <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(quotationdata.transactionId)">Ok</button> 
