@@ -290,7 +290,7 @@
                                     <div class="plan-old plan-success-old">
                                         <p class="plan-success-recommended">Purchased</p>
                                         <h3 class="plan-title-old">{{choosedPlan.subscriptionName}}</h3>
-                                        <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
+                                        <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">for {{choosedPlan.subscriptionValidity}} month</span></p>
                                         <ul class="plan-features">
                                             <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC Credits</span></li>
                                             <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
@@ -302,7 +302,7 @@
                                     </div>
                                 </div>
                                 <div class='col-md-8'><p class="errormessage text-success" style="margin-bottom: 15px;">Congratulations! Your Payment is Successful!</p></div>                                
-                                <div class="col-md-5">
+                                <!-- <div class="col-md-5">
                                     <div class="boxline" *ngIf="showVASPlan">
                                         <p>
                                             <strong>Advisory Services</strong>
@@ -330,7 +330,7 @@
                                             </tr>
                                         </table>
                                     </div>                                
-                                </div>
+                                </div> -->
                                 <div class="col-md-1"></div>
                                 <div class="col-md-8">
                                     <div class="col-md-7">
@@ -341,7 +341,7 @@
                                                         Amount Paid
                                                     </th>
                                                     <th class="text-center">
-                                                        US ${{addedAmount}}
+                                                        US ${{choosedPlan.subscriptionAmount}}
                                                     </th>
                                                 </tr>
                                                 <tr>
