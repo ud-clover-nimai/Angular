@@ -98,7 +98,7 @@
 
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"   (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')">
                 <label>Swift Code</label>
             </div>
         </div>
@@ -145,7 +145,7 @@
     
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNum')">
+                <input type="text" maxlength="11" formControlName="beneSwiftCode"  (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')">
                 <label>Swift Code</label>
             </div>
         </div>

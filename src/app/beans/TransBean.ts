@@ -39,6 +39,6 @@ export interface TData{
         discountingPeriod:string;
         confirmationPeriod:string;
         paymentTerms:string;
-    
+        tenorFile:string;
       
 }

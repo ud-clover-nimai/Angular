@@ -18,6 +18,12 @@
     body {
     transition: background-color .5s;
     } 
+    .popupcontent{
+      height: 100%;
+      }
+    .tab-content{
+      width: 520px!important;
+    }  
     .offcanvas {
     height: 100%;
     width: 0;

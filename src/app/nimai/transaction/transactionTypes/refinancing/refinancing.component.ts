@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef,ViewChild} from '@angular/core';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
@@ -7,14 +7,15 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
-
+import { uploadFileRefinance } from 'src/assets/js/commons'
 @Component({
   selector: 'app-refinancing',
   templateUrl: './refinancing.component.html',
   styleUrls: ['./refinancing.component.css']
 })
 export class RefinancingComponent implements OnInit {
-
+  @ViewChild('myInput',{ static: true })
+  myInputVariable: ElementRef;
   public isActive: boolean = false;
   public data:TData;
   public title: string = "";
@@ -30,7 +31,8 @@ export class RefinancingComponent implements OnInit {
   public beneficiaryType: boolean = true;
   applicant: boolean = false;
   beneficiary: boolean = false;
-
+  private imageSrc: string = '';
+  isUpload=false;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -80,6 +82,7 @@ export class RefinancingComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",    
+      tenorFile:""
     }
     
     
@@ -87,6 +90,31 @@ export class RefinancingComponent implements OnInit {
 
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+
+  }
+  deleteFileContent(){    
+    $('#upload_file1').val('');
+    this.data.tenorFile="";
+    this.isUpload = false;    
+  }
+  handleFileInput(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      $('#upload_file1').val('');
+      return;
+    }
+    this.isUpload=true;
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.data.tenorFile=this.imageSrc;
+    // this.LcDetail.get('lcMaturityDate').setValue("");
 
   }
   onNegotChange(val){
