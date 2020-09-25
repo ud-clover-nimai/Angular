@@ -144,12 +144,12 @@
                                     <td>Confirmation Charges p.a.</td>
                                     <td>{{dataViewEdit.confirmationCharges}}</td>
                                 </tr>
-                                <tr>
+                                <tr [hidden]="confNegot">
                                     <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                     <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
                                 </tr>
 
-                                <tr>
+                                <tr [hidden]="confMature">
                                     <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                     <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
                                 </tr>
@@ -381,11 +381,11 @@
                                         <td>Confirmation Charges p.a.</td>
                                         <td>{{data.confirmationCharges}} %</td>
                                     </tr>
-                                    <tr>
+                                    <tr [hidden]="confNegot">
                                         <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                         <td>{{data.confChgsNegot}}</td>
                                     </tr>
-                                    <tr>
+                                    <tr [hidden]="confMature">
                                         <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
                                         <td>{{data.confChgsMatur}}</td>
                                     </tr>

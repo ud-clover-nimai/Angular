@@ -135,8 +135,6 @@ export class TrasactionDetailsComponent {
       $('.tab-content #pill1131').addClass('active');
     }
    
-   
-
   }
   getQuotes(val){
 const data = {
@@ -163,7 +161,7 @@ const data = {
 
   }
 
-
+  
   openOffcanvas(status) {
 
     if (status === "Accepted") {

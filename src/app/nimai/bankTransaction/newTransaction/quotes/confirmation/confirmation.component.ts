@@ -33,6 +33,8 @@ export class ConfirmationComponent implements OnInit {
   public subURL: string = "";
   public errmessage: string = '';
   totalQuote: any;
+  public confNegot:boolean=false;
+  public confMature:boolean=false;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -465,6 +467,13 @@ export class ConfirmationComponent implements OnInit {
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;
+        if(data.confChgsIssuanceToNegot=='no'){
+          this.confNegot=true;
+          this.confMature=false;
+        }if(data.confChgsIssuanceToMatur=='no'){
+          this.confMature=true;
+          this.confNegot=false;
+        }
           this.ts.saveQuotationToDraft(this.data).subscribe(
           (response) => {
             if (JSON.parse(JSON.stringify(response)).status === 'Failure') {

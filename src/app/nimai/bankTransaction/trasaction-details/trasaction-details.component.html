@@ -81,9 +81,11 @@
 
                                                     </td>
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                        <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">Detail</a>
-
-                                                    </td>
+                                                        <a style="cursor: pointer;color:blue;margin-left: 25px;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">
+                                                            Detail </a> &nbsp;&nbsp;
+                                                             <a href="#" class='far fa-comment-dots'  style='font-size:23px' data-toggle="modal"  data-target="#myModal18"> </a>
+                                                                                                                 
+                                                            </td>
                                                     <td [hidden]="!acceptedStatus">
                                                         <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted');openNav3();openOffcanvas('Accepted');">Detail</a>
                                                     </td>
@@ -1283,12 +1285,12 @@
      </div>
   </div>
 </div>
-<div id="myModal6" style="display: none;" class="popupnew modal fade" role="dialog">
+<div id="myModal16" style="display: none;" class="popupnew modal fade" role="dialog">
     <div class="modal-dialog modal-md emaildiv">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body">
-                <h2> Trasaction Reopened</h2>
+                <h2> Transaction Reopened</h2>
                 <div class="padnew">
                     <!--<p><strong>Enter Email ID here</strong></p> -->
                     <div class="">
@@ -1393,3 +1395,25 @@
     </div>
   </div>
 
+  <div id="myModal18"  style="display: none;" class="popupnew modal fade" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+        <!-- Modal content-->
+        <div class="modal-content" style=" margin-top: 206px;">
+            <div class="modal-body">
+                <h2>Reason of Rejection</h2>
+                <div class="padnew">
+                    <!--<p><strong>Enter Email ID here</strong></p> -->
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>The quote has been rejected due to mentioned reason</label>
+                                <div class="form-group"></div>
+                            </div>
+                            <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

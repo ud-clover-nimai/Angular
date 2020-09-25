@@ -42,10 +42,10 @@
                                                  <th style="min-width: 100px;">Goods</th>
                                                  <th style="min-width: 150px;">Applicant's Name</th>
                                                  <th style="min-width: 150px;">Beneficiary Name</th> 
-                                                 <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 150px;" >Transaction Status</th>
-                                                 <th [hidden]="!rejectedStatus" class="disabled-sorting text-center" >Actions</th>
-                                                 <th [hidden]="!acceptedStatus" class="disabled-sorting text-center" >Actions</th>
-                                                 <th [hidden]="!expiredStatus" class="disabled-sorting">Actions</th>
+                                                 <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 140px;" >Transaction Status</th>
+                                                 <th [hidden]="!rejectedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
+                                                 <th [hidden]="!acceptedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
+                                                 <th [hidden]="!expiredStatus" style="min-width: 90px;"class="disabled-sorting">Actions</th>
 
                                              </tr>
                                          </thead>
@@ -81,11 +81,15 @@
                                                  </td>
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
-                                                     <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
-                                                 </td>
+                                                     <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a><br>
+                                                     <a href="#" class='fas fa-unlock-alt pull-left'  style='font-size:18px;' data-toggle="modal"  data-target="#unlockPopUp"> </a>
+                                                     <a href="#" class='far fa-comment-dots pull-right'  style='font-size:17px;' data-toggle="modal"  data-target="#myModal28"> </a>
+
+                                                   </td>
                                                  <td [hidden]="!acceptedStatus">
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted',record.transactionId);openNav3();openOffcanvas('Accepted');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
+                                                         
                                                    </td>
                                                  <td [hidden]="!expiredStatus">
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Expired',record.transactionId);openNav3();openOffcanvas('Expired');">Detail</a><br/>
@@ -1238,8 +1242,8 @@
                         #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
                            <option value=''>Select</option>
                            <option value="1">Bank not acceptable</option>
-                           <option>Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
-                           <option value="2">Others</option>
+                           <option value="2">Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
+                           <option value="3">Others</option>
                         </select>
 
                         <!-- <label>Select Reason</label> -->
@@ -1264,7 +1268,7 @@
      <!-- Modal content-->
      <div class="modal-content">
         <div class="modal-body">
-           <h2> Trasaction Reopened</h2>
+           <h2> Transaction Reopened</h2>
            <div class="padnew">
               <!--<p><strong>Enter Email ID here</strong></p> -->
               <div class="">
@@ -1339,3 +1343,51 @@
      </div>
    </div>
  </div>
+
+ <div id="myModal28"  style="display: none;" class="popupnew modal fade" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content" style=" margin-top: 206px;">
+           <div class="modal-body">
+               <h2>Reason of Rejection</h2>
+               <div class="padnew">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="">
+                       <div class="row">
+                           <div class="col-md-12">
+                               <label>The quote has been rejected due to mentioned reason</label>
+                              
+                               <div class="form-group">
+                                 <p>{{statusReason}}</p>
+                               </div>
+                           </div>
+                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+<div id="unlockPopUp"  style="display: none;" class="popupnew modal fade" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content" style=" margin-top: 206px;">
+           <div class="modal-body">
+               <h2>Unlock transaction</h2>
+               <div class="padnew">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="">
+                       <div class="row">
+                           <div class="col-md-12">
+                               <label>The transaction has been unlock</label>
+                               <div class="form-group"></div>
+                           </div>
+                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
