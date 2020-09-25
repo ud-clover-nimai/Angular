@@ -83,7 +83,7 @@
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                         <a style="cursor: pointer;color:blue;margin-left: 25px;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">
                                                             Detail </a> &nbsp;&nbsp;
-                                                             <a href="#" class='far fa-comment-dots'  style='font-size:23px' data-toggle="modal"  data-target="#myModal18"> </a>
+                                                             <a href="#" class='far fa-comment-dots' (click)="rejectedReasons(record.rejectedReason)" style='font-size:23px' data-toggle="modal"  data-target="#myModal18"> </a>
                                                                                                                  
                                                             </td>
                                                     <td [hidden]="!acceptedStatus">
@@ -114,13 +114,13 @@
         <div class="card">
             <div class="card-content">
                 <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                    <li class="active"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
-                    <li><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
+                    <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
+                    <li class="activeTab"><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
                 </ul>
                 <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
-                    <div class="tab-pane active" id="pill111">
+                    <div class="tab-pane activeTab" id="pill111">
                         
                         <div class="row">
                             <div class="col-md-12" style="padding-right: 0px !important;">
@@ -477,13 +477,13 @@
         <div class="card">
             <div class="card-content">
                 <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                    <li class="active"><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
-                    <li><a href="#tab3" data-toggle="tab" aria-expanded="true">Quote</a></li>
+                    <li class="activeTab"><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
+                    <li class="activeTab"><a href="#tab3" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
                 </ul>
                 <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
-                    <div class="tab-pane active" id="pill112">
+                    <div class="tab-pane activeTab" id="pill112">
                         <div class="row">
                             <div class="col-md-12" style="padding-right: 0px !important;">
                                 <table class="table table-bordered">
@@ -839,13 +839,13 @@
         <div class="card">
             <div class="card-content">
                 <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                    <li class="active"><a href="#pill1131" data-toggle="tab" aria-expanded="false">Details</a></li>
-                    <li><a href="#tab41" data-toggle="tab" aria-expanded="true">Quote</a></li>
+                    <li class="activeTab"><a href="#pill1131" data-toggle="tab" aria-expanded="false">Details</a></li>
+                    <li class="activeTab"><a href="#tab41" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
                 </ul>
                 <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
-                    <div class="tab-pane active" id="pill1131">
+                    <div class="tab-pane activeTab" id="pill1131">
                         <div class="row">
                             <div class="col-md-12" style="padding-right: 0px !important;">
                                 <table class="table table-bordered">
@@ -1123,13 +1123,13 @@
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
                                             <td>Confirmation Charges p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
-                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.confirmationCharges}}%</td>
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
                                             <td>Discounting Charges p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
-                                            <td *ngIf="quotes">{{quotes.discountingCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.discountingCharges}}%</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
@@ -1149,13 +1149,13 @@
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
                                             <td>Banker's Acceptance interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
-                                            <td *ngIf="quotes">{{quotes.bankerAcceptCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.bankerAcceptCharges}}%</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance'">
                                             <td>Refinancing interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
-                                            <td *ngIf="quotes">{{quotes.refinancingCharges}}</td>
+                                            <td *ngIf="quotes">{{quotes.refinancingCharges}}%</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
@@ -1168,7 +1168,7 @@
                                             <td>Negotiation Charges p.a.(%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
-                                            <td *ngIf="quotes">{{quotes.negotiationChargesPerct}}</td>
+                                            <td *ngIf="quotes">{{quotes.negotiationChargesPerct}}%</td>
 
                                         </tr>
                                         <tr>
@@ -1407,7 +1407,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>The quote has been rejected due to mentioned reason</label>
-                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    {{rejectReason}}
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
                         </div>

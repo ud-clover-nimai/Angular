@@ -37,7 +37,7 @@ export class TransactionDetailsComponent {
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   public detailInfo: any = "";
-public statusReason:string="";
+  public rejectReason:string=""
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -107,25 +107,27 @@ public statusReason:string="";
     )
   }
 
-
+  rejectedReasons(reason){
+    this.rejectReason=reason;
+  }
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
     this.specificDetail = detail;
   
     if(status=='Accepted'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menu-barnew li:first').addClass('active');
       $('.tab-content #pill111').addClass('active');
 
     }
     else if(status=='Rejected'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menubarDetailreject li:first').addClass('active');
       $('.tab-content #pill112').addClass('active');
 
     }
     else if(status=='Expired'){  
-      $('.active').removeClass('active');   
+      $('.activeTab').removeClass('active');   
       $('#menubarDetailexpired li:first').addClass('active');
       $('.tab-content #pill131').addClass('active');
 
@@ -152,16 +154,16 @@ public statusReason:string="";
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-        if(this.detailInfo.statusReason=='1'){
-          this.statusReason="Bank not acceptable";
+        // if(this.detailInfo.statusReason=='1'){
+        //   this.statusReason="Bank not acceptable";
         
-        }else if(this.detailInfo.statusReason=='2'){
-          this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
+        // }else if(this.detailInfo.statusReason=='2'){
+        //   this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
         
-        }else if(this.detailInfo.statusReason=='3'){
-          this.statusReason="Others";
+        // }else if(this.detailInfo.statusReason=='3'){
+        //   this.statusReason="Others";
         
-        }
+        // }
       },
       (error) => { }
     )
@@ -177,6 +179,7 @@ public statusReason:string="";
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
         this.quotationdata = "";
+        if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];       
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){

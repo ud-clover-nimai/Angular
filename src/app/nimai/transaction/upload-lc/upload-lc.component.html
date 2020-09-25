@@ -81,17 +81,18 @@
                                                                     </div>
 
                                                                     <div class="col-md-3">
-                                                                        <div class="inputDiv selectdiv">
-                                                                                <a href="#" class="textddlV" data-toggle="tooltip" data-placement="right" title="Select Country">
-                                                                                    <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>
-                                                                                <select formControlName="lCIssuanceCountry">
-                                                                                <option [ngValue]="null" selected>Select</option>
-                                                                                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
-                                                                              
-                                                                            </select>
-                                                                            <label>Select Country</label>
+                                                                            <div class="inputDiv selectdiv">
+                                                                                    <a href="#" class="textddlV" data-toggle="tooltip" data-placement="right" title="Select Country">
+                                                                                        <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>
+                                                                                    <select formControlName="lCIssuanceCountry">
+                                                                                    <option [ngValue]="null" selected>Select</option>
+                                                                                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                                                                                  
+                                                                                </select>
+                                                                                <label>Select Country</label>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+    
                                                                     <div class="clearfix"></div>
                                                                     <div class="col-md-12 selections">
                                                                         <div class="row">

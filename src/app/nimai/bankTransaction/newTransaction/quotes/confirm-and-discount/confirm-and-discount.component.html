@@ -271,11 +271,10 @@
                                     <th>{{totalQuotes}}</th>
                                 </tr>
                                 <tr>
-                                    <td><small>Others terms and conditions</small></td>
+                                    <td colspan="2"><small>Others terms and conditions</small><br>
+                                        <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="2"><small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
-                                </tr>
+ 
                                 <tr>
                                     <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction
                                  date, actual quote from the bank may differ to that extent.</small></td>
@@ -377,7 +376,7 @@
                                         <tr>
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn2" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
-                                                date of maturity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i
+                                                date of maturity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i
                                                     class="fas fa-info-circle"
                                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
                                             <td><input type="text" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
@@ -563,10 +562,8 @@
                            <br>
                            <br>
                            <tr>
-                               <td><small>Others terms and conditions</small></td>
-                           </tr>
-                           <tr>
-                               <td colspan="2"><small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
+                               <td colspan="2"><small>Others terms and conditions</small><br>
+                                <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                            </tr>
                                     <tr>
                                         <td colspan="2"><small>Disclaimer: Note: The applicable benchmark will be applicable as of
