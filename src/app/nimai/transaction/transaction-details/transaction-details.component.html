@@ -82,7 +82,6 @@
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a><br>
-                                                     <a href="#" class='fas fa-unlock-alt pull-left'  style='font-size:18px;' data-toggle="modal"  data-target="#unlockPopUp"> </a>
                                                      <a href="#" class='far fa-comment-dots pull-right'  style='font-size:17px;' (click)="rejectedReasons(record.statusReason)" data-toggle="modal"  data-target="#myModal28"> </a>
 
                                                    </td>
@@ -799,12 +798,21 @@
                                     <td>Pro Forma</td>
                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
                                     </td>
-                                    <td [hidden]="noFileDisable">No such file attached</td>
-                                   
-                                </tr> <br><br><br>
+                                    <td [hidden]="noFileDisable">No such file attached</td>                                   
+                                </tr>        
+                                <tr>
+                                   <td></td>
+                                 <td class="col-md-12 pull-right" >
+                                    <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+               
+                                 </td>
+                                </tr>                        
+                                 <br><br><br>
                             </tbody>
                         </table>
+                       
                     </div>
+                  
                 </div>
             </div>
             <div class="tab-pane" id="tab3">
@@ -940,7 +948,6 @@
 
                     <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
                      <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
-                     <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
 
                   </div>
                 </div>
@@ -1277,7 +1284,7 @@
                        <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(quotationdata.transactionId)">Ok</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(detailInfo.transactionId)">Ok</button> 
                  </div>
               </div>
            </div>
@@ -1360,28 +1367,6 @@
                                <div class="form-group">
                                  {{rejectReason}}
                                </div>
-                           </div>
-                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
-<div id="unlockPopUp"  style="display: none;" class="popupnew modal fade" role="dialog">
-   <div class="modal-dialog modal-md emaildiv">
-       <!-- Modal content-->
-       <div class="modal-content" style=" margin-top: 206px;">
-           <div class="modal-body">
-               <h2>Unlock transaction</h2>
-               <div class="padnew">
-                   <!--<p><strong>Enter Email ID here</strong></p> -->
-                   <div class="">
-                       <div class="row">
-                           <div class="col-md-12">
-                               <label>The transaction has been unlock</label>
-                               <div class="form-group"></div>
                            </div>
                            <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
                        </div>

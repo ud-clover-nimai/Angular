@@ -37,6 +37,7 @@ export class ActiveTransactionComponent implements OnInit {
   public subURL: string = "";
   acceptedErrorDetail: any;
   detailInfo: any;
+  public unlock :string="";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
@@ -64,6 +65,7 @@ export class ActiveTransactionComponent implements OnInit {
       (response) => {
         custActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
+       
         if (!this.detail) {
           this.hasNoRecord = true;
         }
@@ -94,6 +96,8 @@ export class ActiveTransactionComponent implements OnInit {
   });
   }
 
+
+
   ngAfterViewInit() {
     this.confirmation.isActive = false;
     this.discounting.isActive = false;
@@ -102,7 +106,6 @@ export class ActiveTransactionComponent implements OnInit {
     this.banker.isActive = false;
     this.getAllnewTransactions();
   }
-
 
 
    showQuotePage(pagename: string,action:Tflag,val:any) {
