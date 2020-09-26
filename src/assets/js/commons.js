@@ -366,7 +366,7 @@ export function bankNewTransaction() {
 
         var slider1 = $("#menubarConfirmQuote").slideReveal({
             push: false,
-            width: 510,
+            width: 550,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -722,7 +722,7 @@ export function bankActiveTransaction() {
         // prettyPrint();
 
         var slider = $("#menu-bar").slideReveal({
-            width: 510,
+            width: 550,
             push: false,
             position: "right",
             // speed: 600,
@@ -743,7 +743,7 @@ export function bankActiveTransaction() {
         var slider1 = $("#menubarConfDis").slideReveal({
             push: false,
             position: "right",
-            width: 510,
+            width: 550,
             trigger: $(".handle"),
             shown: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-times"></span>');
@@ -760,7 +760,7 @@ export function bankActiveTransaction() {
         var slider2 = $("#menubarDiscounting").slideReveal({
             push: false,
             position: "right",
-            width: 510,
+            width: 550,
             trigger: $(".handle"),
             shown: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-times"></span>');
@@ -777,7 +777,7 @@ export function bankActiveTransaction() {
         var slider3 = $("#menubarRefinancing").slideReveal({
             push: false,
             position: "right",
-            width: 510,
+            width: 550,
             trigger: $(".handle"),
             shown: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-times"></span>');
