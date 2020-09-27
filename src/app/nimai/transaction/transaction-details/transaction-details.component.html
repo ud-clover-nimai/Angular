@@ -1248,9 +1248,10 @@
                         <select name="selectReason" [(ngModel)]="selectReason.title" 
                         #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
                            <option value=''>Select</option>
-                           <option value="1">Bank not acceptable</option>
-                           <option value="2">Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
-                           <option value="3">Others</option>
+                           <option value="Bank not acceptable">Bank not acceptable</option>
+                           <option value="Bank has rejected the transaction due to non-fulfillment of documentary requirements">
+                              Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
+                           <option value="Others">Others</option>
                         </select>
 
                         <!-- <label>Select Reason</label> -->

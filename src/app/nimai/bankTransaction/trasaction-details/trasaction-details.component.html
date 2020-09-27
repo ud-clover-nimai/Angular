@@ -53,7 +53,7 @@
                                                     <td>{{record.transactionId}}</td>
                                                     <td [hidden]="!acceptedStatus">{{record.acceptedOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                     <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y h:mm:ss z"}}</td>
-                                                    <td [hidden]="!expiredStatus">{{record.validityDate| date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td [hidden]="!expiredStatus">{{record.expiredOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>
                                                         <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>

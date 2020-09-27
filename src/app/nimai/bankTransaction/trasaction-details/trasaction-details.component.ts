@@ -236,8 +236,10 @@ const data = {
   onClosePopDismiss(){
     $("#closePopupForQuote").hide();
     this.closeOffcanvas();
-    $(".closedStatus").val(2).change();
+    $(".closedStatus").val("Open").change();
   }
+
+
 
   closedTransaction() {
       var request = {
