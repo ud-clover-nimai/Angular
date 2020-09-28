@@ -72,7 +72,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown)=onKeydownEvent($event)>
+                <input type="text" formControlName="beneContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown.space)="$event.preventDefault();" (keydown)="onKeydownEvent($event)">
                 <label>Contact Person's Email</label>
                 <div *ngIf="isValid" class="invalid-feedback">
                     Invalid Email id
@@ -184,7 +184,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown)=onKeydownEvent($event)>
+                <input type="text" formControlName="applicantContactPersonEmail" oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown.space)="$event.preventDefault();" (keydown)=onKeydownEvent($event)>
                 <label>Contact Person's Email</label>
                 <div *ngIf="isValid" class="invalid-feedback">
                     Invalid Email id
