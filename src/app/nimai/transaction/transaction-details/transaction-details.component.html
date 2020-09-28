@@ -424,7 +424,7 @@
                      </div>
                   </div>
                </div>
-                <div class="tab-pane" id="tab2">
+                <div class="tab-pane activeTab" id="tab2">
                   <div class="col-md-12">
                      <div class="row">
                         <table class="table">
@@ -534,7 +534,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                 <td>Validity <a  class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
                                     class="fas fa-info-circle"
                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
@@ -573,7 +573,7 @@
         <div class="card-content">
            <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
               padding: 10px 15px 0;">
-              <li><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
+              <li class="activeTab"><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
               <li  class="activeTab"><a href="#tab3" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li>
 
            </ul>
@@ -815,7 +815,7 @@
                   
                 </div>
             </div>
-            <div class="tab-pane" id="tab3">
+            <div class="tab-pane activeTab" id="tab3">
                <div class="col-md-12">
                   <div class="row">
                      <table class="table">
@@ -926,7 +926,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Validity <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                 <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
                                     class="fas fa-info-circle"
                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>

@@ -49,6 +49,7 @@ export class UploadLCComponent implements OnInit {
   cloneData: any;
   document: any;
   countryName: any;
+  selectInfo: any;
 
 
   // rds: refinance Data Service
@@ -594,12 +595,22 @@ export class UploadLCComponent implements OnInit {
 
   }
 
+  selectCountryInfo(e){
+   let country= this.lcDetailForm.get('lCIssuanceCountry').value;
+    const param={
+      "lCIssuanceCountry":country
+      }
+    this.upls.getBankCountForCountry(param).subscribe((response)=>{
+this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
+    })
+
+    }
+
   callDraftTransaction(trnsactionID){
     this.transactionID = trnsactionID;
     const param = {
       transactionId: trnsactionID
     }
-
     let emailBodyUpdate = {
       "transactionid": trnsactionID,
       "userId": sessionStorage.getItem('userID'),

@@ -82,10 +82,10 @@
 
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv selectdiv">
-                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title=""><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
-                                                                            <select formControlName="lCIssuanceCountry">
+                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
+                                                                            <select formControlName="lCIssuanceCountry" (change)="selectCountryInfo($envent)">
                                                                                 <option [ngValue]="null" selected>Select</option>
-                                                                                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                                                                                <option *ngFor="let data of countryName"  [ngValue]='data.country'>{{data.country}}</option>
                                                                               
                                                                             </select>
                                                                             <label>Select Country</label>
@@ -359,8 +359,8 @@
                                     </div>                
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Amount</span>
-                                            <span class="labeltext">{{lc.lCCurrency}} {{lc.lCValue}}</span>
+                                            <span class="customspan">LC value</span>
+                                            <span class="labeltext">{{lc.lCValue}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
                                     </div>

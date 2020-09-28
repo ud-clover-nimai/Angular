@@ -441,7 +441,7 @@
                                             <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Validity<a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                                            <td>Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                                 class="fas fa-info-circle"
                                                 style="font-size: 11px !important;color: #333;"></i></a></td>
                                             <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
@@ -804,7 +804,7 @@
                                         </tr>
                                         <tr>
                                             <td>Validity
-                                                <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                                 class="fas fa-info-circle"
                                                 style="font-size: 11px !important;color: #333;"></i></a></td>
                                             <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
@@ -1117,8 +1117,8 @@
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
                                             <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
-                                            <td *ngIf="quotes">{{quotes.applicableBenchmark}}</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}</td>
+                                            <td *ngIf="quotes">{{quotes.applicableBenchmark}}%</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
                                             <td>Confirmation Charges p.a.</td>
@@ -1191,7 +1191,7 @@
 
                                         </tr>
                                         <tr>
-                                            <td>Validity<a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                                            <td>Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                                 class="fas fa-info-circle"
                                                 style="font-size: 11px !important;color: #333;"></i></a></td>
                                             <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
