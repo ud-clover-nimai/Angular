@@ -1,5 +1,5 @@
 <div id="menubarRefinancing" [hidden]="!isActive" (blur)="closed()"
-    style="position: fixed; width: 450px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
+    style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
 
     <div class="popupcontent">
         <div class="card">
@@ -47,7 +47,7 @@
                                     </td>
                                 </tr>
                                 <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark"
-                                    style="width:308px;margin: 6px 0px 0px;height: 57px;"
+                                    style="width:260px;margin: 6px 0px 0px;height: 85px;"
                                     placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
                                     rows="3"></textarea>
 
@@ -73,7 +73,7 @@
                                             placeholder="200.00" weightDirective>
                                     </td>
                                 </tr>
-                                <textarea name="chargesType" style="width:320px;margin: 6px 0px 0px;height: 57px;" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad"
+                                <textarea name="chargesType" style="width:260px;margin: 6px 0px 0px;height: 85px;" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad"
                                     placeholder="Customer needs to pay standard swift transfer  &#10; charges"
                                     rows="3"></textarea>
 
