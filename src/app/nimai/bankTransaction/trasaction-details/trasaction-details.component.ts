@@ -236,7 +236,7 @@ const data = {
   onClosePopDismiss(){
     $("#closePopupForQuote").hide();
     this.closeOffcanvas();
-    $(".closedStatus").val("Open").change();
+    $("#closedStatus").val("Open").change();
   }
 
 

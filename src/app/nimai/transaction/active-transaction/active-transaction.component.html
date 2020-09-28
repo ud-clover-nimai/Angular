@@ -99,8 +99,8 @@
                            <td>{{i + 1}}</td>
                            <td>{{QRrecord.transactionId}}</td>
                            <td class="showBankDetails">**** <br>
-                             Quotes placed till date 214<br>
-                             Quotes for Matress 23</td>
+                             Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
+                             Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
@@ -203,7 +203,7 @@
                         </tr>
                         <tr>
                            <td>Validity
-                              <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                              <a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a>
                            </td>

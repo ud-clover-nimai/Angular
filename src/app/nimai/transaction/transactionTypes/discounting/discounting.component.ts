@@ -30,7 +30,11 @@ export class DiscountingComponent implements OnInit {
   applicant: boolean = false;
   beneficiary: boolean = false;
   public userTypes:string='';
-
+  benName: string;
+  benCountry: string;
+  appliName : string;
+  appliCountry : string;
+  
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -97,8 +101,8 @@ export class DiscountingComponent implements OnInit {
       this.userTypes='Applicant';
       this.data.applicantName=this.data.beneName;
       this.data.applicantCountry=this.data.beneCountry;
-    this.data.beneName='';
-    this.data.beneCountry='';
+      this.data.beneName=this.benName;
+    this.data.beneCountry=this.benCountry;
     } else if (val === 'beneficiary') {
       this.applicantType=false;
       this.beneficiaryType=true;
@@ -111,7 +115,7 @@ export class DiscountingComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-
+    this.tab='tab2';
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
@@ -129,6 +133,8 @@ export class DiscountingComponent implements OnInit {
           this.applicant = true;
           this.applicantType=true;
           this.beneficiaryType=false;
+          this.benName=this.data.beneName;
+          this.benCountry=this.data.beneCountry;
           data.applicantCountry= data.applicantCountry.toUpperCase();
 
         } else if (this.data.userType === 'Beneficiary') {
@@ -136,6 +142,8 @@ export class DiscountingComponent implements OnInit {
           this.beneficiary = true;
           this.applicantType=false;
           this.beneficiaryType=true;
+          this.benName=this.data.beneName;
+          this.benCountry=this.data.beneCountry;
         }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';

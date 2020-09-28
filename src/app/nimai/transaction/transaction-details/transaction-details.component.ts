@@ -298,13 +298,15 @@ export class TransactionDetailsComponent {
   
 
   onCloseTransactionPopup(record,val){
-    if($('#closedTrans').val() == "Close"){
+    if(val == "Close"){
       $("#closeReason").val("");
       $("#closePopup").show();
       this.openNav3();
       this.forCloseTransactionId = record.transactionId;
     }
   }
+
+
 
   onClosePopDismiss(){
     $("#closePopup").hide();

@@ -44,6 +44,10 @@ export class UploadLcService {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getSpecificDraftTxnDetailByTxnId`,data, { headers: { 'content-type': 'application/json' } });
   }
 
+  public getBankCountForCountry(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getBankCountForCountry`,data, { headers: { 'content-type': 'application/json' } });
+  }
+
   public confirmLcMailSent(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiEmail/sendTransactionStatus`, body,{headers:{'content-type':'application/json'}})
   }

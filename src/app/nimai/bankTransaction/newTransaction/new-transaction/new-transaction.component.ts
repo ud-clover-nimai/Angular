@@ -170,7 +170,6 @@ export class NewTransactionComponent implements OnInit {
     const transactionId = {
       "transactionId": data.transactionId
     }
-    console.log(transactionId)
 
     this.nts.getSpecificTxnDetailByTxnId(transactionId).subscribe(
       (response) => {

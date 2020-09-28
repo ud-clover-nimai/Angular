@@ -60,7 +60,7 @@
                                  </td>
                               </tr>
                               <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType"
-                               style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                               style="width:260px;margin: 6px 0px 0px;height: 85px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                               <tr>
                                  <td>Minimum Transaction Charges (if any)</td>
@@ -284,14 +284,14 @@
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity
-                                                <a href="#" class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
+                                                <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
                                             <td><input type="text" name="confChgsIssuanceToMatur" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
                                             <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
                                         </tr>
-                                        <textarea name="chargesType" [(ngModel)]="data.chargesType" style="width:310px;margin: 6px 0px 0px;height: 57px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
+                                        <textarea name="chargesType" [(ngModel)]="data.chargesType" style="width:260px;margin: 6px 0px 0px;height: 85px;" placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                                         <!-- <tr>
                               <td>Total Quote <button value="Calculate" (click)="transactionForQuotes('calculateQuote',data)">Calculate</button></td>
