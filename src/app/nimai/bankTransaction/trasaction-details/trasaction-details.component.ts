@@ -36,6 +36,7 @@ export class TrasactionDetailsComponent {
   forCloseUserId: any;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
+public rejectReason:string=""
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -56,6 +57,10 @@ export class TrasactionDetailsComponent {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([`/${this.subURL}/${this.parentURL}/transaction-details`]);
   });
+  }
+
+  rejectedReasons(reason){
+    this.rejectReason=reason;
   }
 
   public getAllnewTransactions(status) {
@@ -120,17 +125,17 @@ export class TrasactionDetailsComponent {
         this.quotationdata.commentsBenchmark='';
       }
     if(status=='Accepted'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menu-barDetailnew li:first').addClass('active');
       $('.tab-content #pill111').addClass('active');
     }
     else if(status=='Rejected'){
-      $('.active').removeClass('active');
+      $('.activeTab').removeClass('active');
       $('#menubarDetailrejected li:first').addClass('active');
       $('.tab-content #pill112').addClass('active');
     }
     else if(status=='Expired'){  
-      $('.active').removeClass('active');   
+      $('.activeTab').removeClass('active');   
       $('#menuDetailsExpired li:first').addClass('active');
       $('.tab-content #pill1131').addClass('active');
     }
@@ -231,8 +236,10 @@ const data = {
   onClosePopDismiss(){
     $("#closePopupForQuote").hide();
     this.closeOffcanvas();
-    $(".closedStatus").val(2).change();
+    $(".closedStatus").val("Open").change();
   }
+
+
 
   closedTransaction() {
       var request = {

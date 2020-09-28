@@ -114,9 +114,15 @@ export class ConfirmationComponent implements OnInit {
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
+        if(this.data.requirementType=='Banker'){
+          this.data.requirementType='Banker’s Acceptance';
+         }else if(this.data.requirementType=='ConfirmAndDiscount'){
+           this.data.requirementType='Confirmation and Discounting';
+         }else if(this.data.requirementType=='Refinance'){
+           this.data.requirementType='Refinancing';
+         }
         if (this.data.userType === 'Applicant') {
           this.beneficiary = false;
           this.applicant = true;

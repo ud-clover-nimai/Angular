@@ -37,7 +37,7 @@ export class TransactionDetailsComponent {
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   public detailInfo: any = "";
-public statusReason:string="";
+  public rejectReason:string=""
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -107,7 +107,9 @@ public statusReason:string="";
     )
   }
 
-
+  rejectedReasons(reason){
+    this.rejectReason=reason;
+  }
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
     this.specificDetail = detail;
@@ -152,16 +154,16 @@ public statusReason:string="";
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-        if(this.detailInfo.statusReason=='1'){
-          this.statusReason="Bank not acceptable";
+        // if(this.detailInfo.statusReason=='1'){
+        //   this.statusReason="Bank not acceptable";
         
-        }else if(this.detailInfo.statusReason=='2'){
-          this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
+        // }else if(this.detailInfo.statusReason=='2'){
+        //   this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
         
-        }else if(this.detailInfo.statusReason=='3'){
-          this.statusReason="Others";
+        // }else if(this.detailInfo.statusReason=='3'){
+        //   this.statusReason="Others";
         
-        }
+        // }
       },
       (error) => { }
     )
@@ -276,6 +278,7 @@ public statusReason:string="";
   }
 
   reOpenTransaction(transactionId) {
+    console.log(transactionId)
     if ($('#addOptions select').val() == "Rejected") {
       var data = {
         "transactionId": transactionId,

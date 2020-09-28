@@ -82,8 +82,7 @@
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a><br>
-                                                     <a href="#" class='fas fa-unlock-alt pull-left'  style='font-size:18px;' data-toggle="modal"  data-target="#unlockPopUp"> </a>
-                                                     <a href="#" class='far fa-comment-dots pull-right'  style='font-size:17px;' data-toggle="modal"  data-target="#myModal28"> </a>
+                                                     <a href="#" class='far fa-comment-dots pull-right'  style='font-size:17px;' (click)="rejectedReasons(record.statusReason)" data-toggle="modal"  data-target="#myModal28"> </a>
 
                                                    </td>
                                                  <td [hidden]="!acceptedStatus">
@@ -124,7 +123,7 @@
         <div class="card-content">
            <ul class="nav nav-pills nav-pills-info">
               <li class="activeTab"><a href="#pill1" data-toggle="tab" aria-expanded="true">Details</a></li>
-              <li class=""><a href="#pill2" data-toggle="tab" aria-expanded="false">Quote</a></li>
+              <li class="activeTab"><a href="#pill2" data-toggle="tab" aria-expanded="false">Quote</a></li>
            </ul>
            <div class="tab-content">
               <div class="tab-pane activeTab" id="pill1">
@@ -193,7 +192,7 @@
          <div class="card-content">
             <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
                 <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
-               <li><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" aria-expanded="true">Quote</a></li>
+               <li class="activeTab"><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" aria-expanded="true">Quote</a></li>
               
             </ul>
             <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
@@ -799,12 +798,21 @@
                                     <td>Pro Forma</td>
                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProForma)">View</a>
                                     </td>
-                                    <td [hidden]="noFileDisable">No such file attached</td>
-                                   
-                                </tr> <br><br><br>
+                                    <td [hidden]="noFileDisable">No such file attached</td>                                   
+                                </tr>        
+                                <tr>
+                                   <td></td>
+                                 <td class="col-md-12 pull-right" >
+                                    <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+               
+                                 </td>
+                                </tr>                        
+                                 <br><br><br>
                             </tbody>
                         </table>
+                       
                     </div>
+                  
                 </div>
             </div>
             <div class="tab-pane" id="tab3">
@@ -940,7 +948,6 @@
 
                     <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
                      <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
-                     <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
 
                   </div>
                 </div>
@@ -1241,9 +1248,10 @@
                         <select name="selectReason" [(ngModel)]="selectReason.title" 
                         #selectReason="ngModel" [ngClass]="{ 'is-invalid': f.submitted && selectReason.invalid }" required>
                            <option value=''>Select</option>
-                           <option value="1">Bank not acceptable</option>
-                           <option value="2">Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
-                           <option value="3">Others</option>
+                           <option value="Bank not acceptable">Bank not acceptable</option>
+                           <option value="Bank has rejected the transaction due to non-fulfillment of documentary requirements">
+                              Bank has rejected the transaction due to non-fulfillment of documentary requirements</option>
+                           <option value="Others">Others</option>
                         </select>
 
                         <!-- <label>Select Reason</label> -->
@@ -1277,7 +1285,7 @@
                        <label>Your transaction has been reopened. Check the activeTab transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(quotationdata.transactionId)">Ok</button> 
+                    <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(detailInfo.transactionId)">Ok</button> 
                  </div>
               </div>
            </div>
@@ -1358,30 +1366,8 @@
                                <label>The quote has been rejected due to mentioned reason</label>
                               
                                <div class="form-group">
-                                 <p>{{statusReason}}</p>
+                                 {{rejectReason}}
                                </div>
-                           </div>
-                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
-<div id="unlockPopUp"  style="display: none;" class="popupnew modal fade" role="dialog">
-   <div class="modal-dialog modal-md emaildiv">
-       <!-- Modal content-->
-       <div class="modal-content" style=" margin-top: 206px;">
-           <div class="modal-body">
-               <h2>Unlock transaction</h2>
-               <div class="padnew">
-                   <!--<p><strong>Enter Email ID here</strong></p> -->
-                   <div class="">
-                       <div class="row">
-                           <div class="col-md-12">
-                               <label>The transaction has been unlock</label>
-                               <div class="form-group"></div>
                            </div>
                            <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
                        </div>

@@ -36,7 +36,7 @@
                                     <th style="min-width: 100px;">Validity</th>
                                     <th style="min-width: 130px;">Requirement</th>                                  
                                     <th style="min-width: 80px;">Quotes Received</th>
-                                    <th class="disabled-sorting" style="min-width: 80px;">Action</th>
+                                    <th class="disabled-sorting" style="min-width: 100px;">Action</th>
 
                                  </tr>
                               </thead>
@@ -67,7 +67,9 @@
                                        </div>
                                     </td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
-                                       class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a></td>
+                                       class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
+                                       <a href="#" class='fas fa-unlock-alt pull-left' *ngIf="record.statusReason=='Active after Reopen'" style='font-size:18px;' data-toggle="modal"  data-target="#unlockPopUp"> </a>
+                                    </td>
                   
                                  </tr>
                               </tbody>
@@ -201,7 +203,7 @@
                         </tr>
                         <tr>
                            <td>Validity
-                              <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                              <a href="#" class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a>
                            </td>
@@ -325,6 +327,29 @@
             </div>
          </div>
       </div>
+   </div>
+</div>
+
+<div id="unlockPopUp"  style="display: none;" class="popupnew modal fade" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content" style=" margin-top: 206px;">
+           <div class="modal-body">
+               <h2>Unlock transaction</h2>
+               <div class="padnew">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="">
+                       <div class="row">
+                           <div class="col-md-12">
+                               <label>This transaction has been unlock</label>
+                               <div class="form-group"></div>
+                           </div>
+                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
    </div>
 </div>
 <app-banker></app-banker>
