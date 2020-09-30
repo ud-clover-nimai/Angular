@@ -35,7 +35,8 @@ export class RefinancingComponent implements OnInit {
   isUpload=false;
   benName: string;
   benCountry: string;
-  
+  appliName : string;
+  appliCountry : string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -127,32 +128,27 @@ export class RefinancingComponent implements OnInit {
       this.userTypes='Applicant';
       this.data.applicantName=this.data.beneName;
       this.data.applicantCountry=this.data.beneCountry;
-    this.data.beneName=this.benName;
-    this.data.beneCountry=this.benCountry;
+      this.data.beneName=this.benName;
+      this.data.beneCountry=this.benCountry;
+   
     } else if (val === 'beneficiary') {
       this.applicantType=false;
       this.beneficiaryType=true;
       this.userTypes='Beneficiary';
       this.data.beneName=this.data.applicantName;
-      this.data.applicantName='';
+      this.data.applicantName=this.appliName;
       this.data.beneCountry=this.data.applicantCountry;
-      this.data.applicantCountry='';
+     this.data.applicantCountry=this.appliCountry;
     }    
   }
   public action(flag: boolean, type: Tflag, data: any) {
-    this.tab='tab2';
+       this.tab='tab2';
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
         this.title = 'View';
         this.data = data;
-        if(this.data.requirementType=='Banker'){
-          this.data.requirementType='Banker’s Acceptance';
-         }else if(this.data.requirementType=='ConfirmAndDiscount'){
-           this.data.requirementType='Confirmation and Discounting';
-         }else if(this.data.requirementType=='Refinance'){
-           this.data.requirementType='Refinancing';
-         }
+      
         if (this.data.userType == 'Applicant') {
           this.beneficiary = false;
           this.applicant = true;
@@ -166,8 +162,11 @@ export class RefinancingComponent implements OnInit {
           this.beneficiary = true;
           this.applicantType=false;
           this.beneficiaryType=true;
-          this.benName=this.data.beneName;
-          this.benCountry=this.data.beneCountry;
+          this.benName='';
+          this.benCountry='';
+          this.appliName=this.data.applicantName;
+          this.appliCountry=this.data.applicantCountry;
+          
         }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';

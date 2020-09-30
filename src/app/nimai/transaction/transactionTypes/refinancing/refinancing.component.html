@@ -384,7 +384,13 @@
                         </tr>
                         <tr>
                            <td>Requirement</td>
-                           <td>{{data.requirementType}}</td>
+                           <td>
+                              <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                              <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                              <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                              <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                              <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                          </td>
                         </tr>
                         <tr>
                            <td>Amount</td>

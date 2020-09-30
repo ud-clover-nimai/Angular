@@ -135,21 +135,21 @@ export class ActiveTransactionComponent implements OnInit {
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-dis").style.width = "500px"; 
-    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,this.detailInfo);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-conAndDis").style.width = "500px"; 
-    } else if (pagename === 'refinance' || pagename === 'Refinance') {
+    } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,this.detailInfo);
       this.banker.isActive = false;
       document.getElementById("menu-bar-ref").style.width = "500px"; 
-    } else if (pagename === 'banker' || pagename === 'Banker') {
+    } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

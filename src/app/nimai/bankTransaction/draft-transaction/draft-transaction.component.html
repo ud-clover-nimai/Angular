@@ -23,9 +23,9 @@
                                         <td>{{i+1}}</td>
                                         <td>Draft</td>
                                         <td>
-                                             <div *ngIf="list.requirementType=='Banker'">Banker’s Acceptance</div>
-                                            <div *ngIf="list.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                            <div *ngIf="list.requirementType=='Refinance'">Refinancing </div>
+                                             <div *ngIf="list.requirementType=='Banker' || list.requirementType =='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="list.requirementType=='ConfirmAndDiscount' || list.requirementType =='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="list.requirementType=='Refinance' || list.requirementType =='Refinancing'">Refinancing </div>
                                             <div *ngIf="list.requirementType=='Discounting'">Discounting</div>
                                             <div *ngIf="list.requirementType=='Confirmation'">Confirmation</div>
                                          </td>

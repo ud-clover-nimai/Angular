@@ -163,6 +163,7 @@ export class BankerComponent implements OnInit {
         $('textarea').attr('readonly', true);
         this.title = 'View';
         this.dataViewEdit = data;
+      
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
@@ -173,7 +174,7 @@ export class BankerComponent implements OnInit {
         $('input').attr('readonly', false);
         this.title = 'Place Quote';
         this.data = data;
-
+       
       }
     } else {
       this.isActive = flag;

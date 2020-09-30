@@ -107,9 +107,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
       this.beneficiaryType=true;
       this.userTypes='Beneficiary';
       this.data.beneName=this.data.applicantName;
-      this.data.applicantName='';
+      this.data.applicantName=this.appliName;
       this.data.beneCountry=this.data.applicantCountry;
-      this.data.applicantCountry='';
+     this.data.applicantCountry=this.appliCountry;
     }    
   }
   public action(flag: boolean, type: Tflag, data: any) {
@@ -120,13 +120,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         // $('input').attr('readonly', true);
         this.title = 'View';
         this.data = data;
-        if(this.data.requirementType=='Banker'){
-          this.data.requirementType='Banker’s Acceptance';
-         }else if(this.data.requirementType=='ConfirmAndDiscount'){
-           this.data.requirementType='Confirmation and Discounting';
-         }else if(this.data.requirementType=='Refinance'){
-           this.data.requirementType='Refinancing';
-         }
+        
         if (this.data.userType === 'Applicant') {
           this.beneficiary = false;
           this.applicant = true;
@@ -141,8 +135,10 @@ export class ConfirmAndDiscountComponent implements OnInit {
           this.beneficiary = true;
           this.applicantType=false;
           this.beneficiaryType=true;
-          this.benName=this.data.beneName;
-          this.benCountry=this.data.beneCountry;
+          this.benName='';
+          this.benCountry='';
+          this.appliName=this.data.applicantName;
+          this.appliCountry=this.data.applicantCountry;
 
         }
       } else if (type === Tflag.EDIT) {
@@ -185,6 +181,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
+        // if(this.data.requirementType=='ConfirmAndDiscount' || this.data.requirementType=='confirmAndDiscount'){
+        //   this.data.requirementType='Confirmation and Discounting';
+        // }
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);

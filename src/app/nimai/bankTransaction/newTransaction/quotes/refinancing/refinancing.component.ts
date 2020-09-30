@@ -163,6 +163,7 @@ export class RefinancingComponent implements OnInit {
         $('textarea').attr('readonly', true);
         this.title = 'View';
         this.dataViewEdit = data;
+       
       } else if (type === Tflag.EDIT) {
         this.isActive = flag;
         this.title = 'Edit';
@@ -172,6 +173,7 @@ export class RefinancingComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
+       
         $('input').attr('readonly', false);
       }
 

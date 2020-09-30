@@ -53,9 +53,9 @@
                                          <p>{{record.quoteDaysCountdown}}</p>
                                       </td>
                                       <td> 
-                                         <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
-                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                       <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                       <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                       <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                     </td>

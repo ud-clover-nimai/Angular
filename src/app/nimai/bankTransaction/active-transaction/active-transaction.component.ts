@@ -85,19 +85,19 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount') {
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmAndDiscount.action(true, action, data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
-    } else if (pagename === 'refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+    } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true, action, data);
       this.banker.isActive = false;
-    } else if (pagename === 'banker' || pagename === 'Banker') {
+    } else if (pagename === 'banker' || pagename === 'Banker' || pagename === 'Banker’s Acceptance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;

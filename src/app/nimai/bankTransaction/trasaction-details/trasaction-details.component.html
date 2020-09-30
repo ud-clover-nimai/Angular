@@ -56,9 +56,9 @@
                                                     <td [hidden]="!expiredStatus">{{record.expiredOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>
-                                                        <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
-                                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                                        <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                        <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                        <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
 
@@ -71,7 +71,7 @@
                                                     <td [hidden]="!expiredStatus">{{record.totalQuoteValue}}</td>  
                                                      <td [hidden]="!expiredStatus">{{record.acceptedQuoteValue}}</td>
                                                     <td [hidden]="!acceptedStatus" >
-                                                        <select id="closedStatus" *ngIf="record.transactionStatus != 'Closed'"  
+                                                        <select id= "{{'closedStatus'+record.transactionId}}" *ngIf="record.transactionStatus != 'Closed'"  
                                                          (change)="onCloseTransactionPopup(record,$event.target.value)">
                                                          
                                                             <option value="Open">Open</option>
@@ -83,7 +83,7 @@
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                         <a style="cursor: pointer;color:blue;margin-left: 25px;" (click)="getDetail(record,'Rejected');openNav3();openOffcanvas('Rejected');">
                                                             Detail </a> &nbsp;&nbsp;
-                                                             <a href="#" class='far fa-comment-dots' (click)="rejectedReasons(record.rejectedReason)" style='font-size:23px' data-toggle="modal"  data-target="#myModal18"> </a>
+                                                             <a href="#" class='far fa-comment-dots' (click)="rejectedReasons(record.rejectedReason)" style='font-size:18px' data-toggle="modal"  data-target="#myModal18"> </a>
                                                                                                                  
                                                             </td>
                                                     <td [hidden]="!acceptedStatus">
@@ -214,7 +214,14 @@
                                         </tr>
                                         <tr>
                                             <td>Requirement</td>
-                                            <td>{{specificDetail.requirementType}}</td>
+                                            <td>
+                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                            </td>
+
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
@@ -348,15 +355,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab2">
+                    <div class="tab-pane activeTab" id="tab2">
                         <div class="tab">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td><b>Requirement</b></td>
-                                        <td>{{specificDetail.requirementType}}</td>
-
-                                        <td><b>CCy</b></td>
+                                        <td>
+                                        <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                        <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                        <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                        <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                        <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                    </td>
+                                        <td><b>Currency</b></td>
                                         <td>{{specificDetail.lCCurrency}}</td>
                                     </tr>
                                     <tr>
@@ -576,7 +588,13 @@
                                         </tr>
                                         <tr>
                                             <td>Requirement</td>
-                                            <td>{{specificDetail.requirementType}}</td>
+                                            <td>
+                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
@@ -709,15 +727,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab33">
+                    <div class="tab-pane activeTab" id="tab33">
                         <div class="tab">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td><b>Requirement</b></td>
-                                        <td>{{specificDetail.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                        </td>
 
-                                        <td><b>CCy</b></td>
+                                        <td><b>Currency</b></td>
                                         <td>{{specificDetail.lCCurrency}}</td>
                                     </tr>
                                     <tr>
@@ -938,7 +962,13 @@
                                         </tr>
                                         <tr>
                                             <td>Requirement</td>
-                                            <td>{{specificDetail.requirementType}}</td>
+                                            <td>
+                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
@@ -1071,15 +1101,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab41">
+                    <div class="tab-pane activeTab" id="tab41">
                         <div class="tab">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td><b>Requirement</b></td>
-                                        <td>{{specificDetail.requirementType}}</td>
-
-                                        <td><b>CCy</b></td>
+                                        <td>
+                                            <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                        </td>
+                                        <td><b>Currency</b></td>
                                         <td>{{specificDetail.lCCurrency}}</td>
                                     </tr>
                                     <tr>
