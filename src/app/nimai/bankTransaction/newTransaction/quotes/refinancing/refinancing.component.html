@@ -4,7 +4,7 @@
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
-                <h4>{{title}}</h4>
+                <h4>{{title}} </h4>
                 <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
@@ -102,7 +102,6 @@
                                             weightDirective />
                                     </td>
                                 </tr>
-                                <br>
                                 <tr>
                                     <td colspan="2">Other terms and conditions <br>
                                         <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments"
@@ -217,8 +216,9 @@
                                     <th>Total Quote</th>
                                     <th>{{totalQuote}}</th>
                                 </tr>
-                                <tr>
-                                    <td colspan="2"><small>Others terms and conditions</small><br>
+                                <br>
+                                <tr *ngIf="dataViewEdit.termConditionComments">
+                                    <td colspan="2"><small>Other terms and conditions</small><br>
                                         <small
                                         style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
@@ -276,7 +276,7 @@
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
-                    <h4>Place Quote</h4>
+                    <h4>Place Quote </h4>
                     <div class="tab-content" id="tab1" *ngIf="tab==='tab1'"
                         style="overflow: auto;padding-bottom: 70px;">
                         <form name="form"
@@ -486,9 +486,8 @@
                                         <th *ngIf="detail.TotalQuote">{{detail.TotalQuote}}</th>
                                     </tr>
                                     <br>
-                                    <br>
-                                    <tr>
-                                        <td td colspan="2"><small>Others terms and conditions</small><br>
+                                    <tr *ngIf="data.termConditionComments">
+                                        <td td colspan="2"><small>Other terms and conditions</small><br>
                                             <small
                                             style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                                     </tr>
