@@ -184,6 +184,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         this.title = 'View';
         this.radioid = true;
         this.dataViewEdit = data;
+      
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
@@ -208,7 +209,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-
+      
       }
     } else {
       this.isActive = flag;

@@ -45,9 +45,9 @@
                                                     <td>{{record.transactionId}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>
-                                                        <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
-                                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                                        <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                        <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                        <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
 
@@ -183,7 +183,15 @@
                                         </tr>
                                         <tr>
                                             <td>Requirement</td>
-                                            <td>{{detailInfo.requirementType}}</td>
+                                           
+                                            <td>
+                                                <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="detailInfo.requirementType=='ConfirmAndDiscount' || detailInfo.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Amount</td>

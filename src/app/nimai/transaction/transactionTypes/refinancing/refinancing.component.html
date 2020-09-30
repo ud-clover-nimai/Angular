@@ -182,7 +182,7 @@
                               (ngModelChange)="data.lcMaturityDate = $event"></td>
                         </tr>
                         <tr>
-                           <td>LC Maturity Date</td>
+                           <td>Multiple Maturity Date <span class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</span></td>
                            <td>
                               <input  #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 85%;"/>
                               <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
@@ -384,7 +384,13 @@
                         </tr>
                         <tr>
                            <td>Requirement</td>
-                           <td>{{data.requirementType}}</td>
+                           <td>
+                              <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                              <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                              <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                              <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                              <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                          </td>
                         </tr>
                         <tr>
                            <td>Amount</td>

@@ -113,7 +113,7 @@ export class TransactionDetailsComponent {
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
     this.specificDetail = detail;
-  
+   
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');
       $('#menu-barnew li:first').addClass('active');
@@ -154,16 +154,14 @@ export class TransactionDetailsComponent {
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-        // if(this.detailInfo.statusReason=='1'){
-        //   this.statusReason="Bank not acceptable";
-        
-        // }else if(this.detailInfo.statusReason=='2'){
-        //   this.statusReason="Bank has rejected the transaction due to non-fulfillment of documentary requirements";
-        
-        // }else if(this.detailInfo.statusReason=='3'){
-        //   this.statusReason="Others";
-        
-        // }
+       
+        if(this.detailInfo.requirementType=='ConfirmAndDiscount' || this.detailInfo.requirementType=='confirmAndDiscount'){
+          this.detailInfo.requirementType='Confirmation and Discounting';
+        }else if(this.detailInfo.requirementType=='Refinance' || this.detailInfo.requirementType=='refinance'){
+          this.detailInfo.requirementType='Refinancing';
+        }else  if(this.detailInfo.requirementType=='Banker' || this.detailInfo.requirementType=='banker'){
+          this.detailInfo.requirementType='Banker’s Acceptance';
+         }
       },
       (error) => { }
     )
@@ -298,6 +296,7 @@ export class TransactionDetailsComponent {
   
 
   onCloseTransactionPopup(record,val){
+    console.log(val)
     if(val == "Close"){
       $("#closeReason").val("");
       $("#closePopup").show();
@@ -311,7 +310,7 @@ export class TransactionDetailsComponent {
   onClosePopDismiss(){
     $("#closePopup").hide();
     this.closeOffcanvas();
-    $('#closedTrans').val("Open").change();
+    $('#closedTrans'+this.forCloseTransactionId).val("Open").change();
   }
 
   closedTransaction() {

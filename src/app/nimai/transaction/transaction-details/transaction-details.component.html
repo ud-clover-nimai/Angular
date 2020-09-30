@@ -45,7 +45,7 @@
                                                  <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 140px;" >Transaction Status</th>
                                                  <th [hidden]="!rejectedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
                                                  <th [hidden]="!acceptedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
-                                                 <th [hidden]="!expiredStatus" style="min-width: 90px;"class="disabled-sorting">Actions</th>
+                                                 <th [hidden]="!expiredStatus" style="min-width: 100px;"class="disabled-sorting">Actions</th>
 
                                              </tr>
                                          </thead>
@@ -57,9 +57,9 @@
                                                  <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y h:mm:ss z"}}</td>
                                                  <td>{{record.lCIssuanceBank}}</td>
                                                  <td>
-                                                   <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
-                                                   <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                                   <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                                   <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                   <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                   <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                                    <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                    <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
 
@@ -70,7 +70,7 @@
                                                  <td>{{record.beneName}}</td>
                                                
                                                  <td [hidden]="!acceptedStatus" >
-                                                     <select id="closedTrans" *ngIf="record.transactionStatus != 'Closed'"  
+                                                     <select id="{{'closedTrans'+record.transactionId}}" *ngIf="record.transactionStatus != 'Closed'"  
                                                       (change)="onCloseTransactionPopup(record,$event.target.value)">
                                                       
                                                          <option value="Open">Open</option>
@@ -81,8 +81,8 @@
                                                  </td>
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
-                                                     <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a><br>
-                                                     <a href="#" class='far fa-comment-dots pull-right'  style='font-size:17px;' (click)="rejectedReasons(record.statusReason)" data-toggle="modal"  data-target="#myModal28"> </a>
+                                                     <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a> 
+                                                     <a href="#" class='far fa-comment-dots pull-right'  style='font-size:18px;' (click)="rejectedReasons(record.statusReason)" data-toggle="modal"  data-target="#myModal28"> </a>
 
                                                    </td>
                                                  <td [hidden]="!acceptedStatus">
@@ -290,7 +290,13 @@
                            </tr>
                            <tr>
                               <td>Requirement</td>
-                              <td>{{detailInfo.requirementType}}</td>
+                              <td>
+                                 <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                 <div *ngIf="detailInfo.requirementType=='ConfirmAndDiscount' || detailInfo.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                 <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
+                                 <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
+                                 <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                             </td>
                            </tr>
                            <tr>
                               <td>Amount</td>
@@ -672,8 +678,13 @@
                                 </tr>
                                 <tr>
                                     <td>Requirement</td>
-                                    <td>{{detailInfo.requirementType}}</td>
-                                </tr>
+                                    <td>
+                                       <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                       <div *ngIf="detailInfo.requirementType=='ConfirmAndDiscount' || detailInfo.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                       <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
+                                       <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
+                                       <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                                   </td>                                 </tr>
                                 <tr>
                                     <td>Amount</td>
                                     <td>{{detailInfo.lCValue}}</td>
@@ -1060,8 +1071,13 @@
                                 </tr>
                                 <tr>
                                     <td>Requirement</td>
-                                    <td>{{detailInfo.requirementType}}</td>
-                                </tr>
+                                    <td>
+                                       <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                       <div *ngIf="detailInfo.requirementType=='ConfirmAndDiscount' || detailInfo.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                       <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
+                                       <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
+                                       <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                                   </td>                                 </tr>
                                 <tr>
                                     <td>Amount</td>
                                     <td>{{detailInfo.lCValue}}</td>

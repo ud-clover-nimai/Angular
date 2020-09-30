@@ -92,9 +92,11 @@ public rejectReason:string=""
         custTrnsactionDetail();
         this.data =[];
         this.data = JSON.parse(JSON.stringify(response)).data;
+        console.log(this.data)
          if (this.data) {
          this.hasNoRecord=true;
          this.getDetail(this.data,status);
+        
       }
 
       },
@@ -116,6 +118,7 @@ public rejectReason:string=""
       this.noFileDisable=true;
      }
       this.quotationdata = detail;
+     
       this.specificDetail = detail;
       if(this.quotationdata.termConditionComments=='null'){
         this.quotationdata.termConditionComments='';
@@ -124,6 +127,8 @@ public rejectReason:string=""
       } if(this.quotationdata.commentsBenchmark=='null'){
         this.quotationdata.commentsBenchmark='';
       }
+  
+
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');
       $('#menu-barDetailnew li:first').addClass('active');
@@ -236,7 +241,7 @@ const data = {
   onClosePopDismiss(){
     $("#closePopupForQuote").hide();
     this.closeOffcanvas();
-    $("#closedStatus").val("Open").change();
+    $('#closedStatus'+this.forCloseTransactionId).val("Open").change();
   }
 
 

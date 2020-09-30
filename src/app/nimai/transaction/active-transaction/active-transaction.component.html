@@ -49,9 +49,9 @@
                                     <td>{{record.lCValue}}</td>
                                     <td>{{record.lCCurrency}}</td>
                                     <td >{{record.validity | date : "dd-MM-y"}}</td>
-                                    <td> <div *ngIf="record.requirementType=='Banker'">Banker’s Acceptance</div>
-                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount'">Confirmation and Discounting</div>
-                                       <div *ngIf="record.requirementType=='Refinance'">Refinancing </div>
+                                    <td> <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                       <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                       <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                    </td>
@@ -68,7 +68,10 @@
                                     </td>
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
                                        class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
-                                       <a href="#" class='fas fa-unlock-alt pull-left' *ngIf="record.statusReason=='Active after Reopen'" style='font-size:18px;' data-toggle="modal"  data-target="#unlockPopUp"> </a>
+                                       <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.statusReason=='Active after Reopen'"
+                                        style='font-size:15px;' data-toggle="modal"  title="This is a reopen transaction. You can see  the quotes which were previously available" > </a>
+                                 
+                                       
                                     </td>
                   
                                  </tr>
@@ -335,13 +338,13 @@
        <!-- Modal content-->
        <div class="modal-content" style=" margin-top: 206px;">
            <div class="modal-body">
-               <h2>Unlock transaction</h2>
+               <h2>Reopen transaction</h2>
                <div class="padnew">
                    <!--<p><strong>Enter Email ID here</strong></p> -->
                    <div class="">
                        <div class="row">
                            <div class="col-md-12">
-                               <label>This transaction has been unlock</label>
+                               <label>This is a reopen transaction. You can see the quotes which were previously available</label>
                                <div class="form-group"></div>
                            </div>
                            <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
