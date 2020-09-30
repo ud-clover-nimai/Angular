@@ -264,6 +264,7 @@ export function manageSub() {
 
         $('.popupcontent select').css('color', '#333');
         setTimeout(function() {
+            $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
                 pagingType: "full_numbers",
                 scrollX: true,
@@ -281,6 +282,9 @@ export function manageSub() {
             $('#datatables1').DataTable({
                 "pagingType": "full_numbers",
                 "scrollX": true,
+                "initComplete": function(settings, json) {
+                    $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+                },
                 "lengthMenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, "All"]
@@ -316,6 +320,9 @@ export function manageSub() {
         }, 500);
 
         $('.card .material-datatables label').addClass('form-group');
+        $('#datatables').on('draw.dt', function() {
+            $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+        });
     });
 
     $(function() {
@@ -360,13 +367,13 @@ export function bankNewTransaction() {
         $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
     }).on('hidden.bs.collapse', function() {
         $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-    });
-
+    });    
+    document.getElementsByTagName('body')[0].style = 'overflow:hidden!important';
     $(function() {
 
         var slider1 = $("#menubarConfirmQuote").slideReveal({
             push: false,
-            width: 550,
+            width: 600,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -385,7 +392,7 @@ export function bankNewTransaction() {
 
         var slider1 = $("#menubarBankerQuote").slideReveal({
             push: false,
-            width: 520,
+            width: 600,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -405,7 +412,7 @@ export function bankNewTransaction() {
 
         var slider1 = $("#menubarDiscountQuote").slideReveal({
             push: false,
-            width: 520,
+            width: 600,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -425,7 +432,7 @@ export function bankNewTransaction() {
 
         var slider1 = $("#menubarConDisQuote").slideReveal({
             push: false,
-            width: 520,
+            width: 600,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -445,7 +452,7 @@ export function bankNewTransaction() {
 
         var slider1 = $("#menubarRefinanceQuote").slideReveal({
             push: false,
-            width: 520,
+            width: 600,
             position: "right",
             trigger: $(".handle"),
             shown: function(obj) {
@@ -658,9 +665,13 @@ export function bankNewTransaction() {
     });
     $(document).ready(function() {
         $('select').css('color', '#333');
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "scrollX": true,
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+            },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 [5, 10, 25, 50, "All"]
@@ -704,7 +715,9 @@ export function bankNewTransaction() {
         //  md.initSliders()
         demo.initFormExtendedDatetimepickers();
     });
-
+    $('#datatables').on('draw.dt', function() {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    });
 }
 
 
@@ -988,9 +1001,13 @@ export function bankActiveTransaction() {
     });
     $(document).ready(function() {
         $('select').css('color', '#333');
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "scrollX": true,
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+            },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 [5, 10, 25, 50, "All"]
@@ -1459,9 +1476,13 @@ export function bankRequest() {
         });
         $('select').css('color', '#333');
         setTimeout(function() {
+           $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
                 "pagingType": "full_numbers",
                 "scrollX": true,
+                "initComplete": function(settings, json) {
+                    $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+                },
                 "lengthMenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, "All"]
@@ -1519,18 +1540,22 @@ export function bankRequest() {
         //         $('#menu-barnew #tab3').slideDown();
         //    }); 
     }, 500);
+    $('#datatables').on('draw.dt', function() {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    });
 }
 
-export function custTrnsactionDetail() {
-
+export function custTrnsactionDetail() {    
     $('#datatables select').css('color', '#333');
-
     $('#datatables').DataTable().destroy();
-    setTimeout(function() {
-
-        $('#datatables').DataTable({
+    setTimeout(function() {  
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});            
+        $('#datatables').DataTable({            
             "pagingType": "full_numbers",
             "scrollX": true,
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+            },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 [5, 10, 25, 50, "All"]
@@ -1541,15 +1566,18 @@ export function custTrnsactionDetail() {
                 searchPlaceholder: "Search records",
             }
         });
+      
         // $('#addOptions').appendTo(".card-content");
         // $("#addOptions select").attr("(change)","changeStatusCall($event.target.value)");
 
         //$(".dataTables_filter label").addClass("pull-right");
 
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
-    }, 500);
+    }, 500);    
+    $('#datatables').on('draw.dt', function() {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    });
 
-    // });
 }
 
 export function custActiveTransaction() {
@@ -1557,9 +1585,13 @@ export function custActiveTransaction() {
     $('.card .material-datatables label').addClass('form-group');
     $(document).ready(function() {
         $('select').css('color', '#333');
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "scrollX": true,
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+            },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 [5, 10, 25, 50, "All"]
@@ -1596,6 +1628,9 @@ export function custActiveTransaction() {
         });
 
         $('.card .material-datatables label').addClass('form-group');
+    });
+    $('#datatables').on('draw.dt', function() {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
     });
 }
 
@@ -1914,9 +1949,13 @@ export function newRequest() {
         });
         $(document).ready(function() {
             $('select').css('color', '#333');
+            $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
                 "pagingType": "full_numbers",
                 "scrollX": true,
+                "initComplete": function(settings, json) {
+                    $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+                },
                 "lengthMenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, "All"]
@@ -1960,15 +1999,21 @@ export function newRequest() {
             demo.initFormExtendedDatetimepickers();
         });
     }, 500);
+    $('#datatables').on('draw.dt', function() {
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    });
 }
 
 export function creditTransaction() {
     $(document).ready(function() {
         demo.initFormExtendedDatetimepickers();
-
+        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
             "scrollX": true,
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+            },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 [5, 10, 25, 50, "All"]

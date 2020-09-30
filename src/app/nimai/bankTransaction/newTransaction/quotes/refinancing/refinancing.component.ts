@@ -192,10 +192,7 @@ export class RefinancingComponent implements OnInit {
     this.isActiveQuote = false;
     this.titleService.quote.next(false);
   }
-
-
   public transaction(act: string) {
-
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
