@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { bankNewTransaction } from 'src/assets/js/commons'
+import { bankNewTransaction, } from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -14,7 +14,7 @@ import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
 import { formatDate } from '@angular/common';
 import * as $ from 'src/assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import {removeDoubleScroll} from 'src/assets/js/commons'
 
 
 @Component({
@@ -166,7 +166,7 @@ export class NewTransactionComponent implements OnInit {
     this.isActive = true;
     this.data = data;
     this.titleService.quote.next(true);
-
+    removeDoubleScroll()
     const transactionId = {
       "transactionId": data.transactionId
     }
@@ -203,7 +203,7 @@ export class NewTransactionComponent implements OnInit {
 
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-
+    removeDoubleScroll()
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "userId": val.userId,
