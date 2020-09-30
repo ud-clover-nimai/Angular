@@ -16,12 +16,27 @@
     font-size: 10px;
     font-weight: 400;
 }
-::ng-deep .popupcontent input:read-only{
-    margin-left: 20px;
-  }
   .popupcontent table {
     margin-left: 15px!important;
   }
   ::ng-deep .popupcontent .tab-pane .table tbody > tr > td{
     padding-right: 30px!important;
+  }
+  ::ng-deep .popupcontent input:read-only{
+    margin-left: 12px!important;
+  } 
+  ::ng-deep input[type=radio] {
+    margin-right: 5px!important;
+  }
+  .tab{
+    margin-left: 20px;
+  }
+  .popupcontent textarea {
+    margin-left: 8px!important;
+    width: 260px!important;
+    height: 85px!important;
+  }
+  .popupcontent .percent{
+    left: 223px!important;
+    right:30px!important;
   }

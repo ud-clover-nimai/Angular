@@ -148,3 +148,9 @@
     font-size: 10px;
     font-weight: 400;
 }
+.parentOfSelect{
+  position: static;
+}
+table {
+  empty-cells: show;
+}

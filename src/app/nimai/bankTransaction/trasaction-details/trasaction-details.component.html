@@ -13,17 +13,21 @@
                  <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                     Refresh
                  </button>
+                 <div class="row">
+                        <div class="parentOfSelect">
+                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                               <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
+                               <option value="Accepted">Accepted </option>
+                               <option value="Rejected">Rejected</option>
+                               <option value="Expired">Expired</option>
+                               </select>
+                        </div>
+                    </div>
+                </div>    
                  <form>
                     <div class="row">
                        <div class="col-md-12">
-                          <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
-                           <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                              <select (change)="changeStatusCall($event.target.value)" class="has-value"> 
-                              <option value="Accepted">Accepted </option>
-                              <option value="Rejected">Rejected</option>
-                              <option value="Expired">Expired</option>
-                              </select>
-                                 </div>
+                          <div class="table-responsive" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                                         <table class="table table-hover" id="datatables">
                                             <thead>
                                                 <tr>
@@ -154,7 +158,6 @@
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
-                                    <thead></thead>
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Beneficiary</th>
@@ -528,7 +531,6 @@
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
-                                    <thead></thead>
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Beneficiary</th>
@@ -902,7 +904,6 @@
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
-                                    <thead></thead>
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Beneficiary</th>
