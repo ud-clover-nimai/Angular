@@ -209,7 +209,7 @@
                                         </tr>
                                         <tr>
                                             <td>Swift Code</td>
-                                            <td>{{specificDetail.swiftCode}}</td>
+                                            <td>{{specificDetail.lCSwiftCode}}</td>
                                         </tr>
                                         <tr>
                                             <td>Country</td>
@@ -442,7 +442,7 @@
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
                                             <td>Document Handling Charges (if any)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
                                         </tr>

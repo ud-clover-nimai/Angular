@@ -182,11 +182,11 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges (Fixed)</td>
+                           <td>*Negotiation Charges (Fixed)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges  (%)
+                           <td>*Negotiation Charges  (%)
                               <br>
                               &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>

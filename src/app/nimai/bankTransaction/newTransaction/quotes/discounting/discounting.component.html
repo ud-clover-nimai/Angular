@@ -51,7 +51,7 @@
 
                                 <tr>
                                     <td>
-                                        Negotiation Charges (Fixed)
+                                        *Negotiation Charges (Fixed)
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
@@ -59,7 +59,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Negotiation Charges (%)
+                                        *Negotiation Charges (%)<br>
+                                        &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small>
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
@@ -166,13 +167,14 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Negotiation Charges (Fixed)</td>
+                                    <td>*Negotiation Charges (Fixed)</td>
                                     <td>
                                         {{dataViewEdit.negotiationChargesFixed}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Negotiation Charges (%)</td>
+                                    <td>*Negotiation Charges (%)<br>
+                                        &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                     <td>
                                         {{dataViewEdit.negotiationChargesPerct}}%
                                     </td>
@@ -319,11 +321,12 @@
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Negotiation Charges (Fixed)</td>
+                                            <td>*Negotiation Charges (Fixed)</td>
                                             <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
                                         </tr>
                                         <tr>
-                                            <td>Negotiation Charges (%)</td>
+                                            <td>*Negotiation Charges (%)<br>
+                                                &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
@@ -427,13 +430,14 @@
                                         <td>{{data.discountingCharges}}%</td>
                                     </tr>
                                     <tr>
-                                        <td>Negotiation Charges (fixed)</td>
+                                        <td>*Negotiation Charges (fixed)</td>
                                         <td>
                                             {{data.negotiationChargesFixed}}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Negotiation Charges (%)</td>
+                                        <td>*Negotiation Charges (%)<br>
+                                            &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                         <td>
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
