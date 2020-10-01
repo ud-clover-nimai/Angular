@@ -1,3 +1,7 @@
+export function removeDoubleScroll() {
+document.getElementsByTagName('body')[0].style = 'overflow:hidden!important';
+}
+
 export function uploadFileRefinance() {
     $(":file").filestyle('clear');
     $(":file").filestyle('placeholder', 'No file');        
@@ -340,6 +344,7 @@ export function manageSub() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
 
@@ -357,6 +362,7 @@ export function manageSub() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -368,9 +374,8 @@ export function bankNewTransaction() {
     }).on('hidden.bs.collapse', function() {
         $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });    
-    document.getElementsByTagName('body')[0].style = 'overflow:hidden!important';
+    
     $(function() {
-
         var slider1 = $("#menubarConfirmQuote").slideReveal({
             push: false,
             width: 600,
@@ -383,6 +388,8 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
+
             }
         });
     });
@@ -402,6 +409,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -422,6 +430,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -442,6 +451,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -462,6 +472,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -480,7 +491,9 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
+            
         });
     });
 
@@ -501,6 +514,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -523,6 +537,7 @@ export function bankNewTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -748,6 +763,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -765,6 +781,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -782,6 +799,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -799,6 +817,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -817,6 +836,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -835,6 +855,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -856,6 +877,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -878,6 +900,7 @@ export function bankActiveTransaction() {
             hidden: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                 obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
             }
         });
     });
@@ -1197,6 +1220,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1217,6 +1241,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1238,6 +1263,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1259,6 +1285,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1281,6 +1308,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1304,6 +1332,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1325,6 +1354,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1348,6 +1378,7 @@ export function bankRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1660,6 +1691,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1680,6 +1712,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1701,6 +1734,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1722,6 +1756,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1744,6 +1779,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1767,6 +1803,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });
@@ -1811,6 +1848,7 @@ export function newRequest() {
                 hidden: function(obj) {
                     obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
                     obj.removeClass("left-shadow-overlay");
+                    document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
                 }
             });
         });

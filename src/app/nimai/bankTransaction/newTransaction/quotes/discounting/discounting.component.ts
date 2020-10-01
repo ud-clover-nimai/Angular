@@ -5,7 +5,6 @@ import * as $ from 'src/assets/js/jquery.min';
 import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
-
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-discounting',

@@ -6,7 +6,6 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
-
 @Component({
   selector: 'app-banker',
   templateUrl: './banker.component.html',
@@ -147,7 +146,6 @@ export class BankerComponent implements OnInit {
 
   ngOnInit() {
   }
-
   public action(flag: boolean, type: Tflag, data: any) {
     if(data.termConditionComments=='null'){
       data.termConditionComments='';

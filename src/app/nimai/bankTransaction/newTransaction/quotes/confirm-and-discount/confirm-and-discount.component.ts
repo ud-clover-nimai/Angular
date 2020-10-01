@@ -6,7 +6,6 @@ import { ViewChild, OnInit, Component } from '@angular/core';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
-
 @Component({
   selector: 'app-confirm-and-discount',
   templateUrl: './confirm-and-discount.component.html',
@@ -165,8 +164,6 @@ export class ConfirmAndDiscountComponent implements OnInit {
     this.selectMature = 'yes';
     this.selectNego = 'no';
   }
-
-
 
   public action(flag: boolean, type: Tflag, data: any) {
     if(data.termConditionComments=='null'){
