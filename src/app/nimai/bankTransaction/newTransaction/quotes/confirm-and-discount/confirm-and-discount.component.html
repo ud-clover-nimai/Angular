@@ -443,7 +443,7 @@
                                             <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
                                         </tr>
                                         <tr>
-                                            <td>Validity</td>
+                                            <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
                                  <td><input type="date" name="validityDate" onkeydown="return false" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                     (ngModelChange)="data.validityDate = $event"   #validityDate="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required>
@@ -567,7 +567,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Validity </td>
+                                        <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
                                         <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                                     </tr>
                                     <tr>

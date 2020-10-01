@@ -55,7 +55,7 @@
                            <td>
                               <select [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType">
                                  <option [ngValue]="null" selected>Select</option>
-                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
                               </select>
                            </td>
                         </tr>
@@ -243,13 +243,23 @@
                            <td><input type="date" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.validity = $event" disabled></td>
                         </tr>
+                      
                         <tr>
-                           <td>Pro Forma</td>
-                          
-                           <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
+                           <td>Pro Forma </td>
+                           <td [hidden]="viewDisable" class="labeltext"  *ngIf="data.lcProForma"  style="cursor: pointer;color: blue;" (click)="openDocument(data.lcProForma)">View</td>
+                        </tr>
+                        <tr>
+                           <td></td>
+                           <td>
+                              <input  #myInput (change)="handleFileProForma($event)" type="file" data-placeholder="No file"  name="upload_file2" id="upload_file2" data-icon="false" style="width: 101%;"/>
+                              <mat-icon style="color: red;" *ngIf="isUploadForma" (click)="deleteFileContentForma()" class="deleteFile">close</mat-icon>
                            </td>
+                        </tr>
+                        <tr>
+                           <td></td>                        
                            <td [hidden]="noFileDisable">No such file attached</td>
                         </tr>
+
                      </tbody>
                   </table>  
                    <br>
