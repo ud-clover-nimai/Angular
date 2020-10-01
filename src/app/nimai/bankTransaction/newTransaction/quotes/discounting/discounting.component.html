@@ -51,7 +51,7 @@
 
                                 <tr>
                                     <td>
-                                        Negotiation Charges (Fixed)
+                                        *Negotiation Charges (Fixed)
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
@@ -59,7 +59,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Negotiation Charges (%)
+                                        *Negotiation Charges (%)<br>
+                                        &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small>
                                     </td>
                                     <td>
                                         <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
@@ -95,7 +96,6 @@
                                        weightDirective />
                                  </td>
                               </tr>
-                              <br>
                               <tr>
                                   <td colspan="2">Other terms and conditions <br>
                                     <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments"
@@ -167,13 +167,14 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Negotiation Charges (Fixed)</td>
+                                    <td>*Negotiation Charges (Fixed)</td>
                                     <td>
                                         {{dataViewEdit.negotiationChargesFixed}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Negotiation Charges (%)</td>
+                                    <td>*Negotiation Charges (%)<br>
+                                        &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                     <td>
                                         {{dataViewEdit.negotiationChargesPerct}}%
                                     </td>
@@ -215,15 +216,12 @@
                                     <th>Total Quote</th>
                                     <th>{{totalQuotes}}</th>
                                 </tr>
-                               <br><br>
-                                <tr>
-                                    <td><small>Others terms and conditions</small></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><small
-                                            style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
-                                </tr>
-
+                               <br>
+                               <tr *ngIf="dataViewEdit.termConditionComments">
+                                <td colspan="2">Other terms and conditions <br>
+                                    <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>                                        
+                            </tr>
+            
                                 <tr>
                                     <td colspan="2"><small>Disclaimer: Note: The applicable benchmark will be
                                             applicable as of
@@ -323,11 +321,12 @@
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Negotiation Charges (Fixed)</td>
+                                            <td>*Negotiation Charges (Fixed)</td>
                                             <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
                                         </tr>
                                         <tr>
-                                            <td>Negotiation Charges (%)</td>
+                                            <td>*Negotiation Charges (%)<br>
+                                                &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
@@ -431,13 +430,14 @@
                                         <td>{{data.discountingCharges}}%</td>
                                     </tr>
                                     <tr>
-                                        <td>Negotiation Charges (fixed)</td>
+                                        <td>*Negotiation Charges (fixed)</td>
                                         <td>
                                             {{data.negotiationChargesFixed}}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Negotiation Charges (%)</td>
+                                        <td>*Negotiation Charges (%)<br>
+                                            &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                         <td>
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
@@ -470,14 +470,10 @@
                                         <th>{{detail.TotalQuote}}</th>
                                     </tr>
                                     <br>
-                                    <br>
-                                  
-                                    <tr>
-                                        <td><small>Others terms and conditions</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><small
-                                                style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
+                                 
+                                    <tr *ngIf="data.termConditionComments">
+                                        <td colspan="2">Other terms and conditions <br>
+                                            <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>                                        
                                     </tr>
 
                                     <tr>

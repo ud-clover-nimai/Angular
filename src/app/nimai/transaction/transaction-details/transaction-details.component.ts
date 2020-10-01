@@ -155,13 +155,6 @@ export class TransactionDetailsComponent {
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
        
-        if(this.detailInfo.requirementType=='ConfirmAndDiscount' || this.detailInfo.requirementType=='confirmAndDiscount'){
-          this.detailInfo.requirementType='Confirmation and Discounting';
-        }else if(this.detailInfo.requirementType=='Refinance' || this.detailInfo.requirementType=='refinance'){
-          this.detailInfo.requirementType='Refinancing';
-        }else  if(this.detailInfo.requirementType=='Banker' || this.detailInfo.requirementType=='banker'){
-          this.detailInfo.requirementType='Banker’s Acceptance';
-         }
       },
       (error) => { }
     )

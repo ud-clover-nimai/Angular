@@ -160,11 +160,11 @@
                         </tr>
                        
                       
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot=='yes' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
                            <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
                         </tr>
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToMatur=='yes' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
                            <td>
                               Confirmation Charges from Date of Issuance till date of maturity</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
@@ -182,11 +182,11 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges (Fixed)</td>
+                           <td>*Negotiation Charges (Fixed)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>Negotiation Charges  (%)
+                           <td>*Negotiation Charges  (%)
                               <br>
                               &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
@@ -217,8 +217,8 @@
                            <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}}</th>
                         </tr>
                         <br>
-                        <tr>
-                           <td colspan="2">Others terms and conditions <br>
+                        <tr *ngIf="getSpecificDetail.termConditionComments">
+                           <td colspan="2">Other terms and conditions <br>
                                <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small>
                                </td>
                        </tr>

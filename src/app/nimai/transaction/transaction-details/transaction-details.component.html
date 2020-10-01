@@ -550,8 +550,8 @@
                                  <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
                               </tr>
                               <br>
-                             <tr>
-                              <td colspan="2">Others terms and conditions <br>
+                             <tr *ngIf="quotationdata.termConditionComments">
+                              <td colspan="2">Other terms and conditions <br>
                                <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
                                </td>
                             </tr>
@@ -947,8 +947,8 @@
                                  <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
                               </tr>
                               <br>
-                             <tr>
-                              <td colspan="2">Others terms and conditions <br>
+                             <tr *ngIf="quotationdata.termConditionComments">
+                              <td colspan="2">Other terms and conditions <br>
                                <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
                                </td>
                             </tr>

@@ -261,8 +261,9 @@
                                     <th>Total Quote</th>
                                     <th>{{totalQuote}}</th>
                                 </tr>
-                                <tr>
-                                    <td colspan="2"><small>Others terms and conditions</small><br>
+                                <br>
+                                <tr *ngIf="dataViewEdit.termConditionComments">
+                                    <td colspan="2"><small>Other terms and conditions</small><br>
                                         <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
 
@@ -558,8 +559,9 @@
                                         <th>Total Quote</th>
                                         <th *ngIf="detail">{{detail.TotalQuote}}</th>
                                     </tr>
-                                    <tr>
-                                        <td colspan="2"><small>Others terms and conditions</small><br>
+                                    <br>
+                                    <tr *ngIf="data.termConditionComments">
+                                        <td colspan="2"><small>Other terms and conditions</small><br>
                                             <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                                     </tr>
         
