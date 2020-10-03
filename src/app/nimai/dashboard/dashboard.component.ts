@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   public isCollapsed: string = "collapsed";
   public areaExpandedacc: boolean = false;
   public areaExpandedtra: boolean = false;
+  public isShowPlan:boolean=false;
+  public isShowKyc:boolean=false;
   draftData: any;
   draftcount: any;
   draftcountBank: any;
@@ -177,12 +179,22 @@ export class DashboardComponent implements OnInit {
         sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
+        if(this.nimaiCount.isbdetailfilled){
+          this.isShowPlan=true;
+        }else{
+          this.isShowPlan=false;
+        }
+        if(this.nimaiCount.issplanpurchased){
+          this.isShowKyc=true;
+        }else{
+          this.isShowKyc=false;
+        }
+        console.log("this.isShowPlan---",this.isShowPlan)
+        console.log("this.isShowKyc---",this.isShowKyc)
       },
       error => { }
     )
   }
-
-
   public logout():void{
     sessionStorage.clear();
     this.router.navigate(['/']);

@@ -104,8 +104,22 @@ export class TenorPaymentComponent implements OnInit {
 
   handleFileInput(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    console.log("file---",file)
     var pattern = /image-*/;
     var reader = new FileReader();
+    var fileName = file.name;
+    console.log("filename---",fileName)
+    console.log("filename---", file.size/1000)
+    var idxDot = fileName.lastIndexOf(".") + 1;
+    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+    console.log("extFile---",extFile)
+    // if (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="pdf"){
+    //   //TO DO
+    // }else{
+    //   alert('invalid format');
+    //   $('#upload_file1').val('');
+    //   return;
+    // }   
     if (!file.type.match(pattern)) {
       alert('invalid format');
       $('#upload_file1').val('');
