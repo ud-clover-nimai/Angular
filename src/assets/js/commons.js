@@ -723,7 +723,7 @@ export function bankNewTransaction() {
 
 
 
-export function bankActiveTransaction() {
+export function bankActiveTransaction() { 
     $('.collapse').on('shown.bs.collapse', function() {
         $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
     }).on('hidden.bs.collapse', function() {
@@ -768,6 +768,8 @@ export function bankActiveTransaction() {
             }
         });
     });
+
+   
 
     $(function() {
         var slider2 = $("#menubarDiscounting").slideReveal({
@@ -821,7 +823,23 @@ export function bankActiveTransaction() {
         });
     });
 
+    $(function() {
 
+        var slider1 = $("#menu-barDetailActive").slideReveal({
+            push: false,
+            width: 600,
+            position: "right",
+            trigger: $(".handleActive"),
+            shown: function(obj) {
+                obj.find(".handle").html('<span class="fas fa-times"></span>');
+                obj.addClass("left-shadow-overlay");
+            },
+            hidden: function(obj) {
+                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                obj.removeClass("left-shadow-overlay");
+            }
+        });
+    });
 
     $(function() {
         var slider4 = $("#menubarDetail").slideReveal({
