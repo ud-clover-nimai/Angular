@@ -35,6 +35,9 @@ export class ConfirmationComponent implements OnInit {
   benCountry: string;
   appliName : string;
   appliCountry : string;
+  private imageSrc: string = '';
+  isUploadForma: boolean=false;
+
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -113,6 +116,31 @@ export class ConfirmationComponent implements OnInit {
     }    
   }
 
+  deleteFileContentForma(){    
+    $('#upload_file2').val('');
+    this.data.lcProForma="";
+    this.isUploadForma = false;    
+  }
+  handleFileProForma(e){
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      $('#upload_file2').val('');
+      return;
+    }
+    this.isUploadForma=true;
+    reader.onload = this._handleReaderLoadedForma.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoadedForma(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.data.lcProForma=this.imageSrc;
+
+  }
+
   public action(flag: boolean, type: Tflag, data: any) {
     this.tab='tab2';
     if (flag) {
@@ -122,6 +150,7 @@ export class ConfirmationComponent implements OnInit {
         this.data = data;
       
         if (this.data.userType === 'Applicant') {
+          this.userTypes='Applicant';
           this.beneficiary = false;
           this.applicant = true;
           this.applicantType=true;
@@ -131,6 +160,7 @@ export class ConfirmationComponent implements OnInit {
           data.applicantCountry= data.applicantCountry.toUpperCase();
 
         } else if (this.data.userType === 'Beneficiary') {
+          this.userTypes='Beneficiary';
           this.applicant = false;
           this.beneficiary = true;
           this.applicantType=false;
@@ -139,6 +169,7 @@ export class ConfirmationComponent implements OnInit {
           this.benCountry='';
           this.appliName=this.data.applicantName;
           this.appliCountry=this.data.applicantCountry;
+          data.beneCountry=data.beneCountry.toUpperCase();
 
         }
       } else if (type === Tflag.EDIT) {
@@ -215,6 +246,14 @@ export class ConfirmationComponent implements OnInit {
         break;
       case 'preview': {
         this.tab = 'tab2';
+        if(this.data.lcProForma){
+          this.viewDisable=false;
+          this.noFileDisable=true;
+        }else{
+          this.noFileDisable=false;
+         this.viewDisable=true;
+
+        }
         setTimeout(() => {
           // $('input').attr('readonly', true);
         }, 200);

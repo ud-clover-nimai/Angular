@@ -22,8 +22,8 @@ export class TrasactionDetailsComponent {
   public hasNoRecord: boolean = false;
   public data: any;
   public specificDetail: any = "";
-  public isActive: boolean = false;
   quotationdata: any;
+  public isActive: boolean = false;
   public quotes:any;
   document: any = "";
   selectReason: any;
@@ -36,7 +36,7 @@ export class TrasactionDetailsComponent {
   forCloseUserId: any;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
-public rejectReason:string=""
+  public rejectReason:string="";
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -92,7 +92,6 @@ public rejectReason:string=""
         custTrnsactionDetail();
         this.data =[];
         this.data = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.data)
          if (this.data) {
          this.hasNoRecord=true;
          this.getDetail(this.data,status);

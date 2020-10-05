@@ -43,9 +43,9 @@
                                                     <th style="min-width: 100px;">Goods</th>
                                                     <th style="min-width: 150px;">Applicant's Name</th>
                                                     <th style="min-width: 150px;">Beneficiary Name</th> 
-                                                    <th [hidden]="!expiredStatus" style="min-width: 150px;">Your Quote</th>
-                                                    <th [hidden]="!expiredStatus" style="min-width: 150px;">Accepted Quote</th>
-                                                    <th [hidden]="!expiredStatus" class="disabled-sorting" style="min-width: 150px;"></th>
+                                                    <th [hidden]="!expiredStatus" style="min-width: 130px;">Your Quote</th>
+                                                    <th [hidden]="!expiredStatus" style="min-width: 120px;">Accepted Quote</th>
+                                                    <th [hidden]="!expiredStatus" class="disabled-sorting" style="min-width: 100px;"></th>
                                                     <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 150px;" >Transaction Status</th>
                                                     <th [hidden]="!rejectedStatus" style="min-width: 150px;" >Rejected By</th>
                                                     <th [hidden]="!acceptedStatus" class="disabled-sorting text-center" >Actions</th>
@@ -1237,7 +1237,7 @@
                                         <tr>
                                             <th>Total Quote</th>
                                             <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
-                                            <td *ngIf="quotes">{{quotes.totalQuoteValue}}</td>
+                                            <th *ngIf="quotes">{{quotes.totalQuoteValue}}</th>
 
                                         </tr>
                                         <br>

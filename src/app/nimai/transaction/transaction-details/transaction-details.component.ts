@@ -87,16 +87,14 @@ export class TransactionDetailsComponent {
       "transactionStatus": status,
       "branchUserEmail": emailId
     }
-    // this.nts.getAllNewTransaction(data).subscribe(
      this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
-        this.data = [];
+       
         this.data = JSON.parse(JSON.stringify(response)).data;
         
         if (this.data) {
           this.hasNoRecord=true;
-        //  this.getDetail(this.data,status,undefined);
        }
 
       },
@@ -132,15 +130,8 @@ export class TransactionDetailsComponent {
       $('.tab-content #pill131').addClass('active');
 
     }
-    
-    if(detail.lcProForma==null || detail.lcProForma=="" || detail.lcProForma==undefined){
-      this.noFileDisable=false;
-      this.viewDisable=true;
-
-     }else{
-      this.viewDisable=false;
-      this.noFileDisable=true;
-     }
+   
+   
   }
 
   changeStatusCall(status) {
@@ -154,7 +145,15 @@ export class TransactionDetailsComponent {
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-       
+        if( this.detailInfo.lcProForma==null ||  this.detailInfo.lcProForma=="" ||  this.detailInfo.lcProForma==undefined){
+          this.noFileDisable=false;
+          this.viewDisable=true;
+    
+         }else{
+    
+          this.viewDisable=false;
+          this.noFileDisable=true;
+         }
       },
       (error) => { }
     )

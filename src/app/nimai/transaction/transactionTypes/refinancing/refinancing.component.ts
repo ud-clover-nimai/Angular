@@ -32,6 +32,7 @@ export class RefinancingComponent implements OnInit {
   applicant: boolean = false;
   beneficiary: boolean = false;
   private imageSrc: string = '';
+  isUploadForma: boolean=false;
   isUpload=false;
   benName: string;
   benCountry: string;
@@ -96,11 +97,38 @@ export class RefinancingComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
+
   deleteFileContent(){    
     $('#upload_file1').val('');
     this.data.tenorFile="";
     this.isUpload = false;    
   }
+deleteFileContentForma(){    
+    $('#upload_file2').val('');
+    this.data.lcProForma="";
+    this.isUploadForma = false;    
+  }
+  handleFileProForma(e){
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      $('#upload_file2').val('');
+      return;
+    }
+    this.isUploadForma=true;
+    reader.onload = this._handleReaderLoadedForma.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoadedForma(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.data.lcProForma=this.imageSrc;
+
+  }
+
+
   handleFileInput(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
@@ -150,6 +178,7 @@ export class RefinancingComponent implements OnInit {
         this.data = data;
       
         if (this.data.userType == 'Applicant') {
+          this.userTypes='Applicant';
           this.beneficiary = false;
           this.applicant = true;
           this.applicantType=true;
@@ -158,6 +187,7 @@ export class RefinancingComponent implements OnInit {
           this.benCountry=this.data.beneCountry;
           data.applicantCountry= data.applicantCountry.toUpperCase();
         } else if (this.data.userType == 'Beneficiary') {
+          this.userTypes='Beneficiary';
           this.applicant = false;
           this.beneficiary = true;
           this.applicantType=false;
@@ -166,7 +196,7 @@ export class RefinancingComponent implements OnInit {
           this.benCountry='';
           this.appliName=this.data.applicantName;
           this.appliCountry=this.data.applicantCountry;
-          
+          data.beneCountry=data.beneCountry.toUpperCase();
         }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';
@@ -241,8 +271,15 @@ export class RefinancingComponent implements OnInit {
         break;
       case 'preview': {
         this.tab = 'tab2';
+        if(this.data.lcProForma){
+          this.viewDisable=false;
+          this.noFileDisable=true;
+        }else{
+          this.noFileDisable=false;
+         this.viewDisable=true;
+
+        }
         setTimeout(() => {
-          // $('input').attr('readonly', true);
         }, 200);
       }
         break;

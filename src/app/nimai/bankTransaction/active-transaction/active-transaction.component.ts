@@ -9,7 +9,7 @@ import { ConfirmAndDiscountComponent } from '../newTransaction/quotes/confirm-an
 import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refinancing.component';
 import { DiscountingComponent } from '../newTransaction/quotes/discounting/discounting.component';
 import { BankerComponent } from '../newTransaction/quotes/banker/banker.component';
-
+import * as $ from 'src/assets/js/jquery.min';
 
 
 @Component({
@@ -28,8 +28,14 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
+  public hasNoRecordQuote:boolean=false;
   detail: any;
-
+  public viewDisable: boolean = true;
+  public noFileDisable: boolean= true;
+  public specificDetail: any = "";
+  quotationdata: any;
+  isDetailActive: boolean=false;
+  document: any;
   constructor(public titleService: TitleService, public nts: NewTransactionService) {
 
     this.titleService.quote.next(false);
@@ -46,6 +52,7 @@ export class ActiveTransactionComponent implements OnInit {
       (response) => {
         bankActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
+      
         if (!this.detail) {
           this.hasNoRecord = true;
         }
@@ -57,6 +64,40 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  showProForma(file) {
+    $('#myModal99').show();
+    this.document = file;
+  }
+  getDetail(detail:any) {
+    this.isDetailActive = true;
+    this.hasNoRecordQuote = true;
+
+    if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
+      this.noFileDisable=false;
+      this.viewDisable=true;
+
+     }else{
+      this.viewDisable=false;
+      this.noFileDisable=true;
+     }
+      this.quotationdata = detail;
+     
+      this.specificDetail = detail;
+      if(this.quotationdata.termConditionComments=='null'){
+        this.quotationdata.termConditionComments='';
+      } if(this.quotationdata.chargesType=='null'){
+        this.quotationdata.chargesType='';
+      } if(this.quotationdata.commentsBenchmark=='null'){
+        this.quotationdata.commentsBenchmark='';
+      }
+  
+
+      $('.activeTab').removeClass('active');
+      $('#menu-barDetailActive li:first').addClass('active');
+      $('.tab-content #pill111').addClass('active');
+    
+   
   }
 
   ngAfterViewInit() {

@@ -182,9 +182,13 @@
                               (ngModelChange)="data.lcMaturityDate = $event"></td>
                         </tr>
                         <tr>
-                           <td>Multiple Maturity Date <span class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</span></td>
-                           <td>
-                              <input  #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 85%;"/>
+                           <td>Multiple Maturity Date</td>
+                         <td class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</td>
+                         </tr> 
+                         <tr>
+                            <td></td>
+                            <td>
+                              <input  #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 100%;"/>
                               <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
                            </td>
                         </tr>
@@ -280,10 +284,20 @@
                            <td><input type="date"  [ngModel]="data.validity | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.validity = $event" disabled></td>
                         </tr>
+                       
                         <tr>
-                           <td>Pro Forma</td>
-                           <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
+                           <td>Pro Forma </td>
+                           <td [hidden]="viewDisable" class="labeltext"  *ngIf="data.lcProForma"  style="cursor: pointer;color: blue;" (click)="openDocument(data.lcProForma)">View</td>
+                        </tr>
+                        <tr>
+                           <td></td>
+                           <td>
+                              <input  #myInput (change)="handleFileProForma($event)" type="file" data-placeholder="No file"  name="upload_file2" id="upload_file2" data-icon="false" style="width: 101%;"/>
+                              <mat-icon style="color: red;" *ngIf="isUploadForma" (click)="deleteFileContentForma()" class="deleteFile">close</mat-icon>
                            </td>
+                          </tr>
+                          <tr>
+                           <td></td>                        
                            <td [hidden]="noFileDisable">No such file attached</td>
                         </tr>
                      </tbody>
