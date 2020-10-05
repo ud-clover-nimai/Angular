@@ -16,6 +16,7 @@ import * as $ from '../../../assets/js/jquery.min';
 })
 export class KycDetailsComponent implements OnInit {
   public kycDetailsForm: FormGroup;
+  public submitted:boolean = false;
   selectedFiles: File[] = [];
 
   public title: string = "KYC Details";
@@ -62,17 +63,16 @@ export class KycDetailsComponent implements OnInit {
     }
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-
      this.kycDetailsForm = this.fb.group({
       businessDocumentList: this.fb.array([]),
       personalDocumentList: this.fb.array([]),
       businessDocumentList_html: this.fb.array([this.getBusiList()]),
       personalDocumentList_html: this.fb.array([this.getPersList()]),
-
-    }); 
-    if(sessionStorage.getItem("KYCStatus").toLowerCase() == "pending"){
-      this.router.navigate([this.subURL + '/' + this.parentURL + '/account-review']);
-    }
+      busiCountry: ['', Validators.required],
+      busiDocument: ['', Validators.required],   
+      perCountry: ['', Validators.required],  
+      perDocument : ['', Validators.required]
+    })
   }
   ngOnInit() {
    
@@ -85,7 +85,7 @@ export class KycDetailsComponent implements OnInit {
     documentName: [''],
     title: ['Business'],
     country: [''],
-    encodedFileContent: [''],
+    encodedFileContent: ['', Validators.required],
     documentType: ['jpg']
   });
 }
@@ -95,7 +95,7 @@ export class KycDetailsComponent implements OnInit {
     documentName: [''],
     title: ['Personal'],
     country: [''],
-    encodedFileContent: [''],
+    encodedFileContent: ['',Validators.required],
     documentType: ['jpg']
   });
 }
@@ -128,19 +128,25 @@ remove(i: number, type) {
   }
 }
 
-
+get kycDetails() {
+  return this.kycDetailsForm.controls;
+}
   submit(): void {
-
+    this.submitted = true;    
+     if(this.kycDetailsForm.invalid) {
+      return;
+    }
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
     businessDocumentList.push(this.fb.group({
       documentName: $('#busiDocument').val(),
-      title: ['Personal'],
+      title: ['Business'],
       country: $('#busiCountry').val(),
       encodedFileContent: [this.imageSrcBusi],
       documentType: ['jpg']      
     }));
-
+  
+  
     const personalDocumentList = <FormArray>this.kycDetailsForm.get('personalDocumentList');
     personalDocumentList.controls = [];
     personalDocumentList.push(this.fb.group({
@@ -176,8 +182,6 @@ remove(i: number, type) {
       this.failedError();
       return;
     }
-    console.log(data);
-
     this.kycService.upload(data)
       .subscribe(
         resp => {

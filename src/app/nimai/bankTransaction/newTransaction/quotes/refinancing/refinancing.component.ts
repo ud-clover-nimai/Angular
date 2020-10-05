@@ -146,9 +146,7 @@ export class RefinancingComponent implements OnInit {
 
   ngOnInit() {
   }
-
   public action(flag: boolean, type: Tflag, data: any) {
-   
     if(data.termConditionComments=='null'){
       data.termConditionComments='';
     } if(data.chargesType=='null'){
@@ -194,7 +192,9 @@ export class RefinancingComponent implements OnInit {
     this.isActiveQuote = false;
     this.titleService.quote.next(false);
   }
+
   public transaction(act: string) {
+
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'

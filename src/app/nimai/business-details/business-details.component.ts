@@ -70,7 +70,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.businessDetailsForm = this.fb.group({
       userId: sessionStorage.getItem('userID'),
       selector: ['', Validators.required],
-      companyName: ['', [Validators.required,Validators.minLength(4)]],
+      companyName: ['', Validators.required],
       bank_designation: ['', [Validators.required,Validators.minLength(2)]],
       country: ['', Validators.required],
       provinceName: ['',Validators.required],

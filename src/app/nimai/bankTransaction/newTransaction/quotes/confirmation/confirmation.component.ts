@@ -168,7 +168,6 @@ export class ConfirmationComponent implements OnInit {
     this.selectMature = 'yes';
     this.selectNego = 'no';
   }
-
   public action(flag: boolean, type: Tflag, data: any) {
     if(data.termConditionComments=='null'){
       data.termConditionComments='';

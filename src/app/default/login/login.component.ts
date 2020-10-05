@@ -154,7 +154,8 @@ export class LoginComponent implements OnInit {
             // this.router.navigate(['/bcst/dsb/dashboard-details']);   
             this.callCustomerPopup();      
           } else if(loginData.userId.startsWith('CU')){
-             this.router.navigate(['/cst/dsb/dashboard-details']); 
+            // this.router.navigate(['/cst/dsb/dashboard-details']); 
+            this.router.navigate(['/cst/dsb/personal-details']); 
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  
            

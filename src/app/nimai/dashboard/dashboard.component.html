@@ -244,7 +244,7 @@
                             (nimaiCount.accounttype | lowercase) != 'subsidiary'
                           "
                         >
-                          <a
+                          <a  [ngClass]="{'adisabled': !isShowPlan}"
                             [routerLink]="['subscription']"
                             *ngIf="!isReferrer"
                           >

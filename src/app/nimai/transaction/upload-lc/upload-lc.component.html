@@ -82,7 +82,7 @@
 
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv selectdiv">
-                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
+                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a> 
                                                                             <select formControlName="lCIssuanceCountry" (change)="selectCountryInfo($envent)">
                                                                                 <option [ngValue]="null" selected>Select</option>
                                                                                 <option *ngFor="let data of countryName"  [ngValue]='data.country'>{{data.country}}</option>
@@ -402,7 +402,7 @@
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow" *ngIf="lc.selector != 'Refinance'">
-                                        <p class="col-md-12"><strong>Tenor of Deferred Payment ----</strong></p>
+                                        <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
                                         <div class="col-md-3" *ngIf="lc.selector == 'Discounting'">
                                             <div class="inputDiv">
                                                <span class="customspan">Usance (Days)</span>
@@ -479,8 +479,7 @@
                                     <div class="col-md-3" *ngIf="lc.tenorFile">
                                         <div class="inputDiv">
                                             <span class="customspan">Multiple Maturity Date </span> 
-                                            <span class="labeltext" *ngIf="lc.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenorFile)">View</span>                                           
-                                            <span class="labeltext" *ngIf="lc.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenorFile)">View</span>
+                                            <span class="labeltext" *ngIf="lc.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenorFile)">View</span>                                                                                       
                                             <span class="labeltext" *ngIf="!lc.tenorFile">-</span>
                                         </div>
                                     </div>
