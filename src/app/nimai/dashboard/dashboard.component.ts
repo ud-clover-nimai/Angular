@@ -184,13 +184,13 @@ export class DashboardComponent implements OnInit {
         }else{
           this.isShowPlan=false;
         }
-        if(this.nimaiCount.issplanpurchased){
-          this.isShowKyc=true;
-        }else{
-          this.isShowKyc=false;
-        }
-        console.log("this.isShowPlan---",this.isShowPlan)
-        console.log("this.isShowKyc---",this.isShowKyc)
+        // if(this.nimaiCount.issplanpurchased){
+        //   this.isShowKyc=true;
+        // }else{
+        //   this.isShowKyc=false;
+        // }
+        // console.log("this.isShowPlan---",this.isShowPlan)
+        // console.log("this.isShowKyc---",this.isShowKyc)
       },
       error => { }
     )
