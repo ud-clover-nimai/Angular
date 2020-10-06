@@ -138,16 +138,7 @@
                            <td><input type="date"  [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lCIssuingDate = $event"></td>
                         </tr>
-                        <tr>
-                           <td>LC Negotiation Date</td>
-                           <td><input type="date"  [ngModel]="data.negotiationDate | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.negotiationDate = $event"></td>
-                        </tr>
-                        <tr>
-                           <td>Last Shipment Date</td>
-                           <td><input type="date"  [ngModel]="data.lastShipmentDate | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.lastShipmentDate = $event"></td>
-                        </tr>
+                       
                         <tr>
                            <td>Goods</td>
                            <td>
@@ -418,14 +409,7 @@
                            <td>LC Issuing Date</td>
                            <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                         </tr>
-                        <tr>
-                           <td>LC Negotiation Date</td>
-                           <td>{{data.negotiationDate | date : 'dd-MM-y'}}</td>
-                        </tr>
-                        <tr>
-                           <td>Last Shipment Date</td>
-                           <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                        </tr>
+                       
                         <tr>
                            <td>Goods</td>
                            <td>{{data.goodsType}}</td>

@@ -69,7 +69,7 @@
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
                                        class="handleRefEdit btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
                                        <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.statusReason=='Active after Reopen'"
-                                        style='font-size:15px;' data-toggle="modal"  title="This is a reopen transaction. You can see  the quotes which were previously available" > </a>
+                                        style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This is a reopen transaction. You can see  the quotes which were previously available" > </a>
                                  
                                        
                                     </td>
@@ -283,6 +283,7 @@
                            <li>Country : {{acceptedDetails.countryName}}</li>
                            <li>Email : {{acceptedDetails.emailAddress}}</li>
                            <li>Contact : {{acceptedDetails.mobileNumber}}</li>
+                           <li>Landline : {{acceptedDetails.telephone}}</li>
                            <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li>
                         </ul>
                         <p>Details are saved in the Transaction Details section.</p>

@@ -82,7 +82,7 @@
 
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv selectdiv">
-                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;"></i></a> 
+                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a> 
                                                                             <select formControlName="lCIssuanceCountry" (change)="selectCountryInfo($envent)">
                                                                                 <option [ngValue]="null" selected>Select</option>
                                                                                 <option *ngFor="let data of countryName"  [ngValue]='data.country'>{{data.country}}</option>
