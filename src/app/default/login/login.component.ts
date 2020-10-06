@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: [''],
-      termsAndcondition: ['', Validators.requiredTrue],
+      termsAndcondition:  [false, Validators.requiredTrue],
       regCurrency:['']
     });
     this.forgotPasswordForm = this.fb.group({
@@ -154,8 +154,13 @@ export class LoginComponent implements OnInit {
             // this.router.navigate(['/bcst/dsb/dashboard-details']);   
             this.callCustomerPopup();      
           } else if(loginData.userId.startsWith('CU')){
-            this.router.navigate(['/cst/dsb/dashboard-details']); 
-            //this.router.navigate(['/cst/dsb/personal-details']); 
+            let kycstatus=sessionStorage.getItem('kycstatus');
+            console.log("kycstatus---",kycstatus)
+            if(kycstatus=="approved"){
+              this.router.navigate(['/cst/dsb/dashboard-details']); 
+            }else{
+              this.router.navigate(['/cst/dsb/personal-details']); 
+            }
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  
            
@@ -181,7 +186,10 @@ export class LoginComponent implements OnInit {
   signUp() {
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
-    //$('#checkboxError').hide();
+    if(isChecked)
+      $('#checkboxError').hide();
+    else
+      $('#checkboxError').show();       
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
@@ -207,6 +215,8 @@ export class LoginComponent implements OnInit {
         }
       } else {
         this.validateCommons();
+        console.log("this.signupForm---",this.signupForm)
+        console.log("this.submittedSignup --",this.submittedSignup )
         if (this.signupForm.invalid) {
           return;
         }
@@ -408,7 +418,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
   }
   validateBankAsCustomer(){
-    $('#checkboxError').show();
+    // $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
@@ -420,7 +430,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.updateValidation();
   }
   validateCommons() {
-    $('#checkboxError').show();
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
@@ -434,7 +443,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
   validateBank() {
     // this.signupForm.get('minLCValue').setValidators(Validators.required);
-    $('#checkboxError').show();
+    //$('#checkboxError').show();
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();
@@ -458,7 +467,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
   }e
   validateReferrerForm() {
-    $('#checkboxError').show();
+   // $('#checkboxError').show();
     this.signupForm.get('designation').setValidators(Validators.required);
     this.signupForm.get('companyName').setValidators(Validators.required);
     this.signupForm.get('businessType').setValidators(Validators.required);
@@ -484,6 +493,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
 
   clearSignupValidation() {
+    console.log("clear signup validation*******")
     this.signupForm.get('designation').clearValidators();
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
@@ -516,6 +526,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('mobileNo').updateValueAndValidity();
     this.signupForm.get('landlineNo').updateValueAndValidity();
     this.signupForm.get('country').updateValueAndValidity();
+    this.signupForm.get('termsAndcondition').updateValueAndValidity();
   }
 
 
@@ -696,7 +707,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.forgotPasswordForm.get('email').clearValidators();
     this.forgotPasswordForm.get('email').updateValueAndValidity();
     //$('#checkboxError').hide();
-    $("#isCheckedForTerms"). prop("checked", false);
+    $("#isCheckedForTerms").prop("checked", false);
   }
 
   getCountryData(){
@@ -712,7 +723,12 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
 
   acceptTerms(){
-    // $('#checkboxError').hide();
+    var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
+    var isChecked = element.checked;
+    if(isChecked)
+      $('#checkboxError').hide();
+    else
+      $('#checkboxError').show();      
   }
 
   showCountryCode(data){

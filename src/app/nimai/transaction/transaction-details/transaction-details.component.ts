@@ -190,11 +190,11 @@ export class TransactionDetailsComponent {
   openOffcanvas(status) {
 
     if (status === "Accepted") {
-      document.getElementById("menu-barnew").style.width = "540px";
+      document.getElementById("menu-barnew").style.width = "600px";
   }else if (status === "Expired") {
-    document.getElementById("menubarDetailexpired").style.width = "530px";
+    document.getElementById("menubarDetailexpired").style.width = "600px";
   } else if (status === "Rejected") {
-    document.getElementById("menubarDetailreject").style.width = "540px";
+    document.getElementById("menubarDetailreject").style.width = "600px";
   } 
 
   }
