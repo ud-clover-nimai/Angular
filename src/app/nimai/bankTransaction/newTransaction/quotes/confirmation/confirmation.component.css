@@ -15,6 +15,7 @@
   }
   ::ng-deep .popupcontent .tab-pane .table tbody > tr > td{
     padding-right: 30px!important;
+    padding-top: 8px!important;
   }
   ::ng-deep .popupcontent input:read-only{
     margin-left: 12px!important;
@@ -28,10 +29,12 @@
   }
   .popupcontent textarea {
     margin-left: 8px!important;
-    width: 260px!important;
+    margin-right: 29px;
+    width: 260px!important; 
     height: 85px!important;
   }
   .popupcontent .percent{
-    left: 223px!important;
+    /* left: 223px!important; */
     right:30px!important;
+    top: 8px!important;
   }

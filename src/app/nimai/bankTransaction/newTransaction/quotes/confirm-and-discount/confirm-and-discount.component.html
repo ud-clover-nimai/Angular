@@ -69,7 +69,7 @@
                                     <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="2.8750" weightDirective><span class="pull-right percent">%</span>
                                 </tr>
                                 <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark" 
-                                style="width:260px;margin: 6px 0px 0px;height: 85px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
+                                placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
 
                                 <tr>
                                     <td>
@@ -110,7 +110,7 @@
                            </td>
                         </tr>
                         <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType" class="textarea-pad" 
-                        placeholder="Specify the type of charge (Swift, P&T, etc)" style="width:260px;margin: 6px 0px 0px;height: 85px;"rows="3"></textarea>
+                        placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                         <tr>
                            <td>Minimum Transaction Charges</td>
@@ -136,17 +136,16 @@
                         <tr>
                             <td colspan="2">Other terms and conditions <br>
                                 <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."
-                                rows="3" style="margin: 6px 0px 0px; width: 460px; height: 60px;"></textarea></td>
+                                rows="3" ></textarea></td>
                          </tr>
-                               
+<!--                                
                                    <tr>
                                        <td>
                                            Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date,actual quote from the bank may differ to the extent
                                        </td>
-                                   </tr>
+                                   </tr> -->
                         <tr>
-                           <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction
-                                 date, actual quote from the bank may differ to that extent.</small></td>
+                           <td colspan="2"><small>Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date,actual quote from the bank may differ to the extent.</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -395,7 +394,7 @@
                                                 <input [checked]="charges2" type="radio" id="optn2" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i
                                                     class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;"></i></a> </td>
+                                                    style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> </td>
                                             <td><input type="text" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
@@ -404,7 +403,7 @@
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
 
-                                        <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark" style="width:260px;margin: 6px 0px 0px;height: 85px;" placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
+                                        <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"  placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
                                        
                                         <tr>
                                             <td>Discounting interest p.a ( spread over benchmark)</td>
@@ -456,11 +455,14 @@
                               <tr>
                                  <td>Other terms and conditions</td>
                               </tr>
-                                     <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." rows="3" style="margin: 6px 0px 0px; width: 330px; height: 60px;"></textarea>
-                                        <tr>
+                                     <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." rows="3" ></textarea>
+                                        <!-- <tr>
                                             <td>
                                                 Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date,actual quote from the bank may differ to the extent
                                             </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td colspan="2"><small>Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date,actual quote from the bank may differ to the extent.</small></td>
                                         </tr>
                            </tbody>
                         </table>
@@ -568,7 +570,7 @@
                                     </tr>
                                     <tr>
                                         <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
-                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
+                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                         <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                                     </tr>
                                     <tr>

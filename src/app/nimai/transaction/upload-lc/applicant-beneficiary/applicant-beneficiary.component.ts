@@ -14,7 +14,8 @@ export class ApplicantBeneficiaryComponent implements OnInit {
    @Input() public LcDetail:FormGroup;
   countryName: any;
   public hasValue=false;
-  public isValid=false;
+  public isValidAppEmail=false;
+  public isValidBeneEmail=false;
   constructor(public loginService: LoginService,private el: ElementRef) { 
   }
   
@@ -49,17 +50,28 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.hasValue=true;
     }
   }
-  
-  onKeydownEvent(event){    
+
+
+  onKeyUpBeneEmail(event){    
     var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
+    console.log("value--",event.target.value)
     if(!emailPattern.test(event.target.value))
     {
-      this.isValid=true;
+      this.isValidBeneEmail=true;
     }​else{
-      this.isValid=false;
+      this.isValidBeneEmail=false;
     }
   }
- 
+  onKeyUpAppEmail(event){    
+    var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
+    console.log("value--",event.target.value)
+    if(!emailPattern.test(event.target.value))
+    {
+      this.isValidAppEmail=true;
+    }​else{
+      this.isValidAppEmail=false;
+    }
+  }
 
   validateRegexFields(event, type){
     if(type == "number"){

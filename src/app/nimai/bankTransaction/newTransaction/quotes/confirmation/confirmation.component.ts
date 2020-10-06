@@ -440,6 +440,7 @@ export class ConfirmationComponent implements OnInit {
       }
         break;
       case 'preview': {
+
         this.tab = 'tab2';
         setTimeout(() => {
           $('input').attr('readonly', true);
@@ -463,6 +464,7 @@ export class ConfirmationComponent implements OnInit {
         )
       } break;
       case 'generateQuote': {
+        alert(data.validityDate)
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;
