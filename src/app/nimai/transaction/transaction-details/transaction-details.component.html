@@ -80,7 +80,7 @@
 
                                                  </td>
                                                  <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                     <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
+                                                     <a style="cursor: pointer;color:blue;margin-left: -15px;" (click)="getDetail(record,'Rejected',record.transactionId);openNav3();openOffcanvas('Rejected');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a> 
                                                      <a href="#" class='far fa-comment-dots pull-right'  style='font-size:18px;' (click)="rejectedReasons(record.statusReason)" data-toggle="modal"  data-target="#myModal28"> </a>
 
