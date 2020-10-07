@@ -6,6 +6,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-refinancing',
@@ -27,6 +28,8 @@ export class RefinancingComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   totalQuote: any;
+  dateString: any;
+  currentDateTime: any;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -354,6 +357,14 @@ export class RefinancingComponent implements OnInit {
         )
       } break;
       case 'generateQuote': {
+      
+      //   this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
+      //   this.dateString=formatDate(this.data.validityDate, this.currentDateTime, 'en-US');
+
+      //   this.currentDateTime
+
+      //   this.data.validityDate=this.dateString;
+      // alert(formatDate(this.dateString, "yyyy-MM-dd'T'HH:mm:ss", 'en-US'))
         this.tab = 'tab2';
         this.ts.saveQuotationToDraft(this.data).subscribe(
           (response) => {

@@ -420,7 +420,8 @@
                                                     weightDirective>
                                         </tr>
                                         <tr>
-                                            <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
+                                            <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                                <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                             <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
@@ -551,7 +552,7 @@
                                         <td>Validity <a class="" data-toggle="tooltip" data-placement="right"
                                                 title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;"></i></a>
+                                                    style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
                                             <br><small style="color: #b6a3a3;">{{data.termConditionComments}}</small>
                                         </td>
                                         <td>{{data.validityDate | date : "dd-MM-y"}}</td>

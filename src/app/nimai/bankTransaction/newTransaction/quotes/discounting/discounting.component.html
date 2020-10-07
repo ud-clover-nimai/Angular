@@ -356,7 +356,7 @@
                                     <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00" weightDirective>
                                  </tr>
                                  <tr>
-                                    <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>  </td>
+                                    <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>  </td>
                                     <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                         (ngModelChange)="data.validityDate = $event"  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                        <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
@@ -472,7 +472,8 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a>                                            </td>
+                                        <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>                                            </td>
                                         <td>{{data.validityDate| date : "dd-MM-y"}}</td>
                                     </tr>
                                     <tr>

@@ -70,7 +70,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-ddTHH:mm'" 
                                     (ngModelChange)="dataViewEdit.validityDate = $event"></td>                              </tr>
                               <tr *ngIf="title=='View'">
                                  <td>Total Quote</td>
@@ -284,7 +284,7 @@
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity
-                                                <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
+                                                <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                             <td><input type="text" name="confChgsIssuanceToMatur" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
@@ -309,7 +309,7 @@
                              <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                  <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
                               <td><input type="date" onkeydown="return false" name="validityDate" 
-                                [ngModel]="data.validityDate | date:'yyyy-MM-dd'" (ngModelChange)="data.validityDate = $event"
+                                [ngModel]="data.validityDate | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="data.validityDate = $event"
                                  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                  <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
                                     <div *ngIf="validityDate.errors.required">Validity date is required</div>
@@ -411,7 +411,7 @@
 
                                     <tr>
                                         <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
-                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
+                                            <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                         <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                                     </tr>
                                     <tr>
