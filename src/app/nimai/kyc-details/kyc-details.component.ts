@@ -46,7 +46,7 @@ export class KycDetailsComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
-
+console.log("this.parentURL--",this.parentURL)
     console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "MyProfile"){
@@ -55,6 +55,7 @@ export class KycDetailsComponent implements OnInit {
     }
 
     let userID = sessionStorage.getItem("userID");
+    
     if((userID.startsWith('BA')) || (userID.startsWith('BC'))){
       this.isBank = true;
     }
@@ -75,7 +76,6 @@ export class KycDetailsComponent implements OnInit {
     })
   }
   ngOnInit() {
-   
     loads();
     this.titleService.changeTitle(this.title);
   }
