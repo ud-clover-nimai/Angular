@@ -154,13 +154,8 @@ export class LoginComponent implements OnInit {
             // this.router.navigate(['/bcst/dsb/dashboard-details']);   
             this.callCustomerPopup();      
           } else if(loginData.userId.startsWith('CU')){
-            let kycstatus=sessionStorage.getItem('kycstatus');
-            console.log("kycstatus---",kycstatus)
-            if(kycstatus=="approved"){
-              this.router.navigate(['/cst/dsb/dashboard-details']); 
-            }else{
-              this.router.navigate(['/cst/dsb/personal-details']); 
-            }
+            this.router.navigate(['/cst/dsb/dashboard-details']); 
+            //this.router.navigate(['/cst/dsb/personal-details']); 
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  
            

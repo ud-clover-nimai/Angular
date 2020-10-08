@@ -176,8 +176,7 @@ export class DashboardComponent implements OnInit {
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-        sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus);
-        console.log("this.nimaiCount.kycstatus---",this.nimaiCount.kycstatus)
+        sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
         if(this.nimaiCount.isbdetailfilled){
