@@ -201,6 +201,8 @@ export class TransactionDetailsComponent {
   openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
     document.getElementById("myCanvasNav").style.opacity = "0.6";
+    document.getElementById("closeSliderId").classList.add("closeSlider"); 
+
   }
   closeOffcanvas() {
     document.getElementById("menubarDetailexpired").style.width = "0%";
@@ -208,6 +210,8 @@ export class TransactionDetailsComponent {
     document.getElementById("menu-barnew").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
+    document.getElementById("closeSliderId").classList.remove("closeSlider"); 
+
   }
   showProForma(file) {
     $('#myModal9').show();

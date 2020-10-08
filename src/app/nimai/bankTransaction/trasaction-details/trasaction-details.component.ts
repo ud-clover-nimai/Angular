@@ -186,6 +186,8 @@ const data = {
 
     document.getElementById("myCanvasNav").style.width = "100%";
     document.getElementById("myCanvasNav").style.opacity = "0.6";
+    document.getElementById("closeSliderId").classList.add("closeSlider"); 
+
   }
   closeOffcanvas() {
     document.getElementById("menu-barDetailnew").style.width = "0%";
@@ -193,6 +195,7 @@ const data = {
     document.getElementById("menubarDetailrejected").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
+    document.getElementById("closeSliderId").classList.remove("closeSlider"); 
   }
   showProForma(file) {
     $('#myModal91').show();

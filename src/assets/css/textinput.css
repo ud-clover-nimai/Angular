@@ -684,6 +684,17 @@ button.close {
     color: #000;
 }
 
+.closeSlider {
+  float: right;
+  font-weight: 400;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: bottom;
+  border: 0;
+  font-size: 26px;
+  color: #000;
+}
 
 .successdiv .modal-content{
   box-shadow: none;    border: 0px solid rgba(0,0,0,.2);

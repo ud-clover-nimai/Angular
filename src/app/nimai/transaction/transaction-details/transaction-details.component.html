@@ -193,7 +193,7 @@
             <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
                 <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
                <li class="activeTab"><a href="#tab2" data-toggle="tab" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" aria-expanded="true">Quote</a></li>
-              
+               <button id="closeSliderId" type="button" class="closeSlider" (click)='closeOffcanvas()' >&times;</button>
             </ul>
             <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
               
@@ -540,7 +540,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Validity <a  class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                 <td>Validity <a  class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                     class="fas fa-info-circle"
                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
@@ -581,7 +581,7 @@
               padding: 10px 15px 0;">
               <li class="activeTab"><a href="#pill112" data-toggle="tab" aria-expanded="false">Details</a></li>
               <li  class="activeTab"><a href="#tab3" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li>
-
+              <button id="closeSliderId" type="button" class="closeSlider" (click)='closeOffcanvas()' >&times;</button>
            </ul>
            <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
@@ -937,7 +937,7 @@
                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                               </tr>
                               <tr>
-                                 <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                 <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                     class="fas fa-info-circle"
                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
@@ -975,7 +975,8 @@
            <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
               padding: 10px 15px 0;">
               <li class="activeTab"><a href="#pill131" data-toggle="tab" aria-expanded="false">Details</a></li>
-           </ul>
+              <button id="closeSliderId" type="button" class="closeSlider" (click)='closeOffcanvas()' >&times;</button>
+            </ul>
            <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
             <div class="tab-pane activeTab" id="pill131">
