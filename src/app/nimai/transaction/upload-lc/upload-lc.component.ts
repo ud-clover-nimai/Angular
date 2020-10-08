@@ -386,10 +386,14 @@ export class UploadLCComponent implements OnInit {
       userId: sessionStorage.getItem('userID')
     }
 
-    this.upls.confirmLc(body)
-      .subscribe(
+    // this.upls.confirmLc(body).subscribe(
+    this.upls.checkDuplicateLC(body).subscribe(
+
         (response) => {
           var resp = JSON.parse(JSON.stringify(response)).status;
+          var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
+
+          console.log(resp)
           if(resp == "Failure"){
             const navigationExtras: NavigationExtras = {
               state: {
@@ -402,10 +406,17 @@ export class UploadLCComponent implements OnInit {
               .then(success => console.log('navigation error?', success))
               .catch(console.error);
           }
-          else{            
+        
+         
+
+        if(errmsg=="No Duplicate LC"){
           this.setForm();
           this.edit();
-      
+          this.upls.confirmLc(body).subscribe(
+        
+                (response) => {
+
+                });
           // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
           
           // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
@@ -422,7 +433,11 @@ export class UploadLCComponent implements OnInit {
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
-        }
+        }  
+
+        if(errmsg=="Duplicate LC") {
+          $("#duplicatePopup").show();         
+          }
 
         },
         (error) => {
@@ -440,6 +455,41 @@ export class UploadLCComponent implements OnInit {
             .catch(console.error);
         }
       )
+  }
+
+  dupPopYes(){
+    $("#duplicatePopup").hide();
+    this.setForm();
+    this.edit();
+    let body = {
+      transactionId: this.transactionID,
+      userId: sessionStorage.getItem('userID')
+    }
+    
+    this.upls.confirmLc(body).subscribe(
+        
+      (response) => {
+
+      });
+    // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+    
+    // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
+    //   console.log("bank mail sent successfully");},(err) => {},);
+  
+    const navigationExtras: NavigationExtras = {
+      state: {
+        title: 'Transaction Successful',
+        message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
+        parent: this.subURL+"/"+this.parentURL + '/active-transaction'
+      }
+    };
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
+      .then(success => console.log('navigation success?', success))
+      .catch(console.error);
+    this.isUpdate = false;
+  }
+  dupPopNo(){
+    $("#duplicatePopup").hide();
   }
 
   public edit() {
