@@ -2295,3 +2295,10 @@ div#menu-bar-con {
 } 
 
 }
+
+
+@-moz-document url-prefix() {
+  .popupcontent .tab-content {
+     height: 571px !important; 
+  }
+}
