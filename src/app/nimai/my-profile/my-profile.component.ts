@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { signup } from 'src/app/beans/signup';
@@ -24,17 +25,24 @@ export class MyProfileComponent implements OnInit {
   isReferrer: boolean = false;
   isBank: boolean = false;
   public bd: any = "";
+  public kd: any = "";
   public isCustomer = false;
-
-
+  document: any;
+  noData:boolean
 
   constructor(public titleService: TitleService, 
     public personalDetailsService: PersonalDetailsService,
     public fb: FormBuilder,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public bds: BusinessDetailsService) { 
-    this.titleService.changeTitle(this.title);
+    public bds: BusinessDetailsService,
+    public kycUpload:KycuploadService,
+    ) { 
+
+   // this.titleService.changeTitle(this.title);
+   setTimeout(() => {
+    this.titleService.loading.next(false);
+    }, 2000);
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -45,6 +53,7 @@ export class MyProfileComponent implements OnInit {
 
     this.callPersonalDetailService();
     this.callBusinessDetailService(sessionStorage.getItem('userID'))
+    this.callKycDetailService(sessionStorage.getItem('userID'))
     console.log("loading//////");
 
 
@@ -70,16 +79,15 @@ export class MyProfileComponent implements OnInit {
   }
 
   callPersonalDetailService(){
+    this.titleService.loading.next(true);
     this.personalDetailsService.getPersonalDetails(sessionStorage.getItem('userID'))
     .subscribe(
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
-       
         console.log(responseData.data)
         this.personalDetails = responseData.data;
-
+        console.log("this.personalDetails.kycStatus---",this.personalDetails.kycStatus)
         var username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
-
         this.titleService.changeUserName(username);
         this.personalDetailsForm.patchValue({
           firstName: this.personalDetails.firstName,
@@ -117,6 +125,27 @@ export class MyProfileComponent implements OnInit {
         }
       }   
     )
+  }
+  callKycDetailService(userID: string){
+    console.log("userID--",userID)
+    this.kycUpload.viewKycDetails(userID).subscribe(
+      (response) => {        
+        let responseData = JSON.parse(JSON.stringify(response));
+        this.kd = responseData;
+
+        if(!this.kd)
+          this.noData = true;
+        
+        this.titleService.loading.next(false);
+      }   
+    )
+  }
+  openDocument(file){
+    $('#modal_kycView').show();
+    this.document = file;
+  }
+  close(){
+    $('.modal3').hide();
   }
 
   public pdb(): signup {

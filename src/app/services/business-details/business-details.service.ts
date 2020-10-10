@@ -9,19 +9,13 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class BusinessDetailsService {
-
   constructor(public httpClient: HttpClient) { }
-
-
   public viewBusinessDetails(userID: string): Observable<Business> {
     return this.httpClient.get<Business>(`${environment.domain}/nimaiUCM/UserDetails/viewBusinessDetails/` + userID, { headers: { 'content-type': 'application/json' } });
   }
-
-
   public updateBusinessDetails(businessData: Business, userID): Observable<Business> {
     return this.httpClient.post<Business>(`${environment.domain}/nimaiUCM/UserDetails/updateBusinessDetails`, businessData, { headers: { 'content-type': 'application/json' } });
   }
-
   public viewCountryList(): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
   } 

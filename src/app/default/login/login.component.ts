@@ -145,6 +145,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           this.Removevalidate();
           let responseData = JSON.parse(JSON.stringify(response));
+          console.log("responseData---",responseData)
           sessionStorage.setItem('userID', loginData.userId);
           this.titleService.loading.next(true);
           if (loginData.userId.startsWith('RE')) {

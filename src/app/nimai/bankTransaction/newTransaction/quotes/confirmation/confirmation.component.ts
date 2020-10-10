@@ -463,8 +463,7 @@ export class ConfirmationComponent implements OnInit {
           }
         )
       } break;
-      case 'generateQuote': {
-        alert(data.validityDate)
+      case 'generateQuote': {       
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;

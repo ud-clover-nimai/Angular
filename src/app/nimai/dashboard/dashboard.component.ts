@@ -179,6 +179,7 @@ export class DashboardComponent implements OnInit {
         sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
+        console.log("this.nimaiCount.isbdetailfilled--",this.nimaiCount.isbdetailfilled)
         if(this.nimaiCount.isbdetailfilled){
           this.isShowPlan=true;
         }else{
