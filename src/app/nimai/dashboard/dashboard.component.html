@@ -253,7 +253,7 @@
                           </a>
                         </li>
                         <li [routerLinkActive]="['active']">
-                          <a [routerLink]="['kyc-details']" >
+                          <a [routerLink]="['kyc-details']" [ngClass]="{'adisabled': !isShowKyc}">
                             <i class="fas fa-user-check"></i>
                             <p>KYC Details</p>
                           </a>

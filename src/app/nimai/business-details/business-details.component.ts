@@ -177,10 +177,11 @@ export class BusinessDetailsComponent implements OnInit {
 
           }
         };
-        
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/success`], navigationExtras)
           .then(success => console.log('navigation success?', success))
           .catch(console.error);
+         }); 
       },
       (error) => {
         this.titleService.loading.next(false);

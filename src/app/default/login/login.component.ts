@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           this.Removevalidate();
           let responseData = JSON.parse(JSON.stringify(response));
-          console.log("responseData---",responseData)
+          console.log("responseData---",responseData.message)
           sessionStorage.setItem('userID', loginData.userId);
           this.titleService.loading.next(true);
           if (loginData.userId.startsWith('RE')) {
@@ -155,7 +155,12 @@ export class LoginComponent implements OnInit {
             // this.router.navigate(['/bcst/dsb/dashboard-details']);   
             this.callCustomerPopup();      
           } else if(loginData.userId.startsWith('CU')){
-            this.router.navigate(['/cst/dsb/dashboard-details']); 
+            if(responseData.message=="KycStauts:Approved"){
+              this.router.navigate(['/cst/dsb/dashboard-details']); 
+            }else{
+              this.router.navigate(['/cst/dsb/personal-details']); 
+            }
+            
             //this.router.navigate(['/cst/dsb/personal-details']); 
           }   else if(loginData.userId.startsWith('BC')){
              this.callCustomerPopup();  

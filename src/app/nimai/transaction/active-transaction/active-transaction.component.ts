@@ -36,6 +36,7 @@ export class ActiveTransactionComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   acceptedErrorDetail: any;
+  acceptedQuoteMessage:any;
   detailInfo: any;
   public unlock :string="";
   noOfQR: any;
@@ -234,6 +235,8 @@ export class ActiveTransactionComponent implements OnInit {
       this.nts.acceptBankQuote(req).subscribe(
         (response) => {          
           var acceptQuoteResp = JSON.parse(JSON.stringify(response));
+          console.log("acceptQuoteResp--",acceptQuoteResp)
+          this.acceptedQuoteMessage=acceptQuoteResp.status
           if(acceptQuoteResp.status.toLowerCase() == "failure"){
             $('.acceptedErrorDetails').show();
             this.acceptedErrorDetail = acceptQuoteResp.errMessage;
