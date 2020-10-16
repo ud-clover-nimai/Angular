@@ -28,7 +28,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -155,7 +155,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -184,12 +184,12 @@
                                         {{dataViewEdit.negotiationChargesPerct}}%
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Document Handling Charges</td>
                                     <td>
                                         {{dataViewEdit.docHandlingCharges}}
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                 <tr>
                                     <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
@@ -335,10 +335,10 @@
                                             <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
-                                        </tr>
+                                        </tr> -->
 
                                         <tr>
                                             <td>Other Charges (if any)</td>
@@ -451,12 +451,12 @@
                                         <td>
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Document Handling Charges</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>

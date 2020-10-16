@@ -38,7 +38,7 @@
                                   </thead>
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
-                                      <td>{{i+1}}</td>
+                                      <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced'"><div class="circle red"></div></div> </td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.transactionId}}</td>
                                       <td>{{record.goodsType}}</td>
@@ -61,7 +61,9 @@
                                     </td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a><br>
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus!=='FreezePlaced'">View / Edit<div class="ripple-container"></div></a>
+                                              <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced'">Validate<div class="ripple-container" ></div></a><br>
                                               <a class="handleActive" style="cursor: pointer;color:blue" (click)="getDetail(record);">Detail</a>
                                               <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.quotationStatus=='RePlaced'"
                                               style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This transaction has been reopen by the customer.You can modify your previous quote by clicking place quote button" > </a>
@@ -420,10 +422,10 @@
                                                &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                            <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                        </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
+                                       <!-- <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
                                            <td>Document Handling Charges (if any)</td>
                                            <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
-                                       </tr>
+                                       </tr> -->
                                        <tr>
                                            <td>Other Charges (if any)<br><small
                                                style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>

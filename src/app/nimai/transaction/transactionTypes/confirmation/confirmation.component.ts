@@ -37,7 +37,8 @@ export class ConfirmationComponent implements OnInit {
   appliCountry : string;
   private imageSrc: string = '';
   isUploadForma: boolean=false;
-
+  isUpload=false;
+  reqType : string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -95,7 +96,35 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
- 
+
+  deleteFileContent(){    
+    $('#upload_file1').val('');
+    this.data.tenorFile="";
+    this.isUpload = false;    
+  }
+  handleFileInput(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      $('#upload_file1').val('');
+      return;
+    }
+    this.isUpload=true;
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.data.tenorFile=this.imageSrc;
+    // this.LcDetail.get('lcMaturityDate').setValue("");
+
+  }
+  changeReqType(event){    
+    this.reqType=event.target.value
+  }
   onNegotChange(val){
     if (val === 'applicant') {
       this.applicantType=true;
@@ -148,7 +177,7 @@ export class ConfirmationComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.title = 'View';
         this.data = data;
-      
+        this.reqType=this.data.requirementType;
         if (this.data.userType === 'Applicant') {
           this.userTypes='Applicant';
           this.beneficiary = false;

@@ -34,7 +34,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.refinancingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -163,7 +163,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.refinancingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -340,12 +340,12 @@
                                                     weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges"
                                                     [(ngModel)]="data.docHandlingCharges" placeholder="0.00"
                                                     weightDirective>
-                                        </tr>
+                                        </tr> -->
 
                                         <tr>
                                             <td>Other Charges (if any)</td>
@@ -457,13 +457,13 @@
                                         <td>Refinancing interest p.a.(spread over benchmark)</td>
                                         <td>{{data.refinancingCharges}}%</td>
                                     </tr>
-
+<!-- 
                                     <tr>
                                         <td>Document Handling Charges</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Other Charges (if any)<br><small
                                                 style="color: #b6a3a3;">{{data.chargesType}}</small>

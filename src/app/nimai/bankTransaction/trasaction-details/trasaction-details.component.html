@@ -442,10 +442,10 @@
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
+                                        <!-- <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
                                             <td>Document Handling Charges (if any)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <td>Other Charges (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>
@@ -815,10 +815,10 @@
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges(if any)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <td>Other Charges(if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>
@@ -1207,12 +1207,12 @@
                                             <td *ngIf="quotes">{{quotes.negotiationChargesPerct}}%</td>
 
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
                                             <td *ngIf="quotes">{{quotes.docHandlingCharges}}</td>
 
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <td>Other Charges (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>

@@ -38,6 +38,7 @@ export class RefinancingComponent implements OnInit {
   benCountry: string;
   appliName : string;
   appliCountry : string;
+  reqType : string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -97,7 +98,9 @@ export class RefinancingComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
-
+  changeReqType(event){    
+    this.reqType=event.target.value
+  }
   deleteFileContent(){    
     $('#upload_file1').val('');
     this.data.tenorFile="";
@@ -176,7 +179,7 @@ deleteFileContentForma(){
       if (type === Tflag.VIEW) {
         this.title = 'View';
         this.data = data;
-      
+        this.reqType=this.data.requirementType;
         if (this.data.userType == 'Applicant') {
           this.userTypes='Applicant';
           this.beneficiary = false;

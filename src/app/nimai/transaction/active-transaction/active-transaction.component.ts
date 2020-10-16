@@ -39,8 +39,7 @@ export class ActiveTransactionComponent implements OnInit {
   acceptedQuoteMessage:any;
   detailInfo: any;
   public unlock :string="";
-  noOfQR: any;
-
+  noOfQR: any;  
   constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -178,7 +177,6 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.QRdetail)
         this.quotationReqType =requirementType;
         this.lCCurrencyReq=lCCurrency;
           this.QRdetail = this.QRdetail.map(item => ({

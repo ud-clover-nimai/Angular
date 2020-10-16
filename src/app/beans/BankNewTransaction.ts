@@ -57,6 +57,7 @@ export interface NTBean {
 	confirmedFlag: string;
 	goodsType: string;
 	quotationReceived: string;
+	quotationStatus:string;
 
 }
 
@@ -130,7 +131,9 @@ export interface PlaceQuote {
 	discountingPeriod:string;
 	confirmationPeriod:string;
 	refinancingPeriod:string;
+	quotationStatus:string;
 }
+
 
 export interface editViewQuotation {
 	acceptedOn: Date;
@@ -164,7 +167,7 @@ export interface editViewQuotation {
 	userId: String;
 	validity: Date;
 	validityDate: Date;
-
+	quotationStatus:string;
 	//added by sanjeev dhiman
 	discountingPeriod:string;
 	refinancingPeriod:string;
@@ -235,5 +238,5 @@ export interface newTransactionBean {
 	userType:string;
 	applicantContactPerson:string;
 	closedQuote:string;
-
+	quotationStatus:string;
 }

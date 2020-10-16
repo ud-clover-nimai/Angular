@@ -124,6 +124,7 @@ export class NewTransactionComponent implements OnInit {
       userType: '',
       applicantContactPerson: '',
       closedQuote: '',
+      quotationStatus:''
     }
   }
   ngOnInit() {

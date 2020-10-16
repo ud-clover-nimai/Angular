@@ -107,7 +107,7 @@
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
+                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" [ngClass]="{'adisabled': QRrecord.quotationStatus === 'FreezePlaced'}" >Accept</button></td>
                          </tr>                          
                        </tbody>
                      </table>
@@ -191,10 +191,10 @@
                               &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
                         </tr>
-                        <tr *ngIf="quotationReqType != 'Confirmation'">
+                        <!-- <tr *ngIf="quotationReqType != 'Confirmation'">
                            <td>Document Handling Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                            <td>Other Charges (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.chargesType}}</small></td>

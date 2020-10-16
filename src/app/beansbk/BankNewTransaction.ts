@@ -55,7 +55,7 @@ export interface NTBean{
 	 confirmedFlag:string;
 	 goodsType:string;
 	 quotationReceived:string;
-
+	 quotationStatus:string;
 }
 
 export interface PlaceQuote{
@@ -92,6 +92,7 @@ export interface PlaceQuote{
 		confChgsNegot:number;
 		OtherChargesComments:String,
 		termConditionComments:String,
+		quotationStatus:string
 		}
 
 		export interface editViewQuotation{
@@ -126,6 +127,7 @@ export interface PlaceQuote{
 		userId: String;
 		validity: Date;
 		validityDate: Date;
+		quotationStatus:string;
 				}
 
 		export interface newTransactionBean{
@@ -186,5 +188,6 @@ export interface PlaceQuote{
 			lccountry: any[],
 			lcgoods: any[],
 			lcbanks: any[],
-			lcbranch: any[]
+			lcbranch: any[],
+			quotationStatus:string;
 		}

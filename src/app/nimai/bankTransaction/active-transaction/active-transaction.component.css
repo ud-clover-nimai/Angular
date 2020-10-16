@@ -154,3 +154,37 @@
 table {
   empty-cells: show;
 }
+@keyframes up-right {
+  0% {
+      transform: scale(1);
+      opacity: .25
+  }
+  50% {
+      transform: scale (1, 5);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+      opacity: .25;
+  }
+}
+.circle {
+  border-radius: 51%;
+  width: 15px;
+  height: 15px;
+  opacity: .25;
+}
+.red {
+  background-color:#EF443B;
+  position: absolute;
+  margin-left: 15px;
+  margin-top: -16px;
+  -webkit-animation: up-right 1s infinite;
+  -moz-animation: up-right 1s infinite;
+  -o-animation: up-right 1s infinite;
+  animation: up-right 1s infinite;
+}
+#container {
+  position: relative;
+  background: #000000;
+}
