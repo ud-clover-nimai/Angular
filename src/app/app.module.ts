@@ -24,7 +24,6 @@ import { UploadLcDetailsCanDeactivate } from './services/guards/UploadDetailsCan
 import { CustomerLoginComponent } from './default/popups/customer-login/customer-login.component';
 import { TermAndConditionsComponent } from './default/term-and-conditions/term-and-conditions.component';
 import { ActiveTransactionComponent } from './nimai/active-transaction/active-transaction.component';
-import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,8 +48,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    SharedModule,
-    GoogleChartsModule
+    SharedModule
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,CustomerCanActiveService,BankCanActiveService,UploadLcDetailsCanDeactivate,
