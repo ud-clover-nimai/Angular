@@ -123,7 +123,7 @@
                                     </tr>
                                     <tr>
                                         <td>Validity</td>
-                                        <td><input type="date" onkeydown="return false" name="validityDate"
+                                        <td><input type="date" name="validityDate"
                                                 [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                                     </tr>
@@ -422,7 +422,7 @@
                                         <tr>
                                             <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
-                                            <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                            <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
                                                 <div *ngIf="f.submitted && validityDate.invalid"

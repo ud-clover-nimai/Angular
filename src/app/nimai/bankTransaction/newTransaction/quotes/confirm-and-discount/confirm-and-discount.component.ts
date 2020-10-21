@@ -231,10 +231,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
 
   public transaction(act: string, dataViewEdit: any) {
-
     this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
     this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
-    console.log(this.dataViewEdit)
+    this.titleService.quote.next(true);
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -299,21 +298,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
       }
         break;
       case 'preview': {
-
+      
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
-          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
-          this.dataViewEdit.confChgsIssuanceToNegot = "no";
-          this.selectMature = 'yes';
-          this.selectNego = 'no';
         } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
-          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
-          this.dataViewEdit.confChgsIssuanceToMatur = "no";
-          this.selectMature = 'no';
-          this.selectNego = 'yes';
         }
 
         if (this.title == 'Edit') {
@@ -323,11 +314,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
             $('input').attr('readonly', true);
             $('textarea').attr('readonly', true);
           }, 200);
-          console.log(this.dataViewEdit)
+        
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
             (response) => {
-
-              this.totalQuotes = JSON.parse(JSON.stringify(response)).data.TotalQuote;
+              this.titleService.quote.next(false);
+              this.detail = JSON.parse(JSON.stringify(response)).data;
+              console.log("this.detail--",this.detail)
+              this.totalQuotes = JSON.parse(JSON.stringify(response)).data.TotalQuote;             
             },
             error => {
               alert('error')
@@ -364,7 +357,6 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
 
   public transactionForQuotes(act: string, data: any, detail: any) {
-
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -388,7 +380,6 @@ export class ConfirmAndDiscountComponent implements OnInit {
         break;
 
       case 'confirm': {
-        console.log(data)
         const param = {
           "quotationId": detail.quotationId,
           "transactionId": data.transactionId,
@@ -396,7 +387,6 @@ export class ConfirmAndDiscountComponent implements OnInit {
         }
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
-            console.log(response)
             this.tab = 'tab3';
             let emailBodyUpdate = {
               "transactionid": data.transactionId,

@@ -170,7 +170,8 @@ export class TransactionDetailsComponent {
       (response) => {
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
-        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];       
+        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
+        console.log("this.quotationdata---",this.quotationdata)    
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){
           this.quotationdata.termConditionComments='';

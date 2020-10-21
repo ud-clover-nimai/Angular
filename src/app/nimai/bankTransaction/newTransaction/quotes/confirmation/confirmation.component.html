@@ -43,13 +43,13 @@
                                     <td>
                                         <input [checked]="chargesEdit1" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
                                         date of issuance till negotiation date</td>
-                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input [checked]="chargesEdit2" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
+                                        <input [checked]="chargesEdit2" type="radio" id="optn1" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;" >Confirmation Charges applicable from
                                         date of issuance till date of maturity</td>
-                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
 
                               
@@ -69,9 +69,12 @@
                                  </td>
                               </tr>
                               <tr>
-                                 <td>Validity</td>
-                                 <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-ddTHH:mm'" 
-                                    (ngModelChange)="dataViewEdit.validityDate = $event"></td>                              </tr>
+                                 <td>Validity </td>
+                                 <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                    (ngModelChange)="dataViewEdit.validityDate = $event"></td>      
+                                    <!-- <td><input type="date"  [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                        (ngModelChange)="data.validityDate = $event" disabled></td>                         -->
+                                </tr>
                               <tr *ngIf="title=='View'">
                                  <td>Total Quote</td>
                                  <td>
@@ -143,14 +146,14 @@
                                     <td>Confirmation Charges p.a.</td>
                                     <td>{{dataViewEdit.confirmationCharges}}</td>
                                 </tr>
-                                <tr [hidden]="confNegot">
-                                    <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                    <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
+                                <tr *ngIf="chargesEdit1">
+                                    <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
+                                    <td>{{detail.confChgsNegot}}</td>
                                 </tr>
 
-                                <tr [hidden]="confMature">
-                                    <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                                    <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
+                                <tr *ngIf="chargesEdit2">
+                                    <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                    <td>{{detail.confChgsMatur}}</td>
                                 </tr>
 
                                 <tr>
@@ -308,8 +311,8 @@
                            <tr>
                              <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                  <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
-                              <td><input type="date" onkeydown="return false" name="validityDate" 
-                                [ngModel]="data.validityDate | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="data.validityDate = $event"
+                              <td><input type="date"  name="validityDate" 
+                                [ngModel]="data.validityDate | date:'yyyy-MM-dd'" (ngModelChange)="data.validityDate = $event"
                                  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                  <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
                                     <div *ngIf="validityDate.errors.required">Validity date is required</div>
@@ -391,7 +394,7 @@
                                         <td>{{data.confChgsNegot}}</td>
                                     </tr>
                                     <tr [hidden]="confMature">
-                                        <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
+                                        <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
                                         <td>{{data.confChgsMatur}}</td>
                                     </tr>
                                     <tr>
@@ -410,7 +413,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                        <td>Validity<a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                             <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                         <td>{{data.validityDate | date : "dd-MM-y"}}</td>
                                     </tr>

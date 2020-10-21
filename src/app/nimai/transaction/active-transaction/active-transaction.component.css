@@ -47,6 +47,7 @@
         cursor: not-allowed!important;
         opacity: .65!important;
         pointer-events: none!important;
+        background-color: grey!important;
       }
       
       .adisabled:hover { text-decoration: none!important; }

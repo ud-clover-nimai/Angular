@@ -38,6 +38,7 @@ export class ActiveTransactionComponent implements OnInit {
   document: any;
   public parentURL: string = "";
   public subURL: string = "";
+  public isFreeze: boolean=false;
   constructor(public activatedRoute: ActivatedRoute,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -59,7 +60,13 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         bankActiveTransaction();
-        this.detail = JSON.parse(JSON.stringify(response)).data;        
+        this.detail = JSON.parse(JSON.stringify(response)).data;     
+        let array = this.detail;
+        for (var value of array) {
+          if(value.quotationStatus==="FreezePlaced")
+            this.isFreeze=true;
+
+        }   
       }, (error) => {
         this.hasNoRecord = true;
       }

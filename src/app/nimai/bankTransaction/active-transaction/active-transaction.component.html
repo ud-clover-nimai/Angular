@@ -8,7 +8,7 @@
               </div>
                 <div class="card-content">
                    <h4 class="card-title pull-left">Active Transaction</h4>
-                               
+                     <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
                    <form>
                     <div class="row" *ngIf="hasNoRecord">
                       <div class="col-md-12">
@@ -18,6 +18,7 @@
                       <div class="row" *ngIf="!hasNoRecord">
                          <div class="col-md-12">
                             <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                              
                                <table class="table table-hover" id="datatables">
                                   <thead>
                                     <tr>
