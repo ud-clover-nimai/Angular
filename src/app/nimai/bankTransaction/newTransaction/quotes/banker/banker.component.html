@@ -36,7 +36,7 @@
                                             <td>{{dataViewEdit.lCIssuanceBank}}</td>
     
                                             <td><b>Tenor</b></td>
-                                            <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                            <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -89,7 +89,7 @@
                                             <span class="pull-right percent">%</span>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Document Handling Charges (if any)</td>
                                         <td>
 
@@ -98,7 +98,7 @@
                                                 weightDirective />
 
                                         </td>
-                                    </tr>
+                                    </tr> -->
 
                                     <tr>
                                         <td>Other Charges (if any)<br>
@@ -123,7 +123,7 @@
                                     </tr>
                                     <tr>
                                         <td>Validity</td>
-                                        <td><input type="date" onkeydown="return false" name="validityDate"
+                                        <td><input type="date" name="validityDate"
                                                 [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                                     </tr>
@@ -194,7 +194,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -224,12 +224,12 @@
                                         {{dataViewEdit.negotiationChargesPerct}}
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Document Handling Charges (if any)</td>
                                     <td>
                                         {{dataViewEdit.docHandlingCharges}}
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                      <tr>
                                     <td>Other Charges (if any)<br><small
@@ -260,7 +260,7 @@
                                 </tr>
                                 <br>
                                 <tr *ngIf="dataViewEdit.termConditionComments">
-                                    <td colspan="2"><small>Other terms and conditions</small><br>
+                                    <td><small>Other terms and conditions</small><br>
                                         <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
 
@@ -393,12 +393,12 @@
                                                     weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges"
                                                     [(ngModel)]="data.docHandlingCharges" placeholder="0.00"
                                                     weightDirective>
-                                        </tr>
+                                        </tr> -->
 
                                         <tr>
                                             <td>Other Charges (if any)</td>
@@ -422,7 +422,7 @@
                                         <tr>
                                             <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
-                                            <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                            <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
                                                 <div *ngIf="f.submitted && validityDate.invalid"
@@ -527,12 +527,12 @@
                                         <td>
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Document Handling Charges (if any)</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Other Charges (if any)<br><small
                                                 style="color: #b6a3a3;">{{data.chargesType}}</small>
@@ -563,7 +563,7 @@
                                     </tr>
                                     <br>
                                     <tr *ngIf="data.termConditionComments">
-                                        <td colspan="2"><small>Other terms and conditions</small><br>
+                                        <td><small>Other terms and conditions</small><br>
                                             <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                                     </tr>
         

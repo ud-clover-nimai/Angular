@@ -684,17 +684,6 @@ button.close {
     color: #000;
 }
 
-.closeSlider {
-  float: right;
-  font-weight: 400;
-  -webkit-appearance: none;
-  padding: 0;
-  cursor: pointer;
-  background: bottom;
-  border: 0;
-  font-size: 26px;
-  color: #000;
-}
 
 .successdiv .modal-content{
   box-shadow: none;    border: 0px solid rgba(0,0,0,.2);
@@ -2305,4 +2294,19 @@ div#menu-bar-con {
   width: 100% !important;
 } 
 
+}
+
+
+@-moz-document url-prefix() {
+  .popupcontent .tab-content {
+     height: 571px !important; 
+  }
+}
+@-moz-document url-prefix() {
+#optn4{
+  float: left!important;
+}
+#optn3{
+  float: left!important;
+}
 }

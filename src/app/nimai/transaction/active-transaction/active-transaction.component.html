@@ -107,7 +107,7 @@
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
-                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal">Accept</button></td>
+                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" [ngClass]="{'adisabled': QRrecord.quotationStatus === 'FreezePlaced' || QRrecord.quotationStatus ==='FreezeRePlaced'}" >Accept</button></td>
                          </tr>                          
                        </tbody>
                      </table>
@@ -191,10 +191,10 @@
                               &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
                         </tr>
-                        <tr *ngIf="quotationReqType != 'Confirmation'">
+                        <!-- <tr *ngIf="quotationReqType != 'Confirmation'">
                            <td>Document Handling Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                            <td>Other Charges (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.chargesType}}</small></td>
@@ -218,11 +218,11 @@
                         </tr>
                         <br>
                         <tr *ngIf="getSpecificDetail.termConditionComments">
-                           <td>Other terms and conditions </td>
-                           <td> 
+                           <td>Other terms and conditions <br>
                               <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small>
-                           </td>
+                           </td>                         
                        </tr>
+                      
                     
 <br>
                         <tr>
@@ -275,8 +275,12 @@
                <div class="">
                   <div class="row">
                      <div class="col-md-12">
-                        <p class="head" style="text-align: center;"><strong>Congratulations!</strong><br><br>You've saved <strong>$100</strong> by accepting
-                           this Quote.</p>
+                        <!-- <p class="head" style="text-align: center;"><strong>Congratulations!</strong>
+                           <br><br>You've saved <strong>$100</strong> by accepting
+                           this Quote.</p> -->
+                           <p class="head" style="text-align: center;"><strong>Congratulations!</strong>
+                              <br><br>{{acceptedQuoteMessage}}</p>
+                           
                         <ul class="list-unstyled">
                            <li><strong>Bank Details</strong></li>
                            <li>Bank : {{acceptedDetails.bankName}}</li>

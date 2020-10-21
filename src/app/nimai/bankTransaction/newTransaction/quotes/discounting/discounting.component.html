@@ -28,7 +28,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -85,7 +85,7 @@
                               </tr>
                               <tr>
                                  <td>Validity</td>
-                                 <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                                     (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                               </tr> 
                               <tr *ngIf="title=='View'">
@@ -155,7 +155,7 @@
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.confirmationPeriod}} Days</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -184,12 +184,12 @@
                                         {{dataViewEdit.negotiationChargesPerct}}%
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Document Handling Charges</td>
                                     <td>
                                         {{dataViewEdit.docHandlingCharges}}
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                 <tr>
                                     <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
@@ -223,7 +223,7 @@
                                 </tr>
                                <br>
                                <tr *ngIf="dataViewEdit.termConditionComments">
-                                <td colspan="2">Other terms and conditions <br>
+                                <td>Other terms and conditions <br>
                                     <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>                                        
                             </tr>
             
@@ -322,23 +322,39 @@
 
                                         <tr>
                                             <td>Discounting interest p.a ( spread over benchmark)</td>
-                                            <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                            <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" 
+                                                #discountingCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && discountingCharges.invalid }" required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && discountingCharges.invalid" class="invalid-feedback">
+                                                    <div *ngIf="discountingCharges.errors.required">Discounting interest p.a is required</div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>*Negotiation Charges (Fixed)</td>
-                                            <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
-                                        </tr>
+                                            <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" 
+                                                #negotiationChargesFixed="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesFixed.invalid }" required weightDirective>
+                                          <div *ngIf="f.submitted && negotiationChargesFixed.invalid" class="invalid-feedback">
+                                            <div *ngIf="negotiationChargesFixed.errors.required">Negotiation Charges (Fixed) is required</div>
+                                        </div>
+                                    </td>
+                                            </tr>
                                         <tr>
                                             <td>*Negotiation Charges (%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
-                                            <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                            <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00"
+                                                #negotiationChargesPerct="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesPerct.invalid }" required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && negotiationChargesPerct.invalid" class="invalid-feedback">
+                                                    <div *ngIf="negotiationChargesPerct.errors.required">Negotiation Charges (%) is required</div>
+                                                </div>
+                                            </td>
+                                          
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
-                                        </tr>
+                                        </tr> -->
 
                                         <tr>
                                             <td>Other Charges (if any)</td>
@@ -353,11 +369,16 @@
                                  </tr> -->
                                  <tr> 
                                     <td>Minimum Transaction Charges</td>
-                                    <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00" weightDirective>
-                                 </tr>
+                                    <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00"
+                                        #minTransactionCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && minTransactionCharges.invalid }" required  weightDirective>
+                                        <div *ngIf="f.submitted && minTransactionCharges.invalid" class="invalid-feedback">
+                                            <div *ngIf="minTransactionCharges.errors.required">Minimum Transaction Charges is required</div>
+                                        </div>
+                                        </td>
+                                    </tr>
                                  <tr>
                                     <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>  </td>
-                                    <td><input type="date" onkeydown="return false" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                    <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                         (ngModelChange)="data.validityDate = $event"  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                        <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
                                           <div *ngIf="validityDate.errors.required">Validity date is required</div>
@@ -451,12 +472,12 @@
                                         <td>
                                             {{data.negotiationChargesPerct}}%</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Document Handling Charges</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>
@@ -483,7 +504,7 @@
                                     <br>
                                  
                                     <tr *ngIf="data.termConditionComments">
-                                        <td colspan="2">Other terms and conditions <br>
+                                        <td>Other terms and conditions <br>
                                             <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>                                        
                                     </tr>
 

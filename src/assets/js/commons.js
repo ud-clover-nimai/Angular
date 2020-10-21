@@ -2214,7 +2214,6 @@ export function newLCUpload() {
 
     });
 }
-
 export function dashboard_details() {
     $(document).ready(function () {
         // $('select').css('color', '#333');
@@ -2226,22 +2225,16 @@ export function dashboard_details() {
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
-
         });
-
         $('select').css('color', '#333');
         demo.initFormExtendedDatetimepickers();
-
-
         google.charts.load('current', { packages: ['corechart', 'bar'] });
         google.charts.setOnLoadCallback(drawStacked);
-
         function drawStacked() {
             var data = new google.visualization.DataTable();
             data.addColumn('timeofday', 'Time of Day');
             data.addColumn('number', 'Motivation Level');
             data.addColumn('number', 'Energy Level');
-
             data.addRows([
                 [{ v: [8, 0, 0], f: '8 am' }, 1, .25],
                 [{ v: [9, 0, 0], f: '9 am' }, 2, .5],
@@ -2254,7 +2247,6 @@ export function dashboard_details() {
                 [{ v: [16, 0, 0], f: '4 pm' }, 9, 7.5],
                 [{ v: [17, 0, 0], f: '5 pm' }, 10, 10],
             ]);
-
             var options = {
                 title: 'Motivation and Energy Level Throughout the Day',
                 isStacked: true,

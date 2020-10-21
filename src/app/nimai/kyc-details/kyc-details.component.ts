@@ -7,8 +7,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { loadFilestyle ,loads} from '../../../assets/js/commons'
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import * as $ from '../../../assets/js/jquery.min';
-
-
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-kyc-details',
   templateUrl: './kyc-details.component.html',
@@ -46,7 +45,7 @@ export class KycDetailsComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
-
+console.log("this.parentURL--",this.parentURL)
     console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "MyProfile"){
@@ -55,6 +54,7 @@ export class KycDetailsComponent implements OnInit {
     }
 
     let userID = sessionStorage.getItem("userID");
+    
     if((userID.startsWith('BA')) || (userID.startsWith('BC'))){
       this.isBank = true;
     }
@@ -62,7 +62,7 @@ export class KycDetailsComponent implements OnInit {
       this.isCustomer = true;
     }
 
-    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
+    this.resp = JSON.parse(sessionStorage.getItem('countryData'));    
      this.kycDetailsForm = this.fb.group({
       businessDocumentList: this.fb.array([]),
       personalDocumentList: this.fb.array([]),
@@ -75,7 +75,6 @@ export class KycDetailsComponent implements OnInit {
     })
   }
   ngOnInit() {
-   
     loads();
     this.titleService.changeTitle(this.title);
   }
@@ -138,10 +137,11 @@ get kycDetails() {
     }
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
+
     businessDocumentList.push(this.fb.group({
       documentName: $('#busiDocument').val(),
       title: ['Business'],
-      country: $('#busiCountry').val(),
+      country: this.kycDetailsForm.get('busiCountry').value,
       encodedFileContent: [this.imageSrcBusi],
       documentType: ['jpg']      
     }));
@@ -152,7 +152,7 @@ get kycDetails() {
     personalDocumentList.push(this.fb.group({
       documentName: $('#perDocument').val(),
       title: ['Personal'],
-      country: $('#perCountry').val(),
+      country: this.kycDetailsForm.get('perCountry').value,
       encodedFileContent: [this.imageSrcPer],
       documentType: ['jpg']      
     }));

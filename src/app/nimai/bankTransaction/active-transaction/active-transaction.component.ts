@@ -10,7 +10,7 @@ import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refin
 import { DiscountingComponent } from '../newTransaction/quotes/discounting/discounting.component';
 import { BankerComponent } from '../newTransaction/quotes/banker/banker.component';
 import * as $ from 'src/assets/js/jquery.min';
-
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-transaction',
@@ -36,13 +36,22 @@ export class ActiveTransactionComponent implements OnInit {
   quotationdata: any;
   isDetailActive: boolean=false;
   document: any;
-  constructor(public titleService: TitleService, public nts: NewTransactionService) {
-
+  public parentURL: string = "";
+  public subURL: string = "";
+  public isFreeze: boolean=false;
+  constructor(public activatedRoute: ActivatedRoute,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
     this.titleService.quote.next(false);
 
   }
 
   public getAllnewTransactions() {
+    this.titleService.quote.next(true);
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "quotationStatus": "Placed"
@@ -51,12 +60,14 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         bankActiveTransaction();
-        this.detail = JSON.parse(JSON.stringify(response)).data;
-      
-        if (!this.detail) {
-          this.hasNoRecord = true;
-        }
+        this.detail = JSON.parse(JSON.stringify(response)).data;  
+        
+        let array = this.detail;
+        for (var value of array) {
+          if(value.quotationStatus==="FreezePlaced" || value.quotationStatus==="FreezeRePlaced")
+            this.isFreeze=true;
 
+        }   
       }, (error) => {
         this.hasNoRecord = true;
       }
@@ -65,6 +76,31 @@ export class ActiveTransactionComponent implements OnInit {
 
   ngOnInit() {
   }
+  // public validateQuote(data: any){
+  //   const param = {
+  //     "userId": data.userId,
+  //     "transactionId":data.transactionId
+  //   }
+  //   this.nts.validateQuote(param).subscribe(
+  //     (response) => {
+  //      // bankActiveTransaction();
+  //       this.detail = JSON.parse(JSON.stringify(response)).status;
+  //       console.log("Status---",this.detail)
+  //       if(this.detail=="Validate Success"){
+  //         alert("Validate Successfully.")
+  //         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+  //         });
+  //       }else{
+  //         alert("Someting went wrong.")
+  //       }
+  //       console.log("message",this.detail.message)
+  
+  //     }, (error) => {
+  //       this.hasNoRecord = true;
+  //     }
+  //   )
+  // }
   showProForma(file) {
     $('#myModal99').show();
     this.document = file;
@@ -113,7 +149,6 @@ export class ActiveTransactionComponent implements OnInit {
   showQuotePage(pagename: string, action: Tflag, data: any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-
     if (pagename === 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);
       this.discounting.isActive = false;

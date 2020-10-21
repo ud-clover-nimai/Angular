@@ -77,7 +77,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     load_dashboard();
-    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details` || this.router.url === `/${this.parentURL}/dsb/personal-details/success`) {      
+    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
+      this.accountPages = "in"
+      this.isCollapsed = ""
+      this.areaExpandedacc = !this.areaExpandedacc
+    }else if(this.router.url === `/${this.parentURL}/dsb/personal-details/success` || this.router.url === `/${this.parentURL}/dsb/business-details/success`){
       this.accountPages = "in"
       this.isCollapsed = ""
       this.areaExpandedacc = !this.areaExpandedacc
@@ -176,22 +180,19 @@ export class DashboardComponent implements OnInit {
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-        sessionStorage.setItem("KYCStatus", this.nimaiCount.kycstatus);
-        console.log("this.nimaiCount.kycstatus---",this.nimaiCount.kycstatus)
+        sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
-        sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);
+        sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);        
         if(this.nimaiCount.isbdetailfilled){
           this.isShowPlan=true;
         }else{
           this.isShowPlan=false;
         }
-        // if(this.nimaiCount.issplanpurchased){
-        //   this.isShowKyc=true;
-        // }else{
-        //   this.isShowKyc=false;
-        // }
-        // console.log("this.isShowPlan---",this.isShowPlan)
-        // console.log("this.isShowKyc---",this.isShowKyc)
+        if(this.nimaiCount.issplanpurchased=="1"){
+          this.isShowKyc=true;
+        }else{
+          this.isShowKyc=false;
+         }
       },
       error => { }
     )

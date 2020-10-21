@@ -8,7 +8,7 @@
               </div>
                 <div class="card-content">
                    <h4 class="card-title pull-left">Active Transaction</h4>
-                               
+                     <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
                    <form>
                     <div class="row" *ngIf="hasNoRecord">
                       <div class="col-md-12">
@@ -18,6 +18,7 @@
                       <div class="row" *ngIf="!hasNoRecord">
                          <div class="col-md-12">
                             <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                              
                                <table class="table table-hover" id="datatables">
                                   <thead>
                                     <tr>
@@ -38,7 +39,7 @@
                                   </thead>
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
-                                      <td>{{i+1}}</td>
+                                      <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'"><div class="circle red"></div></div> </td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.transactionId}}</td>
                                       <td>{{record.goodsType}}</td>
@@ -61,7 +62,9 @@
                                     </td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a><br>
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='Placed'">View / Edit<div class="ripple-container"></div></a>
+                                              <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
                                               <a class="handleActive" style="cursor: pointer;color:blue" (click)="getDetail(record);">Detail</a>
                                               <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.quotationStatus=='RePlaced'"
                                               style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This transaction has been reopen by the customer.You can modify your previous quote by clicking place quote button" > </a>
@@ -98,7 +101,7 @@
                <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
                    <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
                    <li class="activeTab"><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
-                   <button type="button" class="closeSlider handleActive" >&times;</button>
+
                </ul>
                <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
@@ -420,10 +423,10 @@
                                                &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                            <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                        </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
+                                       <!-- <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
                                            <td>Document Handling Charges (if any)</td>
                                            <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
-                                       </tr>
+                                       </tr> -->
                                        <tr>
                                            <td>Other Charges (if any)<br><small
                                                style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>
@@ -444,10 +447,10 @@
                                            <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
                                        </tr>
                                        <br>
-                                       <tr *ngIf="quotationdata.termConditionComments">
-                                          <td colspan="2">Other terms and conditions  </td>
-                                           <td><small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small></td>
-                                             
+                                       <tr *ngIf="quotationdata.termConditionComments">                                          
+                                           <td>Other terms and conditions <br>
+                                            <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
+                                         </td>  
                                       </tr>
 
                                    </tbody>

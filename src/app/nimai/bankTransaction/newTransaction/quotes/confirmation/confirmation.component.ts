@@ -113,7 +113,8 @@ export class ConfirmationComponent implements OnInit {
       quotationReceived: '',
       discountingPeriod: '',
       confirmationPeriod: '',
-      refinancingPeriod: ''
+      refinancingPeriod: '',
+      quotationStatus:''
     }
 
     this.dataViewEdit = {
@@ -149,7 +150,8 @@ export class ConfirmationComponent implements OnInit {
       validity: null,
       validityDate: null,
       discountingPeriod: '',
-      refinancingPeriod: ''
+      refinancingPeriod: '',
+      quotationStatus:''
     }
 
   }
@@ -175,8 +177,10 @@ export class ConfirmationComponent implements OnInit {
       data.chargesType='';
     } if(data.commentsBenchmark=='null'){
       data.commentsBenchmark='';
-    }
+    }    
     if (flag) {
+      console.log("Tflag---",Tflag)
+      console.log("data---",data)
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);
@@ -248,15 +252,13 @@ export class ConfirmationComponent implements OnInit {
 
 
   public transaction(act: string, dataViewEdit: any) {
-    this.radioid = true;
     this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
     this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
-   
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
         this.title = 'Edit';
-        this.radioid = false;
+        this.radioid=false;
         $('input').attr('readonly', false);
         $('textarea').attr('readonly', false);
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
@@ -280,6 +282,23 @@ export class ConfirmationComponent implements OnInit {
         break;
 
       case 'submit': {
+        if(this.dataViewEdit.quotationStatus=="FreezePlaced"){
+          const param = {
+            "userId": this.dataViewEdit.userId,
+            "bankUserId":this.dataViewEdit.bankUserId,
+            "transactionId":this.dataViewEdit.transactionId
+          }
+          this.ts.validateQuote(param).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).status;
+              if(this.detail=="Validate Success"){
+                alert("Quote Validate Successfully.")
+              }else{
+                console.log("Someting went wrong.")
+              }
+            }, (error) => {}
+          )
+          }
         this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -304,15 +323,11 @@ export class ConfirmationComponent implements OnInit {
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
-          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
-          this.dataViewEdit.confChgsIssuanceToNegot = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
         } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
-          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
-          this.dataViewEdit.confChgsIssuanceToMatur = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -325,6 +340,7 @@ export class ConfirmationComponent implements OnInit {
           }, 200);
           this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
             (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).data;
               this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
             },
           // this.ts.saveQuotationToDraft(this.dataViewEdit).subscribe(
@@ -365,7 +381,7 @@ export class ConfirmationComponent implements OnInit {
 
 
   public transactionForQuotes(act: string, data: any, detail: any) {
-
+     
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -449,7 +465,7 @@ export class ConfirmationComponent implements OnInit {
         break;
 
 
-      case 'calculateQuote': {
+      case 'calculateQuote': {        
         this.ts.saveQuotationToDraft(this.data).subscribe(
           (response) => {
             this.detail = JSON.parse(JSON.stringify(response)).data;
@@ -463,7 +479,9 @@ export class ConfirmationComponent implements OnInit {
           }
         )
       } break;
-      case 'generateQuote': {
+      case 'generateQuote': {    
+        this.radioid = true;   
+        console.log("radioid generateQuote-------------",this.radioid) 
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;

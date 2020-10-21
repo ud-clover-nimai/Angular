@@ -53,13 +53,13 @@
                                     <td>
                                         <input [checked]="chargesEdit1" type="radio" id="optn3" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
                                         date of issuance till negotiation date</td>
-                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEdit1" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="true" readonly disable style="background: #eee!important">
                                 </tr>
                                 <tr>
                                     <td>
                                         <input [checked]="chargesEdit2" type="radio" id="optn3" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
                                         date of issuance till date of maturity</td>
-                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEdit2" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="true" readonly disable style="background: #eee!important">
                                 </tr>
 
                                 <tr>
@@ -92,14 +92,14 @@
                              
                            </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                            <td>Document Handling Charges (if any)</td>
                            <td>
                               <input  type="text" [(ngModel)]="dataViewEdit.docHandlingCharges"
                                  placeholder="0.00" weightDirective />
                              
                            </td>
-                        </tr>
+                        </tr> -->
                       
                         <tr>
                            <td>Other Charges (if any)<br>
@@ -122,7 +122,7 @@
                         </tr>
                         <tr>
                            <td>Validity</td>
-                           <td><input type="date" onkeydown="return false" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                           <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="dataViewEdit.validityDate = $event"></td>  
                         </tr>
                         <tr *ngIf="title=='View'">
@@ -213,14 +213,14 @@
                                     <td>Discounting Charges p.a.</td>
                                     <td>{{dataViewEdit.discountingCharges}}</td>
                                 </tr>
-                                <tr [hidden]="confNegot">
+                                <tr *ngIf="chargesEdit1">
                                     <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                                    <td>{{dataViewEdit.confChgsIssuanceToNegot}}</td>
+                                    <td>{{detail.confChgsNegot}}</td>
                                 </tr>
 
-                                <tr [hidden]="confMature">
-                                    <td>Confirmation Charges applicable from date of issuance till date of maturity </td>
-                                    <td>{{dataViewEdit.confChgsIssuanceToMatur}}</td>
+                                <tr *ngIf="chargesEdit2">
+                                    <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                    <td>{{detail.confChgsMatur}}</td>
                                 </tr>
                                
                                 <tr>
@@ -240,12 +240,12 @@
                                         {{dataViewEdit.negotiationChargesPerct}}%
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>Document Handling Charges (if any)</td>
                                     <td>
                                         {{dataViewEdit.docHandlingCharges}}
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                 <tr>
                                     <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{dataViewEdit.chargesType}}</small>
@@ -281,7 +281,7 @@
                                 </tr>
                                 <br>
                                 <tr *ngIf="dataViewEdit.termConditionComments">
-                                    <td colspan="2"><small>Other terms and conditions</small><br>
+                                    <td><small>Other terms and conditions</small><br>
                                         <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
  
@@ -387,7 +387,7 @@
                                             <td>
                                                 <input [checked]="charges1" type="radio" id="optn1" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 negotiation date</td>
-                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectidNego" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectidNego" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly >
                                         </tr>
                                         <tr>
                                             <td>
@@ -395,7 +395,7 @@
                                                 date of maturity <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i
                                                     class="fas fa-info-circle"
                                                     style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> </td>
-                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly >
                                         </tr>
                                         <tr>
                                             <td>Applicable Benchmark (if any)</td>
@@ -422,10 +422,10 @@
                                             <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
                                                 <span class="pull-right percent">%</span></td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
                                             <td><input type="text" name="docHandlingCharges" [(ngModel)]="data.docHandlingCharges" placeholder="0.00" weightDirective>
-                                        </tr>
+                                        </tr> -->
 
                                         <tr>
                                             <td>Other Charges (if any)</td>
@@ -443,7 +443,7 @@
                                         </tr>
                                         <tr>
                                             <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
-                                 <td><input type="date" name="validityDate" onkeydown="return false" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                 <td><input type="date" name="validityDate"  [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                     (ngModelChange)="data.validityDate = $event"   #validityDate="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required>
                                     <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
@@ -549,12 +549,12 @@
                                             {{data.negotiationChargesPerct}} %
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Document Handling Charges (if any)</td>
                                         <td>
                                             {{data.docHandlingCharges}}
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td>Other Charges (if any)<br><small style="color: #b6a3a3;">{{data.chargesType}}</small>
                                         </td>
@@ -586,7 +586,7 @@
                            </tr> -->
                            <br>
                            <tr *ngIf="data.termConditionComments">
-                               <td colspan="2"><small>Other terms and conditions</small><br>
+                               <td><small>Other terms and conditions</small><br>
                                 <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                            </tr>
                                     <tr>

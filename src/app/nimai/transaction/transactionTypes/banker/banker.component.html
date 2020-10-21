@@ -116,9 +116,21 @@
                          </select>
                            </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                            <td>Requirement</td>
                            <td><input type="text" [(ngModel)]="data.requirementType"></td>
+                        </tr> -->
+                        <tr>
+                              <td>Requirement Type</td>
+                              <td>
+                                 <select  (change)="changeReqType($event)" [(ngModel)]="data.requirementType">                                 
+                                    <option value='Confirmation'>Confirmation</option>
+                                    <option value='Discounting'>Discounting</option>
+                                    <option value='Refinance'>Refinancing</option>
+                                    <option value='ConfirmAndDiscount'>Confirmation and Discounting</option>
+                                    <option value='Banker'>Banker</option>
+                                 </select>
+                              </td>
                         </tr>
                         <tr>
                            <td>Amount</td>
@@ -139,15 +151,15 @@
                            <td><input type="date"  [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lCIssuingDate = $event"></td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="reqType != 'Refinance'">
                            <td>LC Negotiation Date</td>
                            <td><input type="date"  [ngModel]="data.negotiationDate | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.negotiationDate = $event"></td>
+                           (ngModelChange)="data.negotiationDate = $event"></td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="reqType != 'Refinance'">
                            <td>Last Shipment Date</td>
                            <td><input type="date"  [ngModel]="data.lastShipmentDate | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.lastShipmentDate = $event"></td>
+                           (ngModelChange)="data.lastShipmentDate = $event"></td>
                         </tr>
                         <tr>
                            <td>Goods</td>
@@ -163,22 +175,80 @@
                         </tr>
                      </tbody>
                   </table>
-
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Tenor of Deferred Payment </th>
-                        </tr>
-                        <tr>
-                           <td>Period for which financing is required</td>
-                           <td><input type="text" [(ngModel)]="data.discountingPeriod"></td>
-                        </tr>
-                        <tr>
-                           <td>Payments terms to seller as per LC </td>
-                           <td><textarea rows="5" [(ngModel)]="data.paymentTerms"></textarea></td>
-                        </tr>
-                     </tbody>
-                  </table>                  
+                  <table class="table table-bordered" *ngIf="reqType != 'Refinance'">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Tenor of Deferred Payment </th>
+                            </tr>
+                            <tr *ngIf="reqType == 'Banker'">
+                                <td>Period for which financing is required</td>
+                                <td><input type="text" [(ngModel)]="data.discountingPeriod"></td>
+                            </tr>
+                            <tr *ngIf="reqType == 'Discounting'">
+                                <td>Usance (Days)</td>
+                                <td><input type="text" [(ngModel)]="data.discountingPeriod"></td>
+                            </tr>
+                            <tr *ngIf="reqType == 'ConfirmAndDiscount' || reqType == 'Confirmation'">
+                                <td>Usance (Days)</td>
+                                <td><input type="text" [(ngModel)]="data.confirmationPeriod"></td>
+                            </tr>
+                            <tr>
+                                <td>Payments terms to seller as per LC </td>
+                                <td><textarea rows="5" [(ngModel)]="data.paymentTerms"></textarea></td>
+                            </tr>
+                        </tbody>
+                  </table>
+                  <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Tenor of Deferred Payment </th>
+                            </tr>
+                            <tr>
+                                <td>Orignal Usance (Tenor) of LC</td>
+                                <td><input type="text" [(ngModel)]="data.originalTenorDays"></td>
+                            </tr>
+                            <tr>
+                                <td>Period for which refinancing is required</td>
+                                <td><input type="text" [(ngModel)]="data.refinancingPeriod"></td>
+                            </tr>
+                            <tr>
+                                <td>LC Maturity Date</td>
+                                <td><input type="date"  [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
+                                 (ngModelChange)="data.lcMaturityDate = $event"></td>
+                            </tr>
+                            <tr>
+                              <td>Multiple Maturity Date</td>                               
+                              <td>
+                                 <input (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 75%;"/>
+                                 <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
+                              </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Beneficiary Details of Last Transaction</th>
+                            </tr>
+                            <tr>
+                                <td>LC Number</td>
+                                <td><input type="text" [(ngModel)]="data.lcNumber"></td>
+                            </tr>
+                            <tr>
+                                <td>Beneficiary Bank Name</td>
+                                <td><input type="text" [(ngModel)]="data.lastBeneBank"></td>
+                            </tr>
+                            <tr>
+                                <td>Swift Code</td>
+                                <td><input type="text" [(ngModel)]="data.lastBeneSwiftCode"></td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td>
+                                    <select [(ngModel)]="data.lastBankCountry">
+                                       <option [ngValue]="null" selected>Select</option>
+                                          <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                                     </select>
+                                 </td>
+                            </tr>
+                        </tbody>
+                  </table>                      
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
@@ -378,11 +448,11 @@
                            <td>LC Issuing Date</td>
                            <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="reqType != 'Refinance'">
                            <td>LC Negotiation Date</td>
                            <td>{{data.negotiationDate | date : 'dd-MM-y'}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="reqType != 'Refinance'">
                            <td>Last Shipment Date</td>
                            <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
                         </tr>
@@ -393,21 +463,71 @@
                      </tbody>
                   </table>
 
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th colspan="2">Tenor of Deferred Payment </th>
-                        </tr>
-                        <tr>
-                           <td>Period for which financing is required</td>
-                           <td>{{data.discountingPeriod}}</td>
-                        </tr>
-                        <tr>
-                           <td>Payments terms to seller as per LC </td>
-                           <td>{{data.paymentTerms}}</td>
-                        </tr>
-                     </tbody>
-                  </table>                  
+                  <table class="table table-bordered" *ngIf="reqType != 'Refinance'">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Tenor of Deferred Payment </th>
+                            </tr>
+                            <tr *ngIf="reqType == 'Banker'">
+                                <td>Period for which financing is required</td>
+                                <td>{{data.discountingPeriod}}</td>
+                            </tr>
+                            <tr *ngIf="reqType == 'Discounting'">
+                                <td>Usance (Days)</td>
+                                <td>{{data.discountingPeriod}}</td>
+                            </tr>
+                            <tr *ngIf="reqType == 'ConfirmAndDiscount' || reqType == 'Confirmation'">
+                                <td>Usance (Days)</td>
+                                <td>{{data.confirmationPeriod}}</td>
+                            </tr>
+                            <tr>
+                                <td>Payments terms to seller as per LC </td>
+                                <td>{{data.paymentTerms}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Tenor of Deferred Payment </th>
+                            </tr>
+                            <tr>
+                                <td>Orignal Usance (Tenor) of LC</td>
+                                <td>{{data.originalTenorDays}}</td>
+                            </tr>
+                            <tr>
+                                <td>Period for which refinancing is required</td>
+                                <td>{{data.refinancingPeriod}}</td>
+                            </tr>
+                            <tr>
+                                <td>LC Maturity Date</td>
+                                <td>{{data.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                            </tr>
+                            <tr>
+                              <td>Multiple Maturity Date</td>                               
+                              <td class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Beneficiary Details of Last Transaction</th>
+                            </tr>
+                            <tr>
+                                <td>LC Number</td>
+                                <td>{{data.lcNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Beneficiary Bank Name</td>
+                                <td>{{data.lastBeneBank}}</td>
+                            </tr>
+                            <tr>
+                                <td>Swift Code</td>
+                                <td>{{data.lastBeneSwiftCode}}</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td>{{data.lastBankCountry}}</td>
+                            </tr>
+                        </tbody>
+                    </table>                  
                   <table class="table table-bordered">
                      <tbody>
                         <tr>

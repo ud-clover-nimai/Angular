@@ -168,9 +168,15 @@ export class TransactionDetailsComponent {
 
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
+        // var str = "nego:1.1 , mature:2.2"; 
+        // var splitted = str.split(" ", 1); 
+        // console.log(splitted)
+        // var testt=splitted[0].split(":", 2)
+        // console.log(testt[1])
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
-        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];       
+        this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
+        console.log("this.quotationdata---",this.quotationdata)    
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){
           this.quotationdata.termConditionComments='';
@@ -201,8 +207,6 @@ export class TransactionDetailsComponent {
   openNav3() {
     document.getElementById("myCanvasNav").style.width = "100%";
     document.getElementById("myCanvasNav").style.opacity = "0.6";
-    document.getElementById("closeSliderId").classList.add("closeSlider"); 
-
   }
   closeOffcanvas() {
     document.getElementById("menubarDetailexpired").style.width = "0%";
@@ -210,8 +214,6 @@ export class TransactionDetailsComponent {
     document.getElementById("menu-barnew").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
-    document.getElementById("closeSliderId").classList.remove("closeSlider"); 
-
   }
   showProForma(file) {
     $('#myModal9').show();

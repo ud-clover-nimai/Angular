@@ -8,32 +8,52 @@
                 <div class="col-md-12">
                    <div class="">
                       <div class="dashsidediv dashbottom"> 
-                         <div class="row">
-                            <div class="revenuediv borderzero text-right">
-                               <div class="col-md-4 col-sm-4">
-                                  <h3>17 <br><small>Transactions</small></h3>
-                                  <h5>Active Transaction</h5>
-                                 <i class="fas fa-exchange-alt"></i>
+                         <div class="row" *ngIf="isCustomer">
+                            <div class="revenuediv borderzero text-right" >
+                               <div class="col-md-4 col-sm-4" *ngFor="let count of custmrdasbrdcount">
+                                  <h3>{{count.count}} <br>
+                                    <small *ngIf="count.detail=='ActiveTransaction' || count.detail=='QuotesAwaited'">Transactions</small>
+                                    <small *ngIf="count.detail=='QuoteActiveTransaction'">Quotes</small>
+                                 </h3>
+                                  <h5 *ngIf="count.detail=='ActiveTransaction'">Active Transaction</h5>
+                                  <h5 *ngIf="count.detail=='QuoteActiveTransaction'">Quote/Active Transaction</h5>
+                                  <h5 *ngIf="count.detail=='QuotesAwaited'">Quotes Awaited</h5>
+                                 <i class="fas fa-exchange-alt"  *ngIf="count.detail=='ActiveTransaction'"></i>
+                                 <i class="fas fa-comment-dots"  *ngIf="count.detail=='QuoteActiveTransaction'"></i>
+                                 <i class="fas fa-hourglass-half"  *ngIf="count.detail=='QuotesAwaited'"></i>
                                </div>
-                               <div class="col-md-4 col-sm-4">
-                                  <h3>4.6<br><small>Quotes</small></h3>
-                                  <h5>Quote / Active Transaction</h5>
-                                 <i class="far fa-comment-dots"></i>
-                               </div> 
-                               <div class="col-md-4 col-sm-4">
-                                  <h3>9<br><small>Transactions</small></h3>
-                                  <h5>Quotes Awaited</h5>
-                                 <i class="fas fa-hourglass-half"></i>
-                               </div> 
                             </div>
                          </div>
+                         <div class="row"  *ngIf="!isCustomer">
+                           <div class="revenuediv borderzero text-right" >
+                              <div class="col-md-4 col-sm-4">
+                                 <h3>17 <br>
+                                   <small>Transactions</small>
+                                   <small>Quotes</small>
+                                </h3>
+                                 <h5>Transactions</h5>
+                                <i class="fas fa-exchange-alt"></i>
+                              </div>
+                              <div class="col-md-4 col-sm-4">
+                                 <h3>4.6<br><small>Quotes</small></h3>
+                                 <h5>Quote / Active Transaction</h5>
+                                <i class="far fa-comment-dots"></i>
+                              </div> 
+                              <div class="col-md-4 col-sm-4">
+                                 <h3>9<br><small>Transactions</small></h3>
+                                 <h5>Quotes Awaited</h5>
+                                <i class="fas fa-hourglass-half"></i>
+                              </div> 
+                           </div>
+                        </div>
                       </div>
                    </div>
                 </div>
              </div>
           </div>
           <div class="clearfix"></div>
-          <!-- <div class="col-md-6 form-group">
+          <!-- <div  #pieChart style="width: 100vw; height: 100vh;"></div> -->
+         <div class="col-md-6 form-group" *ngIf="isCustomer">
              <div class="row">
                 <div class="col-md-12">
                    <div class="dashsidediv">
@@ -42,14 +62,14 @@
                          </h2>
                          <div class="clearfix"></div>
                          <div class="row graphsideinner">
-                         <div id="piechart" style=" height: 280px;"></div>
+                         <div  id="pieChart" style="height: 280px;"></div>
                          </div>
                    </div>
                 
                 </div>
              </div>
           </div>
-          <div class="col-md-6 form-group">
+          <div class="col-md-6 form-group" *ngIf="isCustomer">
              <div class="row">
                 <div class="col-md-12">
                    <div class="dashsidediv">
@@ -58,7 +78,7 @@
                          </h2>
                          <div class="clearfix"></div>
                          <div class="row graphsideinner">
-                         <div id="piechart1" style=" height: 280px;"></div>
+                           <div id="pieChart1" style="height: 280px;"></div>
                          </div>
                    </div>
                 
@@ -85,7 +105,7 @@
                          <div class="clearfix"></div>
                       <div class="graphsideinner row">
                        <div class="col-md-12">
-                        <div id="chart_div" style="height: 250px;border:0;"></div> 
+                        <div id="bar_chart" style="height: 250px;border:0;"></div> 
                        </div>                                    
                       </div>
                    </div>
@@ -119,34 +139,44 @@
                             </div>
                          </div>
                    </div>
-                </div> -->
+                </div>
 <div class="clearfix"></div>
 <br>
          <div class="col-md-12" >
              <div class="row">
                 <div class="col-md-12" >
-                   <div class="dashsidediv">
-                      <h2>
-                            Transaction Bifurcation 
-
-                            <ul class="list-unstyled list-inline pull-right" style="    margin-top: -3px;">
+                   <div class="dashsidediv" *ngIf="isCustomer">
+                     <h2>
+                        Transaction Bifurcation 
+                        <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;">
+                              <li>From</li>
                                <li>
-                                  <div class="textfield">
-                                     <input type="text" class="datepicker" placeholder="Start Date"> 
-                                     <i class="fas fa-calendar-week"></i>
-                                  </div>
+                                     <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
+                                     <mat-form-field>       
+                                       <mat-label>Start Date</mat-label>                                
+                                       <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate( $event)">
+                                       <mat-datepicker-toggle matSuffix [for]="startDate">
+                                       </mat-datepicker-toggle>
+                                       <mat-datepicker #startDate>
+                                       </mat-datepicker>
+                                   </mat-form-field>
                                </li>
                                <li>to</li>
                                <li>
-                                  <div class="textfield">
-                                     <input type="text" class="datepicker" placeholder="End Date"> 
-                                     <i class="fas fa-calendar-week"></i>
-                                  </div>
+                                 <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
+                                 <mat-form-field>       
+                                    <mat-label>End Date</mat-label>                                
+                                    <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="endDate">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #endDate>
+                                    </mat-datepicker>
+                                 </mat-form-field>
                                </li>
-                            </ul>
-                         </h2>
-                      <div class="overallstats row">
-                       <div class="col-md-3 col-sm-3">
+                        </ul>
+                     </h2>
+                      <div class="overallstats row borderzero">
+                       <div class="col-md-3 col-sm-3" *ngFor="let transactionbifurcation of transactionbifurcation">
                           <div class="overall">
                            <table class="table">
                              <tr>
@@ -154,53 +184,11 @@
                                  <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
                                </td>
                                <td>
-                                 <h5>188</h5>
-                                 <h3 style="font-size: 14px;"><small>Accepted Transactions</small></h3>
-                               </td>
-                             </tr>
-                           </table> 
-                          </div>
-                       </div>
-                       <div class="col-md-3 border col-sm-3"> 
-                          <div class="overall">
-                           <table class="table">
-                             <tr>
-                               <td>
-                                 <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
-                               </td>
-                               <td>
-                                 <h5>32</h5>
-                                 <h3>Banks <br><small style="visibility: hidden;">dd</small></h3>
-                               </td>
-                             </tr>
-                           </table> 
-                          </div>
-                       </div>              
-                       <div class="col-md-3 borderright col-sm-3 ">
-                           <div class="overall">
-                           <table class="table">
-                             <tr>
-                               <td>
-                                 <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
-                               </td>
-                               <td>
-                                 <h5>9</h5>
-                                 <h3 style="font-size: 14px;">Expired<br> Transactions</h3>
-                               </td>
-                             </tr>
-                           </table> 
-                          </div>
-                       </div>           
-                        <div class="col-md-3 col-sm-3">
-                          <div class="overall">
-                           <table class="table">
-                             <tr>
-                               <td>
-                                 <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
-                               </td>
-                               <td>
-                                 <h5>24</h5>
-                                 <h3 style="font-size: 14px;"><small>Rejected <br>Transactions</small></h3>
+                                 <h5>{{transactionbifurcation.count}}</h5>
+                                 <h3 style="font-size: 14px;" *ngIf="transactionbifurcation.detail=='accepted'"><small>Accepted Transactions</small></h3>
+                                 <h3 style="font-size: 14px;" *ngIf="transactionbifurcation.detail=='rejected'"><small>Rejected <br>Transactions</small></h3>
+                                 <h3 style="font-size: 14px;" *ngIf="transactionbifurcation.detail=='expired'">Expired<br> Transactions</h3>
+                                 <h3 *ngIf="transactionbifurcation.detail=='Bank'">Banks <br><small style="visibility: hidden;">dd</small></h3>
                                </td>
                              </tr>
                            </table> 
@@ -208,6 +196,89 @@
                        </div>                      
                       </div>
                    </div>
+                   <div class="dashsidediv" *ngIf="!isCustomer">
+                     <h2>
+                           Transaction Bifurcation 
+
+                           <ul class="list-unstyled list-inline pull-right" style="    margin-top: -3px;">
+                              <li>
+                                 <div class="textfield">
+                                    <input type="text" class="datepicker" placeholder="Start Date"> 
+                                    <i class="fas fa-calendar-week"></i>
+                                 </div>
+                              </li>
+                              <li>to</li>
+                              <li>
+                                 <div class="textfield">
+                                    <input type="text" class="datepicker" placeholder="End Date"> 
+                                    <i class="fas fa-calendar-week"></i>
+                                 </div>
+                              </li>
+                           </ul>
+                        </h2>
+                     <div class="overallstats row">
+                      <div class="col-md-3 col-sm-3">
+                         <div class="overall">
+                          <table class="table">
+                            <tr>
+                              <td>
+                                <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
+                              </td>
+                              <td>
+                                <h5>188</h5>
+                                <h3 style="font-size: 14px;"><small>Accepted Transactions</small></h3>
+                              </td>
+                            </tr>
+                          </table> 
+                         </div>
+                      </div>
+                      <div class="col-md-3 border col-sm-3"> 
+                         <div class="overall">
+                          <table class="table">
+                            <tr>
+                              <td>
+                                <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
+                              </td>
+                              <td>
+                                <h5>32</h5>
+                                <h3>Banks <br><small style="visibility: hidden;">dd</small></h3>
+                              </td>
+                            </tr>
+                          </table> 
+                         </div>
+                      </div>              
+                      <div class="col-md-3 borderright col-sm-3 ">
+                          <div class="overall">
+                          <table class="table">
+                            <tr>
+                              <td>
+                                <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
+                              </td>
+                              <td>
+                                <h5>9</h5>
+                                <h3 style="font-size: 14px;">Expired<br> Transactions</h3>
+                              </td>
+                            </tr>
+                          </table> 
+                         </div>
+                      </div>           
+                       <div class="col-md-3 col-sm-3">
+                         <div class="overall">
+                          <table class="table">
+                            <tr>
+                              <td>
+                                <img src="https://image.flaticon.com/icons/svg/876/876000.svg" width="50">
+                              </td>
+                              <td>
+                                <h5>24</h5>
+                                <h3 style="font-size: 14px;"><small>Rejected <br>Transactions</small></h3>
+                              </td>
+                            </tr>
+                          </table> 
+                         </div>
+                      </div>                      
+                     </div>
+                  </div>
                 </div> 
              </div>
           </div>
@@ -222,7 +293,7 @@
                       </h2>
                       <div class="row">
                          <div class="table-responsive">
-                            <table class="table marzero">
+                            <table class="table marzero" *ngIf="isCustomer">
                                <tr>
                                   <th>Date</th>
                                   <th>Trxn ID</th>
@@ -232,77 +303,29 @@
                                   <th>Ccy</th>
                                   <!-- <th><a href="#" data-toggle="modal" data-target="#addsub"> Trxn Status</a></th> -->
                                </tr>
-                               <tr>
-                                  <td>01-08-20</td>
-                                  <td>CU010820INDREFI24179</td>
-                                  <td>Confirmation</td>
-                                  <td>India</td>
-                                  <td>12800</td>
-                                  <td>USD</td>
-                                  <!-- <td>
-                                     <select>
-                                        <option value="0">Open</option>
-                                        <option value="1">Closed</option>
-                                     </select>
-                                  </td> -->
-                               </tr>
-                               <tr>
-                                  <td>01-08-20</td>
-                                  <td>CU010820INDREFI24179</td>
-                                  <td>Confirmation</td>
-                                  <td>India</td>
-                                  <td>12800</td>
-                                  <td>USD</td>
-                                  <!-- <td>
-                                     <select>
-                                        <option value="0">Open</option>
-                                        <option value="1">Closed</option>
-                                     </select>
-                                  </td> -->
-                               </tr>
-                               <tr>
-                                  <td>01-08-20</td>
-                                  <td>CU010820INDREFI24179</td>
-                                  <td>Confirmation</td>
-                                  <td>India</td>
-                                  <td>12800</td>
-                                  <td>USD</td>
-                                  <!-- <td>
-                                     <select>
-                                        <option value="0">Open</option>
-                                        <option value="1">Closed</option>
-                                     </select>
-                                  </td> -->
-                               </tr>
-                               <tr>
-                                  <td>01-08-20</td>
-                                  <td>CU010820INDREFI24179</td>
-                                  <td>Confirmation</td>
-                                  <td>India</td>
-                                  <td>12800</td>
-                                  <td>USD</td>
-                                  <!-- <td>
-                                     <select>
-                                        <option value="0">Open</option>
-                                        <option value="1">Closed</option>
-                                     </select>
-                                  </td> -->
-                               </tr>
-                               <tr>
-                                  <td>01-08-20</td>
-                                  <td>CU010820INDREFI24179</td>
-                                  <td>Confirmation</td>
-                                  <td>India</td>
-                                  <td>12800</td>
-                                  <td>USD</td>
-                                  <!-- <td>
-                                     <select>
-                                        <option value="0">Open</option>
-                                        <option value="1">Closed</option>
-                                     </select>
-                                  </td> -->
+                               <tr *ngFor="let latestacceptedtrxn of latestacceptedtrxn">
+                                  <td>{{latestacceptedtrxn.date | date : 'dd-MM-y'}}</td>
+                                  <td>{{latestacceptedtrxn.transactionId}}</td>
+                                  <td>{{latestacceptedtrxn.requirement}}</td>
+                                  <td>{{latestacceptedtrxn.country}}</td>
+                                  <td>{{latestacceptedtrxn.amount}}</td>
+                                  <td>{{latestacceptedtrxn.currency}}</td>
                                </tr>
                             </table>
+                            <table class="table marzero" *ngIf="!isCustomer">
+                                 <tr>
+                                    <th>Date</th>
+                                    <th>Trxn ID</th>
+                                    <th>Requirement</th>
+                                    <th>Country</th>
+                                    <th>Amount</th>
+                                    <th>Ccy</th>
+                                    <!-- <th><a href="#" data-toggle="modal" data-target="#addsub"> Trxn Status</a></th> -->
+                                 </tr>
+                                 <tr>
+                                  <td colspan="3"> NO DATA FOUND!!!!</td>
+                                 </tr>
+                              </table>
                          </div>
                       </div>
                    </div>

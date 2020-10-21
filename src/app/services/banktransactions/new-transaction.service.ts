@@ -26,10 +26,13 @@ export class NewTransactionService {
   }
 
   
+  public validateQuote(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/validateTransaction`, data, { headers: { 'content-types': 'application/json' } })
+  }
+
   public getTransQuotationDtlByBankUserIdAndStatus(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getTransQuotationDtlByBankUserIdAndStatus`, data, { headers: { 'content-types': 'application/json' } })
   }
-
   
    public getQuotationOfAcceptedQuote(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getQuotationOfAcceptedQuote`, data, { headers: { 'content-types': 'application/json' } })

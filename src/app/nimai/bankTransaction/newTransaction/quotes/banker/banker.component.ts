@@ -104,7 +104,8 @@ export class BankerComponent implements OnInit {
       quotationReceived: '',
       discountingPeriod: '',
       confirmationPeriod: '',
-      refinancingPeriod: ''
+      refinancingPeriod: '',
+      quotationStatus:''
     }
 
     this.dataViewEdit = {
@@ -140,7 +141,8 @@ export class BankerComponent implements OnInit {
       validity: null,
       validityDate: null,
       discountingPeriod: '',
-      refinancingPeriod: ''
+      refinancingPeriod: '',
+      quotationStatus:''
     }
   }
 
@@ -207,7 +209,23 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'submit': {
-
+        if(this.dataViewEdit.quotationStatus=="FreezePlaced" || this.dataViewEdit.quotationStatus=="FreezeRePlaced"){
+          const param = {
+            "userId": this.dataViewEdit.userId,
+            "bankUserId":this.dataViewEdit.bankUserId,
+            "transactionId":this.dataViewEdit.transactionId
+          }
+          this.ts.validateQuote(param).subscribe(
+            (response) => {
+              this.detail = JSON.parse(JSON.stringify(response)).status;
+              if(this.detail=="Validate Success"){
+                alert("Quote Validate Successfully.")
+              }else{
+                console.log("Someting went wrong.")
+              }
+            }, (error) => {}
+          )
+          }
         this.ts.updateBankTransaction(this.dataViewEdit).subscribe(
           (response) => {
             this.tab = 'tab3';

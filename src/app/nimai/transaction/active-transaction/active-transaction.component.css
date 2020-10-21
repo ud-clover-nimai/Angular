@@ -43,3 +43,13 @@
     .data-selected {
         background-color:grey;
       }
+      .adisabled {
+        cursor: not-allowed!important;
+        opacity: .65!important;
+        pointer-events: none!important;
+        background-color: grey!important;
+      }
+      
+      .adisabled:hover { text-decoration: none!important; }
+      .adisabled:focus { text-decoration: none!important; }
+      .adisabled:active { text-decoration: none!important; }

@@ -317,16 +317,38 @@
               <hr />
             </div>
             <p class="dash">
-              <strong>KYC Details</strong
-              ><small>
+              <strong>KYC Details</strong>
+              <small *ngIf="noData">
                 <a
                   style="cursor: pointer"
                   (click)="redirectOn('kyc-details')"
                   class="edit_icon"
-                  >Edit <i class="far fa-edit"></i></a
-              ></small>
+                  >Edit <i class="far fa-edit"></i></a></small>
             </p>
             <div class="clearfix"></div>
+            <div class="table-responsive" *ngIf="!noData">
+                <table class="table table-bordered">
+                  <tr>
+                    <th>DocumentName</th>
+                    <th>Kyc Status</th>
+                    <th>Uploaded Document</th>
+                  </tr>
+                  <tr *ngFor="let detail of kd">
+                    <td>
+                      {{ detail.documentName }}
+                    </td>
+                    <td>
+                      {{ detail.kycStatus }}
+                    </td>
+                    <td>
+                      <span class="labeltext" *ngIf="detail.encodedFileContent" style="cursor: pointer;color: blue;" (click)="openDocument(detail.encodedFileContent)">View</span>                                                                                       
+                    </td>
+                  </tr>
+                </table>
+            </div>
+            <div class="col-md-12" *ngIf="noData">
+                <p style="margin-left: -15px!important;">No kyc Data is available.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -345,3 +367,22 @@
     </p>
   </div>
 </footer>
+
+<div id="modal_kycView" class="modal3" style="display: none;">
+    <!-- <div class="modal-dialog modal-md emaildiv"> -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
+      <div class="modal-body" style="text-align:center">
+        <h4>Attached document</h4>
+        <div class="row">
+          <!--<p><strong>Enter Email ID here</strong></p> -->
+          <div class="col-md-12">
+           <img style="height: 100%; width: 100%;" *ngIf="document" [src]="document" />
+          </div>
+          <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
