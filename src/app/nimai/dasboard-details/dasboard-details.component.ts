@@ -13,14 +13,15 @@ export class DasboardDetailsComponent implements OnInit {
   isCustomer: boolean = false;
   isBank: boolean = false;
   dashboardData:any;
+  bankdashbrdcount:any;
   custmrdasbrdcount:any;
   transactionbifurcation:any;
   latestacceptedtrxn:any;
   public piechartcountry:any;
   public piechartgoods:any;
   public cumulativetrxnAmnt:any;
-  bankdashbrdcount:any;
   userId:any;
+  selected:any;
   public startDate:any;
   public endDate:any;
   @ViewChild('pieChart', { static: true }) pieChart: ElementRef
@@ -37,29 +38,15 @@ export class DasboardDetailsComponent implements OnInit {
   }
   getBankDashboardDetails(){
     const param = {
-      userId:"BA1707",
-      country:"USA",
-     productRequirement:"Refinance"
+      userId: this.userId,
+      country: "",
+      productRequirement:"",
     }
     this.service.getBankDashboardDetails(param).subscribe(
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
-       console.log("this.dashboardData ----",this.dashboardData)
-       this.bankdashbrdcount=this.dashboardData.bankdashbrdcount
-       console.log("this.bankdashbrdcount--",this.bankdashbrdcount)
-        var header_amount= ['Month', 'Volume','Count'];
-        var data_amount=[];
-        data_amount.push(header_amount);
-        for (var i = 0; i < this.cumulativetrxnAmnt.length; i++) {
-            var temp=[];
-            temp.push(this.cumulativetrxnAmnt[i].month);
-            temp.push(Number(this.cumulativetrxnAmnt[i].transactionAmount));
-            temp.push(Number(this.cumulativetrxnAmnt[i].count));
-            data_amount.push(temp);
-        }
+        this.bankdashbrdcount=this.dashboardData.bankdashbrdcount   
         
-        google.charts.load('current', {'packages':['corechart','bar']});
-        google.charts.setOnLoadCallback(() => this.drawChart2(data_amount));
       }, (error) => {
 
       }
