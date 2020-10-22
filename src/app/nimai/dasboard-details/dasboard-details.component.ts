@@ -18,6 +18,8 @@ export class DasboardDetailsComponent implements OnInit {
   latestacceptedtrxn:any;
   public piechartcountry:any;
   public piechartgoods:any;
+  public cumulativetrxnAmnt:any;
+  bankdashbrdcount:any;
   userId:any;
   public startDate:any;
   public endDate:any;
@@ -27,18 +29,51 @@ export class DasboardDetailsComponent implements OnInit {
     this.userId=sessionStorage.getItem('userID')
     if(this.userId.startsWith('CU')){
       this.isCustomer=true;
-      this.getDashboardDetails();
+      this.getCustomerDashboardDetails();
+    }else{
+      this.isCustomer=false;
+      this.getBankDashboardDetails();
     }  
   }
-  getDashboardDetails(){
+  getBankDashboardDetails(){
+    const param = {
+      userId:"BA1707",
+      country:"USA",
+     productRequirement:"Refinance"
+    }
+    this.service.getBankDashboardDetails(param).subscribe(
+      (response) => {
+        this.dashboardData = JSON.parse(JSON.stringify(response)).data;
+       console.log("this.dashboardData ----",this.dashboardData)
+       this.bankdashbrdcount=this.dashboardData.bankdashbrdcount
+       console.log("this.bankdashbrdcount--",this.bankdashbrdcount)
+        var header_amount= ['Month', 'Volume','Count'];
+        var data_amount=[];
+        data_amount.push(header_amount);
+        for (var i = 0; i < this.cumulativetrxnAmnt.length; i++) {
+            var temp=[];
+            temp.push(this.cumulativetrxnAmnt[i].month);
+            temp.push(Number(this.cumulativetrxnAmnt[i].transactionAmount));
+            temp.push(Number(this.cumulativetrxnAmnt[i].count));
+            data_amount.push(temp);
+        }
+        
+        google.charts.load('current', {'packages':['corechart','bar']});
+        google.charts.setOnLoadCallback(() => this.drawChart2(data_amount));
+      }, (error) => {
+
+      }
+    )
+  }
+  getCustomerDashboardDetails(){
     const param = {
       userId: this.userId,
-      year: "",
+      year: "2020",
       startDate:"",
       endDate:""
     }
 
-    this.service.getDashboardDetails(param).subscribe(
+    this.service.getCustomerDashboardDetails(param).subscribe(
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
         this.custmrdasbrdcount=this.dashboardData.custmrdasbrdcount
@@ -46,29 +81,40 @@ export class DasboardDetailsComponent implements OnInit {
         this.latestacceptedtrxn=this.dashboardData.latestacceptedtrxn
         this.piechartcountry=this.dashboardData.piechartcountry
         this.piechartgoods=this.dashboardData.piechartgoods
+        this.cumulativetrxnAmnt=this.dashboardData.cumulativetrxnAmnt
         var data_country=[];
-        var Header= ['Country', 'Count'];
-        data_country.push(Header);
+        var header_country= ['Country', 'Count'];
+        data_country.push(header_country);
         for (var i = 0; i < this.piechartcountry.length; i++) {
             var temp=[];
             temp.push(this.piechartcountry[i].countryName);
             temp.push(Number(this.piechartcountry[i].countryCount));
             data_country.push(temp);
         }
+        var header_goods= ['Goods', 'Count'];
         var data_goods=[];
-        var Header1= ['Goods', 'Count'];
-        var data_goods=[];
-        data_goods.push(Header1);
+        data_goods.push(header_goods);
         for (var i = 0; i < this.piechartgoods.length; i++) {
             var temp=[];
             temp.push(this.piechartgoods[i].goodsType);
             temp.push(Number(this.piechartgoods[i].goodsCount));
             data_goods.push(temp);
         }
+        var header_amount= ['Month', 'Volume','Count'];
+        var data_amount=[];
+        data_amount.push(header_amount);
+        for (var i = 0; i < this.cumulativetrxnAmnt.length; i++) {
+            var temp=[];
+            temp.push(this.cumulativetrxnAmnt[i].month);
+            temp.push(Number(this.cumulativetrxnAmnt[i].transactionAmount));
+            temp.push(Number(this.cumulativetrxnAmnt[i].count));
+            data_amount.push(temp);
+        }
+        
         google.charts.load('current', {'packages':['corechart','bar']});
         google.charts.setOnLoadCallback(() => this.drawChartForCountry(data_country));
         google.charts.setOnLoadCallback(() => this.drawChartForGoods(data_goods));
-        google.charts.setOnLoadCallback(() => this.drawChart2());
+        google.charts.setOnLoadCallback(() => this.drawChart2(data_amount));
       }, (error) => {
 
       }
@@ -96,23 +142,8 @@ export class DasboardDetailsComponent implements OnInit {
     const chart = new google.visualization.PieChart(document.getElementById('pieChart1'));
     chart.draw(cdata, options);   
 }
-drawChart2(){
-  var data = google.visualization.arrayToDataTable([
-    ['Year', 'Volume', 'Count'],
-    ['Jan', 1000, 2],
-    ['Feb', 900, 1],
-    ['Mar', 200, 0],
-    ['Apr', 400, 2],
-    ['May', 5000, 4],
-    ['Jun', 1000, 1],
-    ['Jul', 2000, 6],
-    ['Aug', 50, 8],
-    ['Sep', 500, 0],
-    ['Oct', 1500, 6],
-    ['Nov', 400, 8],
-    ['Dec', 600, 9],
- ]);
-   
+drawChart2(data){
+  var data = google.visualization.arrayToDataTable(data);
  // Set chart options
  var options = {
     title : 'Cumulative Trxn Amount vs Trxn Count',
@@ -143,14 +174,47 @@ gettransactionBifurcation(){
     startDate:this.startDate,
     endDate:this.endDate
   }
-
-  this.service.getDashboardDetails(param).subscribe(
+if(this.startDate && this.endDate)
+{
+  this.service.getCustomerDashboardDetails(param).subscribe(
     (response) => {
       this.dashboardData = JSON.parse(JSON.stringify(response)).data;
-      if(this.dashboardData.transactionbifurcation)
-        this.transactionbifurcation=this.dashboardData.transactionbifurcation
-      else  
-       this.transactionbifurcation=""
+      this.transactionbifurcation=this.dashboardData.transactionbifurcation
+    }, (error) => {
+
+    }
+  )
+}  
+}
+public onOptionsSelected(event) {
+  const value = event.target.value;
+  console.log(value);
+  const param = {
+    userId: this.userId,
+    year: value,
+    startDate:"",
+    endDate:""
+  }
+
+  this.service.getCustomerDashboardDetails(param).subscribe(
+    (response) => {
+      this.dashboardData = JSON.parse(JSON.stringify(response)).data;
+       if(this.dashboardData.cumulativetrxnAmnt)
+          this.cumulativetrxnAmnt=this.dashboardData.cumulativetrxnAmnt
+        else  
+          this.cumulativetrxnAmnt=""
+      var header_amount= ['Month', 'Volume','Count'];
+      var data_amount=[];
+      data_amount.push(header_amount);
+      for (var i = 0; i < this.cumulativetrxnAmnt.length; i++) {
+          var temp=[];
+          temp.push(this.cumulativetrxnAmnt[i].month);
+          temp.push(Number(this.cumulativetrxnAmnt[i].transactionAmount));
+          temp.push(Number(this.cumulativetrxnAmnt[i].count));
+          data_amount.push(temp);
+      }
+      google.charts.load('current', {'packages':['corechart','bar']});
+      google.charts.setOnLoadCallback(() => this.drawChart2(data_amount));
 
     }, (error) => {
 

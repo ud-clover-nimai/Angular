@@ -8,7 +8,10 @@ import { environment } from '../../../environments/environment';
 })
 export class DashboardDetailsService {
   constructor(public httpClient:HttpClient) { }
-  public getDashboardDetails(data:any): Observable<any> {
+  public getCustomerDashboardDetails(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/customerDashboard`,data, { headers: { 'content-type': 'application/json' } });
+  }
+  public getBankDashboardDetails(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/bankdashBoard`,data, { headers: { 'content-type': 'application/json' } });
   }
 }
