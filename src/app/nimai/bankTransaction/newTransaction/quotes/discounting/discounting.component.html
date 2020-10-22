@@ -322,18 +322,34 @@
 
                                         <tr>
                                             <td>Discounting interest p.a ( spread over benchmark)</td>
-                                            <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                            <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" 
+                                                #discountingCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && discountingCharges.invalid }" required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && discountingCharges.invalid" class="invalid-feedback">
+                                                    <div *ngIf="discountingCharges.errors.required">Discounting interest p.a is required</div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>*Negotiation Charges (Fixed)</td>
-                                            <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" weightDirective>
-                                        </tr>
+                                            <td><input type="text" name="negotiationChargesFixed" [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00" 
+                                                #negotiationChargesFixed="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesFixed.invalid }" required weightDirective>
+                                          <div *ngIf="f.submitted && negotiationChargesFixed.invalid" class="invalid-feedback">
+                                            <div *ngIf="negotiationChargesFixed.errors.required">Negotiation Charges (Fixed) is required</div>
+                                        </div>
+                                    </td>
+                                            </tr>
                                         <tr>
                                             <td>*Negotiation Charges (%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
-                                            <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00" weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                            <td><input type="text" name="negotiationChargesPerct" [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00"
+                                                #negotiationChargesPerct="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesPerct.invalid }" required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && negotiationChargesPerct.invalid" class="invalid-feedback">
+                                                    <div *ngIf="negotiationChargesPerct.errors.required">Negotiation Charges (%) is required</div>
+                                                </div>
+                                            </td>
+                                          
                                         </tr>
                                         <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
@@ -353,8 +369,13 @@
                                  </tr> -->
                                  <tr> 
                                     <td>Minimum Transaction Charges</td>
-                                    <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00" weightDirective>
-                                 </tr>
+                                    <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00"
+                                        #minTransactionCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && minTransactionCharges.invalid }" required  weightDirective>
+                                        <div *ngIf="f.submitted && minTransactionCharges.invalid" class="invalid-feedback">
+                                            <div *ngIf="minTransactionCharges.errors.required">Minimum Transaction Charges is required</div>
+                                        </div>
+                                        </td>
+                                    </tr>
                                  <tr>
                                     <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>  </td>
                                     <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"

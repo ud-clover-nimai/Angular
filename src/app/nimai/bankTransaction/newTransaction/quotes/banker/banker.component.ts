@@ -209,7 +209,7 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'submit': {
-        if(this.dataViewEdit.quotationStatus=="FreezePlaced"){
+        if(this.dataViewEdit.quotationStatus=="FreezePlaced" || this.dataViewEdit.quotationStatus=="FreezeRePlaced"){
           const param = {
             "userId": this.dataViewEdit.userId,
             "bankUserId":this.dataViewEdit.bankUserId,

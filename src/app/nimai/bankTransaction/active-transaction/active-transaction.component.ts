@@ -60,10 +60,11 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         bankActiveTransaction();
-        this.detail = JSON.parse(JSON.stringify(response)).data;     
+        this.detail = JSON.parse(JSON.stringify(response)).data;  
+        
         let array = this.detail;
         for (var value of array) {
-          if(value.quotationStatus==="FreezePlaced")
+          if(value.quotationStatus==="FreezePlaced" || value.quotationStatus==="FreezeRePlaced")
             this.isFreeze=true;
 
         }   

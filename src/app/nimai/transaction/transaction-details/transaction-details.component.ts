@@ -168,6 +168,11 @@ export class TransactionDetailsComponent {
 
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
+        // var str = "nego:1.1 , mature:2.2"; 
+        // var splitted = str.split(" ", 1); 
+        // console.log(splitted)
+        // var testt=splitted[0].split(":", 2)
+        // console.log(testt[1])
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   

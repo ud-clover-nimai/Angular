@@ -39,7 +39,7 @@
                                   </thead>
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
-                                      <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced'"><div class="circle red"></div></div> </td>
+                                      <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'"><div class="circle red"></div></div> </td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.transactionId}}</td>
                                       <td>{{record.goodsType}}</td>
@@ -62,9 +62,9 @@
                                     </td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus!=='FreezePlaced'">View / Edit<div class="ripple-container"></div></a>
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='Placed'">View / Edit<div class="ripple-container"></div></a>
                                               <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced'">Validate<div class="ripple-container" ></div></a><br>
+                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
                                               <a class="handleActive" style="cursor: pointer;color:blue" (click)="getDetail(record);">Detail</a>
                                               <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.quotationStatus=='RePlaced'"
                                               style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This transaction has been reopen by the customer.You can modify your previous quote by clicking place quote button" > </a>
