@@ -174,8 +174,10 @@ export class ActiveTransactionComponent implements OnInit {
       "userId": sessionStorage.getItem('userID'),
       "transactionId": transactionId
     }
+    
     this.nts.getAllQuotationDetails(data).subscribe(
       (response) => {
+      
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
         this.quotationReqType =requirementType;
         this.lCCurrencyReq=lCCurrency;
@@ -215,6 +217,27 @@ export class ActiveTransactionComponent implements OnInit {
 
   getQRDetail(detail,requirementType,lCCurrency){
     this.getSpecificDetail = detail;    
+  
+    let param = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionId": detail.transactionId,
+      "quotationId":detail.quotationId
+    }
+    this.nts.getConfChargesForQuoteAmount(param).subscribe((response)=>{
+      console.log(JSON.parse(JSON.stringify(response)).status);
+
+      var str = JSON.parse(JSON.stringify(response)).status; 
+      var splittedNego = str.split(",", 1); 
+      var nego=splittedNego[0].split(":", 2)
+      this.getSpecificDetail.confChgsIssuanceToNegot=nego[1];
+
+      var splittedMature = str.split(" ", 2); 
+      var mature=splittedMature[1].split(":", 2)
+      this.getSpecificDetail.confChgsIssuanceToMatur=mature[1];
+
+    });
+ 
+    this.getSpecificDetail.confChgsIssuanceToNegot
     this.quotationReqType = requirementType;
     this.lCCurrencyReq=lCCurrency;
   

@@ -34,7 +34,7 @@
                                     <th style="min-width: 80px;">LC Value</th>
                                     <th style="min-width: 80px;">Ccy</th>
                                     <th style="min-width: 100px;">Validity</th>
-                                    <th style="min-width: 130px;">Requirement</th>                                  
+                                    <th style="min-width: 130px;">Product</th>                                  
                                     <th style="min-width: 80px;">Quotes Received</th>
                                     <th class="disabled-sorting" style="min-width: 100px;">Action</th>
 
@@ -46,7 +46,7 @@
                                     <td>{{record.transactionId}}</td>
                                     <td>{{record.applicantName}}</td>
                                     <td>{{record.beneName}}</td>
-                                    <td>{{record.lCValue}}</td>
+                                    <td>{{record.lCValue | number}}</td>
                                     <td>{{record.lCCurrency}}</td>
                                     <td >{{record.validity | date : "dd-MM-y"}}</td>
                                     <td> <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
@@ -160,11 +160,11 @@
                         </tr>
                        
                       
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot=='yes' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
                            <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
                         </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToMatur=='yes' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
                            <td>
                               Confirmation Charges from Date of Issuance till date of maturity</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>

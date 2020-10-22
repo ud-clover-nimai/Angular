@@ -29,7 +29,7 @@
                                                     <th style="min-width: 166px;">Date & Time</th>
                                                     <th style="min-width: 166px;">Transaction ID</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
-                                                    <th style="min-width: 130px;">Requirement Type</th>
+                                                    <th style="min-width: 130px;">Product</th>
                                                     <th style="min-width: 80px;">LC Value</th>
                                                     <th style="min-width: 80px;">Goods</th>
                                                     <th style="min-width: 150px;">Applicant Name</th>
@@ -52,7 +52,7 @@
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
 
                                                     </td>
-                                                    <td>{{record.lCValue}}</td>
+                                                    <td>{{record.lCValue | number}}</td>
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
                                                     <td>{{record.beneName}}</td>
@@ -182,7 +182,7 @@
                                             <td>{{detailInfo.lCIssuanceCountry}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Requirement</td>
+                                            <td>Product</td>
                                            
                                             <td>
                                                 <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
@@ -195,7 +195,7 @@
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
-                                            <td>{{detailInfo.lCValue}}</td>
+                                            <td>{{detailInfo.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td>Currency</td>
@@ -214,7 +214,7 @@
                                             <td>{{detailInfo.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Goods</td>
+                                            <td>Goods/Services</td>
                                             <td>{{detailInfo.goodsType}}</td>
                                         </tr>
                                     </tbody>

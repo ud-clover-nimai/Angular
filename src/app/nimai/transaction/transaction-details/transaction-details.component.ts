@@ -168,15 +168,24 @@ export class TransactionDetailsComponent {
 
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
-        // var str = "nego:1.1 , mature:2.2"; 
-        // var splitted = str.split(" ", 1); 
-        // console.log(splitted)
-        // var testt=splitted[0].split(":", 2)
-        // console.log(testt[1])
+       
+      
+
+
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
-        console.log("this.quotationdata---",this.quotationdata)    
+        console.log("this.quotationdata---",JSON.parse(JSON.stringify(response)).status)    
+
+        var str = JSON.parse(JSON.stringify(response)).status; 
+        var splittedNego = str.split(",", 1); 
+        var nego=splittedNego[0].split(":", 2)
+        this.quotationdata.confChgsIssuanceToNegot=nego[1];
+
+        var splittedMature = str.split(" ", 2); 
+        var mature=splittedMature[1].split(":", 2)
+        this.quotationdata.confChgsIssuanceToMatur=mature[1];
+
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){
           this.quotationdata.termConditionComments='';

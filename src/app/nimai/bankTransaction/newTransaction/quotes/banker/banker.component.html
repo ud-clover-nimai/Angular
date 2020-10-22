@@ -13,7 +13,7 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td><b>Requirement</b></td>                                           
+                                            <td><b>Product</b></td>                                           
                                             <td>
                                                 <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                 <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -29,7 +29,7 @@
                                             <td>{{dataViewEdit.transactionId}}</td>
     
                                             <td><b>Amount</b></td>
-                                            <td>{{ dataViewEdit.lCValue}}</td>
+                                            <td>{{ dataViewEdit.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td><b>IB</b></td>
@@ -170,7 +170,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><b>Requirement</b></td>
+                                        <td><b>Product</b></td>
                                         <td>
                                             <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                             <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -187,7 +187,7 @@
                                         <td>{{dataViewEdit.transactionId}}</td>
 
                                         <td><b>Amount</b></td>
-                                        <td>{{ dataViewEdit.lCValue}}</td>
+                                        <td>{{ dataViewEdit.lCValue | number}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>IB</b></td>
@@ -327,7 +327,7 @@
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td><b>Requirement</b></td>
+                                                <td><b>Product</b></td>
                                                 <td>
                                                     <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                     <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -343,7 +343,7 @@
                                                 <td>{{data.transactionId}}</td>
 
                                                 <td><b>Amount</b></td>
-                                                <td>{{ data.lCValue}}</td>
+                                                <td>{{ data.lCValue | number}}</td>
                                             </tr>
                                             <tr>
                                                 <td><b>IB</b></td>
@@ -475,7 +475,7 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td><b>Requirement</b></td>
+                                            <td><b>Product</b></td>
                                             <td>
                                                 <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                 <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -491,7 +491,7 @@
                                             <td>{{data.transactionId}}</td>
 
                                             <td><b>Amount</b></td>
-                                            <td>{{ data.lCValue}}</td>
+                                            <td>{{ data.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td><b>IB</b></td>

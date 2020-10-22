@@ -379,8 +379,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown dduser">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- <small style="font-size: 74%;">{{userType}}&nbsp;&nbsp;</small> -->
+
                     <i class="fas fa-user-circle"></i>
-                    <span class="dropuser"> &nbsp; {{ username }} &nbsp;</span>
+                    <span class="dropuser"> &nbsp; {{ username }} &nbsp; <br>
+                      <small>&nbsp;&nbsp;({{ userType }})&nbsp;</small></span>
                     <span class="caret"></span>
                     <p class="hidden-lg hidden-md">Profile</p>
                   </a>

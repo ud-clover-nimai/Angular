@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   nimaiCount: any = "";
   isQuote = false;
   loading = false;
+  userType: string;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
@@ -49,6 +50,18 @@ export class DashboardComponent implements OnInit {
       this.isBank = true;
     }
 
+    if (userId.startsWith('RE')) {
+      this.userType = "Referrer";
+    } else if (userId.startsWith('BC')) {
+      this.userType = "Bank as a customer";
+    } else if (userId.startsWith('CU')) {
+      this.userType = "Customer";
+    }  else if (userId.startsWith('BA')) {
+      this.userType = "Bank as an underwriter";
+    }  else {
+      this.userType = "";
+    }
+  
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });

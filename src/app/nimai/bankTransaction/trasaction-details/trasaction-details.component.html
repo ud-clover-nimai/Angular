@@ -37,7 +37,7 @@
                                                     <th  [hidden]="!rejectedStatus" style="min-width: 166px;">Date & Time <br>(Quote Rejected on)</th>
                                                     <th  [hidden]="!expiredStatus" style="min-width: 166px;">Date & Time <br>(Quote Expired on)</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
-                                                    <th style="min-width: 150px;">Requirement</th>
+                                                    <th style="min-width: 150px;">Product</th>
                                                     <th style="min-width: 120px;">LC Value </th>
                                                     <th style="min-width: 120px;">Total Quote </th>
                                                     <th style="min-width: 100px;">Goods</th>
@@ -67,7 +67,7 @@
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
 
                                                     </td>
-                                                    <td>{{record.lCValue}}</td>
+                                                    <td>{{record.lCValue | number}}</td>
                                                     <td>{{record.totalQuoteValue}}</td>
                                                     <td>{{record.goodsType}}</td>
                                                     <td>{{record.applicantName}}</td>
@@ -216,7 +216,7 @@
                                             <td>{{specificDetail.lCIssuanceCountry}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Requirement</td>
+                                            <td>Product</td>
                                             <td>
                                                 <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                 <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -228,7 +228,7 @@
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
-                                            <td>{{specificDetail.lCValue}}</td>
+                                            <td>{{specificDetail.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td>Currency</td>
@@ -247,7 +247,7 @@
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Goods</td>
+                                            <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
                                         </tr>
                                     </tbody>
@@ -352,12 +352,7 @@
                                               </td>
                                               <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <small> Disclaimer:Note: The application benchmark/taxes will be applicable
-                                                        as of transaction date,actual quote from the bank may differ to the extent.</small>
-                                            </td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                                 <br><br><br>
@@ -369,7 +364,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><b>Requirement</b></td>
+                                        <td><b>Product</b></td>
                                         <td>
                                         <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                         <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -385,7 +380,7 @@
                                         <td>{{specificDetail.transactionId}}</td>
 
                                         <td><b>Amount</b></td>
-                                        <td>{{ specificDetail.lCValue}}</td>
+                                        <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>IB</b></td>
@@ -477,7 +472,12 @@
                                                <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
                                                </td>
                                        </tr>
-
+                                       <tr>
+                                        <td colspan="2">
+                                            <small> Disclaimer:Note: The application benchmark/taxes will be applicable
+                                                    as of transaction date,actual quote from the bank may differ to the extent.</small>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -595,7 +595,7 @@
                                             <td>{{specificDetail.lCIssuanceCountry}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Requirement</td>
+                                            <td>Product</td>
                                             <td>
                                                 <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                 <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -606,7 +606,7 @@
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
-                                            <td>{{specificDetail.lCValue}}</td>
+                                            <td>{{specificDetail.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td>Currency</td>
@@ -625,7 +625,7 @@
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Goods</td>
+                                            <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
                                         </tr>
                                     </tbody>
@@ -730,12 +730,7 @@
                                             </td>
                                             <td [hidden]="noFileDisable">No such file attached</td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <small> Disclaimer:Note: The application benchmark/taxes will be applicable
-                                                        as of transaction date,actual quote from the bank may differ to the extent.</small>
-                                            </td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table> <br><br><br>
                             </div>
@@ -746,7 +741,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><b>Requirement</b></td>
+                                        <td><b>Product</b></td>
                                         <td>
                                             <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                             <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -763,7 +758,7 @@
                                         <td>{{specificDetail.transactionId}}</td>
 
                                         <td><b>Amount</b></td>
-                                        <td>{{ specificDetail.lCValue}}</td>
+                                        <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>IB</b></td>
@@ -857,7 +852,12 @@
                                                <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
                                                </td>
                                        </tr>
-
+                                       <tr>
+                                        <td colspan="2">
+                                            <small> Disclaimer:Note: The application benchmark/taxes will be applicable
+                                                    as of transaction date,actual quote from the bank may differ to the extent.</small>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -974,7 +974,7 @@
                                             <td>{{specificDetail.lCIssuanceCountry}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Requirement</td>
+                                            <td>Product</td>
                                             <td>
                                                 <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                 <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -985,7 +985,7 @@
                                         </tr>
                                         <tr>
                                             <td>Amount</td>
-                                            <td>{{specificDetail.lCValue}}</td>
+                                            <td>{{specificDetail.lCValue | number}}</td>
                                         </tr>
                                         <tr>
                                             <td>Currency</td>
@@ -1004,7 +1004,7 @@
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Goods</td>
+                                            <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
                                         </tr>
                                     </tbody>
@@ -1119,7 +1119,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><b>Requirement</b></td>
+                                        <td><b>Product</b></td>
                                         <td>
                                             <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                             <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -1135,7 +1135,7 @@
                                         <td>{{specificDetail.transactionId}}</td>
 
                                         <td><b>Amount</b></td>
-                                        <td>{{ specificDetail.lCValue}}</td>
+                                        <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>IB</b></td>

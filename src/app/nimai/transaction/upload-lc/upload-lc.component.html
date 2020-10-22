@@ -95,7 +95,7 @@
                                                                     <div class="col-md-12 selections">
                                                                         <div class="row">
                                                                             <label
-                                                                                class="customlabel">Requirement</label>
+                                                                                class="customlabel">Product</label>
                                                                             <div class="radio-group">
                                                                                 <input type="radio"
                                                                                     id="option-one" name="selector"
@@ -145,12 +145,11 @@
                                                                         </div>
                                                                         <div class="col-md-3">
                                                                             <div class="inputDiv selectdiv">
+                                                                               
                                                                                 <select formControlName="lCCurrency">
-                                                                                    <!-- <option value="">Select</option> -->
-                                                                                    <option value="INR">INR</option>
-                                                                                    <option value="USD">USD</option>
-                                                                                    <option value="EURO">EURO</option>
-                                                                                </select>
+                                                                                    <option *ngFor="let data of countryName"  [ngValue]='data.currency'>{{data.currency}}</option>
+
+                                                                                 </select>
                                                                                 <label>Select Currency</label>
                                                                             </div>
                                                                         </div>
@@ -348,7 +347,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Requirement </span>
+                                            <span class="customspan">Product </span>
                                             <span class="labeltext" *ngIf="lc.selector=='ConfirmAndDiscount'">Confirmation and Discounting</span>
                                             <span class="labeltext" *ngIf="lc.selector=='Discounting'">Discounting</span>
                                             <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
@@ -360,7 +359,7 @@
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">LC value</span>
-                                            <span class="labeltext">{{lc.lCValue}}</span>
+                                            <span class="labeltext">{{lc.lCValue | number}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
                                     </div>

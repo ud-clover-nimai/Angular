@@ -115,11 +115,11 @@
                            </td>
                         </tr>
                         <!-- <tr>
-                           <td>Requirement</td>
+                           <td>Product</td>
                            <td><input type="text" [(ngModel)]="data.requirementType"></td>
                         </tr> -->
                         <tr>
-                              <td>Requirement Type</td>
+                              <td>Product</td>
                               <td>
                                  <select  (change)="changeReqType($event)" [(ngModel)]="data.requirementType">                                 
                                     <option value='Confirmation'>Confirmation</option>
@@ -138,10 +138,8 @@
                            <td>Currency</td>
                            <td>
                               <select class="edit-selectColor" [(ngModel)]="data.lCCurrency">
-                                 <option value="INR">INR</option>
-                                 <option value="USD">USD</option>
-                                 <option value="EURO">EURO</option>
-                             </select>
+                                 <option *ngFor="let data of countryName"  [ngValue]='data.currency'>{{data.currency}}</option>
+                                </select>
                            </td>
                         </tr>
                         <tr>
@@ -160,7 +158,7 @@
                            (ngModelChange)="data.lastShipmentDate = $event"></td>
                         </tr>
                         <tr>
-                           <td>Goods</td>
+                           <td>Goods/Services</td>
                            <td>
                               <select class="edit-selectColor" [(ngModel)]="data.goodsType">
                                  <option value="Gold"> Gold</option>                                                                      
@@ -425,12 +423,12 @@
                            <td>{{data.lCIssuanceCountry}}</td>
                         </tr>
                         <tr>
-                           <td>Requirement</td>
+                           <td>Product</td>
                            <td>{{data.requirementType}}</td>
                         </tr>
                         <tr>
                            <td>Amount</td>
-                           <td>{{data.lCValue}}</td>
+                           <td>{{data.lCValue | number}}</td>
                         </tr>
                         <tr>
                            <td>Currency</td>
@@ -449,7 +447,7 @@
                               <td>{{data.lastShipmentDate | date : 'dd-MM-y'}}</td>
                            </tr>
                         <tr>
-                           <td>Goods</td>
+                           <td>Goods/Services</td>
                            <td>{{data.goodsType}}</td>
                         </tr>
                      </tbody>

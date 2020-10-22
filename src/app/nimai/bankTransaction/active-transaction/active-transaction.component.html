@@ -32,7 +32,7 @@
                                       <th style="min-width: 80px;">Quote</th>
                                       <th style="min-width: 80px;">Transaction Valid Till</th>
                                       <th style="min-width: 80px;">Quote Valid Till</th>
-                                      <th style="min-width: 130px;">Requirement</th>
+                                      <th style="min-width: 130px;">Product</th>
                                       <th style="min-width: 130px;">Quotes Rank</th>
                                       <th style="min-width: 130px;">Action</th>
                                    </tr>
@@ -45,7 +45,7 @@
                                       <td>{{record.goodsType}}</td>
                                       <td>{{record.applicantName}}</td>
                                       <td>{{record.beneName}}</td>
-                                      <td>{{record.lCValue}}</td>
+                                      <td>{{record.lCValue | number}}</td>
                                       <td>{{record.totalQuoteValue}}</td>
                                       <td nowrap>{{record.validity| date : "dd-MM-y"}}
                                          <p>{{record.transactionDaysCountdown}}</p>
@@ -197,7 +197,7 @@
                                            <td>{{specificDetail.lCIssuanceCountry}}</td>
                                        </tr>
                                        <tr>
-                                           <td>Requirement</td>
+                                           <td>Product</td>
                                            <td>
                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -209,7 +209,7 @@
                                        </tr>
                                        <tr>
                                            <td>Amount</td>
-                                           <td>{{specificDetail.lCValue}}</td>
+                                           <td>{{specificDetail.lCValue | number}}</td>
                                        </tr>
                                        <tr>
                                            <td>Currency</td>
@@ -228,7 +228,7 @@
                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                        </tr>
                                        <tr>
-                                           <td>Goods</td>
+                                           <td>Goods/Services</td>
                                            <td>{{specificDetail.goodsType}}</td>
                                        </tr>
                                    </tbody>
@@ -344,7 +344,7 @@
                            <table>
                                <tbody>
                                    <tr>
-                                       <td><b>Requirement</b></td>
+                                       <td><b>Product</b></td>
                                        <td>
                                        <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                        <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
@@ -360,7 +360,7 @@
                                        <td>{{specificDetail.transactionId}}</td>
 
                                        <td><b>Amount</b></td>
-                                       <td>{{ specificDetail.lCValue}}</td>
+                                       <td>{{ specificDetail.lCValue | number}}</td>
                                    </tr>
                                    <tr>
                                        <td><b>IB</b></td>
