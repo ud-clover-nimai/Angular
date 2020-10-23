@@ -291,14 +291,20 @@
                                         </tr>
                                         <tr>
                                             <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lcMaturityDate | date : "dd-MM-y"}}</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Beneficiary Details of Last Transaction</th>
                                         </tr>
                                         <tr>
+                                            <td>Multiple Maturity Date</td>                               
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
+              
+                                         </tr>
+                                        <tr>
                                             <td>LC Number</td>
-                                            <td>{{specificDetail.lcNumber}}</td>
+                                            <td>{{specificDetail.lCNumber}}</td>
                                         </tr>
                                         <tr>
                                             <td>Beneficiary Bank Name</td>
@@ -669,14 +675,20 @@
                                         </tr>
                                         <tr>
                                             <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lcMaturityDate | date : "dd-MM-y"}}</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Beneficiary Details of Last Transaction</th>
                                         </tr>
                                         <tr>
+                                            <td>Multiple Maturity Date</td>                               
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
+              
+                                         </tr>
+                                        <tr>
                                             <td>LC Number</td>
-                                            <td>{{specificDetail.lcNumber}}</td>
+                                            <td>{{specificDetail.lCNumber}}</td>
                                         </tr>
                                         <tr>
                                             <td>Beneficiary Bank Name</td>
@@ -1048,14 +1060,20 @@
                                         </tr>
                                         <tr>
                                             <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lcMaturityDate | date : "dd-MM-y"}}</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Beneficiary Details of Last Transaction</th>
                                         </tr>
                                         <tr>
+                                            <td>Multiple Maturity Date</td>                               
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
+              
+                                         </tr>
+                                        <tr>
                                             <td>LC Number</td>
-                                            <td>{{specificDetail.lcNumber}}</td>
+                                            <td>{{specificDetail.lCNumber}}</td>
                                         </tr>
                                         <tr>
                                             <td>Beneficiary Bank Name</td>

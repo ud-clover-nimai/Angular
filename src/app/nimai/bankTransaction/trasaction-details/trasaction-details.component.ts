@@ -37,6 +37,8 @@ export class TrasactionDetailsComponent {
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   public rejectReason:string="";
+  isUploadNoDoc: boolean=false;
+  tenor: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, 
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -126,7 +128,12 @@ export class TrasactionDetailsComponent {
       } if(this.quotationdata.commentsBenchmark=='null'){
         this.quotationdata.commentsBenchmark='';
       }
-  
+      if(this.specificDetail.tenorFile){
+        this.isUploadNoDoc=false;
+      }else{
+        this.isUploadNoDoc=true;
+      }
+     
 
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');
@@ -195,6 +202,10 @@ const data = {
     document.getElementById("myCanvasNav").style.opacity = "0";
   }
   showProForma(file) {
+    $('#myModal91').show();
+    this.document = file;
+  }
+  openDocument(file){
     $('#myModal91').show();
     this.document = file;
   }

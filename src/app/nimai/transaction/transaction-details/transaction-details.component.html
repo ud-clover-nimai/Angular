@@ -39,7 +39,7 @@
                                                  <th style="min-width: 150px;">LC Issuing Bank</th>
                                                  <th style="min-width: 150px;">Product</th>
                                                  <th style="min-width: 120px;">LC Value </th>
-                                                 <th style="min-width: 100px;">Goods/Services</th>
+                                                 <th style="min-width: 150px;">Goods/Services</th>
                                                  <th style="min-width: 150px;">Applicant's Name</th>
                                                  <th style="min-width: 150px;">Beneficiary Name</th> 
                                                  <th class="disabled-sorting text-center" nowrap [hidden]="!acceptedStatus" style="min-width: 140px;" >Transaction Status</th>
@@ -367,6 +367,12 @@
                            </tr>
                            <tr>
                               <th colspan="2">Beneficiary Details of Last Transaction</th>
+                           </tr>
+                           <tr>
+                              <td>Multiple Maturity Date</td>                               
+                              <td class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(detailInfo.tenorFile)">View</td>
+                              <td *ngIf="isUploadNoDoc">No such file attached</td>
+
                            </tr>
                            <tr>
                               <td>LC Number</td>
@@ -764,6 +770,12 @@
                                     <th colspan="2">Beneficiary Details of Last Transaction</th>
                                 </tr>
                                 <tr>
+                                 <td>Multiple Maturity Date</td>                               
+                                 <td class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(detailInfo.tenorFile)">View</td>
+                                 <td *ngIf="isUploadNoDoc">No such file attached</td>
+   
+                              </tr>
+                                <tr>
                                     <td>LC Number</td>
                                     <td>{{detailInfo.lcNumber}}</td>
                                 </tr>
@@ -1157,6 +1169,12 @@
                                     <th colspan="2">Beneficiary Details of Last Transaction</th>
                                 </tr>
                                 <tr>
+                                 <td>Multiple Maturity Date</td>                               
+                                 <td class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(detailInfo.tenorFile)">View</td>
+                                 <td *ngIf="isUploadNoDoc">No such file attached</td>
+   
+                              </tr>
+                                <tr>
                                     <td>LC Number</td>
                                     <td>{{detailInfo.lcNumber}}</td>
                                 </tr>
@@ -1307,7 +1325,7 @@
               <div class="">
                  <div class="row">
                     <div class="col-md-12">
-                       <label>Your transaction has been reopened. Check the activeTab transacion section for more details.</label> 
+                       <label>Your transaction has been reopened. Check the active transacion section for more details.</label> 
                        <div class="form-group"></div>
                     </div>
                     <button type="submit" class="btn btn-info pull-right"  data-dismiss="modal" (click)="reOpenTransaction(detailInfo.transactionId)">Ok</button> 
@@ -1363,6 +1381,7 @@
      </div>
   </div>
 </div>
+
 <div id="myModal9" class="modal3" style="display: none;">
     <div class="modal-content-image">
      <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>

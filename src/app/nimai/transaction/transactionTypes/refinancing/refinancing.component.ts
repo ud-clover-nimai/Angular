@@ -34,6 +34,7 @@ export class RefinancingComponent implements OnInit {
   private imageSrc: string = '';
   isUploadForma: boolean=false;
   isUpload=false;
+  isUploadNoDoc=false;
   benName: string;
   benCountry: string;
   appliName : string;
@@ -112,6 +113,7 @@ deleteFileContentForma(){
     this.isUploadForma = false;    
   }
   handleFileProForma(e){
+    this.noFileDisable=true;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();
@@ -133,6 +135,7 @@ deleteFileContentForma(){
 
 
   handleFileInput(e) {
+    this.isUploadNoDoc=false;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();
@@ -223,6 +226,12 @@ deleteFileContentForma(){
       this.noFileDisable=true;
      }
 
+     if(data.tenorFile){
+      this.isUploadNoDoc=false;
+     }else{
+      this.isUploadNoDoc=true;
+
+     }
   }
 
   public closed() {

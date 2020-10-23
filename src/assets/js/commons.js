@@ -483,6 +483,7 @@ export function bankNewTransaction() {
         var slider4 = $("#menubarDetail").slideReveal({
             push: false,
             position: "right",
+            width: 550,
             trigger: $(".handleDetail"),
             shown: function(obj) {
                 obj.find(".handle").html('<span class="fas fa-times"></span>');

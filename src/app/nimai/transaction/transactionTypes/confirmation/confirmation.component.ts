@@ -114,6 +114,7 @@ export class ConfirmationComponent implements OnInit {
     this.isUpload=true;
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
@@ -151,6 +152,7 @@ export class ConfirmationComponent implements OnInit {
     this.isUploadForma = false;    
   }
   handleFileProForma(e){
+    this.noFileDisable=true;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();

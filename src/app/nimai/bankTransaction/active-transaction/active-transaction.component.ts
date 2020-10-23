@@ -39,6 +39,7 @@ export class ActiveTransactionComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public isFreeze: boolean=false;
+  isUploadNoDoc: boolean =false;
   constructor(public activatedRoute: ActivatedRoute,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -49,7 +50,10 @@ export class ActiveTransactionComponent implements OnInit {
     this.titleService.quote.next(false);
 
   }
-
+  openDocument(file){
+    $('#myModal99').show();
+    this.document = file;
+  }
   public getAllnewTransactions() {
     this.titleService.quote.next(true);
     const data = {
@@ -127,7 +131,11 @@ export class ActiveTransactionComponent implements OnInit {
       } if(this.quotationdata.commentsBenchmark=='null'){
         this.quotationdata.commentsBenchmark='';
       }
-  
+  if(this.specificDetail.tenorFile){
+    this.isUploadNoDoc=false;
+  }else{
+    this.isUploadNoDoc=true;
+  }
 
       $('.activeTab').removeClass('active');
       $('#menu-barDetailActive li:first').addClass('active');
@@ -146,6 +154,9 @@ export class ActiveTransactionComponent implements OnInit {
 
   }
 
+  close(){
+    $('#myModal99').hide();
+  }
   showQuotePage(pagename: string, action: Tflag, data: any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;

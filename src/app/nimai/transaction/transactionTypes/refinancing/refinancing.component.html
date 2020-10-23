@@ -127,7 +127,7 @@
                                  <option value='Discounting'>Discounting</option>
                                  <option value='Refinance'>Refinancing</option>
                                  <option value='ConfirmAndDiscount'>Confirmation and Discounting</option>
-                                 <option value='Banker'>Banker</option>
+                                 <option value='Banker'>Banker’s Acceptance</option>
                               </select>
                            </td>
                         <tr>
@@ -213,12 +213,19 @@
                                 <td><input type="date"  [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
                                  (ngModelChange)="data.lcMaturityDate = $event"></td>
                             </tr>
+
+                         
                             <tr>
-                              <td>Multiple Maturity Date</td>                               
+                              <td>Multiple Maturity Date</td> 
+                              <td class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</td>
+                              </tr>
+                              <tr>
+                                 <td></td>
                               <td>
                                  <input (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 75%;"/>
                                  <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
                               </td>
+
                             </tr>
                             <tr>
                                 <th colspan="2">Beneficiary Details of Last Transaction</th>
@@ -500,10 +507,13 @@
                                 <td>LC Maturity Date</td>
                                 <td>{{data.lcMaturityDate | date : 'dd-MM-y'}}</td>
                             </tr>
-                            <tr>
+
+                               <tr>
                               <td>Multiple Maturity Date</td>                               
                               <td class="labeltext" *ngIf="data.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(data.tenorFile)">View</td>
-                            </tr>
+                              <td *ngIf="isUploadNoDoc">No such file attached</td>
+
+                           </tr>
                             <tr>
                                 <th colspan="2">Beneficiary Details of Last Transaction</th>
                             </tr>
@@ -584,7 +594,7 @@
                   <tbody>
                      <tr>
                         <td colspan="2" class="text-center">
-                           <p style="text-align: center;">Your LC Transaction has been successfully placed. <br/>Keep checking the Active Transaction section for the quotes received.</p>
+                           <p style="text-align: center;">Your LC Transaction has been successfully updated. <br/>Keep checking the Active Transaction section for the quotes received.</p>
                         </td>
                      </tr>
                   </tbody>

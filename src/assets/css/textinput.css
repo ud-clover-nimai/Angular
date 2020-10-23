@@ -682,6 +682,9 @@ button.close {
     border: 0;
     font-size: 20px;
     color: #000;
+    float: left;
+    padding-right: 20px;
+    margin-top: 2px;
 }
 
 

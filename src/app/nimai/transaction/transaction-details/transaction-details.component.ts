@@ -38,6 +38,7 @@ export class TransactionDetailsComponent {
   public noFileDisable: boolean= true;
   public detailInfo: any = "";
   public rejectReason:string=""
+  isUploadNoDoc: boolean=false;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -154,6 +155,11 @@ export class TransactionDetailsComponent {
           this.viewDisable=false;
           this.noFileDisable=true;
          }
+         if(this.detailInfo.tenorFile){
+          this.isUploadNoDoc=false;
+        }else{
+          this.isUploadNoDoc=true;
+        }
       },
       (error) => { }
     )
@@ -172,7 +178,6 @@ export class TransactionDetailsComponent {
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
-        console.log("this.quotationdata---",JSON.parse(JSON.stringify(response)).status)    
 
         var str = JSON.parse(JSON.stringify(response)).status; 
         var splittedNego = str.split(",", 1); 
@@ -197,6 +202,10 @@ export class TransactionDetailsComponent {
       },
       (error) => { }
     )
+  }
+  openDocument(file){
+    $('#myModal9').show();
+    this.document = file;
   }
 
   openOffcanvas(status) {

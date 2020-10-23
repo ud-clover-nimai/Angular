@@ -150,6 +150,7 @@ export class DiscountingComponent implements OnInit {
     this.isUploadForma = false;    
   }
   handleFileProForma(e){
+    this.noFileDisable=true;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();

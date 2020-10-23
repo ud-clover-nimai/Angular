@@ -120,6 +120,7 @@
 
 /* The Close Button */
 
+
 .close-image {
   color: #aaa;
   float: right;
@@ -135,7 +136,11 @@
   text-decoration: none;
   cursor: pointer;
 }
-
+.deleteFile{
+  float: right;
+  cursor: pointer;
+  margin-top: -22px;
+}
 
 .invalid-feedback {
 	display: block;
@@ -203,3 +208,4 @@ table {
   position: relative;
   background: #000000;
 }
+

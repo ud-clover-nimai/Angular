@@ -270,7 +270,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
             (response) => {
               this.detail = JSON.parse(JSON.stringify(response)).status;
               if(this.detail=="Validate Success"){
-                alert("Quote Validate Successfully.")
+                alert("Quote Validated Successfully.")
               }else{
                 console.log("Someting went wrong.")
               }
