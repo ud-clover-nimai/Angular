@@ -20,7 +20,12 @@ export class DasboardDetailsComponent implements OnInit {
   public piechartgoods:any;
   public cumulativetrxnAmnt:any;
   bankdashbrdcount:any;
+  bankBarChart:any;
+  banklatestaccepttrxn:any;
   userId:any;
+  country:any;
+  selectedCountry:any;
+  selectedProduct:any;
   public startDate:any;
   public endDate:any;
   @ViewChild('pieChart', { static: true }) pieChart: ElementRef
@@ -32,38 +37,76 @@ export class DasboardDetailsComponent implements OnInit {
       this.getCustomerDashboardDetails();
     }else{
       this.isCustomer=false;
+      this.selectedCountry=""
+      this.selectedProduct=""
       this.getBankDashboardDetails();
+      this.getCountryList()
+
     }  
+  }
+  getCountryList(){
+    this.service.viewCountryList().subscribe(
+        (response) => {
+          this.country = JSON.parse(JSON.stringify(response)).data;
+
+        },
+        (error) => {}
+      )
+  }
+  onCountrySelected(event){ 
+  if(event.target.value)
+    this.selectedCountry=event.target.value
+  else  
+     this.selectedCountry=event.target.value
+    this.getBankDashboardDetails()   
+  }
+  onProductSelected(event){
+    if(event.target.value)
+      this.selectedProduct=event.target.value
+    else  
+      this.selectedProduct=""
+    this.getBankDashboardDetails()  
   }
   getBankDashboardDetails(){
     const param = {
-      userId:"BA1707",
-      country:"USA",
-     productRequirement:"Refinance"
+      userId:this.userId,
+      country:this.selectedCountry,
+      productRequirement:this.selectedProduct
     }
     this.service.getBankDashboardDetails(param).subscribe(
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
-       console.log("this.dashboardData ----",this.dashboardData)
-       this.bankdashbrdcount=this.dashboardData.bankdashbrdcount
-       console.log("this.bankdashbrdcount--",this.bankdashbrdcount)
-        var header_amount= ['Month', 'Volume','Count'];
-        var data_amount=[];
-        data_amount.push(header_amount);
-        for (var i = 0; i < this.cumulativetrxnAmnt.length; i++) {
+        this.bankdashbrdcount=this.dashboardData.bankdashbrdcount;
+        this.bankBarChart=this.dashboardData.bankBarChart
+        this.banklatestaccepttrxn=this.dashboardData.banklatestaccepttrxn
+        var header_country= ['country', 'Transaction available','Transaction quote'];
+        var data_country=[];
+        data_country.push(header_country);
+        for (var i = 0; i < this.bankBarChart.length; i++) {
             var temp=[];
-            temp.push(this.cumulativetrxnAmnt[i].month);
-            temp.push(Number(this.cumulativetrxnAmnt[i].transactionAmount));
-            temp.push(Number(this.cumulativetrxnAmnt[i].count));
-            data_amount.push(temp);
+            temp.push(this.bankBarChart[i].country);
+            temp.push(Number(this.bankBarChart[i].transactionavailable));
+            temp.push(Number(this.bankBarChart[i].transactionquote));
+            data_country.push(temp);
         }
-        
-        google.charts.load('current', {'packages':['corechart','bar']});
-        google.charts.setOnLoadCallback(() => this.drawChart2(data_amount));
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(() => this.drawBarChartCountry(data_country));
       }, (error) => {
 
       }
     )
+  }
+ 
+  drawBarChartCountry(data){
+    var data = google.visualization.arrayToDataTable(data);
+    var options = {
+      chart: {
+        title: ''
+      }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('bar_chart_country'));
+    chart.draw(data, google.charts.Bar.convertOptions(options));
   }
   getCustomerDashboardDetails(){
     const param = {

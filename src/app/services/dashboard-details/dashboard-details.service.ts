@@ -12,6 +12,9 @@ export class DashboardDetailsService {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/customerDashboard`,data, { headers: { 'content-type': 'application/json' } });
   }
   public getBankDashboardDetails(data:any): Observable<any> {
-    return this.httpClient.post(`${environment.domain}/nimaiTransaction/bankdashBoard`,data, { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/bankDashboard`,data, { headers: { 'content-type': 'application/json' } });
   }
+  public viewCountryList(): Observable<any> {
+    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
+  } 
 }

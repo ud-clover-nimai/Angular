@@ -169,9 +169,6 @@ export class TransactionDetailsComponent {
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
        
-      
-
-
         this.quotationdata = "";
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
