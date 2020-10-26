@@ -40,3 +40,11 @@ a.adisabled {
 a.adisabled:hover { text-decoration: none; }
 a.adisabled:focus { text-decoration: none; }
 a.adisabled:active { text-decoration: none; }
+.userType{
+    display: inline-block;
+    vertical-align: top;
+    margin: -3px 0 0;
+    font-size: 12px;
+    padding: 0 4px;
+    font-weight: 400;
+}

@@ -310,7 +310,7 @@
          </div>
       </div>
    </div>
-   <div class="content" *ngIf="!isCustomer">
+   <div class="content" *ngIf="isBank">
       <div class="container-fluid">
          <div class="">
             <div class="col-md-12 form-group">
@@ -418,6 +418,89 @@
                               </table>
                            </div>
                         </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="content" *ngIf="isReferrer">
+      <div class="container-fluid">
+         <div class="">
+            <div class="col-lg-3 col-md-3 col-sm-3"  *ngFor="let count of referrerdashbrdcount">                 
+                  <div class="graphsideinner_1 row" >
+                     <div class="bignumber">
+                        <div class="content-a">
+                           <div class="content-b">
+                                 <h6 *ngIf="count.detail=='ToatalReferences'"  style="text-align: center!important;margin-top: -40px!important;">Toatal References</h6>
+                                 <h6 *ngIf="count.detail=='ApprovedReferences'"   style="text-align: center!important;margin-top: -40px!important;">Approved References</h6>
+                                 <h6 *ngIf="count.detail=='PendingReferences'"   style="text-align: center!important;margin-top: -40px!important;">Pending References</h6>
+                                 <h6 *ngIf="count.detail=='RejectedReferences'"   style="text-align: center!important;margin-top: -40px!important;">Rejected References</h6>
+                                 <h6 *ngIf="count.detail=='QuotesWon'"   style="text-align: center!important;margin-top: -40px!important;">Quotes Won</h6>
+                                 <h6 *ngIf="count.detail=='Renewalsin30Days'"  style="text-align: center!important;margin-top: -40px!important;">Renewals in 30 Days</h6>
+                              <h4>{{count.count}}</h4>                           
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="dashsidediv">
+                     <h2>
+                        Earning 
+                        <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;">
+                           <li>
+                              <div class="textfield">
+                                 <select (change)='onYearSelected_1($event)'>
+                                    <option value="">Select Year</option>
+                                    <option value="This_Year">This Quarter</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                 </select>
+                              </div>
+                           </li>
+                        </ul>
+                     </h2>
+                     <div class="graphsideinner_1 row" style="height: 145px!important;">
+                        <div class="bignumber">
+                           <div class="content-a">
+                              <div class="content-b">
+                                 <h4 *ngIf="referrerEarning" style="margin-bottom: 142px!important;">USD {{referrerEarning}}</h4>
+                                 <h4 *ngIf="!referrerEarning" style="margin-bottom: 142px!important;">USD 0</h4>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- <div  #pieChart style="width: 100vw; height: 100vh;"></div> -->
+            <br>
+            <div class="col-md-12" >
+               <div class="dashsidediv" style="height: 320px!important;">
+                  <h2>
+                     Cumulative Trxn Amount vs Trxn Count  
+                     <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;">
+                        <li>
+                           <div class="textfield">
+                              <select (change)='onYearSelected($event)'>
+                                 <option value="">Select Year</option>
+                                 <option value="2017">2017</option>
+                                 <option value="2018">2018</option>
+                                 <option value="2019">2019</option>
+                                 <option value="2020">2020</option>
+                              </select>
+                           </div>
+                        </li>
+                     </ul>
+                  </h2>
+                  <div class="clearfix"></div>
+                  <div class="graphsideinner row">
+                     <div class="col-md-12">
+                        <div id="bar_chart" style="height: 250px;border:0;"></div>
                      </div>
                   </div>
                </div>

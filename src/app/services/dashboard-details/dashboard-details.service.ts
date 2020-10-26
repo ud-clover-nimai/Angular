@@ -14,6 +14,9 @@ export class DashboardDetailsService {
   public getBankDashboardDetails(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/bankDashboard`,data, { headers: { 'content-type': 'application/json' } });
   }
+  public getReferrerDashboardDetails(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/referDashboard`,data, { headers: { 'content-type': 'application/json' } });
+  }
   public viewCountryList(): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
   } 
