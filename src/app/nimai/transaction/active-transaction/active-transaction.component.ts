@@ -224,7 +224,6 @@ export class ActiveTransactionComponent implements OnInit {
       "quotationId":detail.quotationId
     }
     this.nts.getConfChargesForQuoteAmount(param).subscribe((response)=>{
-      console.log(JSON.parse(JSON.stringify(response)).status);
 
       var str = JSON.parse(JSON.stringify(response)).status; 
       var splittedNego = str.split(",", 1); 

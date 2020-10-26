@@ -156,15 +156,40 @@ export class TrasactionDetailsComponent {
 const data = {
   "transactionId": val.transactionId,
  }
+
+ const params ={
+  
+    "quotationId":val.quotationId,
+    "transactionId":val.transactionId
+  
+ }
+ this.nts.getTransQuotationDtlByQuotationId(params).subscribe(
+  (response) => {
+    var str = JSON.parse(JSON.stringify(response)).status; 
+    var splittedNego = str.split(",", 1); 
+    var nego=splittedNego[0].split(":", 2)
+    this.quotationdata.confChgsIssuanceToNegot=nego[1];
+
+    var splittedMature = str.split(" ", 2); 
+    var mature=splittedMature[1].split(":", 2)
+    this.quotationdata.confChgsIssuanceToMatur=mature[1];
+  });
     this.nts.getQuotationOfAcceptedQuote(data).subscribe(
       (response) => {
           if(JSON.parse(JSON.stringify(response)).data==null){
           this.quotes="";    
             }else{
-              this.quotes=JSON.parse(JSON.stringify(response)).data[0];
-          }
+              this.quotes=JSON.parse(JSON.stringify(response)).data;
+              var str = JSON.parse(JSON.stringify(response)).status; 
+    var splittedNego = str.split(",", 1); 
+    var nego=splittedNego[0].split(":", 2)
+    this.quotes.confChgsIssuanceToNegot=nego[1];
 
-        
+    var splittedMature = str.split(" ", 2); 
+    var mature=splittedMature[1].split(":", 2)
+    this.quotes.confChgsIssuanceToMatur=mature[1];
+          }
+         
       },
       (error) => {
             }

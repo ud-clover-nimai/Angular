@@ -388,12 +388,26 @@
                                         <td><b>Amount</b></td>
                                         <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
-                                    <tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Discounting'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.discountingPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Confirmation' || specificDetail.requirementType=='ConfirmAndDiscount'">
                                         <td><b>IB</b></td>
                                         <td>{{specificDetail.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
                                         <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Refinance'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.refinancingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -772,12 +786,33 @@
                                         <td><b>Amount</b></td>
                                         <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td><b>IB</b></td>
                                         <td>{{specificDetail.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
                                         <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr> -->
+                                    <tr *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Discounting'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.discountingPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Confirmation' || specificDetail.requirementType=='ConfirmAndDiscount'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Refinance'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.refinancingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1155,12 +1190,33 @@
                                         <td><b>Amount</b></td>
                                         <td>{{ specificDetail.lCValue | number}}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td><b>IB</b></td>
                                         <td>{{specificDetail.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
                                         <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr> -->
+                                    <tr *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Discounting'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.discountingPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Confirmation' || specificDetail.requirementType=='ConfirmAndDiscount'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.confirmationPeriod}} Days</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType=='Refinance'">
+                                        <td><b>IB</b></td>
+                                        <td>{{specificDetail.lCIssuanceBank}}</td>
+
+                                        <td><b>Tenor</b></td>
+                                        <td>{{specificDetail.refinancingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>

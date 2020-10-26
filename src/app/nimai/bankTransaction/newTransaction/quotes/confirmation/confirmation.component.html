@@ -43,13 +43,13 @@
                                     <td>
                                         <input [checked]="chargesEdit1" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
                                         date of issuance till negotiation date</td>
-                                    <td><input type="text" name="confChgsIssuanceToNegot" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="true" disable readonly style="background: #eee!important">
+                                    <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
                                 <tr>
                                     <td>
                                         <input [checked]="chargesEdit2" type="radio" id="optn1" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;" >Confirmation Charges applicable from
                                         date of issuance till date of maturity</td>
-                                    <td><input type="text" name="confChgsIssuanceToMatur" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="true" disable readonly style="background: #eee!important">
+                                    <td><input type="hidden" name="confChgsIssuanceToMatur" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
 
                               
@@ -281,14 +281,14 @@
                                             <td>
                                                 <input [checked]="charges1" type="radio" id="optn3" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 negotiation date</td>
-                                            <td><input type="text" name="confChgsIssuanceToNegot" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
+                                            <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity
                                                 <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
-                                            <td><input type="text" name="confChgsIssuanceToMatur" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
+                                            <td><input type="hidden" name="confChgsIssuanceToMatur" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly>
                                         </tr>
                                         <tr>
                                             <td>Other Charges (if any)</td>
