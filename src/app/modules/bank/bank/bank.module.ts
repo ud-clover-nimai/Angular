@@ -33,6 +33,7 @@ import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-trans
 import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/manage-user.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
+import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 
 
 const routes: Routes = [
@@ -65,6 +66,13 @@ const routes: Routes = [
       { path: "account-review", component: AccountStatusComponent },
       {
         path: "subscription", component: SubscriptionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "vasPlan", component: VasPlanComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }

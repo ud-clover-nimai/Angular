@@ -261,6 +261,12 @@
                       </ul>
                     </div>
                   </li>
+                  <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
+                    <a [routerLink]="['dashboard-details']">
+                      <i class="fas fa-industry"></i>
+                      <p>Dashboard</p>
+                    </a>
+                  </li>
                   <li
                     *ngIf="
                       (isCustomer || isBank) &&
@@ -383,7 +389,7 @@
 
                     <i class="fas fa-user-circle"></i>
                     <span class="dropuser"> &nbsp; {{ username }} &nbsp; <br>
-                      <small>&nbsp;&nbsp;({{ userType }})&nbsp;</small></span>
+                      <small class="userType">&nbsp;&nbsp;({{ userType }})&nbsp;</small></span>
                     <span class="caret"></span>
                     <p class="hidden-lg hidden-md">Profile</p>
                   </a>
@@ -411,6 +417,8 @@
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
                     <li><a [routerLink]="['support']">Support</a></li>
+                    <li><a [routerLink]="['subscription']">Subscription</a></li>
+                    <li><a [routerLink]="['vasPlan']">Vas Plan</a></li>
                     <!-- <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li> -->
                     <li>
                       <a

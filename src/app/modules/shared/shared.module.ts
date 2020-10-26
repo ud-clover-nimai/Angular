@@ -4,6 +4,7 @@ import { AccountStatusComponent } from 'src/app/nimai/acstatus/account-status/ac
 import { SuccessPopupComponent } from 'src/app/default/popups/success-popup/success-popup.component';
 import { ErrorPopupComponent } from 'src/app/default/popups/error-popup/error-popup.component';
 import { SubscriptionComponent } from 'src/app/nimai/subscription/subscription.component';
+import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { KycDetailsComponent } from 'src/app/nimai/kyc-details/kyc-details.component';
 import { BusinessDetailsComponent } from 'src/app/nimai/business-details/business-details.component';
 import { PersonalDetailsComponent } from 'src/app/nimai/personal-details/personal-details.component';
@@ -36,7 +37,8 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
     PersonalDetailsComponent,
     BusinessDetailsComponent,
     KycDetailsComponent,
-    SubscriptionComponent,    
+    SubscriptionComponent,   
+    VasPlanComponent, 
     SuccessPopupComponent,
     ErrorPopupComponent,           
     LoaderComponent,
