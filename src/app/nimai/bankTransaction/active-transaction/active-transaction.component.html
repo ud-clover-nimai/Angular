@@ -330,7 +330,7 @@
                                            <td>{{specificDetail.userType}}</td>
                                        </tr>
                                        <tr>
-                                           <td>Validity</td>
+                                           <td>Bank Quote Validity</td>
                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
                                        </tr>
                                        <tr>
@@ -443,7 +443,7 @@
                                            <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
                                        </tr>
                                        <tr>
-                                           <td>Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                                           <td>Bank Quote Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
                                                class="fas fa-info-circle"
                                                style="font-size: 11px !important;color: #333;"></i></a></td>
                                            <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>

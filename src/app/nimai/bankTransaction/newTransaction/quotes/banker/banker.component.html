@@ -122,7 +122,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Validity</td>
+                                        <td>Bank Quote Validity</td>
                                         <td><input type="date" name="validityDate"
                                                 [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="dataViewEdit.validityDate = $event"></td>
@@ -247,7 +247,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Validity</td>
+                                    <td>Bank Quote Validity</td>
                                     <td>{{dataViewEdit.validityDate | date : "dd-MM-y"}}</td>
                                 </tr>
                                 <tr *ngIf="title=='View'">
@@ -420,7 +420,7 @@
                                                     weightDirective>
                                         </tr>
                                         <tr>
-                                            <td>Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
+                                            <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                             <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
@@ -549,7 +549,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Validity <a class="" data-toggle="tooltip" data-placement="right"
+                                        <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right"
                                                 title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle"
                                                     style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>

@@ -308,7 +308,7 @@
                            <td><input type="text" [(ngModel)]="data.chargesType"></td>
                         </tr>
                         <tr>
-                           <td>Validity</td>
+                           <td>Customer Quote Validity</td>
                            <td><input type="date"  [ngModel]="data.validity | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.validity = $event" disabled></td>
                         </tr>
@@ -547,7 +547,7 @@
                            <td>{{data.chargesType}}</td>
                         </tr>
                         <tr>
-                           <td>Validity</td>
+                           <td>Customer Quote Validity</td>
                            <td>{{data.validity | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
