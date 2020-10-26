@@ -274,7 +274,7 @@ export function manageSub() {
                 scrollX: true,
                 lengthMenu: [
                     [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "All"]
+                    [5, 10, 25, 50]
                 ],
                 responsive: false, //scrollX: true,
                 language: {
@@ -289,10 +289,12 @@ export function manageSub() {
                 "initComplete": function(settings, json) {
                     $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
                 },
-                "lengthMenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "All"]
-                ],
+                // "lengthMenu": [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50]
+                // ],
+                "lengthMenu": [ 5,10, 25, 50 ],
+                "pageLength":10,
                 responsive: false,
                 language: {
                     search: "_INPUT_",
@@ -680,7 +682,7 @@ export function bankNewTransaction() {
 
     });
     $(document).ready(function() {
-        $('select').css('color', '#333');
+        $('select').css('color', '#5c9fd9');
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
@@ -688,10 +690,12 @@ export function bankNewTransaction() {
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
-            "lengthMenu": [
-                [5, 10, 25, 50, -1],
-                [5, 10, 25, 50, "All"]
-            ],
+            // "lengthMenu": [
+            //     [5, 10, 25, 50, -1],
+            //     [5, 10, 25, 50]
+            // ],
+             "lengthMenu": [ 5,10,25,50],
+            "pageLength":10,
             responsive: false,
             language: {
                 search: "_INPUT_",
@@ -1050,10 +1054,12 @@ export function bankActiveTransaction() {
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
-            "lengthMenu": [
-                [5, 10, 25, 50, -1],
-                [5, 10, 25, 50, "All"]
-            ],
+            // "lengthMenu": [
+            //     [5, 10, 25, 50, -1],
+            //     [5, 10, 25, 50]
+            // ],
+            "lengthMenu": [ 5,10, 25, 50 ],
+            "pageLength":10,
             responsive: false,
             language: {
                 search: "_INPUT_",
@@ -1533,10 +1539,12 @@ export function bankRequest() {
                 "initComplete": function(settings, json) {
                     $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
                 },
-                "lengthMenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "All"]
-                ],
+                // "lengthMenu": [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50]
+                // ],
+                "lengthMenu": [ 5,10, 25, 50 ],
+                "pageLength":10,
                 //  responsive: true,
                 language: {
                     search: "_INPUT_",
@@ -1606,10 +1614,12 @@ export function custTrnsactionDetail() {
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
-            "lengthMenu": [
-                [5, 10, 25, 50, -1],
-                [5, 10, 25, 50, "All"]
-            ],
+            // "lengthMenu": [
+            //     [5, 10, 25, 50, -1],
+            //     [5, 10, 25, 50]
+            // ],
+            "lengthMenu": [ 5,10, 25, 50 ],
+            "pageLength":10,
             responsive: false, //scrollX: true,
             language: {
                 search: "_INPUT_",
@@ -1642,10 +1652,12 @@ export function custActiveTransaction() {
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
-            "lengthMenu": [
-                [5, 10, 25, 50, -1],
-                [5, 10, 25, 50, "All"]
-            ],
+            // "lengthMenu": [
+            //     [5, 10, 25, 50, -1],
+            //     [5, 10, 25, 50]
+            // ],
+            "lengthMenu": [ 5,10, 25, 50 ],
+            "pageLength":10,
             responsive: false,
             language: {
                 search: "_INPUT_",
@@ -2013,10 +2025,12 @@ export function newRequest() {
                 "initComplete": function(settings, json) {
                     $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
                 },
-                "lengthMenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "All"]
-                ],
+                // "lengthMenu": [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50]
+                // ],
+                "lengthMenu": [ 5,10, 25, 50 ],
+                "pageLength":10,
                 //  responsive: true,
                 language: {
                     search: "_INPUT_",
@@ -2071,10 +2085,13 @@ export function creditTransaction() {
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
-            "lengthMenu": [
-                [5, 10, 25, 50, -1],
-                [5, 10, 25, 50, "All"]
-            ],
+            // "lengthMenu": [
+            //     [5, 10, 25, 50, -1],
+            //     [5, 10, 25, 50]
+            // ],
+            "lengthMenu": [ 5,10, 25, 50 ],
+            "pageLength":10,
+
             responsive: false, //scrollX: true,
             language: {
                 search: "_INPUT_",
@@ -2220,7 +2237,9 @@ export function dashboard_details() {
         // $('select').css('color', '#333');
         $('#datatables').DataTable({
             "pagingType": "full_numbers", "scrollX": true,
-            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+           // "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50]],
+           "lengthMenu": [ 5,10, 25, 50 ],
+           "pageLength":10,
             responsive: false,
             language: {
                 search: "_INPUT_",

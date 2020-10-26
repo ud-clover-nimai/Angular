@@ -106,7 +106,7 @@
                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>
-                           <td>{{QRrecord.validityDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                           <td>{{QRrecord.validityDate | date : "dd-MM-y"}}</td>
                            <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" [ngClass]="{'adisabled': QRrecord.quotationStatus === 'FreezePlaced' || QRrecord.quotationStatus ==='FreezeRePlaced'}" >Accept</button></td>
                          </tr>                          
                        </tbody>

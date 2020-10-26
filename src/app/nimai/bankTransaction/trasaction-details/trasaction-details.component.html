@@ -33,9 +33,9 @@
                                                 <tr>
                                                     <th class="disabled-sorting text-center">#</th>
                                                     <th style="min-width: 150px;">Transaction ID</th>
-                                                    <th  [hidden]="!acceptedStatus" style="min-width: 166px;">Date & Time <br>(Quote Accepted on)</th>
-                                                    <th  [hidden]="!rejectedStatus" style="min-width: 166px;">Date & Time <br>(Quote Rejected on)</th>
-                                                    <th  [hidden]="!expiredStatus" style="min-width: 166px;">Date & Time <br>(Quote Expired on)</th>
+                                                    <th  [hidden]="!acceptedStatus" style="min-width: 166px;">Date <br>(Quote Accepted on)</th>
+                                                    <th  [hidden]="!rejectedStatus" style="min-width: 166px;">Date <br>(Quote Rejected on)</th>
+                                                    <th  [hidden]="!expiredStatus" style="min-width: 166px;">Date <br>(Quote Expired on)</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
                                                     <th style="min-width: 150px;">Product</th>
                                                     <th style="min-width: 120px;">LC Value </th>
@@ -55,9 +55,9 @@
                                                 <tr *ngFor="let record of data; let i = index">
                                                     <td>{{i+1}}</td>
                                                     <td>{{record.transactionId}}</td>
-                                                    <td [hidden]="!acceptedStatus">{{record.acceptedOn| date : "dd-MM-y h:mm:ss z"}}</td>
-                                                    <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y h:mm:ss z"}}</td>
-                                                    <td [hidden]="!expiredStatus">{{record.expiredOn| date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td [hidden]="!acceptedStatus">{{record.acceptedOn| date : "dd-MM-y"}}</td>
+                                                    <td [hidden]="!rejectedStatus">{{record.rejectedOn| date : "dd-MM-y"}}</td>
+                                                    <td [hidden]="!expiredStatus">{{record.expiredOn| date : "dd-MM-y"}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>
                                                         <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
@@ -419,8 +419,8 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td style="width: 50%;">Date & Time</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
+                                            <td style="width: 50%;">Date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
                                             <td>Applicable Benchmark (if any)<br><small
@@ -825,8 +825,8 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td style="width: 50%;">Date & Time</td>
-                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y h:mm:ss z"}}</td>
+                                            <td style="width: 50%;">Date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
                                             <td>Applicable Benchmark (if any)<br><small
@@ -1233,7 +1233,7 @@
                                         </tr>
                                         <br>
                                         <!-- <tr>
-                                            <td style="width: 50%;">Date & Time</td>
+                                            <td style="width: 50%;">Date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr> -->
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">

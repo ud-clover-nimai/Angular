@@ -26,7 +26,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="disabled-sorting text-center">#</th>
-                                                    <th style="min-width: 166px;">Date & Time</th>
+                                                    <th style="min-width: 166px;">Date</th>
                                                     <th style="min-width: 166px;">Transaction ID</th>
                                                     <th style="min-width: 150px;">LC Issuing Bank</th>
                                                     <th style="min-width: 130px;">Product</th>
@@ -41,7 +41,7 @@
                                             <tbody>
                                                 <tr *ngFor="let record of detail; let i = index">
                                                     <td>{{i+1}}</td>
-                                                    <td nowrap>{{record.insertedDate | date : "dd-MM-y h:mm:ss z"}}</td>
+                                                    <td nowrap>{{record.insertedDate | date : "dd-MM-y"}}</td>
                                                     <td>{{record.transactionId}}</td>
                                                     <td>{{record.lCIssuanceBank}}</td>
                                                     <td>
