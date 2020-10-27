@@ -131,12 +131,15 @@ export class CustomerLoginComponent implements OnInit {
         if(response.flag == 1){
           this.titleService.loading.next(false);
           if(response.data.userId.startsWith('BC')){
+            console.log("BC")
             this.router.navigate(['/cst/dsb/dashboard-details']);   
           }
           else if(response.data.userId.startsWith('BA')){
+            console.log("BA")
             this.router.navigate(['/bcst/dsb/dashboard-details']);   
           }
           else if(response.data.userId.startsWith('RE')){
+            console.log("RE")
             this.router.navigate(['/ref/rcs/dashboard-details']);   
           }
           $('.modal2').hide();

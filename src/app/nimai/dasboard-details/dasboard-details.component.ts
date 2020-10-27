@@ -36,10 +36,10 @@ export class DasboardDetailsComponent implements OnInit {
   constructor(public service: DashboardDetailsService) { }
   ngOnInit() {
     this.userId=sessionStorage.getItem('userID')
-    if(this.userId.startsWith('CU')){
+    if(this.userId.startsWith('CU') || this.userId.startsWith('BC')){
       this.isCustomer=true;
       this.getCustomerDashboardDetails();
-    }else if(this.userId.startsWith('BC')){
+    }else if(this.userId.startsWith('BA')){
       this.isBank=true;
       this.selectedCountry=""
       this.selectedProduct=""
@@ -49,9 +49,10 @@ export class DasboardDetailsComponent implements OnInit {
     }else if(this.userId.startsWith('RE')){
       this.isReferrer=true;
       this.getReferrerDashboardDetails();
-    }  
+    }
   }
   getReferrerDashboardDetails(){
+    console.log("referrer dashboard calls")
     const param = {
       userId:this.userId,
       year:"2020",
@@ -205,7 +206,10 @@ export class DasboardDetailsComponent implements OnInit {
     this.service.getCustomerDashboardDetails(param).subscribe(
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
-        this.custmrdasbrdcount=this.dashboardData.custmrdasbrdcount
+        if(this.dashboardData.custmrdasbrdcount)
+          this.custmrdasbrdcount=this.dashboardData.custmrdasbrdcount
+        else  
+          this.custmrdasbrdcount=""
         this.transactionbifurcation=this.dashboardData.transactionbifurcation
         this.latestacceptedtrxn=this.dashboardData.latestacceptedtrxn
         this.piechartcountry=this.dashboardData.piechartcountry

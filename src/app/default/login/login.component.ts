@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   public forgotPasswordForm: FormGroup;
   public isBank = false;
   public isReferrer = false;
-
+  public isReferrerOther=false;
   public intCountries: InterestedCountry[] = [];
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
@@ -75,7 +75,8 @@ export class LoginComponent implements OnInit {
       blacklistedGC: [''],
       companyName: [''],
       termsAndcondition:  [false, Validators.requiredTrue],
-      regCurrency:['']
+      regCurrency:[''],
+      otherType:['']
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]]
@@ -183,7 +184,14 @@ export class LoginComponent implements OnInit {
         }
       )
   }
-
+  changeType(type){
+    console.log("type",type)
+    if(type=="Others"){
+      this.isReferrerOther=true;
+    }else{
+      this.isReferrerOther=false;
+    }
+  }
   signUp() {
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
     var isChecked = element.checked;
