@@ -22,7 +22,10 @@ export class UploadLcService {
   public checkDuplicateLC(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/checkDuplicateLC`, body,{headers:{'content-type':'application/json'}})
   }
-
+  public getPortByCountry(body:any):Observable<any>{
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getPortByCountry`, body,{headers:{'content-type':'application/json'}})
+  }
+  
   public updateLc(body:any):Observable<any>{
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/updateLCDraft`, body,{headers:{'content-type':'application/json'}})
   }

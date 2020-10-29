@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div class="inputDiv selectdiv">
 
-                    <select name="country" formControlName="loadingCountry">
+                    <select name="country" formControlName="loadingCountry" (change)="portLoadingOnchange($event)">
                         <option [ngValue]="null" selected>Select</option>
                         <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                       
@@ -17,20 +17,11 @@
             <div class="col-md-6">
                 <div class="inputDiv selectdiv">
 
-                    <select name="IndiaPort" formControlName="loadingPort">
-
-                        <option value="Jawaharlal Nehru Port">
-                            Jawaharlal Nehru Port</option>
-                        <option value="Mumbai Port">
-                            Mumbai Port </option>
-                        <option value="GUJRAT Port">
-                            GUJRAT Port </option>
-                        <option value="Dr. Syama Prasad Mukherjee Port">Dr.
-                            Syama Prasad Mukherjee Port
-                        </option>
-                        <option value="Dr. Rama Prasad Mukherjee Port">Dr.
-                            Rama Prasad Mukherjee Port
-                        </option>
+                    <select name="IndiaPort" formControlName="loadingPort"  >
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}}</option>
+                      
+                      
                     </select>
                     <label>Port of Loading</label>
                 </div>
@@ -43,7 +34,7 @@
             <div class="col-md-6">
                 <div class="inputDiv selectdiv">
 
-                    <select name="country" formControlName="dischargeCountry">
+                    <select name="country" formControlName="dischargeCountry" (change)="portDischargeOnchange($event)">
 
                         <option [ngValue]="null" selected>Select</option>
                         <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
@@ -57,15 +48,9 @@
                 <div class="inputDiv selectdiv">
 
                     <select name="Banglaport" formControlName="dischargePort">
-
-                        <option value="Port of Chittagong">
-                            Port of Chittagong</option>
-                        <option value="Port of Mongla">
-                            Port of Mongla</option>
-                        <option value="Port of Dhaka">
-                            Port of Dhaka</option>
-                        <option value="Port of Payra">
-                            Port of Payra</option>
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}}</option>
+                     
                     </select>
                     <label>Port of Discharge</label>
                 </div>
