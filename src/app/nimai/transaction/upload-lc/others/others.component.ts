@@ -19,6 +19,7 @@ export class OthersComponent implements OnInit {
   portOfLoading:any;
   portOfDischarge:any;
   minDate = new Date;
+  private filename: string = '';
   constructor(public rds:DataServiceService,public loginService: LoginService,public upls: UploadLcService) {
   }
   ngOnInit() {
@@ -28,6 +29,9 @@ export class OthersComponent implements OnInit {
  
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    console.log(file.name)
+  this.filename=file.name;
+
     var pattern = /image-*/;
     var reader = new FileReader();
     // if (!file.type.match(pattern)) {
@@ -44,12 +48,10 @@ export class OthersComponent implements OnInit {
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
+    this.imageSrc =this.filename +" |" + reader.result;
     this.LcDetail.get('lcProForma').setValue(this.imageSrc);
-
+    
   }
-
-
 
 
   portDischargeOnchange(event:any){

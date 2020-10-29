@@ -15,6 +15,7 @@ import { formatDate } from '@angular/common';
 import * as $ from 'src/assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
 import {removeDoubleScroll} from 'src/assets/js/commons'
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -155,6 +156,64 @@ export class NewTransactionComponent implements OnInit {
     )
   }
 
+
+
+  convertbase64toArrayBuffer(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  download(base64string){
+    var str = base64string; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    this.document = data;
+
+    var filename=splittedStr[0];
+    console.log(filename)
+    var filename=splittedStr[0];
+    var filename_=splittedStr[1];
+    console.log("filename_"+filename_)
+
+    var ext = filename_.split(".", 1); 
+     console.log(ext)
+    // if(filename==){
+    //   base64string= base64string.replace('data:application/octet-stream;base64,', '')
+    //   const byteArr = this.convertbase64toArrayBuffer(base64string);
+    //   var blob = new Blob([byteArr], { type:'application/octet-stream'});
+    //   FileSaver.saveAs(blob, "filename" + ".xlsx");
+    // } if else(){
+    //   base64string= base64string.replace('data:application/pdf;base64,', '')
+    //   const byteArr = this.convertbase64toArrayBuffer(base64string);
+    //   var blob = new Blob([byteArr], { type: 'application/pdf' });
+    //   FileSaver.saveAs(blob, "filename" + ".xlsx");
+    // }
+   
+    //   if(){
+    //     base64string= base64string.replace('data:application/octet-stream;base64,', '')
+    //     const byteArr = this.convertbase64toArrayBuffer(base64string);
+    //     var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+    //     FileSaver.saveAs(blob, "filename" + ".docx");
+    // }
+     
+       
+    //       if(){
+    //         console.log(base64string)
+    //         base64string= base64string.replace('data:application/octet-stream;base64,', '')
+    //         const byteArr = this.convertbase64toArrayBuffer(base64string);
+    //         var blob = new Blob([byteArr], { type: 'text/csv' });
+    //         FileSaver.saveAs(blob, "filename" + ".csv");
+    //       }
+      
+           
+              
+              }
+
   ngAfterViewInit() {
     this.getNewRequestsForBank();
     this.confirmation.isActiveQuote = false;
@@ -192,8 +251,22 @@ export class NewTransactionComponent implements OnInit {
   }
 
   showProForma(file) {
+    //start gkjhkhfkhwk
     $('#myModalAttach').show();
-    this.document = file;
+
+    var str = file; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    this.document = data;
+    
+    var filename=splittedStr[0];
+    console.log(filename)
+    var filename=splittedStr[0];
+    var filename_=splittedStr[1];
+    console.log("datttttt"+this.document)
+    var ext = filename.split("."); 
+     console.log(ext[1])
+
   }
 
   close() {

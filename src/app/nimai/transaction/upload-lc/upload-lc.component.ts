@@ -849,7 +849,11 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
 
   openDocument(file){
     $('#myModal7').show();
-    this.document = file;
+
+    var str = file; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    this.document = data;
   }
 
   close(){

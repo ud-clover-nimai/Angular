@@ -264,7 +264,8 @@
                                                 <td>Multiple Maturity Date</td>
                                                 <td>
                                                     <span class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(detailInfo.tenorFile)">View</span> | 
-                                                    <a download="multipleMaturityDate" style="cursor: pointer;color: blue;margin-left: 5px!important" href="{{detailInfo.tenorFile}}">Download</a>
+                                                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download(detailInfo.tenorFile)">Download</a>
+
                                                 </td>
                                             </tr>
                                         <tr>
