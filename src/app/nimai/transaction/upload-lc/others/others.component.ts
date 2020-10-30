@@ -29,7 +29,6 @@ export class OthersComponent implements OnInit {
  
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    console.log(file.name)
   this.filename=file.name;
 
     var pattern = /image-*/;

@@ -600,7 +600,9 @@
             <div class="row">
               <!--<p><strong>Enter Email ID here</strong></p> -->
               <div class="col-md-12">
-               <img style="height: 100%; width: 100%;" *ngIf="document" [src]="document" />
+               <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+               <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+
               </div>
               <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
             </div>

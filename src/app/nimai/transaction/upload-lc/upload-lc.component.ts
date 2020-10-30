@@ -12,6 +12,7 @@ import { call } from 'src/assets/js/bootstrap-filestyle.min'
 import { loads } from 'src/assets/js/commons'
 import { LoginService } from 'src/app/services/login/login.service';
 import { ApplicantBeneficiaryComponent } from './applicant-beneficiary/applicant-beneficiary.component';
+import * as FileSaver from 'file-saver';
 
 
 
@@ -50,6 +51,9 @@ export class UploadLCComponent implements OnInit {
   document: any;
   countryName: any;
   selectInfo: any;
+  notImgDownload: boolean=false;
+  imgDownload: boolean=false;
+  fileData: any;
 
 
   // rds: refinance Data Service
@@ -66,10 +70,8 @@ export class UploadLCComponent implements OnInit {
     })
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "draftTransaction"){
-        console.log("..."+ navigation.extras.state.redirectedFrom);
         var trnsactionID = navigation.extras.state.trnsactionID;
         this.callDraftTransaction(trnsactionID);
       }
@@ -289,7 +291,6 @@ export class UploadLCComponent implements OnInit {
           // sessionStorage.setItem("transactionID",this.transactionID);
           this.loading = false;
           this.lc = this.lcDetailForm.value;
-          console.log("lc-----",this.lc)
           this.previewShow = true;
           this.isPrev = false;
           this.isNext = false;
@@ -392,8 +393,6 @@ export class UploadLCComponent implements OnInit {
         (response) => {
           var resp = JSON.parse(JSON.stringify(response)).status;
           var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
-
-          console.log(resp)
           if(resp == "Failure"){
             const navigationExtras: NavigationExtras = {
               state: {
@@ -849,11 +848,19 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
 
   openDocument(file){
     $('#myModal7').show();
-
     var str = file; 
     var splittedStr = str.split(" |", 2); 
+    var filename=str.split(" |", 1); 
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+     if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
+      this.imgDownload=true;
+     }else{
+      this.imgDownload=false;
+     }
     var data=splittedStr[1];
     this.document = data;
+    this.fileData=file;
   }
 
   close(){
@@ -886,4 +893,58 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
         (err) => {}
       )
   }
+  convertbase64toArrayBuffer(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+  download(){
+    var str = this.fileData;
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    var base64string = data;
+    
+    var filename=splittedStr[0];
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+    var extension='.'+ext[1];
+
+    if(extension=='.xlsx'){
+      base64string= base64string.replace('data:application/octet-stream;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type:'application/octet-stream'});
+      FileSaver.saveAs(blob, filename);
+    } 
+    else if(extension=='.pdf'){
+      base64string= base64string.replace('data:application/pdf;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type: 'application/pdf' });
+      FileSaver.saveAs(blob, filename);
+    }  
+     else if(extension=='.docx'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        FileSaver.saveAs(blob,filename );
+    }
+     else if(extension=='.csv'){
+            base64string= base64string.replace('data:application/octet-stream;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'text/csv' });
+            FileSaver.saveAs(blob, filename);
+          }
+          else if(extension=='.jpeg' || extension=='.jpg' || extension=='.png' || extension=='.svg'){
+            base64string= base64string.replace('data:image/jpeg;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'image/jpeg' });
+            FileSaver.saveAs(blob, filename );
+
+          }     
+           
+              
+              }
 }

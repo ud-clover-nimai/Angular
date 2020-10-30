@@ -109,7 +109,7 @@
         <div class="col-md-4">       
             <li class="multipledate" style="width: 400px;">
                 <label>Upload multiple maturity dates (Optional - only jpg, jpeg, png)</label>
-                <input accept="image/jpeg,image/jpg,image/png,application/pdf" #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
+                <input  #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
             </li>
             <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
         </div>     

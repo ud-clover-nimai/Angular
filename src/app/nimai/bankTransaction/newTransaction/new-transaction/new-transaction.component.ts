@@ -48,6 +48,9 @@ export class NewTransactionComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   public detailInfo: string = "";
+  public imgDownload:boolean=false;
+  public notImgDownload:boolean=false;
+  fileData: any;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder,
      public activatedRoute: ActivatedRoute, public router: Router) {
@@ -156,8 +159,6 @@ export class NewTransactionComponent implements OnInit {
     )
   }
 
-
-
   convertbase64toArrayBuffer(base64) {
     var binary_string = window.atob(base64);
     var len = binary_string.length;
@@ -167,49 +168,77 @@ export class NewTransactionComponent implements OnInit {
     }
     return bytes.buffer;
   }
-
-  download(base64string){
-    var str = base64string; 
+  showProForma(file) {
+    $('#myModalAttach').show();
+    var str = file; 
     var splittedStr = str.split(" |", 2); 
+    var filename=str.split(" |", 1); 
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+     if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
+      this.imgDownload=true;
+     }else{
+      this.imgDownload=false;
+     }
     var data=splittedStr[1];
     this.document = data;
+    this.fileData=file;
+          }
 
+  download(){
+    var str = this.fileData; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    var  base64string = data;
+    
     var filename=splittedStr[0];
-    console.log(filename)
-    var filename=splittedStr[0];
-    var filename_=splittedStr[1];
-    console.log("filename_"+filename_)
+    var ext = filename.split("."); 
+    var extension='.'+ext[1];
 
-    var ext = filename_.split(".", 1); 
-     console.log(ext)
-    // if(filename==){
-    //   base64string= base64string.replace('data:application/octet-stream;base64,', '')
-    //   const byteArr = this.convertbase64toArrayBuffer(base64string);
-    //   var blob = new Blob([byteArr], { type:'application/octet-stream'});
-    //   FileSaver.saveAs(blob, "filename" + ".xlsx");
-    // } if else(){
-    //   base64string= base64string.replace('data:application/pdf;base64,', '')
-    //   const byteArr = this.convertbase64toArrayBuffer(base64string);
-    //   var blob = new Blob([byteArr], { type: 'application/pdf' });
-    //   FileSaver.saveAs(blob, "filename" + ".xlsx");
-    // }
-   
-    //   if(){
-    //     base64string= base64string.replace('data:application/octet-stream;base64,', '')
-    //     const byteArr = this.convertbase64toArrayBuffer(base64string);
-    //     var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-    //     FileSaver.saveAs(blob, "filename" + ".docx");
-    // }
-     
-       
-    //       if(){
-    //         console.log(base64string)
-    //         base64string= base64string.replace('data:application/octet-stream;base64,', '')
-    //         const byteArr = this.convertbase64toArrayBuffer(base64string);
-    //         var blob = new Blob([byteArr], { type: 'text/csv' });
-    //         FileSaver.saveAs(blob, "filename" + ".csv");
-    //       }
-      
+    if(extension=='.xlsx'){
+    var  base64string= base64string.replace('data:application/octet-stream;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type:'application/octet-stream'});
+      FileSaver.saveAs(blob, filename);
+      this.notImgDownload=true;
+      this.imgDownload=false;
+    } 
+    else if(extension=='.pdf'){
+      base64string= base64string.replace('data:application/pdf;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type: 'application/pdf' });
+      FileSaver.saveAs(blob, filename);
+      this.notImgDownload=true;
+      this.imgDownload=false;
+
+    }  
+     else if(extension=='.docx'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        FileSaver.saveAs(blob,filename);
+        this.notImgDownload=true;
+        this.imgDownload=false;
+
+    }
+     else if(extension=='.csv'){
+            base64string= base64string.replace('data:application/octet-stream;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'text/csv' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=false;
+            this.notImgDownload=true;
+
+          }
+          else if(extension=='.jpeg' || extension=='.jpg' || extension=='.png' || extension=='.svg'){
+            base64string= base64string.replace('data:image/jpeg;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'image/jpeg' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=true;
+            this.notImgDownload=false;
+
+          }     
            
               
               }
@@ -250,24 +279,7 @@ export class NewTransactionComponent implements OnInit {
 
   }
 
-  showProForma(file) {
-    //start gkjhkhfkhwk
-    $('#myModalAttach').show();
-
-    var str = file; 
-    var splittedStr = str.split(" |", 2); 
-    var data=splittedStr[1];
-    this.document = data;
-    
-    var filename=splittedStr[0];
-    console.log(filename)
-    var filename=splittedStr[0];
-    var filename_=splittedStr[1];
-    console.log("datttttt"+this.document)
-    var ext = filename.split("."); 
-     console.log(ext[1])
-
-  }
+  
 
   close() {
     $('#myModalAttach').hide();

@@ -263,9 +263,8 @@
                                         <tr *ngIf="detailInfo.tenorFile">
                                                 <td>Multiple Maturity Date</td>
                                                 <td>
-                                                    <span class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(detailInfo.tenorFile)">View</span> | 
-                                                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download(detailInfo.tenorFile)">Download</a>
-
+                                                    <span class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(detailInfo.tenorFile)">View</span> 
+                                                    <!-- <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download(detailInfo.tenorFile)">Download</a> -->
                                                 </td>
                                             </tr>
                                         <tr>
@@ -357,7 +356,9 @@
             <h4>Attached document</h4>
             <div class="row">
                 <div class="col-md-12">
-                    <img [src]="document" style="height:100%; width: 100%;"/>
+                    <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+     
                 </div>
             </div>
         </div>

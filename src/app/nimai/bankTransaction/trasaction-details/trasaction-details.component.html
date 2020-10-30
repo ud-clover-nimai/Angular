@@ -298,7 +298,7 @@
                                         </tr>
                                         <tr>
                                             <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
                                             <td *ngIf="isUploadNoDoc">No such file attached</td>
               
                                          </tr>
@@ -696,7 +696,7 @@
                                         </tr>
                                         <tr>
                                             <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
                                             <td *ngIf="isUploadNoDoc">No such file attached</td>
               
                                          </tr>
@@ -1102,7 +1102,7 @@
                                         </tr>
                                         <tr>
                                             <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(specificDetail.tenorFile)">View</td>
+                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
                                             <td *ngIf="isUploadNoDoc">No such file attached</td>
               
                                          </tr>
@@ -1481,7 +1481,9 @@
             <h4>Attached document</h4>
             <div class="row">
                 <div class="col-md-12">
-                    <img [src]="document" style="height:100%; width: 100%;"/>
+                    <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+     
                 </div>
             </div>
         </div>

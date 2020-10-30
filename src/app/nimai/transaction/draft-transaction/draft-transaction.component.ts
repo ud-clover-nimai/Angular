@@ -39,7 +39,6 @@ export class DraftTransactionComponent implements OnInit {
     this.service.getCustDraftTransaction(param).subscribe(
       (response) => {
         this.draftData = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.draftData);
         if(!this.draftData){
           this.noData = true;
         }

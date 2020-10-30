@@ -8,6 +8,7 @@ import { ActiveTransactionComponent } from 'src/app/nimai/active-transaction/act
 import { Router, ActivatedRoute } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
+import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -38,6 +39,10 @@ export class ConfirmationComponent implements OnInit {
   private imageSrc: string = '';
   isUploadForma: boolean=false;
   isUpload=false;
+  private filename: string = '';
+  imgDownload: boolean=false;
+  fileData: any;
+
   reqType : string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -106,11 +111,13 @@ export class ConfirmationComponent implements OnInit {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      $('#upload_file1').val('');
-      return;
-    }
+    this.filename=file.name;
+
+    // if (!file.type.match(pattern)) {
+    //   alert('invalid format');
+    //   $('#upload_file1').val('');
+    //   return;
+    // }
     this.isUpload=true;
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
@@ -118,7 +125,7 @@ export class ConfirmationComponent implements OnInit {
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
+    this.imageSrc = this.filename +" |" + reader.result;
     this.data.tenorFile=this.imageSrc;
     // this.LcDetail.get('lcMaturityDate').setValue("");
 
@@ -156,18 +163,19 @@ export class ConfirmationComponent implements OnInit {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
     var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      $('#upload_file2').val('');
-      return;
-    }
+    this.filename=file.name;
+    // if (!file.type.match(pattern)) {
+    //   alert('invalid format');
+    //   $('#upload_file2').val('');
+    //   return;
+    // }
     this.isUploadForma=true;
     reader.onload = this._handleReaderLoadedForma.bind(this);
     reader.readAsDataURL(file);
   }
   _handleReaderLoadedForma(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
+    this.imageSrc = this.filename +" |" + reader.result;
     this.data.lcProForma=this.imageSrc;
 
   }
@@ -300,7 +308,79 @@ export class ConfirmationComponent implements OnInit {
 
   openDocument(file){
     $('#myModalC').show();
-    this.document = file;
-  }
+    var str = file; 
+    var splittedStr = str.split(" |", 2); 
+    var filename=str.split(" |", 1); 
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+     if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
+      this.imgDownload=true;
+     }else{
+      this.imgDownload=false;
+     }
+    var data=splittedStr[1];
+    this.document = data;
+    this.fileData=file;
+          }
+          convertbase64toArrayBuffer(base64) {
+            var binary_string = window.atob(base64);
+            var len = binary_string.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+              bytes[i] = binary_string.charCodeAt(i);
+            }
+            return bytes.buffer;
+          }
+  download(){
+    var str = this.fileData; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    var  base64string = data;
+    
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+    var extension='.'+ext[1];
+
+    if(extension=='.xlsx'){
+    var  base64string= base64string.replace('data:application/octet-stream;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type:'application/octet-stream'});
+      FileSaver.saveAs(blob, filename);
+      this.imgDownload=false;
+    } 
+    else if(extension=='.pdf'){
+      base64string= base64string.replace('data:application/pdf;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type: 'application/pdf' });
+      FileSaver.saveAs(blob, filename);
+      this.imgDownload=false;
+
+    }  
+     else if(extension=='.docx'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        FileSaver.saveAs(blob,filename);
+        this.imgDownload=false;
+
+    }
+     else if(extension=='.csv'){
+            base64string= base64string.replace('data:application/octet-stream;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'text/csv' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=false;
+
+          }
+          else if(extension=='.jpeg' || extension=='.jpg' || extension=='.png' || extension=='.svg'){
+            base64string= base64string.replace('data:image/jpeg;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'image/jpeg' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=true;
+
+          }               
+              
+              }
 
 }

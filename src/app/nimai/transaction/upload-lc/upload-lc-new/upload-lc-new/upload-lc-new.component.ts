@@ -399,7 +399,6 @@ export class UploadLcNewComponent implements OnInit {
         // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
 
          this.draftData = JSON.parse(JSON.stringify(response)).data;
-         console.log(this.draftData);
         this.dateToPass = new Date(this.draftData.lCIssuingDate); 
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,

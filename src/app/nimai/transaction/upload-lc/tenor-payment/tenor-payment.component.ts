@@ -25,6 +25,7 @@ export class TenorPaymentComponent implements OnInit {
   private imageSrc: string = '';
   public countryName: any;
   isUpload=false;
+  private filename: string = '';
   constructor(public rds:DataServiceService,public loginService: LoginService) { 
   }
 
@@ -104,36 +105,17 @@ export class TenorPaymentComponent implements OnInit {
 
   handleFileInput(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    console.log("file---",file)
     var pattern = /image-*/;
     var reader = new FileReader();
-    var fileName = file.name;
-    console.log("filename---",fileName)
-    console.log("filename---", file.size/1000)
-    var idxDot = fileName.lastIndexOf(".") + 1;
-    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-    console.log("extFile---",extFile)
-    // if (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="pdf"){
-    //   //TO DO
-    // }else{
-    //   alert('invalid format');
-    //   $('#upload_file1').val('');
-    //   return;
-    // }   
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      $('#upload_file1').val('');
-      return;
-    }
-    this.isUpload=true;
+    this.filename=file.name;
+      this.isUpload=true;
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    this.imageSrc = reader.result;
+    this.imageSrc =this.filename +" |" + reader.result;
     this.LcDetail.get('tenorFile').setValue(this.imageSrc);
-    // this.LcDetail.get('lcMaturityDate').setValue("");
 
   }
 
