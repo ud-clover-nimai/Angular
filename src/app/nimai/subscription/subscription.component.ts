@@ -32,6 +32,7 @@ export class SubscriptionComponent implements OnInit {
   choosedPrice: any;
   addedAmount: any;
   showVASPlan = false;
+  callVasService=false;
   vas_id:any;
   branchUserEmailId: string;
   public isCustomer = false;
@@ -183,8 +184,7 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
     this.choosedPlan.modeOfPayment="Credit" 
-    if(this.vas_id && this.showVASPlan){
-      console.log("if************")
+    if(this.vas_id && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
         "vasId": this.vas_id,
@@ -233,8 +233,7 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    
     this.choosedPlan.modeOfPayment="Wire"
-    if(this.vas_id && this.showVASPlan){
-      console.log("if************")
+    if(this.vas_id && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
         "vasId": this.vas_id,
@@ -262,12 +261,15 @@ export class SubscriptionComponent implements OnInit {
   }
   addAdvService(event){
     if (event.target.value === "Add") {
+      this.callVasService=true;
       this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
       event.target.value = "Remove";
       } else {
+      this.callVasService=false;  
       event.target.value = "Add";
       this.addedAmount = this.choosedPrice;
       }
+      console.log("this.callVasService---",this.callVasService)
   }
 
 }
