@@ -10,7 +10,8 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import {bankActiveTransaction,bankNewTransaction} from 'src/assets/js/commons'
 import { Tflag } from 'src/app/beans/Tflag';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { formatDate } from '@angular/common';
+import * as $ from '../../../../assets/js/jquery.min';
+
 @Component({
   selector: 'app-draft-transaction',
   templateUrl: './draft-transaction.component.html',
@@ -21,6 +22,8 @@ export class DraftTransactionComponent implements OnInit {
   noData: boolean = false;
   draftData: any;
   public parentURL: string = "";
+  public checkExpAcp:string = "";
+
   public subURL: string = "";
 
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
@@ -30,6 +33,7 @@ export class DraftTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
+  quotation_id: any;
   constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService) {
     this.titleService.quote.next(false);
  
@@ -73,8 +77,19 @@ export class DraftTransactionComponent implements OnInit {
   editDraft(pagename: string,action:Tflag,data:any) {
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-   
+ this.quotation_id=data.quotationId;
+   const param= {
+      "userId":data.userId,
+      "transactionId":data.transactionId,
+      }
+    
+    this.service.checkAcceptedExpiredTransaction(param).subscribe(
+      (response) => {
+        this.checkExpAcp = JSON.parse(JSON.stringify(response)).status;
 
+      
+        if(this.checkExpAcp =="Success"){
+     
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
       this.confirmation.action(true, action, data);
       this.discounting.isActiveQuote = false;
@@ -108,20 +123,41 @@ export class DraftTransactionComponent implements OnInit {
       this.banker.action(true, action, data);
     }
   }
- 
+  
+  if(this.checkExpAcp=="Failure"){
+    $("#discardQuote").show(); 
+    
+    }
+  });
+}
 
+
+cancelDiscard(){
+  $("#discardQuote").hide(); 
+}
   deleteDraft(data){
-    var req = {
-      "quotationId": data.quotationId
-      }
+    console.log(data)
+    if(data){
+      var req = {
+        "quotationId": data.quotationId
+        }
+    }else{
+      
+      var req = {
+        "quotationId": this.quotation_id
+        }
+    }
+   
     this.service.deleteDraftQuotationByQuotationId(req).subscribe(
       (response) => {
         const index = this.draftData.indexOf(data);
         this.draftData.splice(index, 1);
+        $("#discardQuote").hide(); 
+
       },(error) =>{
       }
       )
-    
+
   }
 
 }
