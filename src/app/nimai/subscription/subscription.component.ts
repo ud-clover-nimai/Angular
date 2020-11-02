@@ -19,6 +19,8 @@ export class SubscriptionComponent implements OnInit {
   public isOrder = false;
   public isPayment = false;
   public isPaymentSuccess = false;
+  public isvasapplied:any;
+   
   public title: string = "Subscription Details";
   public choosedPlan: Subscription = new Subscription();
   public paymentForm: FormGroup;
@@ -30,6 +32,7 @@ export class SubscriptionComponent implements OnInit {
   choosedPrice: any;
   addedAmount: any;
   showVASPlan = false;
+  vas_id:any;
   branchUserEmailId: string;
   public isCustomer = false;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
@@ -108,18 +111,27 @@ export class SubscriptionComponent implements OnInit {
 
   viewVASPlans(){
     var userid = sessionStorage.getItem("userID");
-    if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
+    // if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
+    //   this.showVASPlan = true;
+    // }  
+
+    if(sessionStorage.getItem("isvasapplied") == 'null' || sessionStorage.getItem("isvasapplied") == 'false' || sessionStorage.getItem("isvasapplied") == '0'){
       this.showVASPlan = true;
+    }else{
+      this.showVASPlan = false;
     }
+   // console.log("this.showVASPlan---",this.showVASPlan)
     let data = {
       "country_name": sessionStorage.getItem("registeredCountry")
     }
     this.subscriptionService.viewAdvisory(data).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
+
       if(!this.advDetails){
         this.showVASPlan = false;
       }else{
         this.advPrice = this.advDetails.pricing;
+        this.vas_id=this.advDetails.vas_id
       }
     })
   }
@@ -169,7 +181,20 @@ export class SubscriptionComponent implements OnInit {
 
   public payment() {
     this.titleService.loading.next(true);
-    this.choosedPlan.emailID=this.branchUserEmailId    
+    this.choosedPlan.emailID=this.branchUserEmailId  
+    this.choosedPlan.modeOfPayment="Credit" 
+    if(this.vas_id && this.showVASPlan){
+      console.log("if************")
+      let req = {
+        "userId": sessionStorage.getItem('userID'),
+        "vasId": this.vas_id,
+        "subscriptionId":this.choosedPlan.subscriptionId
+      }
+      this.subscriptionService.addVas(req).subscribe(data => {
+       // console.log("data---",data)
+      }
+      )
+    } 
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -204,10 +229,37 @@ export class SubscriptionComponent implements OnInit {
         }
       )
   }
-  nextModule(){
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
+  sendRequest(){
+    this.titleService.loading.next(true);
+    this.choosedPlan.emailID=this.branchUserEmailId    
+    this.choosedPlan.modeOfPayment="Wire"
+    if(this.vas_id && this.showVASPlan){
+      console.log("if************")
+      let req = {
+        "userId": sessionStorage.getItem('userID'),
+        "vasId": this.vas_id,
+        "subscriptionId":this.choosedPlan.subscriptionId
+      }
+      this.subscriptionService.addVas(req).subscribe(data => {
+       // console.log("data---",data)
+      }
+      )
+    } 
+    this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
+      .subscribe(
+        response => {
+          this.isNew = false;
+          this.isOrder = false;
+          this.isPayment = false;
+          this.isPaymentSuccess = true;
+          this.titleService.loading.next(false);
+        },
+        (error) => {
+          this.titleService.loading.next(false);
+        }
+      )
+    //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
   }
-
   addAdvService(event){
     if (event.target.value === "Add") {
       this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);

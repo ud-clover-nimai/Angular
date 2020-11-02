@@ -195,7 +195,8 @@ export class DashboardComponent implements OnInit {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
-        sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry);        
+        sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
+        sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);        
         if(this.nimaiCount.isbdetailfilled){
           this.isShowPlan=true;
         }else{

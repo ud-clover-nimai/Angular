@@ -15,4 +15,5 @@ export class Subscription {
     relationshipManager:string;
     customerSupport:string;  
     emailID:string;
+    modeOfPayment:string;
 }

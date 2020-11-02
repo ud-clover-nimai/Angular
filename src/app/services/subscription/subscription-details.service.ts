@@ -30,7 +30,9 @@ export class SubscriptionDetailsService {
   public saveSplan(userID: string, plan: Subscription): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/saveUserSubscriptionPlan/` + userID, plan,{ headers: { 'content-type': 'application/json' } })
   }
-
+  public addVas(data): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/addVAS`, data,{ headers: { 'content-type': 'application/json' } })
+  }
   public viewAdvisory(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getAdvisoryListByCountry` ,data, { headers: { 'content-type': 'application/json' } })
   }
