@@ -15,6 +15,7 @@ import { formatDate } from '@angular/common';
 import * as $ from 'src/assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
 import {removeDoubleScroll} from 'src/assets/js/commons'
+import * as FileSaver from 'file-saver';
 //import * as FileSaver from 'file-saver';
 
 
