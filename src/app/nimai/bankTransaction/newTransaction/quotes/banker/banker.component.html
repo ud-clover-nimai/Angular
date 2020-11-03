@@ -319,8 +319,7 @@
                     <h4>{{title}} <button type="button" class="close handle">&times;</button></h4>
                     <div class="tab-content" id="tab1" *ngIf="tab==='tab1'"
                         style="overflow: auto;padding-bottom: 70px;">
-                        <form name="form"
-                            (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)"
+                        <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)"
                             #f="ngForm" novalidate>
                             <div class="tab-pane active" id="pill1">
                                 <div class="tab">
@@ -370,18 +369,25 @@
                                             placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
                                             rows="3"></textarea>
 
-                                        <tr>
-                                            <td>Banker's Acceptance interest p.a ( spread over benchmark)</td>
-                                            <td><input type="text" name="bankAcceptCharges"
-                                                    [(ngModel)]="data.bankAcceptCharges" placeholder="0.00"
-                                                    weightDirective>
-                                                <span class="pull-right percent">%</span></td>
-                                        </tr>
+                                            <tr>
+                                                <td>Banker's Acceptance interest p.a ( spread over benchmark)</td>
+                                                <td><input type="text" name="bankAcceptCharges"
+                                                        [(ngModel)]="data.bankAcceptCharges" placeholder="0.00"
+                                                        #bankAcceptCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && bankAcceptCharges.invalid }" required weightDirective>
+                                                    <span class="pull-right percent">%</span>
+                                                    <div *ngIf="f.submitted && bankAcceptCharges.invalid" class="invalid-feedback">
+                                                        <div *ngIf="bankAcceptCharges.errors.required">Banker's Acceptance interest p.a is required</div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         <tr>
                                             <td>*Negotiation Charges (Fixed)</td>
                                             <td><input type="text" name="negotiationChargesFixed"
                                                     [(ngModel)]="data.negotiationChargesFixed" placeholder="0.00"
-                                                    weightDirective>
+                                                    #negotiationChargesFixed="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesFixed.invalid }" required weightDirective>
+                                                    <div *ngIf="f.submitted && negotiationChargesFixed.invalid" class="invalid-feedback">
+                                                        <div *ngIf="negotiationChargesFixed.errors.required">Negotiation Charges (Fixed) is required</div>
+                                                    </div></td>
                                         </tr>
                                         <tr>
                                             <td>*Negotiation Charges (%)
@@ -390,16 +396,14 @@
                                             </td>
                                             <td><input type="text" name="negotiationChargesPerct"
                                                     [(ngModel)]="data.negotiationChargesPerct" placeholder="0.00"
-                                                    weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                                    #negotiationChargesPerct="ngModel" [ngClass]="{ 'is-invalid': f.submitted && negotiationChargesPerct.invalid }" required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && negotiationChargesPerct.invalid" class="invalid-feedback">
+                                                    <div *ngIf="negotiationChargesPerct.errors.required">Negotiation Charges (%) is required</div>
+                                                </div>
+                                            </td>
                                         </tr>
-                                        <!-- <tr>
-                                            <td>Document Handling Charges (if any)</td>
-                                            <td><input type="text" name="docHandlingCharges"
-                                                    [(ngModel)]="data.docHandlingCharges" placeholder="0.00"
-                                                    weightDirective>
-                                        </tr> -->
-
+                                       
                                         <tr>
                                             <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges"
@@ -423,7 +427,7 @@
                                             <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
                                             <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
-                                                (ngModelChange)="data.validityDate = $event"  [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
+                                                (ngModelChange)="data.validityDate = $event" #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
                                                 <div *ngIf="f.submitted && validityDate.invalid"
                                                     class="invalid-feedback">

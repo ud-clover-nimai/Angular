@@ -272,10 +272,17 @@
                                 <table class="table">
                                     <tbody>
                                         <br>
+                                      
                                         <tr>
                                             <td>Confirmation Charges p.a.</td>
 
-                                            <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
+                                            <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00"
+                                                #confirmationCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmationCharges.invalid }" required weightDirective>
+                                                 <span class="pull-right percent">%</span>
+                                                 <div *ngIf="f.submitted && confirmationCharges.invalid" class="invalid-feedback">
+                                                    <div *ngIf="confirmationCharges.errors.required">Confirmation Charges p.a is required</div>
+                                                </div>
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td>

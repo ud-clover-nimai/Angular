@@ -6,6 +6,7 @@
             <div class="card-content">
                 <h4>{{title}} <button type="button" class="close handle">&times;</button></h4>
                 <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
+                   
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
                             <table>
@@ -46,7 +47,7 @@
                                     <td>Applicable Benchmark (if any)<br>
 
                                     </td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark"
+                                    <td><input type="text" name="applicableBenchmark" [(ngModel)]="dataViewEdit.applicableBenchmark"
                                             placeholder="2.4780" weightDirective />
                                         <span class="pull-right percent">%</span>
                                     </td>
@@ -57,15 +58,17 @@
 
                                 <tr>
                                     <td>Refinancing Charges p.a.</td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.refinancingCharges"
-                                            placeholder="1.23" weightDirective>
-                                        <span class="pull-right percent">%</span></td>
+                                    <td><input type="text" name="refinancingCharges" [(ngModel)]="dataViewEdit.refinancingCharges"
+                                            placeholder="1.23" weightDirective >
+                                        <span class="pull-right percent">%</span>
+                                       
+                                    </td>
                                 </tr>
 
                                 <tr>
                                     <td>Document Transaction Charges (if any)</td>
                                     <td>
-                                        <input type="text" [(ngModel)]="dataViewEdit.docHandlingCharges"
+                                        <input type="text" name="docHandlingCharges" [(ngModel)]="dataViewEdit.docHandlingCharges"
                                             placeholder="200.00" weightDirective />
 
                                     </td>
@@ -84,14 +87,16 @@
                                 <tr>
                                     <td>Minimum Transaction Charges</td>
                                     <td>
-                                        <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges"
+                                        <input type="text" name="minTransactionCharges" [(ngModel)]="dataViewEdit.minTransactionCharges"
                                             placeholder="500.00" weightDirective />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Bank Quote Validity</td>
-                                    <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
-                                    (ngModelChange)="dataViewEdit.validityDate = $event"></td>
+                                    <td><input type="date" name="validityDate" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="dataViewEdit.validityDate = $event">
+                                  
+                                </td>
                                 </tr>
                                 <tr *ngIf="title=='View'">
                                     <td>Total Quote</td>
@@ -336,9 +341,14 @@
                                         <tr>
                                             <td>Refinancing interest p.a ( spread over benchmark)</td>
                                             <td><input type="text" name="refinancingCharges"
-                                                    [(ngModel)]="data.refinancingCharges" placeholder="0.00"
-                                                    weightDirective>
-                                                <span class="pull-right percent">%</span></td>
+                                                    [(ngModel)]="data.refinancingCharges" placeholder="0.00" #refinancingCharges="ngModel"
+                                                    [ngClass]="{ 'is-invalid': f.submitted && refinancingCharges.invalid }"
+                                                    required weightDirective>
+                                                <span class="pull-right percent">%</span>
+                                                <div *ngIf="f.submitted && refinancingCharges.invalid" class="invalid-feedback">
+                                                    <div *ngIf="refinancingCharges.errors.required">Refinancing interest is required</div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <!-- <tr>
                                             <td>Document Handling Charges (if any)</td>
@@ -372,10 +382,8 @@
                                                     [(ngModel)]="data.validityDate" #validityDate="ngModel"
                                                     [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
-                                                <div *ngIf="f.submitted && validityDate.invalid"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="validityDate.errors.required">Validity date is required
-                                                    </div>
+                                                <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
+                                                    <div *ngIf="validityDate.errors.required">Validity date is required</div>
                                                 </div>
                                             </td>
                                         </tr>

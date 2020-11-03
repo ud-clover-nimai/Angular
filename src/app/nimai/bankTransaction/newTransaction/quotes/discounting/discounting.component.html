@@ -38,12 +38,16 @@
                                 <br>
                                 <tr>
                                     <td>Discounting Charges p.a.</td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.discountingCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
+                                    <td><input type="text" name="discountingCharges" [(ngModel)]="dataViewEdit.discountingCharges"
+                                         placeholder="0.00"  weightDirective> 
+                                         <span class="pull-right percent">%</span>
+                                        
+                                        </td>
                                 </tr>
                                 <tr>
                                     <td>Applicable Benchmark (if any)
                                     </td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly placeholder="2.4780" weightDirective>
+                                    <td><input type="text" name="applicableBenchmark" [(ngModel)]="dataViewEdit.applicableBenchmark" readonly placeholder="2.4780" weightDirective>
                                         <span class="pull-right percent">%</span>
                                 </tr>
                                 <textarea name="commentsBenchmark" [(ngModel)]="dataViewEdit.commentsBenchmark"
@@ -54,7 +58,7 @@
                                         *Negotiation Charges (Fixed)
                                     </td>
                                     <td>
-                                        <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
+                                        <input type="text" name="negotiationChargesFixed" [(ngModel)]="dataViewEdit.negotiationChargesFixed" placeholder="0.00" weightDirective/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -63,7 +67,7 @@
                                         &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small>
                                     </td>
                                     <td>
-                                        <input type="text" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
+                                        <input type="text" name="negotiationChargesPerct" [(ngModel)]="dataViewEdit.negotiationChargesPerct" placeholder="0.00" weightDirective/>
                                     </td>
                               </tr>
                           
@@ -71,7 +75,7 @@
                                  <td>Other Charges (if any)<br>
                                  </td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
+                                    <input type="text" name="otherCharges" [(ngModel)]="dataViewEdit.otherCharges" placeholder="0.00" weightDirective/>
                                  </td>
                               </tr>
                               <textarea name="chargesType" [(ngModel)]="dataViewEdit.chargesType"
@@ -80,12 +84,12 @@
                               <tr>
                                  <td>Minimum Transaction Charges</td>
                                  <td>
-                                    <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00"    weightDirective/>
+                                    <input type="text" name="minTransactionCharges" [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00"    weightDirective/>
                                    </td>
                               </tr>
                               <tr>
                                  <td>Bank Quote Validity</td>
-                                 <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 <td><input type="date" name="validityDate" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                                     (ngModelChange)="dataViewEdit.validityDate = $event"></td>
                               </tr> 
                               <tr *ngIf="title=='View'">
@@ -118,13 +122,13 @@
                            </tbody>
                         </table>
                         <div *ngIf="title=='Edit'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview')">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('preview')">
                                 Preview
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
                         <div *ngIf="title=='View'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit')">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
                                 Edit
                                 <div class="ripple-container"></div>
                             </button>
@@ -370,10 +374,10 @@
                                  <tr> 
                                     <td>Minimum Transaction Charges</td>
                                     <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="50.00"
-                                        #minTransactionCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && minTransactionCharges.invalid }" required  weightDirective>
-                                        <div *ngIf="f.submitted && minTransactionCharges.invalid" class="invalid-feedback">
+                                         weightDirective>
+                                        <!-- <div *ngIf="f.submitted && minTransactionCharges.invalid" class="invalid-feedback">
                                             <div *ngIf="minTransactionCharges.errors.required">Minimum Transaction Charges is required</div>
-                                        </div>
+                                        </div> -->
                                         </td>
                                     </tr>
                                  <tr>
