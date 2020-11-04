@@ -29,6 +29,7 @@ export class BankerComponent implements OnInit {
   public noFileDisable: boolean= true;
   countryName: any;
   public applicantType: boolean = true;
+  public productType:boolean=true;
   public beneficiaryType: boolean = true;
   applicant: boolean = false;
   beneficiary: boolean = false;

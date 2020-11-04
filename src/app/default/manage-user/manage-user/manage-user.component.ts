@@ -44,7 +44,6 @@ export class ManageUserComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
-    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
 
     this.dropdownSetting = {
       singleSelection: false,
@@ -67,6 +66,7 @@ export class ManageUserComponent implements OnInit {
     emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countriesInt: new FormControl('',[Validators.required]),
     minLCValue: new FormControl(''),
+    regCurrency: new FormControl(''),
     blacklistedGC: new FormControl('',[Validators.required]),
   });
 
@@ -102,6 +102,7 @@ export class ManageUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resp = JSON.parse(sessionStorage.getItem('countryData'));
     loads();
     manageSub();
   }

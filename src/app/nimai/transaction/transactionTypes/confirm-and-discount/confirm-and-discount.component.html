@@ -108,7 +108,7 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.lCIssuanceCountry">
+                              <select [(ngModel)]="data.lCIssuanceCountry" [disabled]="productType">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                          </select>
@@ -121,7 +121,7 @@
                         <tr>
                            <td>Product</td>
                            <td>
-                              <select  (change)="changeReqType($event)" [(ngModel)]="data.requirementType">                                 
+                              <select  (change)="changeReqType($event)" [(ngModel)]="data.requirementType" [disabled]="productType">                                 
                                  <option value='Confirmation'>Confirmation</option>
                                  <option value='Discounting'>Discounting</option>
                                  <option value='Refinance'>Refinancing</option>
@@ -337,6 +337,7 @@
                   Preview
                   <div class="ripple-container"></div>
                </button>
+
                </div>
               
             </div>
@@ -572,6 +573,10 @@
                   </button>
                   <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
                      Edit
+                     <div class="ripple-container"></div>
+                  </button>
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel')">
+                     Cancel
                      <div class="ripple-container"></div>
                   </button>
             </div>

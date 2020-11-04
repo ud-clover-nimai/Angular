@@ -32,6 +32,7 @@ export class RefinancingComponent implements OnInit {
   public userTypes:string='';
   public applicantType: boolean = true;
   public beneficiaryType: boolean = true;
+  public productType:boolean=true;
   applicant: boolean = false;
   beneficiary: boolean = false;
   private imageSrc: string = '';

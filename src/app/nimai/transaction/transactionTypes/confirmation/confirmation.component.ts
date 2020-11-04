@@ -29,6 +29,7 @@ export class ConfirmationComponent implements OnInit {
   countryName: any;
   public applicantType: boolean = true;
   public beneficiaryType: boolean = true;
+  public productType:boolean=true;
   applicant: boolean = false;
   beneficiary: boolean = false; 
   public userTypes:string='';

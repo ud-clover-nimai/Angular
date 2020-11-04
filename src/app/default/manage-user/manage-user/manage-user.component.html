@@ -153,9 +153,9 @@
                                     <div class="col-md-6">
                                         <div class="inputDiv selectdiv">
                                             <select formControlName="country" class="countryddl">
-                         <option value=''>Select</option>
-                         <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
-                      </select>
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
+                                            </select>
                                             <label>Select Country</label>
                                             <div *ngIf="submitted && manageSubDetails.country.errors" class="invalid-feedback">
                                                 <div *ngIf="manageSubDetails.country.errors.required">
@@ -203,10 +203,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
                                             <label>Minimum Value of LC</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="inputDiv">
+                                            <select formControlName="regCurrency" >
+                                                <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>                         
+                                            </select>
+                                           
+
+                                            <!-- <label>Ccy </label>
+                                            <div *ngIf="submitted && manageSubDetails.regCurrency.errors" class="invalid-feedback">
+                                                <div *ngIf="manageSubDetails.regCurrency.errors.required">
+                                                    Country field is required
+                                                </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
