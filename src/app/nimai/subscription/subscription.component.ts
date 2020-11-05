@@ -4,7 +4,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { Subscription } from 'src/app/beans/subscription';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { loads } from '../../../assets/js/commons';
 
 
@@ -33,6 +33,9 @@ export class SubscriptionComponent implements OnInit {
   addedAmount: any;
   showVASPlan = false;
   callVasService=false;
+  isRenew = false;
+  isnewPlan=false;
+  isRenewPlan=false;
   vas_id:any;
   branchUserEmailId: string;
   public isCustomer = false;
@@ -74,7 +77,12 @@ export class SubscriptionComponent implements OnInit {
       "countryName": sessionStorage.getItem('registeredCountry')
     }
     this.subscriptionService.getPlansByCountry(req).subscribe(data => {
-      this.isNew = true;
+      if(!this.isRenew){
+        this.isNew = true;
+        this.isnewPlan=true;
+      }else{
+        this.isNew = false;
+      }    
       var userid = sessionStorage.getItem("userID");
     if(data)
       {
@@ -106,6 +114,8 @@ export class SubscriptionComponent implements OnInit {
     this.addedAmount = this.choosedPrice;
     this.choosedPlan.userId = sessionStorage.getItem('userID');
     this.isNew = false;
+    this.isRenew=false;
+    this.isPaymentSuccess=false;
     this.isOrder = true;
     this.viewVASPlans();
   }
@@ -139,8 +149,10 @@ export class SubscriptionComponent implements OnInit {
 
   public payNow(planType) {
     this.isNew = false;
+    this.isRenew=false;
     this.isOrder = false;
     this.isPayment = true;
+    this.isPaymentSuccess=false;
     const sd = this;
     $('.green').hide();
     $('.selection').hide();
@@ -184,6 +196,12 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
     this.choosedPlan.modeOfPayment="Credit" 
+    if(this.isnewPlan){
+      this.choosedPlan.flag="new"
+    }
+    if(this.isRenewPlan){
+      this.choosedPlan.flag="renew"
+    }
     if(this.vas_id && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
@@ -198,11 +216,27 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
+          let data= JSON.parse(JSON.stringify(response))
+          console.log("data msg---",data.errMessage)
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
+          if(data.errMessage){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Oops! Something went wrong while Renewing the plan',
+                message: data.errMessage,
+                parent: this.subURL + '/' + this.parentURL + '/subscription'
+              }
+            };          
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+            .catch(console.error);
+          }); 
+          }
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -210,7 +244,15 @@ export class SubscriptionComponent implements OnInit {
       )
   }
   public getPlan(userID: string) {
+    if((userID.startsWith('CU'))){
+  
+      this.isCustomer=true;
+    }
+    else{
+      this.isCustomer=false;
+    }
     this.subscriptionService.getPlanByUserId(userID)
+
       .subscribe(
         response => {
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];          
@@ -247,6 +289,8 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
+    
+         
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
@@ -268,8 +312,12 @@ export class SubscriptionComponent implements OnInit {
       this.callVasService=false;  
       event.target.value = "Add";
       this.addedAmount = this.choosedPrice;
-      }
-      console.log("this.callVasService---",this.callVasService)
+      }      
   }
-
+  renewPlan(){
+    this.isRenew=true;
+    this.isRenewPlan=true;
+    this.isPaymentSuccess=false;
+    this.getSubscriptionDetails() 
+  }
 }

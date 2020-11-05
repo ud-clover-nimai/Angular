@@ -77,6 +77,11 @@ console.log("this.parentURL--",this.parentURL)
   ngOnInit() {
     loads();
     this.titleService.changeTitle(this.title);
+     let kycStatus = sessionStorage.getItem("kycStatus");
+    if(kycStatus=="Approved")
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
+    else
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`])
   }
 
   getBusiList(){
