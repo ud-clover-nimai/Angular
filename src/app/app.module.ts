@@ -16,7 +16,7 @@ import { LoaderInterceptorService } from './services/interceptors/loader/loader-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material'
+  import { MatInputModule } from '@angular/material'
 import { SharedModule } from './modules/shared/shared.module';
 import { CustomerCanActiveService } from './services/guards/CustomerCanActive.service';
 import { BankCanActiveService } from './services/guards/BankCanActive.service';

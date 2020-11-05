@@ -24,8 +24,6 @@ export class AccountStatusComponent implements OnInit {
       this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
     else
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`])
-    console.log("kycStatus",kycStatus)
-    console.log("session",sessionStorage)
   }
 
 }

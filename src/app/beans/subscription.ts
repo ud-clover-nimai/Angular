@@ -16,4 +16,5 @@ export class Subscription {
     customerSupport:string;  
     emailID:string;
     modeOfPayment:string;
+    flag:string;
 }

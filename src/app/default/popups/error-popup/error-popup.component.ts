@@ -38,6 +38,12 @@ export class ErrorPopupComponent implements OnInit {
       this.router.navigate(['/'+this.parent]);
     } else if(this.parent === "forgetpassword"){
       this.router.navigate(['/'+this.parent]);
+    } else if(this.parent==="cst/dsb/subscription"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([`/cst/dsb/subscription`])
+        .then(success => console.log('navigation success?', success))
+        .catch(console.error);
+       }); 
     } else{
       this.router.navigate(['/'+this.parent]);
     }

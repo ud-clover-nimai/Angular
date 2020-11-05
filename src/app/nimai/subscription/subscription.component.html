@@ -14,7 +14,8 @@
 
     <!-- <div class="main-panel"> -->
 
-    <div class="content" [hidden]="!isNew">
+    <!-- <div class="content" [hidden]="!isNew || !isRenew">         -->
+    <div class="content" *ngIf="isNew || isRenew">   
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -39,8 +40,10 @@
                                         <li class="plan-feature"> Relationship Manager <span class="plan-feature-name"> - {{plan.relationshipManager}}</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Buy Now</a>
+                                        <a href="javascript:void()" *ngIf="isRenew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                            class="plan-button">Renew </a>   
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +62,8 @@
                                         <li class="plan-feature">Relationship Manager <span class="plan-feature-name"> - YES</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Buy Now</a>
+                                        <a href="javascript:void()" *ngIf="isNew" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Buy Now</a>                                        
+                                        <a href="javascript:void()" *ngIf="isRenew" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Renew</a>                                        
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +204,6 @@
             </div>
         </div>
     </div>
-
     <div class="content" [hidden]="!isPayment">
         <div class="container-fluid">
             <div class="row">
@@ -275,7 +278,6 @@
             </div>
         </div>
     </div>
-
     <div class="content" [hidden]="!isPaymentSuccess">
         <div class="container-fluid">
             <div class="row">
@@ -297,8 +299,11 @@
                                         <h3 class="plan-title-old">{{choosedPlan.subscriptionName}}</h3>
                                         <p class="plan-price-old">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">for {{choosedPlan.subscriptionValidity}} month</span></p>
                                         <ul class="plan-features">
-                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC Credits</span></li>
-                                            <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
+                                            <li class="plan-feature">{{choosedPlan.lcCount}}<span class="plan-feature-name">LC Credits</span></li>
+                                            <div *ngIf="isCustomer; else elseBlock">
+                                                <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span>
+                                                </li>
+                                            </div>
                                             <ng-template #elseBlock> <li class="plan-feature">{{choosedPlan.subsidiaries}} <span class="plan-feature-name">Branches</span></li></ng-template>                                       
                                             <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
                                             <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Month Validity</span></li>
@@ -369,6 +374,7 @@
                                     <div class="form-group"></div>
 
                                     <p>A receipt with payment Transaction ID has been sent to {{custUserEmailId}}</p>
+                                    <button class="btn btn-success pull-right" (click)="renewPlan()">Renew</button>
                                     <button class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
                                 </div>
                                 <div class="clearfix"></div>
