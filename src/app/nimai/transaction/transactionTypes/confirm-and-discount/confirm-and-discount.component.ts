@@ -43,6 +43,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
   private filename: string = '';
   imgDownload: boolean=false;
   fileData: any;
+  transaction_id: string;
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -53,6 +54,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     })
     
     this.data = {
+      transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",
       lcMaturityDate:"",
@@ -249,9 +251,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-        // if(this.data.requirementType=='ConfirmAndDiscount' || this.data.requirementType=='confirmAndDiscount'){
-        //   this.data.requirementType='Confirmation and Discounting';
-        // }
+       
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);
@@ -269,11 +269,38 @@ export class ConfirmAndDiscountComponent implements OnInit {
           error => {
             alert('error')
           }
-        )
-
-
-      }
+        ) }
         break;
+
+        case 'cancel': {
+          this.transaction_id=this.data.transactionId;        
+          $("#cancelTrasactioncnd").show();         
+        }
+          break;
+
+          case 'cancelTransaction': {
+        const param={
+          "transactionId":this.transaction_id,
+          "userId":sessionStorage.getItem('userID'),
+        }  
+
+        this.ts.cancelTransaction(param).subscribe(
+          (response) => {
+                $('#cancelTrasactioncnd').hide();
+            this.tab = 'tab3';
+          },
+          error => {
+            alert('error')
+          }
+        )     
+          }
+            break;
+
+            case 'notCancelTransaction': {
+              $('#cancelTrasactioncnd').hide();      
+            }
+              break;
+
       case 'ok': {
 
         this.closed();

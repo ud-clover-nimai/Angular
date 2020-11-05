@@ -45,6 +45,7 @@ export class RefinancingComponent implements OnInit {
   appliName : string;
   appliCountry : string;
   reqType : string;
+ public transaction_id: string="";
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -54,6 +55,7 @@ export class RefinancingComponent implements OnInit {
     })
 
     this.data = {
+      transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",
       lcMaturityDate:"",
@@ -184,6 +186,8 @@ deleteFileContentForma(){
     }    
   }
   public action(flag: boolean, type: Tflag, data: any) {
+    this.transaction_id=this.data.transactionId;
+
        this.tab='tab2';
     if (flag) {
       this.isActive = flag;
@@ -276,10 +280,38 @@ deleteFileContentForma(){
             alert('error')
           }
         )
-
-
       }
         break;
+
+        case 'cancel': {
+          this.transaction_id=this.data.transactionId;        
+          $("#cancelTrasactionRef").show();         
+        }
+          break;
+
+          case 'cancelTransaction': {
+        const param={
+          "transactionId":this.transaction_id,
+          "userId":sessionStorage.getItem('userID'),
+        }  
+
+        this.ts.cancelTransaction(param).subscribe(
+          (response) => {
+                $('#cancelTrasactionRef').hide();
+            this.tab = 'tab3';
+          },
+          error => {
+            alert('error')
+          }
+        )     
+          }
+            break;
+
+            case 'notCancelTransaction': {
+              $('#cancelTrasactionRef').hide();      
+            }
+              break;
+
       case 'ok': {
 
         this.closed();
@@ -304,8 +336,9 @@ deleteFileContentForma(){
       }
         break;
     }
-
   }
+
+  
 
   close(){
     $('.modal3').hide();

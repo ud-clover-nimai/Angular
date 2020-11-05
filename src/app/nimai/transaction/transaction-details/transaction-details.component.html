@@ -21,7 +21,7 @@
                      <option value="Accepted">Accepted </option>
                      <option value="Rejected">Rejected</option>
                      <option value="Expired">Expired</option>
-                     <option value="Expired">Cancel</option>
+                     <option value="Cancelled">Cancelled</option>
 
                      </select>
                   </div>
@@ -48,6 +48,7 @@
                                                  <th [hidden]="!rejectedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
                                                  <th [hidden]="!acceptedStatus" style="min-width: 90px;" class="disabled-sorting text-center" >Actions</th>
                                                  <th [hidden]="!expiredStatus" style="min-width: 100px;"class="disabled-sorting">Actions</th>
+                                                 <th [hidden]="!cancelledStatus" style="min-width: 100px;"class="disabled-sorting">Actions</th>
 
                                              </tr>
                                          </thead>
@@ -90,13 +91,14 @@
                                                  <td [hidden]="!acceptedStatus">
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted',record.transactionId);openNav3();openOffcanvas('Accepted');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
-                                                         
-                                                   </td>
+                                                 </td>
                                                  <td [hidden]="!expiredStatus">
                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Expired',record.transactionId);openNav3();openOffcanvas('Expired');">Detail</a><br/>
                                                      <a style="cursor: pointer;color:blue" (click)="cloneTransaction(record.transactionId)">Clone</a>
                                                    </td>
-
+                                                   <td [hidden]="!cancelledStatus">
+                                                      <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Cancelled',record.transactionId);openNav3();openOffcanvas('Cancelled');">Detail</a><br/>
+                                                  </td>
                                              </tr>
                                          </tbody>
                                      </table>
@@ -990,6 +992,407 @@
      </div>
   </div>
 </div>
+<div id="menubarDetailcancel" class="offcanvas">
+   <div class="popupcontent">
+      <div class="card">
+         <div class="card-content">
+            <ul class="nav nav-pills nav-pills-info" style="    margin: 0;
+               padding: 10px 15px 0;">
+               <li class="activeTab"><a href="#pill141" data-toggle="tab" aria-expanded="false">Details</a></li>
+               <!-- <li  class="activeTab"><a href="#tab41" (click)="displayQuoteDetails(specificDetail.transactionId,specificDetail.requirementType)" data-toggle="tab" aria-expanded="true">Quote</a></li> -->
+ 
+            </ul>
+            <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+ 
+             <div class="tab-pane activeTab" id="pill141">
+                 <div class="row">
+                     <div class="col-md-12" style="padding-right: 0px !important;">
+                         <table class="table table-bordered">
+                             <thead>
+                                 <tr>
+                                     <th>Transaction ID</th>
+                                     <th>{{detailInfo.transactionId}}</th>
+                                 </tr>
+                                 <tr>
+                                     <th colspan="2">Applicant</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>Name</td>
+                                     <td>{{detailInfo.applicantName}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.applicantCountry}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                                     <td>Contact Person</td>
+                                     <td>{{detailInfo.applicantContactPerson}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                                     <td>Email Id</td>
+                                     <td>{{detailInfo.applicantContactPersonEmail}}</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                         <table class="table table-bordered">
+                             <thead></thead>
+                             <tbody>
+                                 <tr>
+                                     <th colspan="2">Beneficiary</th>
+                                 </tr>
+                                 <tr>
+                                     <td>Name </td>
+                                     <td>{{detailInfo.beneName}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.beneCountry}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.userType == 'Applicant'">
+                                     <td>Contact Person</td>
+                                     <td>{{detailInfo.beneContactPerson}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.userType == 'Applicant'">
+                                     <td>Email Id</td>
+                                     <td>{{detailInfo.beneContactPersonEmail}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Bank</td>
+                                     <td>{{detailInfo.beneBankName}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Swift Code</td>
+                                     <td>{{detailInfo.beneSwiftCode}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Bank Country</td>
+                                     <td>{{detailInfo.beneBankCountry}}</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                         <table class="table table-bordered">
+                             <thead>
+                                 <tr>
+                                     <th colspan="2">LC Details</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>LC Issuing Bank</td>
+                                     <td>{{detailInfo.lCIssuanceBank}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Branch </td>
+                                     <td>{{detailInfo.lCIssuanceBranch}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Swift Code</td>
+                                     <td>{{detailInfo.swiftCode}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.lCIssuanceCountry}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Product</td>
+                                     <td>
+                                        <div *ngIf="detailInfo.requirementType=='Banker' || detailInfo.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                        <div *ngIf="detailInfo.requirementType=='ConfirmAndDiscount' || detailInfo.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                        <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
+                                        <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
+                                        <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                                    </td>                                 </tr>
+                                 <tr>
+                                     <td>Amount</td>
+                                     <td>{{detailInfo.lCValue | number}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Currency</td>
+                                     <td>{{detailInfo.lCCurrency}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>LC Issuing Date</td>
+                                     <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                                     <td>LC Negotiation Date</td>
+                                     <td>{{detailInfo.negotiationDate | date : 'dd-MM-y'}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                                     <td>Last Shipment Date</td>
+                                     <td>{{detailInfo.lastShipmentDate | date : 'dd-MM-y'}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Goods/Services</td>
+                                     <td>{{detailInfo.goodsType}}</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+ 
+                         <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance'">
+                             <tbody>
+                                 <tr>
+                                     <th colspan="2">Tenor of Deferred Payment </th>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.requirementType == 'Banker'">
+                                     <td>Period for which financing is required</td>
+                                     <td>{{detailInfo.discountingPeriod}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.requirementType == 'Discounting'">
+                                     <td>Usance (Days)</td>
+                                     <td>{{detailInfo.discountingPeriod}}</td>
+                                 </tr>
+                                 <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation'">
+                                     <td>Usance (Days)</td>
+                                     <td>{{detailInfo.confirmationPeriod}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Payments terms to seller as per LC </td>
+                                     <td>{{detailInfo.paymentTerms}}</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                         <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
+                             <tbody>
+                                 <tr>
+                                     <th colspan="2">Tenor of Deferred Payment </th>
+                                 </tr>
+                                 <tr>
+                                     <td>Orignal Usance (Tenor) of LC</td>
+                                     <td>{{detailInfo.originalTenorDays}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Period for which refinancing is required</td>
+                                     <td>{{detailInfo.refinancingPeriod}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>LC Maturity Date</td>
+                                     <td>{{detailInfo.lcMaturityDate | date : "dd-MM-y"}}</td>
+                                 </tr>
+                                 <tr>
+                                     <th colspan="2">Beneficiary Details of Last Transaction</th>
+                                 </tr>
+                                 <tr>
+                                  <td>Multiple Maturity Date</td>                               
+                                  <td class="labeltext" *ngIf="detailInfo.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(detailInfo.tenorFile)">View</td>
+                                  <td *ngIf="isUploadNoDoc">No such file attached</td>
+    
+                               </tr>
+                                 <tr>
+                                     <td>LC Number</td>
+                                     <td>{{detailInfo.lcNumber}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Beneficiary Bank Name</td>
+                                     <td>{{detailInfo.lastBeneBank}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Swift Code</td>
+                                     <td>{{detailInfo.lastBeneSwiftCode}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.lastBankCountry}}</td>
+                                 </tr>
+ 
+                             </tbody>
+                         </table>
+                         <table class="table table-bordered">
+                             <tbody>
+                                 <tr>
+                                     <th colspan="2">Others</th>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.loadingCountry}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Port of Loading</td>
+                                     <td>{{detailInfo.loadingPort}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Country</td>
+                                     <td>{{detailInfo.dischargeCountry}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Port of Discharge</td>
+                                     <td>{{detailInfo.dischargePort}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>
+                                         Charges are on
+                                     </td>
+                                     <td>{{detailInfo.userType}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Customer Quote Validity</td>
+                                     <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Pro Forma</td>
+                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
+                                     </td>
+                                     <td [hidden]="noFileDisable">No such file attached</td>                                   
+                                 </tr>        
+                                 <!-- <tr>
+                                    <td></td>
+                                  <td class="col-md-12 pull-right" >
+                                     <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+                
+                                  </td>
+                                 </tr>                         -->
+                                  <br><br><br>
+                             </tbody>
+                         </table>
+                        
+                     </div>
+                   
+                 </div>
+             </div>
+             <div class="tab-pane activeTab" id="tab41">
+                <div class="col-md-12">
+                   <div class="row">
+                      <table class="table">
+                         <tbody>
+                            <tr>
+                               <th>Transaction ID</th>
+                               <th *ngIf="quotationdata">{{quotationdata.transactionId}}</th>
+                            </tr>
+                         </tbody>
+                      </table>
+                   </div>
+                </div>
+                <div class="form-group clearfix"></div>
+                <div class="tab">
+                   <table>
+                       <tbody>
+                          <tr>
+                             <td><b>Bank Details</b></td>
+                          </tr>
+                           <tr>
+                               <td><b>Bank</b></td>
+                               <td>{{quotationdata.bankName}}</td>
+ 
+                               <td><b>Branch</b></td>
+                               <td>{{quotationdata.branchName}}</td>
+                           </tr>
+                           <tr>
+                               <td><b>Country</b></td>
+                               <td>{{quotationdata.countryName}}</td>
+ 
+                               <td><b>Contact Person</b></td>
+                               <td>{{quotationdata.firstName}} {{quotationdata.lastName}}</td>
+                           </tr>
+                           <tr>
+                               <td><b>Email</b></td>
+                               <td>{{quotationdata.emailAddress}}</td>
+ 
+                               <td><b>Contact Number</b></td>
+                               <td>{{quotationdata.mobileNumber}} </td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </div>
+                 
+                 <div class="form-group clearfix"></div>
+ 
+                 <div class="row" *ngIf="hasNoRecord">
+                     <div class="col-md-12">
+                         <table class="table">
+                             <tbody>
+                                 <tr>
+                                     <td style="width: 50%;">Date </td>
+                                     <td *ngIf="quotationdata">{{quotationdata.modifiedDate | date : "dd-MM-y"}}</td>
+                                 </tr>
+                                 <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
+                                  <td>Applicable Benchmark (if any)<br><small
+                                     style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
+                                  <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
+ 
+                               </tr>
+                                <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
+                                  <td>Confirmation Charges p.a.</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}}%</td>
+                               </tr>
+                              
+                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                                  <td>Discounting Charges p.a.</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}%</td>
+                               </tr>
+                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
+                               </tr>
+                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                                  <td>
+                                     Confirmation Charges from Date of Issuance till date of maturity</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
+                               </tr>
+                              
+                               <tr *ngIf="quotationReqType == 'Banker'">
+                                  <td>Banker's Acceptance interest p.a.</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}}%</td>
+                               </tr>
+                               <tr *ngIf="quotationReqType == 'Refinance'">
+                                  <td>Refinancing interest p.a.</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}}%</td>
+                               </tr>
+                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                                  <td>Negotiation Charges p.a.(Fixed) </td>
+                                  <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
+                               </tr>
+                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                                  <td>Negotiation Charges p.a.(%)<br>
+                                     &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
+                                  <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}}%</td>
+                               </tr>
+                               <!-- <tr *ngIf="quotationReqType != 'Confirmation'">
+                                  <td>Document Handling Charges (if any)</td>
+                                  <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
+                               </tr> -->
+                               <tr>
+                                  <td>Other Charges (if any)<br><small
+                                     style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>
+                                  <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
+                               </tr>
+                               <tr>
+                                  <td>Minimum Trancation Charges </td>
+                                  <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
+                               </tr>
+                               <tr>
+                                  <td>Customer Quote Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place quote"><i
+                                     class="fas fa-info-circle"
+                                     style="font-size: 11px !important;color: #333;"></i></a> </td>
+                                  <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
+                               </tr>
+                               <tr>
+                                  <th>Total Quote</th>
+                                  <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
+                               </tr>
+                               <br>
+                              <tr *ngIf="quotationdata.termConditionComments">
+                               <td>Other terms and conditions <br>
+                                <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
+                                </td>
+                             </tr>
+ 
+                             </tbody>
+                         </table>
+                     </div>
+ 
+                     <!-- <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
+                      <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
+ 
+                   </div> -->
+                 </div>
+             </div>
+         </div>
+         </div>
+      </div>
+   </div>
+ </div>
 <div id="menubarDetailexpired" class="offcanvas">
   <div class="popupcontent">
      <div class="card">

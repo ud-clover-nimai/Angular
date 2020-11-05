@@ -43,6 +43,7 @@ export class DiscountingComponent implements OnInit {
   reqType : string;
   isUpload=false;
   private filename: string = '';
+  transaction_id: string;
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -53,6 +54,7 @@ export class DiscountingComponent implements OnInit {
     })
 
     this.data = {
+      transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",
       lcMaturityDate:"",
@@ -267,10 +269,38 @@ export class DiscountingComponent implements OnInit {
             alert('error')
           }
         )
-
-
       }
         break;
+
+        case 'cancel': {
+          this.transaction_id=this.data.transactionId;        
+          $("#cancelTrasactionDis").show();         
+        }
+          break;
+
+          case 'cancelTransaction': {
+        const param={
+          "transactionId":this.transaction_id,
+          "userId":sessionStorage.getItem('userID'),
+        }  
+
+        this.ts.cancelTransaction(param).subscribe(
+          (response) => {
+            $('#cancelTrasactionDis').hide();
+            this.tab = 'tab3';
+          },
+          error => {
+            alert('error')
+          }
+        )     
+          }
+            break;
+
+            case 'notCancelTransaction': {
+              $('#cancelTrasactionDis').hide();      
+            }
+              break;
+
       case 'ok': {
 
         this.closed();

@@ -13,9 +13,10 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { newTransactionBean } from 'src/app/beans/BankNewTransaction';
 import { formatDate } from '@angular/common';
 import * as $ from 'src/assets/js/jquery.min';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import {removeDoubleScroll} from 'src/assets/js/commons'
 import * as FileSaver from 'file-saver';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 @Component({
@@ -51,8 +52,9 @@ export class NewTransactionComponent implements OnInit {
   public imgDownload:boolean=false;
   public notImgDownload:boolean=false;
   fileData: any;
+  nimaiCount: any;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, private formBuilder: FormBuilder,
+  constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
      public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -132,8 +134,63 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.getNimaiCount();
   }
 
+  getNimaiCount() {
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+     if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+        const navigationExtras: NavigationExtras = {
+                      state: {
+                        title: 'Transaction Not Allowed !',
+                        message: 'You had reached maximum LC Count ! Please Renew Your Subscription Plan',
+                        parent: this.subURL+"/"+this.parentURL + '/subscription',
+                        redirectedFrom: "New-Transaction"
+                      }
+                    };
+                    this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+                      .then(success => console.log('navigation success?', success))
+                      .catch(console.error);
+                  
+       }
+      },
+      error => { }
+    )
+  }
+
+  // checkLcCount(){
+  //   var data = {
+  //     "userId": sessionStorage.getItem("userID")
+  //     }
+  
+  //     this.upls.checkLcCount(data).subscribe(
+  //       (response) => {
+  //         var resp = JSON.parse(JSON.stringify(response)).status;
+
+  //         if(resp == "Failure"){
+  //           const navigationExtras: NavigationExtras = {
+  //             state: {
+  //               title: 'Transaction Not Allowed !',
+  //               message: 'You had reached maximum LC Count ! Please Renew Your Subscribe Plan',
+  //               parent: this.subURL+"/"+this.parentURL + '/subscription',
+  //               redirectedFrom: "New-Transaction"
+  //             }
+  //           };
+  //           this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+  //             .then(success => console.log('navigation success?', success))
+  //             .catch(console.error);
+  //         }
+  //       },
+  //       (err) => {}
+  //     )
+  // }
   
   refreshPage(){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {

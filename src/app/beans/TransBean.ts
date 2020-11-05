@@ -1,4 +1,5 @@
 export interface TData{    
+        transactionId:string;
         originalTenorDays:string;
         refinancingPeriod:string;
         lcMaturityDate:string;

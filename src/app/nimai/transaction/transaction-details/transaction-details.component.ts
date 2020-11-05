@@ -34,6 +34,7 @@ export class TransactionDetailsComponent {
   showTransactionStatusCol: boolean = true;
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
+  cancelledStatus:boolean=true;
   expiredStatus :boolean=true;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
@@ -65,6 +66,7 @@ export class TransactionDetailsComponent {
       this.rejectedStatus=true;
       this.acceptedStatus = false;
       this.expiredStatus=false;
+      this.cancelledStatus=false;
     }
     else if(status == "Expired") {
       this.onReject = false;
@@ -72,12 +74,21 @@ export class TransactionDetailsComponent {
       this.expiredStatus=true;
       this.rejectedStatus=false;
       this.acceptedStatus = false;
+      this.cancelledStatus=false;
     }
     else if(status == "Accepted") {
       this.onReject = false;
       this.NotAllowed = true;
       this.rejectedStatus=false;
       this.acceptedStatus = true;
+      this.expiredStatus=false;
+      this.cancelledStatus=false;
+    }else if(status=="Cancelled"){
+      this.cancelledStatus=true;
+      this.onReject = true;
+      this.NotAllowed = false;
+      this.rejectedStatus=false;
+      this.acceptedStatus = false;
       this.expiredStatus=false;
     }
 
@@ -134,8 +145,13 @@ export class TransactionDetailsComponent {
       $('.tab-content #pill131').addClass('active');
 
     }
-   
-   
+     else if(status=='Cancelled'){
+      $('.activeTab').removeClass('active');
+      $('#menubarDetailcancel li:first').addClass('active');
+      $('.tab-content #pill141').addClass('active');
+
+    }
+     
   }
 
   changeStatusCall(status) {
@@ -212,13 +228,15 @@ export class TransactionDetailsComponent {
   }
 
   openOffcanvas(status) {
-
+console.log(status)
     if (status === "Accepted") {
       document.getElementById("menu-barnew").style.width = "600px";
   }else if (status === "Expired") {
     document.getElementById("menubarDetailexpired").style.width = "600px";
   } else if (status === "Rejected") {
     document.getElementById("menubarDetailreject").style.width = "600px";
+  } else if (status === "Cancelled") {
+    document.getElementById("menubarDetailcancel").style.width = "600px";
   } 
 
   }
@@ -229,6 +247,7 @@ export class TransactionDetailsComponent {
   closeOffcanvas() {
     document.getElementById("menubarDetailexpired").style.width = "0%";
     document.getElementById("menubarDetailreject").style.width = "0%";
+    document.getElementById("menubarDetailcancel").style.width = "0%";
     document.getElementById("menu-barnew").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
