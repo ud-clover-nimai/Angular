@@ -223,7 +223,7 @@ export class SubscriptionComponent implements OnInit {
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
-          if(data.errMessage){
+          if(data.status=="Failure"){
             const navigationExtras: NavigationExtras = {
               state: {
                 title: 'Oops! Something went wrong while Renewing the plan',
@@ -233,6 +233,19 @@ export class SubscriptionComponent implements OnInit {
             };          
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+            .catch(console.error);
+          }); 
+          }else {
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'SubscriptionPlan',
+                message: data.errMessage,
+                parent: this.subURL + '/' + this.parentURL + '/subscription'
+              }
+            };          
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/success`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           }); 
@@ -264,6 +277,7 @@ export class SubscriptionComponent implements OnInit {
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
+          
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -275,6 +289,12 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    
     this.choosedPlan.modeOfPayment="Wire"
+    if(this.isnewPlan){
+      this.choosedPlan.flag="new"
+    }
+    if(this.isRenewPlan){
+      this.choosedPlan.flag="renew"
+    }
     if(this.vas_id && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
@@ -289,13 +309,39 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
-    
-         
+          let data= JSON.parse(JSON.stringify(response))
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
+          if(data.status=="Failure"){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Oops! Something went wrong while Renewing the plan',
+                message: data.errMessage,
+                parent: this.subURL + '/' + this.parentURL + '/subscription'
+              }
+            };          
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+            .catch(console.error);
+          }); 
+          }else {
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'SubscriptionPlan',
+                message: data.errMessage,
+                parent: this.subURL + '/' + this.parentURL + '/subscription'
+              }
+            };          
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/success`], navigationExtras)
+            .then(success => console.log('navigation success?', success))
+            .catch(console.error);
+          }); 
+          }
         },
         (error) => {
           this.titleService.loading.next(false);
