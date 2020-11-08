@@ -19,7 +19,7 @@
 
                     <select name="IndiaPort" formControlName="loadingPort"  >
                         <option [ngValue]="null" selected>Select</option>
-                        <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}}</option>
+                        <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
                       
                       
                     </select>
@@ -49,7 +49,7 @@
 
                     <select name="Banglaport" formControlName="dischargePort">
                         <option [ngValue]="null" selected>Select</option>
-                        <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}}</option>
+                        <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
                      
                     </select>
                     <label>Port of Discharge</label>

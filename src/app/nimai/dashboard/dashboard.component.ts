@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   loading = false;
   userType: string;
   creditCount: number;
+  userStat: any;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
@@ -57,8 +58,10 @@ export class DashboardComponent implements OnInit {
       this.userType = "Bank as a customer";
     } else if (userId.startsWith('CU')) {
       this.userType = "Customer";
+      this.usersStat('CU');
     }  else if (userId.startsWith('BA')) {
       this.userType = "Bank as an underwriter";
+      this.usersStat('BA');
     }  else {
       this.userType = "";
     }
@@ -119,6 +122,7 @@ export class DashboardComponent implements OnInit {
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
     this.callAllDraftTransaction();
     this.getNimaiCount();
+  
   }
   callAllDraftTransaction() {
     if (this.isCustomer) {
@@ -185,6 +189,22 @@ export class DashboardComponent implements OnInit {
       )
   }
 
+  usersStat(users) {
+    this.getCount.getUserStats()
+    .subscribe(
+      (response) => {
+        this.userStat = JSON.parse(JSON.stringify(response)).data;
+        var str = this.userStat; 
+        var splittedStr = str.split(", ", 2); 
+        if(users=='BA'){
+          this.userStat= splittedStr[1]
+        }else if(users=='CU'){
+          this.userStat=  splittedStr[0]
+        }
+       
+
+      })
+  }
   getNimaiCount() {
     let data = {
       "userid": sessionStorage.getItem('userID'),

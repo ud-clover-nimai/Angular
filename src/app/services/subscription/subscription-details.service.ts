@@ -40,4 +40,8 @@ export class SubscriptionDetailsService {
   public getTotalCount(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getCount`, data, { headers: { 'content-type': 'application/json' } })
   }
+
+  public getUserStats(): Observable<any[]>{
+    return this.httpClient.get<any[]>(`${environment.domain}/nimaiUAM/passwordPolicy/getLiveUserStats`, { headers: { 'content-types': 'application/json' } });
+  }
 }

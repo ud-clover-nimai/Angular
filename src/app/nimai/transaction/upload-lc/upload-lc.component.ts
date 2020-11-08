@@ -414,14 +414,7 @@ export class UploadLCComponent implements OnInit {
           this.upls.confirmLc(body).subscribe(
         
                 (response) => {
-
-                });
-          // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
-          
-          // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
-          //   console.log("bank mail sent successfully");},(err) => {},);
-        
-          const navigationExtras: NavigationExtras = {
+ const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
               message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
@@ -432,6 +425,13 @@ export class UploadLCComponent implements OnInit {
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
+                });
+          // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+          
+          // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
+          //   console.log("bank mail sent successfully");},(err) => {},);
+        
+         
         }  
 
         if(errmsg=="Duplicate LC") {
@@ -468,14 +468,7 @@ export class UploadLCComponent implements OnInit {
     this.upls.confirmLc(body).subscribe(
         
       (response) => {
-
-      });
-    // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
-    
-    // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
-    //   console.log("bank mail sent successfully");},(err) => {},);
-  
-    const navigationExtras: NavigationExtras = {
+const navigationExtras: NavigationExtras = {
       state: {
         title: 'Transaction Successful',
         message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
@@ -486,6 +479,14 @@ export class UploadLCComponent implements OnInit {
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
     this.isUpdate = false;
+      });
+
+    // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
+    
+    // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
+    //   console.log("bank mail sent successfully");},(err) => {},);
+  
+    
   }
   dupPopNo(){
     $("#duplicatePopup").hide();
