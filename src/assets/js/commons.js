@@ -1633,7 +1633,7 @@ export function custTrnsactionDetail() {
         //$(".dataTables_filter label").addClass("pull-right");
 
         // $(".dataTables_filter .inputDiv").css({"display": "inline-block","position": "relative", "width": "200px","margin-bottom": "20px","margin": "0 25px 0 0px"});
-    }, 2000);    
+    }, 500);    
     $('#datatables').on('draw.dt', function() {
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
     });
