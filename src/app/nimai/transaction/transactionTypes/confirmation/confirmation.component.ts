@@ -46,6 +46,8 @@ export class ConfirmationComponent implements OnInit {
 
   reqType : string;
   transaction_id: string;
+  cancelSucessmsg: string;
+  okSucessmsg: string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -263,6 +265,7 @@ export class ConfirmationComponent implements OnInit {
         break;
 
       case 'submit': {
+        this.okSucessmsg='ok';
         this.data.userType=this.userTypes;
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
@@ -276,7 +279,8 @@ export class ConfirmationComponent implements OnInit {
         break;
 
         case 'cancel': {
-          this.transaction_id=this.data.transactionId;        
+          this.transaction_id=this.data.transactionId;   
+          this.cancelSucessmsg='cancel';
           $("#cancelTrasactionConf").show();         
         }
           break;

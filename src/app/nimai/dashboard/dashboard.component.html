@@ -108,7 +108,7 @@
         background-color: rgba(0, 0, 0, 0.1);
       "
     ></div>
-    <div class="wrapper">
+    <div class="wrapper" >
       <div
         class="sidebar"
         data-active-color="blue"
@@ -208,7 +208,7 @@
                     <a
                       data-toggle="collapse"
                       href="#accountPages"
-                      [attr.aria-expanded]="areaExpandedacc"
+                      [attr.aria-expanded]="areaExpandedacc" (click)="getNimaiCount()"
                     >
                       <i class="fa fa-address-book-o"></i>
                       <p style="margin-top: 3px !important">
@@ -223,7 +223,7 @@
                     >
                       <ul class="nav">
                         <li [routerLinkActive]="['active']">
-                          <a [routerLink]="['personal-details']">
+                          <a [routerLink]="['personal-details']" (click)="getNimaiCount()">
                             <i class="fas fa-user"></i>
                             <p>Personal Details</p>
                           </a>
@@ -232,7 +232,7 @@
                           *ngIf="isCustomer || isBank"
                           [routerLinkActive]="['active']"
                         >
-                          <a [routerLink]="['business-details']">
+                          <a [routerLink]="['business-details']" (click)="getNimaiCount()">
                             <i class="fas fa-business-time"></i>
                             <p>Business Details</p>
                           </a>
@@ -244,7 +244,7 @@
                           "
                         >
                           <a  [ngClass]="{'adisabled': !isShowPlan}"
-                            [routerLink]="['subscription']"
+                            [routerLink]="['subscription']" (click)="getNimaiCount()"
                             *ngIf="!isReferrer"
                           >
                             <i class="fas fa-file-invoice-dollar"></i>
@@ -252,7 +252,7 @@
                           </a>
                         </li>
                         <li [routerLinkActive]="['active']">
-                          <a [routerLink]="['kyc-details']" [ngClass]="{'adisabled': !isShowKyc}">
+                          <a [routerLink]="['kyc-details']" [ngClass]="{'adisabled': !isShowKyc}" (click)="getNimaiCount()">
                             <i class="fas fa-user-check"></i>
                             <p>KYC Details</p>
                           </a>
@@ -261,7 +261,7 @@
                     </div>
                   </li>
                   <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
-                    <a [routerLink]="['dashboard-details']">
+                    <a [routerLink]="['dashboard-details']" (click)="getNimaiCount()">
                       <i class="fas fa-industry"></i>
                       <p>Dashboard</p>
                     </a>
@@ -290,13 +290,13 @@
                     >
                       <ul class="nav">
                         <li *ngIf="isCustomer" [routerLinkActive]="['active']">
-                          <a [routerLink]="['new-transaction']">
+                          <a [routerLink]="['new-transaction']" (click)="getNimaiCount()">
                             <i class="fas fa-concierge-bell"></i>
                             <p>New Transaction</p>
                           </a>
                         </li>
                         <li *ngIf="isBank" [routerLinkActive]="['active']">
-                          <a [routerLink]="['new-request']">
+                          <a [routerLink]="['new-request']" (click)="getNimaiCount()">
                             <i class="fas fa-concierge-bell"></i>
                             <p>New Request</p>
                           </a>
@@ -305,7 +305,7 @@
                           *ngIf="isCustomer || isBank"
                           [routerLinkActive]="['active']"
                         >
-                          <a [routerLink]="['active-transaction']">
+                          <a [routerLink]="['active-transaction']" (click)="getNimaiCount()">
                             <i class="fa fa-check-square-o"></i>
                             <p>Active Transaction</p>
                           </a>
@@ -314,13 +314,13 @@
                           *ngIf="isCustomer || isBank"
                           [routerLinkActive]="['active']"
                         >
-                          <a [routerLink]="['transaction-details']">
+                          <a [routerLink]="['transaction-details']" (click)="getNimaiCount()">
                             <i class="fa fa-th-list"></i>
                             <p>Transaction Details</p>
                           </a>
                         </li>
                         <li *ngIf="isCustomer" [routerLinkActive]="['active']">
-                          <a [routerLink]="['draft-transaction']">
+                          <a [routerLink]="['draft-transaction']" (click)="getNimaiCount()">
                             <i class="fas fa-folder-open"></i>
                             <p>
                               <span class="sidebar-normal">
@@ -333,7 +333,7 @@
                           </a>
                         </li>
                         <li *ngIf="isBank" [routerLinkActive]="['active']">
-                          <a [routerLink]="['draft-transaction']">
+                          <a [routerLink]="['draft-transaction']" (click)="getNimaiCount()">
                             <i class="fas fa-folder-open"></i>
                             <p>
                               <span class="sidebar-normal">
@@ -439,10 +439,12 @@
                   </ul>
                 </li>
                 <li class="separator hidden-lg hidden-md"></li>
-              </ul>        
-              <i class='fas fa-coins navbar-right' style='font-size:36px;color:grey;padding-top: 10px;'>
-            <span style="color: #555555;font-size: 14px;"> &nbsp;&nbsp;{{ creditCount}}  Credits </span> </i>
-
+              </ul>     
+             
+                <i *ngIf="creditenable=='yes'"  class='fas fa-coins navbar-right' style='font-size:36px;color:grey;padding-top: 10px;'>
+                  <span style="color: #555555;font-size: 14px;"> &nbsp;&nbsp;{{ creditCount}}  Credits </span> </i>
+        
+            
             </div>
           </div>
         </nav>

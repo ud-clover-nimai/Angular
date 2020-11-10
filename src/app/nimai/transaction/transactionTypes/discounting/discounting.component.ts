@@ -44,6 +44,8 @@ export class DiscountingComponent implements OnInit {
   isUpload=false;
   private filename: string = '';
   transaction_id: string;
+  cancelSucessmsg: string;
+  okSucessmsg: string;
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -259,6 +261,7 @@ export class DiscountingComponent implements OnInit {
         break;
 
       case 'submit': {
+        this.okSucessmsg='ok';
         this.data.userType=this.userTypes;
         console.log("this.data---",this.data)
         this.ts.updateCustomerTransaction(this.data).subscribe(
@@ -273,7 +276,9 @@ export class DiscountingComponent implements OnInit {
         break;
 
         case 'cancel': {
-          this.transaction_id=this.data.transactionId;        
+          this.transaction_id=this.data.transactionId;   
+          this.cancelSucessmsg='cancel';
+ 
           $("#cancelTrasactionDis").show();         
         }
           break;

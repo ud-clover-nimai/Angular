@@ -37,8 +37,10 @@ export class DashboardComponent implements OnInit {
   userType: string;
   creditCount: number;
   userStat: any;
+  creditenable: string;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService) {
     let userId = sessionStorage.getItem('userID');
+  this.getNimaiCount();
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
       this.isReferrer = true;
@@ -120,7 +122,7 @@ export class DashboardComponent implements OnInit {
     this.titleService.userMessage.subscribe(username => this.username = username);
     //this.titleService.loader.subscribe(flag => this.loading = flag);
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
-    this.callAllDraftTransaction();
+   // this.callAllDraftTransaction();
     this.getNimaiCount();
   
   }
@@ -206,6 +208,7 @@ export class DashboardComponent implements OnInit {
       })
   }
   getNimaiCount() {
+    this.callAllDraftTransaction();
     let data = {
       "userid": sessionStorage.getItem('userID'),
       "emailAddress": ""
@@ -215,10 +218,17 @@ export class DashboardComponent implements OnInit {
       response => {        
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+       
         sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
-        sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);        
+        sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);   
+        if(this.nimaiCount.kycstatus=='Approved'){
+          this.creditenable='yes';
+        }else{
+          this.creditenable='no';
+        }
+       
         if(this.nimaiCount.isbdetailfilled){
           this.isShowPlan=true;
         }else{

@@ -46,6 +46,8 @@ export class RefinancingComponent implements OnInit {
   appliCountry : string;
   reqType : string;
  public transaction_id: string="";
+  cancelSucessmsg: string;
+  okSucessmsg: string;
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -271,6 +273,7 @@ deleteFileContentForma(){
         break;
 
       case 'submit': {
+        this.okSucessmsg='ok';
         this.data.userType=this.userTypes;
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
@@ -285,6 +288,7 @@ deleteFileContentForma(){
 
         case 'cancel': {
           this.transaction_id=this.data.transactionId;        
+          this.cancelSucessmsg='cancel';
           $("#cancelTrasactionRef").show();         
         }
           break;

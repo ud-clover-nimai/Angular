@@ -46,6 +46,8 @@ export class BankerComponent implements OnInit {
   imgDownload: boolean=false;
   fileData: any;
   transaction_id: string;
+  cancelSucessmsg: string;
+  okSucessmsg: string;
 
   constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -262,6 +264,7 @@ export class BankerComponent implements OnInit {
         break;
 
       case 'submit': {
+        this.okSucessmsg='ok';
         this.data.userType=this.userTypes;
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
@@ -275,6 +278,7 @@ export class BankerComponent implements OnInit {
 
         case 'cancel': {
           this.transaction_id=this.data.transactionId;        
+          this.cancelSucessmsg='cancel';
           $("#cancelTrasactionBank").show();         
         }
           break;

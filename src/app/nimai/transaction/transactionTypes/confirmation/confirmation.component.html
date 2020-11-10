@@ -584,9 +584,14 @@
             <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
                <table class="table">
                   <tbody>
-                     <tr>
+                     <tr *ngIf="okSucessmsg =='ok'">
                         <td colspan="2" class="text-center">
                            <p style="text-align: center;">Your LC Transaction has been successfully updated. <br/>Keep checking the Active Transaction section for the quotes received.</p>
+                        </td>
+                     </tr>
+                     <tr *ngIf="cancelSucessmsg=='cancel'">
+                        <td colspan="2" class="text-center">
+                           <p style="text-align: center;"> Your LC Transaction has been successfully Cancelled.</p>
                         </td>
                      </tr>
                   </tbody>
