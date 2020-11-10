@@ -39,6 +39,8 @@ export class SubscriptionComponent implements OnInit {
   vas_id:any;
   branchUserEmailId: string;
   public isCustomer = false;
+  status: any;
+  hideRenew: boolean;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -67,7 +69,7 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.changeTitle(this.title);
     // this.getSubscriptionDetails();
     // this.getPlan(sessionStorage.getItem("userID"));
-    
+    this.getStatus();
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
@@ -366,4 +368,23 @@ export class SubscriptionComponent implements OnInit {
     this.isPaymentSuccess=false;
     this.getSubscriptionDetails() 
   }
+
+  getStatus(){
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.subscriptionService.getTotalCount(data).subscribe(
+      response => {        
+        this.status = JSON.parse(JSON.stringify(response)).data;
+        if(this.status.kycstatus=='Approved'){
+         this.hideRenew=true;
+        }else{
+          this.hideRenew=false;
+        }      
+      });
+  }
+
+
 }
+

@@ -199,9 +199,13 @@ export class DashboardComponent implements OnInit {
         var str = this.userStat; 
         var splittedStr = str.split(", ", 2); 
         if(users=='BA'){
-          this.userStat= splittedStr[1]
+         var colonSplit = splittedStr[1]
+          var arrsplit = colonSplit.split(": ", 2); 
+          this.userStat=arrsplit[1]+" banks placed quote on NimaiTrade in last 24 hours";
         }else if(users=='CU'){
-          this.userStat=  splittedStr[0]
+        var colonSplit = splittedStr[0]
+        var arrsplit = colonSplit.split(": ", 2); 
+        this.userStat=arrsplit[1]+" customers placed transaction on NimaiTrade in last 24 hours";
         }
        
 

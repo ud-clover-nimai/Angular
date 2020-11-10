@@ -393,7 +393,10 @@
                       font-weight: 500;
                     "
                   >
-                    Registered Address Details
+                    Registered Address Details <a class="" data-toggle="tooltip" data-placement="right" 
+                    title="To change business country, contact customer support"><i
+                    class="fas fa-info-circle"
+                    style="font-size: 11px !important;color: #333;"></i></a>
                   </h4>
                   <div class="col-sm-6 col-md-6 col-lg-3">
                     <div class="inputDiv selectdiv" id="addOptions">
@@ -408,6 +411,7 @@
                         </option>
                       </select>
                       <label>Select Country</label>
+          
                       <div
                         *ngIf="
                           perDetailsSubmit &&

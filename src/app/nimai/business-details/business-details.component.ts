@@ -1,5 +1,5 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Business } from 'src/app/beans/business';
@@ -8,6 +8,7 @@ import { loads } from '../../../assets/js/commons'
 import { OwnerDetail } from 'src/app/beans/ownerdetail';
 import { ValidateRegex } from '../../beans/Validations';
 import * as $ from '../../../assets/js/jquery.min';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 
@@ -31,7 +32,8 @@ export class BusinessDetailsComponent implements OnInit {
   stateName: any = "";
   countryName: any = "";
   public addMoreFlag=false;
-  constructor(public fb: FormBuilder, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
+  status: any;
+  constructor(public fb: FormBuilder, public getCount: SubscriptionDetailsService, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
       this.titleService.loading.next(false);
@@ -101,9 +103,11 @@ export class BusinessDetailsComponent implements OnInit {
     return this.businessDetailsForm.controls;
   }
 
+ 
 
   ngOnInit() { 
     loads();
+    this.getStatus()
    }
 
    ngAfterViewInit() {
@@ -147,6 +151,28 @@ export class BusinessDetailsComponent implements OnInit {
       // this.businessDetailsForm.get('telephone').updateValueAndValidity();
     }
 
+  }
+
+  getStatus(){
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.getCount.getTotalCount(data).subscribe(
+      response => {        
+        this.status = JSON.parse(JSON.stringify(response)).data;
+        if(this.status.issplanpurchased==1){
+          this.businessDetailsForm.get('city').disable({ onlySelf: true });
+          this.businessDetailsForm.get('country').disable({ onlySelf: true });
+          this.businessDetailsForm.get('provinceName').disable({ onlySelf: true });
+          this.businessDetailsForm.get('addressLine1').disable({ onlySelf: true });
+          this.businessDetailsForm.get('addressLine2').disable({ onlySelf: true });
+          this.businessDetailsForm.get('addressLine3').disable({ onlySelf: true });
+          this.businessDetailsForm.get('pincode').disable({ onlySelf: true });
+          this.businessDetailsForm.get('telephone').disable({ onlySelf: true });       
+
+        }      
+      });
   }
 
   validateCommons(){
