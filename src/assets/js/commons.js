@@ -120,7 +120,9 @@ export function loads() {
                 $(this).addClass('has-value');
             }
         });
+
     });
+    
 
 
     //check input box val
@@ -134,6 +136,7 @@ export function loads() {
             }
 
         })
+
     });
 
 

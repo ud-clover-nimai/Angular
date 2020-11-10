@@ -12,17 +12,53 @@
                             <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
                                 <ul class="pull-right list-unstyled list-inline statusbar">
                                     <li>
-                                        <label>Subsidiary Slots Available <span class="">4</span></label>
+                                        <label>Subsidiary Slots Available <span class="">{{subsidiries}}</span></label>
                                     </li>
-                                    <li><label>Subsidiary Slots Utilized <span>6</span></label></li>
+                                    <li><label>Subsidiary Slots Utilized <span>{{subuticount}}</span></label></li>
                                 </ul>
                             </h4>
                         </div>
                        <div class="col-md-4 col-sm-12 col-xs-12">
                         <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
                        </div>
-                       
-                        <div class="row">
+                       <div class="row">
+                        <div class="col-md-12" *ngIf="noData">
+                            No Subsidiary Data is available
+                        </div>
+                        <div class="col-md-12" *ngIf="!noData">
+                            <div class="table-responsive">
+                                <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 19px !important;" class="text-center">#</th>
+                                        <th style="min-width: 130px;">Date</th>
+                                        <th style="min-width: 150px;">Subsidiary Name</th>
+                                        <th style="min-width: 120px;">First Name</th>
+                                        <th style="min-width: 120px;">Last Name</th>
+                                        <th style="min-width: 180px;">Email</th>
+                                        <th style="min-width: 100px;">Credits Used</th>
+                                        <th style="min-width: 130px;width: 100px !important;">Quotes Received</th>
+                                        <th style="min-width: 100px;" nowrap class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of subsidiaryData; let i = index">
+                                        <td>{{i+1}}</td>                                       
+                                        <td>{{list.accountCreatedDate  | date : "dd-MM-y"}}</td>                                    
+                                        <td>{{list.companyName}}</td>
+                                        <td>{{list.firstName}}</td>
+                                        <td>{{list.lastName}}</td>
+                                        <td>{{list.emailAddress}}</td>
+                                        <td>{{list.creditUsed}}</td>
+                                        <td>{{list.quoteReceived}}</td>
+                                        <td>{{list.accountStatus}}</td>  
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                                     <table class="table table-hover" id="datatables">
@@ -99,7 +135,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -121,7 +157,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="authemaildiv">
-                                    <p><strong>Enter details of an Authorized user</strong></p>
+                                    <p *ngIf="!respMessage"><strong>Enter details of an Authorized user</strong></p>
                                     <div class="form-group"></div>
                                     <div class="col-md-6">
                                         <div class="inputDiv">
@@ -190,7 +226,10 @@
                                     </div>
                                 </div>
 
-                                <p id="paradiv" style="color: #ff0330;">
+                                <p id="paradiv" style="color: #ff0330;" *ngIf="!status">
+                                    {{respMessage}}
+                                </p>
+                                <p id="paradiv" style="color: green;" *ngIf="status">
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>

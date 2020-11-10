@@ -140,7 +140,7 @@ export class LoginComponent implements OnInit {
       userId: this.loginForm.get('username').value.trim(),
       password: this.loginForm.get('password').value
     }
-    this.loginForm.get('username').setValue(this.loginForm.get('username').value.trim())
+    this.loginForm.get('username').setValue(this.loginForm.get('username').value.trim())    
     this.loginService.login(loginData).
       subscribe(
         (response) => {
@@ -183,10 +183,11 @@ export class LoginComponent implements OnInit {
         }
       )
   }
-  changeType(type){
-    console.log("type",type)
+  changeType(type){    
     if(type=="Others"){
-      this.isReferrerOther=true;
+      this.isReferrerOther=true;      
+      loads();
+
     }else{
       this.isReferrerOther=false;
     }
@@ -201,6 +202,10 @@ export class LoginComponent implements OnInit {
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
+    if(this.isReferrerOther){      
+      this.signupForm.get('businessType').setValue(this.signupForm.get('otherType').value)
+    }
+      
     sessionStorage.setItem('subscriptionType', subscriptionType);
     sessionStorage.setItem('selector', selector);
     if (subscriptionType == 'referrer') {
@@ -231,7 +236,7 @@ export class LoginComponent implements OnInit {
       }
 
     }
-    
+   console.log("data...",this.signupForm)
 //...........changes done by dhiraj........................................//
 this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   let res = JSON.parse(JSON.stringify(response)).data;

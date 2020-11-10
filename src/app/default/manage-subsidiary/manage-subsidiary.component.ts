@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { manageSub } from 'src/assets/js/commons'
@@ -9,7 +9,6 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
-
 @Component({
   selector: 'app-manage-subsidiary',
   templateUrl: './manage-subsidiary.component.html',
@@ -22,8 +21,12 @@ export class ManageSubsidiaryComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
   respMessage: any;
+  status:any;
   resp: any;
-
+  subsidiaryData:any;
+  noData:any;
+  subsidiries:any;
+  subuticount:any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -51,16 +54,32 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    loads();
-    manageSub();
+  loads();
+  manageSub();
+  this.subsidiries=sessionStorage.getItem('subsidiries');
+  this.subuticount=sessionStorage.getItem('subuticount');
+  this.listOfSubsidiary();
   }
 
   close() {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
   }
-
-  onOkClick(){
+  listOfSubsidiary(){  
+    let userID: string = sessionStorage.getItem('userID');
+    this.signUpService.getSubsidiaryList(userID).subscribe(
+      (response) => {
+        this.subsidiaryData = JSON.parse(JSON.stringify(response)).data;
+        if(this.subsidiaryData.length === 0){
+          this.noData = true;
+        }
+        
+      },(error) =>{
+        this.noData = true;
+      }
+      )
+  }
+  onOkClick(){    
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
       });
@@ -115,19 +134,32 @@ export class ManageSubsidiaryComponent implements OnInit {
       email: this.manageSubForm.get('emailId').value,
     }
     this.signUpService.signUp(data).subscribe((response) => {
-    this.respMessage = JSON.parse(JSON.stringify(response)).message;
+    let data= JSON.parse(JSON.stringify(response))
+    if(JSON.parse(JSON.stringify(response)).respMessage){
+      this.respMessage = JSON.parse(JSON.stringify(response)).errMessage;
+    }
     // .................changes done by dhiraj.....................
       if(this.respMessage.indexOf('not match') > -1){
         this.respMessage = "Domain Name does not match!";
-
         $('#authemaildiv').slideDown();
         $('#paradiv').slideDown();
         $('#okbtn').hide();
         $('#btninvite').show();   
+      }else if(data.errMessage){
+        if(data.status==="Success"){
+          this.status=true;
+        }else{
+          this.status=false;
+        }
+        this.respMessage = data.errMessage
+        $('#authemaildiv').slideUp();
+        $('#paradiv').slideDown();
+        $('#okbtn').show();
+        $('#btninvite').hide();
+        this.manageSubForm.reset();
       }
       else{
-        this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."
-        
+        this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."        
         $('#authemaildiv').slideUp();
         $('#paradiv').slideDown();
         $('#okbtn').show();
@@ -136,13 +168,13 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
 
     
-    (err) =>{
+    (error) =>{
         $('#authemaildiv').slideDown();
         $('#paradiv').slideDown();
         $('#okbtn').hide();
         $('#btninvite').show();   
-      this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
-
+        console.log("error--------",this.respMessage)
+        this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;       
     }
   })    
  }
