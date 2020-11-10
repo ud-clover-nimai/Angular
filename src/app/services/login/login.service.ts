@@ -33,5 +33,7 @@ export class LoginService {
   public getCountryMasterData(): Observable<any[]>{
     return this.httpClient.get<any[]>(`${environment.domain}/nimaiTransaction/getcountryData`, { headers: { 'content-types': 'application/json' } });
   }
-
+  public logOut(data: any): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiUAM/passwordPolicy/logOut`, data, { headers: { 'content-type': 'application/json' } })
+  }
 }

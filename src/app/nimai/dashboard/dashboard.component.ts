@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationExtras, NavigationEnd } from '@angula
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { load_dashboard } from '../../../assets/js/commons'
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { LoginService } from 'src/app/services/login/login.service';
 // import { filter } from 'rxjs/operators';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 @Component({
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
   creditCount: number;
   userStat: any;
   creditenable: string;
-  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService) {
+  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
     this.getPersonalDetails(userId);
@@ -222,7 +223,9 @@ export class DashboardComponent implements OnInit {
       response => {        
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
-       
+        sessionStorage.setItem("creditCount", this.nimaiCount.creditCount);
+        sessionStorage.setItem("subsidiries", this.nimaiCount.subsidiries);
+        sessionStorage.setItem("subuticount", this.nimaiCount.subuticount);  
         sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
@@ -265,6 +268,16 @@ export class DashboardComponent implements OnInit {
     )
   }
   public logout():void{
+    const data = {
+      "userId": sessionStorage.getItem('userID')
+    }
+    this.loginService.logOut(data).subscribe(
+      (response) => {
+        console.log("response------>",response)
+      },(error) =>{
+       console.log("error")
+      }
+      )
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
