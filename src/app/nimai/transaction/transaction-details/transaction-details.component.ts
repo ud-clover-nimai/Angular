@@ -43,6 +43,7 @@ export class TransactionDetailsComponent {
   isUploadNoDoc: boolean=false;
   imgDownload: boolean=false;
   fileData: any;
+  hasNoRecordmain: boolean;
 
   constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -110,6 +111,8 @@ export class TransactionDetailsComponent {
         
         if (this.data) {
           this.hasNoRecord=true;
+          this.hasNoRecordmain=true;
+
        }
 
       },
