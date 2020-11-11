@@ -38,6 +38,7 @@ export class SubscriptionComponent implements OnInit {
   isRenewPlan=false;
   vas_id:any;
   branchUserEmailId: string;
+  custUserEmailId:string;
   public isCustomer = false;
   status: any;
   hideRenew: boolean;
@@ -65,10 +66,9 @@ export class SubscriptionComponent implements OnInit {
 
   ngOnInit() {    
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
+    this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
     loads();
     this.titleService.changeTitle(this.title);
-    // this.getSubscriptionDetails();
-    // this.getPlan(sessionStorage.getItem("userID"));
     this.getStatus();
   }
   subscriptionDetails = [];
@@ -129,7 +129,9 @@ export class SubscriptionComponent implements OnInit {
     // }  
 
     if(sessionStorage.getItem("isvasapplied") == 'null' || sessionStorage.getItem("isvasapplied") == 'false' || sessionStorage.getItem("isvasapplied") == '0'){
+      if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
       this.showVASPlan = true;
+    }
     }else{
       this.showVASPlan = false;
     }

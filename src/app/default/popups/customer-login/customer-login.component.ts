@@ -130,6 +130,7 @@ export class CustomerLoginComponent implements OnInit {
         console.log("response--",response.flag)
         if(response.flag == 1){
           this.titleService.loading.next(false);
+          console.log("kycstatus",  sessionStorage.getItem("kycStatus"))
           if(response.data.userId.startsWith('BC')){
             console.log("BC")
             this.router.navigate(['/cst/dsb/dashboard-details']);   

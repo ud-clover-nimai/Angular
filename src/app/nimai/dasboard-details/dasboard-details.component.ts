@@ -3,6 +3,8 @@ import { dashboard_details } from 'src/assets/js/commons';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import * as $ from 'src/assets/js/jquery.min';
 declare let google: any;
 @Component({
   selector: 'app-dasboard-details',
@@ -10,6 +12,8 @@ declare let google: any;
   styleUrls: ['./dasboard-details.component.css']
 })
 export class DasboardDetailsComponent implements OnInit {
+  public parentURL: string = "";
+  public subURL: string = "";
   isCustomer: boolean = false;
   isBank: boolean = false;
   isReferrer: boolean = false;
@@ -22,9 +26,11 @@ export class DasboardDetailsComponent implements OnInit {
   latestacceptedtrxn:any;
   public piechartcountry:any;
   public piechartgoods:any;
+  forCloseTransactionId: any = "";
   public cumulativetrxnAmnt:any;
   bankdashbrdcount:any;
   bankBarChart:any;
+  noDataBarChart: boolean = false;
   banklatestaccepttrxn:any;
   userId:any;
   country:any;
@@ -32,8 +38,19 @@ export class DasboardDetailsComponent implements OnInit {
   selectedProduct:any;
   public startDate:any;
   public endDate:any;
+  noData: boolean = false;
+  noDataPieChartCountry: boolean = false;
+  noDataPieChartGoods: boolean = false;
+  lifetimeSavings:any;
   @ViewChild('pieChart', { static: true }) pieChart: ElementRef
-  constructor(public service: DashboardDetailsService) { }
+  constructor(public service: DashboardDetailsService,public activatedRoute: ActivatedRoute, public router: Router) { 
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
+  }
   ngOnInit() {
     this.userId=sessionStorage.getItem('userID')
     if(this.userId.startsWith('CU') || this.userId.startsWith('BC')){
@@ -51,8 +68,7 @@ export class DasboardDetailsComponent implements OnInit {
       this.getReferrerDashboardDetails();
     }
   }
-  getReferrerDashboardDetails(){
-    console.log("referrer dashboard calls")
+  getReferrerDashboardDetails(){    
     const param = {
       userId:this.userId,
       year:"2020",
@@ -164,7 +180,11 @@ export class DasboardDetailsComponent implements OnInit {
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
         this.bankdashbrdcount=this.dashboardData.bankdashbrdcount;
+        if(this.dashboardData.bankBarChart.length==0)   
+          this.noDataBarChart=true;
         this.bankBarChart=this.dashboardData.bankBarChart
+        if(this.dashboardData.banklatestaccepttrxn.length==0)
+          this.noData=true
         this.banklatestaccepttrxn=this.dashboardData.banklatestaccepttrxn
         var header_country= ['country', 'Transaction available','Transaction quote'];
         var data_country=[];
@@ -211,8 +231,15 @@ export class DasboardDetailsComponent implements OnInit {
         else  
           this.custmrdasbrdcount=""
         this.transactionbifurcation=this.dashboardData.transactionbifurcation
+        if(this.dashboardData.latestacceptedtrxn.length==0)
+          this.noData=true
         this.latestacceptedtrxn=this.dashboardData.latestacceptedtrxn
+        this.lifetimeSavings=this.dashboardData.lifetimesaving[0].savings;
+        if(this.dashboardData.piechartcountry.length==0)
+          this.noDataPieChartCountry=true
         this.piechartcountry=this.dashboardData.piechartcountry
+        if(this.dashboardData.piechartgoods.length==0)
+          this.noDataPieChartGoods=true         
         this.piechartgoods=this.dashboardData.piechartgoods
         this.cumulativetrxnAmnt=this.dashboardData.cumulativetrxnAmnt
         var data_country=[];
@@ -220,18 +247,24 @@ export class DasboardDetailsComponent implements OnInit {
         data_country.push(header_country);
         for (var i = 0; i < this.piechartcountry.length; i++) {
             var temp=[];
+            if(Number(this.piechartcountry[i].countryCount)>0)
+            {
             temp.push(this.piechartcountry[i].countryName);
             temp.push(Number(this.piechartcountry[i].countryCount));
             data_country.push(temp);
+            }
         }
         var header_goods= ['Goods', 'Count'];
         var data_goods=[];
         data_goods.push(header_goods);
         for (var i = 0; i < this.piechartgoods.length; i++) {
             var temp=[];
+            if(Number(this.piechartcountry[i].goodsCount)>0)
+            {
             temp.push(this.piechartgoods[i].goodsType);
             temp.push(Number(this.piechartgoods[i].goodsCount));
             data_goods.push(temp);
+          }
         }
         var header_amount= ['Month', 'Volume','Count'];
         var data_amount=[];
@@ -254,7 +287,7 @@ export class DasboardDetailsComponent implements OnInit {
     )
   }
    
-  drawChartForCountry(data){
+  drawChartForCountry(data){    
       const cdata =new google.visualization.arrayToDataTable(data)
       const options = {
         legend: { 'position': 'top', 'alignment': 'center' },
@@ -363,5 +396,42 @@ public onOptionsSelected(event) {
     let formatedDate  = formatDate(new Date(event.target.value), 'yyyy-MM-dd', 'en'); 
     this.endDate=formatedDate
     this.gettransactionBifurcation()
+  }
+  onCloseTransactionPopup(record,val){
+    console.log("record",record.trxn_id)
+    if(val == "Close"){
+      $("#closeReason").val("");
+      $("#closePopup").show();
+      if(this.userId.startsWith('BA')){
+        console.log("iff")
+        this.forCloseTransactionId = record.trxn_id;
+      }
+      else{
+        console.log("else")
+        this.forCloseTransactionId = record.transactionId;}
+     // this.openNav3();
+    }
+  }
+  onClosePopDismiss(){
+    $("#closePopup").hide();  
+    $('#closedTrans'+this.forCloseTransactionId).val("Open").change();
+  }
+
+  closedTransaction() {
+      var request = {
+        "transactionId":this.forCloseTransactionId,
+        "userId":sessionStorage.getItem('userID'),
+        "statusReason":$("#closeReason").val()
+      }
+      this.service.custCloseTransaction(request).subscribe(
+        (response) => {
+        alert("Transaction Closed Successfully")  
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`]);
+      }); 
+        $("#closePopup").hide();        
+        },
+        (err) => { }
+      )
   }
 }
