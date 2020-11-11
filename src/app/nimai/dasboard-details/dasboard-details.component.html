@@ -31,7 +31,10 @@
             <!-- <div  #pieChart style="width: 100vw; height: 100vh;"></div> -->
             <div class="col-md-6 form-group" >
                <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-12" *ngIf="noDataPieChartCountry">
+                     <b> No Data available.</b>
+                  </div>
+                  <div class="col-md-12" *ngIf="!noDataPieChartCountry">
                      <div class="dashsidediv">
                         <h2>
                            Country-wise LC Transactions 
@@ -46,7 +49,10 @@
             </div>
             <div class="col-md-6 form-group" >
                <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-12" *ngIf="noDataPieChartGoods">
+                     <b> No Data available.</b>
+                  </div>
+                  <div class="col-md-12" *ngIf="!noDataPieChartGoods">
                      <div class="dashsidediv">
                         <h2>
                            Goods-wise LC Transactions 
@@ -94,7 +100,7 @@
                <div class="dashsidediv">
                   <h2>
                      Lifetime Savings  
-                     <ul class="list-unstyled list-inline pull-right" style="    margin-top: -3px;">
+                     <!-- <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;">
                         <li>
                            <div class="textfield">
                               <select>
@@ -102,13 +108,13 @@
                               </select>
                            </div>
                         </li>
-                     </ul>
+                     </ul> -->
                   </h2>
                   <div class="graphsideinner row">
                      <div class="bignumber">
                         <div class="content-a">
                            <div class="content-b">
-                              <h4>USD 12,415 K</h4>
+                              <h4>USD {{lifetimeSavings}}</h4>
                               <p>
                                  Saved Till Date
                               </p>
@@ -194,7 +200,10 @@
                            <small>(This Dashboard is a summary of all the accepted transactions, wherein default status is kept as Open. In case the requirement has got fulfilled we request you update the status to closed)</small>
                         </h2>
                         <div class="row">
-                           <div class="table-responsive">
+                           <div class="col-md-12" *ngIf="noData">
+                             <b> Last Accepted Transactions Data is not available</b>
+                           </div>
+                           <div class="table-responsive" *ngIf="!noData">
                               <table class="table table-bordered">
                                  <tr>
                                     <th>Date</th>
@@ -203,7 +212,7 @@
                                     <th>Country</th>
                                     <th>Amount</th>
                                     <th>Ccy</th>
-                                    <!-- <th><a href="#" data-toggle="modal" data-target="#addsub"> Trxn Status</a></th> -->
+                                    <th>Trxn Status</th>
                                  </tr>
                                  <tr *ngFor="let latestacceptedtrxn of latestacceptedtrxn">
                                     <td>{{latestacceptedtrxn.date | date : 'dd-MM-y'}}</td>
@@ -212,6 +221,14 @@
                                     <td>{{latestacceptedtrxn.country}}</td>
                                     <td>{{latestacceptedtrxn.amount}}</td>
                                     <td>{{latestacceptedtrxn.currency}}</td>
+                                    <td [hidden]="!(latestacceptedtrxn.transactionStatus=='Accepted')" >
+                                          <select id="{{'closedTrans'+latestacceptedtrxn.transactionId}}" *ngIf="latestacceptedtrxn.transactionStatus != 'Closed'"  
+                                           (change)="onCloseTransactionPopup(latestacceptedtrxn,$event.target.value)">                                           
+                                              <option value="Open">Open</option>
+                                              <option value="Close">Close</option>
+                                          </select>
+                                          <span *ngIf="latestacceptedtrxn.transactionStatus == 'Closed'">Closed</span>
+                                      </td>
                                  </tr>
                               </table>
                               <table class="table marzero" *ngIf="!isCustomer">
@@ -270,8 +287,8 @@
             <div class="clearfix"></div>
             <!-- <div  #pieChart style="width: 100vw; height: 100vh;"></div> -->
             <div class="clearfix"></div>
-            <div class="col-md-12">
-               <div class="row">
+            <div class="col-md-12" >
+               <div class="row">                 
                   <div class="col-md-12" >
                      <div class="dashsidediv">
                         <h2>
@@ -304,7 +321,10 @@
                         </h2>
                         <div class="clearfix"></div>
                         <div class="graphsideinner row">
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="noDataBarChart">
+                                 <div style="height: 110px;border: 0;padding: 15px;"> <b> Country-wise Transaction stats Data is not available</b></div>
+                           </div>
+                           <div class="col-md-12" *ngIf="!noDataBarChart">
                               <div id="bar_chart_country" style="height: 250px;border:0;"></div>
                            </div>
                         </div>
@@ -321,8 +341,12 @@
                         <h2>Latest Accepted Transactions <br>
                            <small>(This Dashboard is a summary of all the accepted transactions, wherein default status is kept as Open. In case the requirement has got fulfilled we request you update the status to closed)</small>
                         </h2>
+                       
                         <div class="row">
-                           <div class="table-responsive">
+                           <div class="col-md-12" *ngIf="noData" style="height: 70px;padding: 15px;">
+                              <b> No Data available.</b>
+                           </div>
+                           <div class="table-responsive" *ngIf="!noData">
                               <table class="table marzero">
                                  <tr>
                                     <th>Date</th>
@@ -331,7 +355,7 @@
                                     <th>Country</th>
                                     <th>Amount</th>
                                     <th>Ccy</th>
-                                    <th>Trxn Status</th>
+                                    <!-- <th>Trxn Status</th> -->
                                  </tr>
                                  <tr *ngFor="let banklatestaccepttrxn of banklatestaccepttrxn">
                                     <td>{{banklatestaccepttrxn.date | date : 'dd-MM-y'}}</td>
@@ -340,7 +364,14 @@
                                     <td>{{banklatestaccepttrxn.country}}</td>
                                     <td>{{banklatestaccepttrxn.amount}}</td>
                                     <td>{{banklatestaccepttrxn.ccy}}</td>
-                                    <td>{{banklatestaccepttrxn.trxn_status}}</td>
+                                    <!-- <td [hidden]="!(banklatestaccepttrxn.trxn_status=='Accepted')" >
+                                       <select id="{{'closedTrans'+banklatestaccepttrxn.trxn_id}}" *ngIf="banklatestaccepttrxn.trxn_status != 'Closed'"  
+                                          (change)="onCloseTransactionPopup(banklatestaccepttrxn,$event.target.value)">                                           
+                                              <option value="Open">Open</option>
+                                              <option value="Close">Close</option>
+                                       </select>
+                                       <span *ngIf="banklatestaccepttrxn.trxn_status == 'Closed'">Closed</span>
+                                    </td> -->
                                  </tr>
                               </table>
                            </div>
@@ -480,3 +511,31 @@
          </div>
       </div>
    </div>
+   <div id="closePopup" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
+         <div class="modal-dialog modal-md emaildiv">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body">
+                  <h2>Transaction Closed</h2>
+                  <div class="padnew">
+                     <div class="row">
+                        <!--<p><strong>Enter Email ID here</strong></p> -->
+                        <div class="col-md-12">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <p>By clicking the Closed button you ensure that the transaction has been closed with the customer</p>
+                                 <label>Remarks (Optional)</label>
+                                 <div class="inputDiv">
+                                    <textarea rows="2" id="closeReason"></textarea>
+                                 </div>
+                              </div>
+                           </div>
+                           <button type="submit" class="btn btn-info pull-right" (click)="onClosePopDismiss()">Close</button>
+                           <button type="submit" class="btn btn-info pull-right" (click)="closedTransaction()">OK</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </div>

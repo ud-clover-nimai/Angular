@@ -20,4 +20,7 @@ export class DashboardDetailsService {
   public viewCountryList(): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
   } 
+  public custCloseTransaction(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/closeTransaction`, data , { headers: { 'content-types': 'application/json' } });
+  }
 }

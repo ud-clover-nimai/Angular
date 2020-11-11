@@ -128,6 +128,7 @@ export class CustomerLoginComponent implements OnInit {
         var response = JSON.parse(JSON.stringify(response));
         if(response.flag == 1){
           this.titleService.loading.next(false);
+          console.log("kycstatus",  sessionStorage.getItem("kycStatus"))
           if(response.data.userId.startsWith('BC')){
             this.router.navigate(['/cst/dsb/dashboard-details']);   
           }

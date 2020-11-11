@@ -250,20 +250,18 @@ export class DashboardComponent implements OnInit {
       
        if( this.nimaiCount.status=='INACTIVE'){
         const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: 'Transaction Not Allowed !',
-                        message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
-                        parent: this.parentURL + '/dsb/subscription',
-                        redirectedFrom: "New-Transaction"
-                      }
-                    };
-                    this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
-                      .then(success => console.log('navigation success?', success))
-                      .catch(console.error);
-                  
-                  }
-                 
-    
+                state: {
+                  title: 'Transaction Not Allowed !',
+                  message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
+                  parent: this.parentURL + '/dsb/subscription',
+                  redirectedFrom: "New-Transaction"
+                }
+              };
+              this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
+                .then(success => console.log('navigation success?', success))
+                .catch(console.error);
+            
+            }
       },
       error => { }
     )
