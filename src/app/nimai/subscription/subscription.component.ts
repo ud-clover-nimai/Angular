@@ -51,10 +51,8 @@ export class SubscriptionComponent implements OnInit {
     });
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "New-Transaction"){
-        console.log("..."+ navigation.extras.state.redirectedFrom);
         this.getSubscriptionDetails();
       }
     }
@@ -89,6 +87,9 @@ export class SubscriptionComponent implements OnInit {
     if(data)
       {
         if((userid.startsWith('CU'))){
+          this.subscriptionDetails = data.data.customerSplans;
+          this.isCustomer=true;
+        } else if(userid.startsWith('BC')){
           this.subscriptionDetails = data.data.customerSplans;
           this.isCustomer=true;
         }

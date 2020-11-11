@@ -57,10 +57,8 @@ export class UploadLcNewComponent implements OnInit {
     })
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "draftTransaction"){
-        console.log("..."+ navigation.extras.state.redirectedFrom);
         var trnsactionID = navigation.extras.state.trnsactionID;
         this.callDraftTransaction(trnsactionID);
       }
@@ -484,9 +482,8 @@ export class UploadLcNewComponent implements OnInit {
         (response) => {
 
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-          console.log(this.cloneData);
          
-        this.lcDetailForm.patchValue({
+          this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
           lCIssuanceBank: this.cloneData.lCIssuanceBank,

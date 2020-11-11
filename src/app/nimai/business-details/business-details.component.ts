@@ -55,7 +55,6 @@ export class BusinessDetailsComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
-    console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "MyProfile"){
         this.parentRedirection = "my-profile";

@@ -24,7 +24,6 @@ export class CustomerLoginComponent implements OnInit {
   constructor(public titleService: TitleService,public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation)
     const state = navigation.extras.state as {
       parent: string
     };
@@ -127,19 +126,15 @@ export class CustomerLoginComponent implements OnInit {
     this.fps.branchUserOTP(data).subscribe(
       (response) => {
         var response = JSON.parse(JSON.stringify(response));
-        console.log("response--",response.flag)
         if(response.flag == 1){
           this.titleService.loading.next(false);
           if(response.data.userId.startsWith('BC')){
-            console.log("BC")
             this.router.navigate(['/cst/dsb/dashboard-details']);   
           }
           else if(response.data.userId.startsWith('BA')){
-            console.log("BA")
             this.router.navigate(['/bcst/dsb/dashboard-details']);   
           }
           else if(response.data.userId.startsWith('RE')){
-            console.log("RE")
             this.router.navigate(['/ref/rcs/dashboard-details']);   
           }
           $('.modal2').hide();

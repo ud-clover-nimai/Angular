@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit {
       this.userType = "Referrer";
     } else if (userId.startsWith('BC')) {
       this.userType = "Bank as a customer";
+      this.usersStat('BC');
     } else if (userId.startsWith('CU')) {
       this.userType = "Customer";
       this.usersStat('CU');
@@ -203,7 +204,7 @@ export class DashboardComponent implements OnInit {
          var colonSplit = splittedStr[1]
           var arrsplit = colonSplit.split(": ", 2); 
           this.userStat=arrsplit[1]+" banks placed quote on NimaiTrade in last 24 hours";
-        }else if(users=='CU'){
+        }else if(users=='CU' || users=='BC'){
         var colonSplit = splittedStr[0]
         var arrsplit = colonSplit.split(": ", 2); 
         this.userStat=arrsplit[1]+" customers placed transaction on NimaiTrade in last 24 hours";
@@ -273,7 +274,6 @@ export class DashboardComponent implements OnInit {
     }
     this.loginService.logOut(data).subscribe(
       (response) => {
-        console.log("response------>",response)
       },(error) =>{
        console.log("error")
       }

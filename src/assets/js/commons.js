@@ -55,9 +55,7 @@ export function loadFilestyle() {
 }
 export function selectpickercall() {
     //    Activate bootstrap-select
-    console.log('select  picker')
-
-    console.log($(".selectpicker").length);
+  
     if ($(".selectpicker").length != 0) {
 
         $(".selectpicker").selectpicker();

@@ -98,7 +98,6 @@ export class PersonalDetailsComponent implements OnInit {
     })
 
     let navigation = this.router.getCurrentNavigation();
-    console.log(navigation);
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "MyProfile"){
         this.parentRedirection = "my-profile";
