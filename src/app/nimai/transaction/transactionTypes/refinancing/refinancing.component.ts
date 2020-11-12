@@ -9,6 +9,7 @@ import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
 import { uploadFileRefinance } from 'src/assets/js/commons'
 import * as FileSaver from 'file-saver';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 @Component({
   selector: 'app-refinancing',
   templateUrl: './refinancing.component.html',
@@ -48,7 +49,9 @@ export class RefinancingComponent implements OnInit {
  public transaction_id: string="";
   cancelSucessmsg: string;
   okSucessmsg: string;
-  constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+  portOfLoading: any;
+  portOfDischarge: any;
+  constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -260,7 +263,7 @@ deleteFileContentForma(){
    }
 
 
-  public transaction(act: string) {
+  public transaction(act: string,data:any) {
 
     switch (act) {
       case 'edit': {
@@ -269,7 +272,8 @@ deleteFileContentForma(){
           // $('input').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
-      }
+        this.portLoadingOnchange(data.loadingCountry);
+        this. portDischargeOnchange(data.dischargeCountry)      }
         break;
 
       case 'submit': {
@@ -424,27 +428,26 @@ deleteFileContentForma(){
           }               
               
               }
+              portLoadingOnchange(countryName){
+                const param={
+                        "countryName":countryName
+                      }    
+                this.upls.getPortByCountry(param).subscribe(
+                  (response) => {
+                    this.portOfLoading = JSON.parse(JSON.stringify(response)).data;
+                   
 
-  // handleFileInput31(e) {
-  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-  //   var pattern = /image-*/;
-  //   var reader = new FileReader();
-  //   if (!file.type.match(pattern)) {
-  //     alert('invalid format');
-  //     $('#upload_file2').val('');
-  //     return;
-  //   }
-  //   else{
-  //     reader.onload = this._handleReaderLoaded.bind(this);
-  //     reader.readAsDataURL(file);
-  //   }
-    
-  // }
-  // _handleReaderLoaded(e) {
-  //   let reader = e.target;
-  //   this.imageSrc = reader.result;
-  //   this.LcDetail.get('lcProForma').setValue(this.imageSrc);
-
-  // }
+                  });
+            }
+            portDischargeOnchange(countryName){
+  
+              const data={
+                        "countryName":countryName
+                      }    
+                this.upls.getPortByCountry(data).subscribe(
+                  (response) => {
+                    this.portOfDischarge = JSON.parse(JSON.stringify(response)).data;
+                  });
+            }
 
 }

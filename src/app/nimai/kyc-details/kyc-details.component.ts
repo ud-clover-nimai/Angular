@@ -28,6 +28,12 @@ export class KycDetailsComponent implements OnInit {
   itemData:any = [];
   imageSrcBusi: any;
   imageSrcPer: any;
+  private filename: string = '';
+  status: any;
+  disabledBusiness: boolean=false;
+  disabledpersonal: boolean=false;
+  rejectReason: string;
+  rejectedTitle: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -80,8 +86,46 @@ export class KycDetailsComponent implements OnInit {
     if(kycStatus=="Approved"){
       this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`]) 
     }    
-  }
 
+this.checkStatus();
+
+  }
+checkStatus(){ 
+   var userId = sessionStorage.getItem("userID")
+  
+  this.kycService.viewKycDetails(userId)
+  .subscribe(
+    response => {
+      this.status= response;
+
+      for (let i = 0; i < this.status.length; i++) {
+        if(this.status[i].title=="Business"){
+          if(this.status[i].kycStatus== "Rejected"){
+            this.disabledBusiness=true;
+            this.rejectReason=this.status[i].reason;
+            this.rejectedTitle=this.status[i].title;
+            $('#rejectedPopup').show();
+          }
+         } 
+         if (this.status[i].title=="Personal"){
+          if(this.status[i].kycStatus== "Rejected"){
+            this.disabledpersonal=true;
+            this.rejectReason=this.status[i].reason;
+            this.rejectedTitle=this.status[i].title;
+
+            $('#rejectedPopup').show();
+
+          }
+         }
+      }
+     
+    })
+
+
+}
+closePopup(){
+  $('#rejectedPopup').hide();
+}
   getBusiList(){
     return this.fb.group({
     documentName: [''],
@@ -223,42 +267,47 @@ get kycDetails() {
     // $("#moreImageUploadLinkType").show();
     this.itemData = data;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
+    this.filename=file.name;
     var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    else{
+    // if (!file.type.match(pattern)) {
+    //   alert('invalid format');
+    //   return;
+    // }
+    // else{
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);     
-    }
+   // }
     
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
-    this.imageSrcBusi = reader.result;
+    this.imageSrcBusi =this.filename +" |" + reader.result;
+    this.kycDetailsForm.get('encodedFileContent').setValue(this.imageSrcBusi);
+   
   }
 
   selectFile_KYC(e) {
       // $("#moreImageUploadLink").show();
     
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
+    this.filename=file.name;
     var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    else{
+    // if (!file.type.match(pattern)) {
+    //   alert('invalid format');
+    //   return;
+    // }
+    // else{
       reader.onload = this._handleReaderLoaded_KYC.bind(this);
       reader.readAsDataURL(file);
-    }
+   // }
     
   }
   _handleReaderLoaded_KYC(e) {
     let reader = e.target;
-    this.imageSrcPer = reader.result;    
+  
+    this.imageSrcPer =this.filename +" |" + reader.result;
+    this.kycDetailsForm.get('encodedFileContent').setValue(this.imageSrcPer);
+   
   }
 
   

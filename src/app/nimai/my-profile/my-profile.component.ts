@@ -9,6 +9,7 @@ import * as $ from '../../../assets/js/jquery.min';
 import  { ValidateRegex } from '../../beans/Validations';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Business } from 'src/app/beans/business';
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class MyProfileComponent implements OnInit {
   public isCustomer = false;
   document: any;
   noData:boolean
+  imgDownload: boolean;
+  fileData: any;
 
   constructor(public titleService: TitleService, 
     public personalDetailsService: PersonalDetailsService,
@@ -140,9 +143,86 @@ export class MyProfileComponent implements OnInit {
       }   
     )
   }
+
+  download(){
+    
+    var str = this.fileData; 
+    var splittedStr = str.split(" |", 2); 
+    var data=splittedStr[1];
+    var  base64string = data;
+    
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+    var extension='.'+ext[1];
+
+    if(extension=='.xlsx'){
+    var  base64string= base64string.replace('data:application/octet-stream;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type:'application/octet-stream'});
+      FileSaver.saveAs(blob, filename);
+      this.imgDownload=false;
+    } 
+    else if(extension=='.pdf'){
+      base64string= base64string.replace('data:application/pdf;base64,', '')
+      const byteArr = this.convertbase64toArrayBuffer(base64string);
+      var blob = new Blob([byteArr], { type: 'application/pdf' });
+      FileSaver.saveAs(blob, filename);
+      this.imgDownload=false;
+
+    }  
+     else if(extension=='.docx'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        FileSaver.saveAs(blob,filename);
+        this.imgDownload=false;
+
+    }
+     else if(extension=='.csv'){
+            base64string= base64string.replace('data:application/octet-stream;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'text/csv' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=false;
+
+          }
+          else if(extension=='.jpeg' || extension=='.jpg' || extension=='.png' || extension=='.svg'){
+            base64string= base64string.replace('data:image/jpeg;base64,', '')
+            const byteArr = this.convertbase64toArrayBuffer(base64string);
+            var blob = new Blob([byteArr], { type: 'image/jpeg' });
+            FileSaver.saveAs(blob, filename );
+            this.imgDownload=true;
+
+          }               
+              
+              }
+              convertbase64toArrayBuffer(base64) {
+                var binary_string = window.atob(base64);
+                var len = binary_string.length;
+                var bytes = new Uint8Array(len);
+                for (var i = 0; i < len; i++) {
+                  bytes[i] = binary_string.charCodeAt(i);
+                }
+                return bytes.buffer;
+              }
+
   openDocument(file){
     $('#modal_kycView').show();
-    this.document = file;
+   // this.document = file;
+   console.log('kk')
+    var str = file; 
+    var splittedStr = str.split(" |", 2); 
+    var filename=str.split(" |", 1); 
+    var filename=splittedStr[0];
+    var ext = filename.split("."); 
+     if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
+      this.imgDownload=true;
+     }else{
+      this.imgDownload=false;
+     }
+    var data=splittedStr[1];
+    this.document = data;
+    this.fileData=file;
   }
   close(){
     $('.modal3').hide();

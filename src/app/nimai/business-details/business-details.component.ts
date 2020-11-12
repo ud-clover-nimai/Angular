@@ -33,6 +33,7 @@ export class BusinessDetailsComponent implements OnInit {
   countryName: any = "";
   public addMoreFlag=false;
   status: any;
+  enableicon: boolean;
   constructor(public fb: FormBuilder, public getCount: SubscriptionDetailsService, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
@@ -161,6 +162,7 @@ export class BusinessDetailsComponent implements OnInit {
       response => {        
         this.status = JSON.parse(JSON.stringify(response)).data;
         if(this.status.issplanpurchased==1){
+          this.enableicon=true;
           this.businessDetailsForm.get('city').disable({ onlySelf: true });
           this.businessDetailsForm.get('country').disable({ onlySelf: true });
           this.businessDetailsForm.get('provinceName').disable({ onlySelf: true });
@@ -170,7 +172,10 @@ export class BusinessDetailsComponent implements OnInit {
           this.businessDetailsForm.get('pincode').disable({ onlySelf: true });
           this.businessDetailsForm.get('telephone').disable({ onlySelf: true });       
 
-        }      
+        }      else{
+          this.enableicon=false;
+
+        }
       });
   }
 
@@ -211,7 +216,6 @@ export class BusinessDetailsComponent implements OnInit {
       (error) => {
         this.titleService.loading.next(false);
         let responserror = JSON.parse(JSON.stringify(error));
-        console.log(responserror)
         const navigationExtras: NavigationExtras = {
           state: {
             title: JSON.parse(JSON.stringify(error)).error.errMessage,

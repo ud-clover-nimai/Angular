@@ -61,7 +61,7 @@
                                                       </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div [hidden]="disabledBusiness" class="col-md-12">
                                                 <label>Upload Document (only pdf, jpeg, png)</label>
                                                 <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].businessDocumentList_html['controls'];  let i = index;">
                                                     <div class="row" [formGroupName]="i">
@@ -119,7 +119,7 @@
                                                       </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div [hidden]="disabledpersonal" class="col-md-12">
                                                 <label>Upload Document (only pdf, jpeg, png)</label>
                                                 
                                                 <div class="element" formArrayName="personalDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].personalDocumentList_html['controls'];   let i = index;">
@@ -158,8 +158,34 @@
             </div>
         </div>
     </div>
-
-    <router-outlet></router-outlet>
+       <router-outlet></router-outlet>
 </body>
 
 </html>
+
+<div id="rejectedPopup" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>KYC Rejected</h2>
+             <div class="padnew">
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12">
+                            <label>{{rejectedTitle}} KYC has been rejected due to mentioned reason</label>
+
+                            <div class="form-group">
+                                {{rejectReason}}
+                              </div>
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="closePopup()" >Reupload</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>

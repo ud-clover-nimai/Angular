@@ -257,51 +257,36 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.loadingCountry">
+                              <select [(ngModel)]="data.loadingCountry" (change)="portLoadingOnchange(data.loadingCountry)">
                                  <option [ngValue]="null" selected>Select</option>
-                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
-                         </select>
+                                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                               </select>
                            </td>
                         </tr>
                         <tr>
                            <td>Port of Loading</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.loadingPort">
-                              <option value="Jawaharlal Nehru Port">
-                                  Jawaharlal Nehru Port</option>
-                              <option value="Mumbai Port">
-                                  Mumbai Port </option>
-                              <option value="GUJRAT Port">
-                                  GUJRAT Port </option>
-                              <option value="Dr. Syama Prasad Mukherjee Port">Dr.
-                                  Syama Prasad Mukherjee Port
-                              </option>
-                              <option value="Dr. Rama Prasad Mukherjee Port">Dr.
-                                  Rama Prasad Mukherjee Port
-                              </option>
-                          </select></td>
+                          <select [(ngModel)]="data.loadingPort" >
+                           <option [ngValue]="null" selected>Select</option>
+                           <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                      </select>
+                        </td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.dischargeCountry">
+                              <select [(ngModel)]="data.dischargeCountry" (change)="portDischargeOnchange(data.dischargeCountry)">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
-                         </select></td>
+                            </select></td>
                         </tr>
                         <tr>
                            <td>Port of Discharge</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.dischargePort">
-                                 <option value="Port of Chittagong">
-                                     Port of Chittagong</option>
-                                 <option value="Port of Mongla">
-                                     Port of Mongla</option>
-                                 <option value="Port of Dhaka">
-                                     Port of Dhaka</option>
-                                 <option value="Port of Payra">
-                                     Port of Payra</option>
-                             </select>
+                             <select class="edit-selectColor" [(ngModel)]="data.dischargePort">
+                              <option [ngValue]="null" selected>Select</option>
+                              <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                         </select>
                            </td>
                         </tr>
                         <tr>
@@ -569,7 +554,7 @@
                      Submit
                      <div class="ripple-container"></div>
                   </button>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit',data)">
                      Edit
                      <div class="ripple-container"></div>
                   </button>

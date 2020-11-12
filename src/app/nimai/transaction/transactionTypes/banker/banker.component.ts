@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
 import * as FileSaver from 'file-saver';
+import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 
 @Component({
   selector: 'app-banker',
@@ -48,8 +49,10 @@ export class BankerComponent implements OnInit {
   transaction_id: string;
   cancelSucessmsg: string;
   okSucessmsg: string;
+  portOfLoading: any;
+  portOfDischarge: any;
 
-  constructor(public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+  constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -251,7 +254,7 @@ export class BankerComponent implements OnInit {
     document.getElementById("myCanvasNav").style.opacity = "0"; 
    }
 
-  public transaction(act: string) {
+  public transaction(act: string,data:any) {
 
     switch (act) {
       case 'edit': {
@@ -260,6 +263,8 @@ export class BankerComponent implements OnInit {
           // $('input').attr('readonly', false);
         }, 100);
         this.title = 'Edit';
+        this.portLoadingOnchange(data.loadingCountry);
+        this. portDischargeOnchange(data.dischargeCountry)
       }
         break;
 
@@ -415,4 +420,25 @@ export class BankerComponent implements OnInit {
           }               
               
               }
+              portLoadingOnchange(countryName){
+                const param={
+                        "countryName":countryName
+                      }    
+                this.upls.getPortByCountry(param).subscribe(
+                  (response) => {
+                    this.portOfLoading = JSON.parse(JSON.stringify(response)).data;
+                   
+
+                  });
+            }
+            portDischargeOnchange(countryName){
+  
+              const data={
+                        "countryName":countryName
+                      }    
+                this.upls.getPortByCountry(data).subscribe(
+                  (response) => {
+                    this.portOfDischarge = JSON.parse(JSON.stringify(response)).data;
+                  });
+            }
 }
