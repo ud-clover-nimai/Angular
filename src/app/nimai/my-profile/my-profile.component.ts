@@ -244,6 +244,7 @@ export class MyProfileComponent implements OnInit {
       userId: sessionStorage.getItem('userID'),
       bankType: "",
       minLCValue: "",
+      regCurrency:"",
       interestedCountry: [],
       blacklistedGoods:[],
       emailAddress1: "",

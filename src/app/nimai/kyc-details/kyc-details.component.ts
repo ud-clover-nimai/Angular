@@ -106,6 +106,12 @@ checkStatus(){
             this.rejectedTitle=this.status[i].title;
             $('#rejectedPopup').show();
           }
+          this.kycDetailsForm.patchValue({      
+            busiCountry: this.status[i].country,
+            busiDocument:this.status[i].documentName,  
+            encodedFileContent:this.status[i].encodedFileContent,
+          })
+          this.imageSrcBusi=this.status[i].encodedFileContent;
          } 
          if (this.status[i].title=="Personal"){
           if(this.status[i].kycStatus== "Rejected"){
@@ -114,10 +120,18 @@ checkStatus(){
             this.rejectedTitle=this.status[i].title;
 
             $('#rejectedPopup').show();
-
           }
+          this.kycDetailsForm.patchValue({                 
+      perCountry: this.status[i].country,  
+      perDocument :this.status[i].documentName,
+     encodedFileContent:this.status[i].encodedFileContent,
+          })
+          this.imageSrcPer=this.status[i].encodedFileContent;
+
          }
       }
+
+    
      
     })
 
@@ -179,9 +193,10 @@ get kycDetails() {
 }
   submit(): void {
     this.submitted = true;    
-     if(this.kycDetailsForm.invalid) {
-      return;
-    }
+    //  if(this.kycDetailsForm.invalid) {
+    //         return;
+    // }
+   
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
 

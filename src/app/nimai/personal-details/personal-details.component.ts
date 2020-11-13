@@ -71,6 +71,7 @@ export class PersonalDetailsComponent implements OnInit {
       businessType: [''],
       countriesInt: [''],
       minLCVal: [''],
+      regCurrency:[''],
       blacklistedGC: [''],
       // otherEmails: this.fb.array([this.getOtherMails()])
       emailAddress1: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")],
@@ -249,6 +250,7 @@ export class PersonalDetailsComponent implements OnInit {
             bankType: this.personalDetails.bankType,
             countriesInt: this.filterInterestedCountry(this.personalDetails.interestedCountry),
             minLCVal: this.personalDetails.minLCValue,
+            regCurrency:this.personalDetails.regCurrency,
             blacklistedGC: this.filterBlackListGoods(this.personalDetails.blacklistedGoods),
             emailAddress1: this.personalDetails.emailAddress1,
             emailAddress2: this.personalDetails.emailAddress2,
@@ -371,6 +373,7 @@ export class PersonalDetailsComponent implements OnInit {
       userId: this.personalDetailsForm.get('userId').value,
       bankType: this.personalDetailsForm.get('bankType').value,
       minLCValue: this.personalDetailsForm.get('minLCVal').value,
+      regCurrency:this.personalDetailsForm.get('regCurrency').value,
       interestedCountry: this.filterForSaveIntCon(this.intCntTemp),
       blacklistedGoods: this.filterForSaveBlg(this.blgTemp),
       emailAddress1: this.personalDetailsForm.get('emailAddress1').value,

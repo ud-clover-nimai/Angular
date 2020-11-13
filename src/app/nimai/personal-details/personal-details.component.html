@@ -271,7 +271,7 @@
                       </div>
                     </div>
                     <div
-                      class="col-sm-6 col-md-6 col-lg-3 bankfields"
+                      class="col-sm-3 col-md-3 col-lg-2 bankfields"
                       *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv">
@@ -282,13 +282,26 @@
                           (keypress)="validateRegexFields($event, 'number')"
                           [ngClass]="hasValue ? 'has-value' : ''"
                         />
-                        <label>Minimum Value of LC (USD)</label>
+                       
+                        <label>Minimum Value of LC </label>
+                      
                       </div>
                     </div>
+                    <div  class="col-sm-3 col-md-3 col-lg-1 bankfields"  *ngIf="isBankUnderwriter">
+                      <div class="inputDiv">
+                      <select class="currency" formControlName="regCurrency">
+                        <option value=''>Select</option>
+                        <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
+                    </select>
+                    </div>
+                  </div>
                     <div
                       class="col-sm-6 col-md-6 col-lg-3 bankfields"
                       *ngIf="isBankUnderwriter"
                     >
+
+                
+
                       <div class="inputDiv multiselect-dropdown">
                         <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [(ngModel)]="intCntTemp" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
                         <label class="dropdownlabel">Countries Interested</label>

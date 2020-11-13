@@ -18,6 +18,7 @@ export interface signup {
 	 businessType:string;
 
 	 minLCValue:string;
+	 regCurrency:string;
 	 interestedCountry:InterestedCountry[];
 	 blacklistedGoods:BlackListedGoods[];
 
