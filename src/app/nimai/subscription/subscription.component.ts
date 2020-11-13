@@ -290,6 +290,16 @@ export class SubscriptionComponent implements OnInit {
         }
       )
   }
+  sendAccDetails(){    
+      let req = {
+        "userId": sessionStorage.getItem('userID'),
+        "event":"Account_Details",
+      }
+      this.subscriptionService.sendAccDetails(req).subscribe(data => {
+        alert("bank details sent successfully")
+      }
+      )
+  }
   sendRequest(){
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    

@@ -128,15 +128,30 @@ export class CustomerLoginComponent implements OnInit {
         var response = JSON.parse(JSON.stringify(response));
         if(response.flag == 1){
           this.titleService.loading.next(false);
-          console.log("kycstatus",  sessionStorage.getItem("kycStatus"))
+          let kycStatus=sessionStorage.getItem("kStatus")
+          console.log("kycstatus",kycStatus)
           if(response.data.userId.startsWith('BC')){
-            this.router.navigate(['/cst/dsb/dashboard-details']);   
+            if(kycStatus=="KycStauts:Approved"){
+              this.router.navigate(['/cst/dsb/dashboard-details']);   
+            }else {
+              this.router.navigate(['/cst/dsb/personal-details']);   
+            }
           }
           else if(response.data.userId.startsWith('BA')){
-            this.router.navigate(['/bcst/dsb/dashboard-details']);   
+            if(kycStatus=="KycStauts:Approved"){
+              this.router.navigate(['/bcst/dsb/dashboard-details']);  
+            } 
+            else{  
+              this.router.navigate(['/bcst/dsb/personal-details']);  
+            }
           }
           else if(response.data.userId.startsWith('RE')){
+            if(kycStatus=="KycStauts:Approved"){
             this.router.navigate(['/ref/rcs/dashboard-details']);   
+             }
+          else{  
+            this.router.navigate(['/ref/rcs/personal-details']);    
+          }
           }
           $('.modal2').hide();
         } else{

@@ -9,7 +9,9 @@
                            <div class="row">
                               <div class="revenuediv borderzero text-right" >
                                  <div class="col-md-4 col-sm-4" *ngFor="let count of custmrdasbrdcount">
-                                    <h3>{{count.count}} <br>
+                                    <h3><span *ngIf="count.count">{{count.count}} </span>
+                                       <span *ngIf="!count.count"> 0 </span>
+                                       <br>
                                        <small *ngIf="count.detail=='ActiveTransaction' || count.detail=='QuotesAwaited'">Transactions</small>
                                        <small *ngIf="count.detail=='QuoteActiveTransaction'">Quotes</small>
                                     </h3>
@@ -355,7 +357,7 @@
                                     <th>Country</th>
                                     <th>Amount</th>
                                     <th>Ccy</th>
-                                    <!-- <th>Trxn Status</th> -->
+                                    <th>Trxn Status</th>
                                  </tr>
                                  <tr *ngFor="let banklatestaccepttrxn of banklatestaccepttrxn">
                                     <td>{{banklatestaccepttrxn.date | date : 'dd-MM-y'}}</td>
@@ -364,14 +366,14 @@
                                     <td>{{banklatestaccepttrxn.country}}</td>
                                     <td>{{banklatestaccepttrxn.amount}}</td>
                                     <td>{{banklatestaccepttrxn.ccy}}</td>
-                                    <!-- <td [hidden]="!(banklatestaccepttrxn.trxn_status=='Accepted')" >
+                                    <td [hidden]="!(banklatestaccepttrxn.trxn_status=='Accepted')" >
                                        <select id="{{'closedTrans'+banklatestaccepttrxn.trxn_id}}" *ngIf="banklatestaccepttrxn.trxn_status != 'Closed'"  
                                           (change)="onCloseTransactionPopup(banklatestaccepttrxn,$event.target.value)">                                           
                                               <option value="Open">Open</option>
                                               <option value="Close">Close</option>
                                        </select>
                                        <span *ngIf="banklatestaccepttrxn.trxn_status == 'Closed'">Closed</span>
-                                    </td> -->
+                                    </td>
                                  </tr>
                               </table>
                            </div>
