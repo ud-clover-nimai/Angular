@@ -27,6 +27,7 @@ export class DasboardDetailsComponent implements OnInit {
   public piechartcountry:any;
   public piechartgoods:any;
   forCloseTransactionId: any = "";
+  forCloseUserId:any=""
   public cumulativetrxnAmnt:any;
   bankdashbrdcount:any;
   bankBarChart:any;
@@ -398,18 +399,17 @@ public onOptionsSelected(event) {
     this.gettransactionBifurcation()
   }
   onCloseTransactionPopup(record,val){
-    console.log("record",record.trxn_id)
     if(val == "Close"){
       $("#closeReason").val("");
       $("#closePopup").show();
       if(this.userId.startsWith('BA')){
-        console.log("iff")
         this.forCloseTransactionId = record.trxn_id;
+        this.forCloseUserId=record.userId
       }
       else{
-        console.log("else")
-        this.forCloseTransactionId = record.transactionId;}
-     // this.openNav3();
+        this.forCloseTransactionId = record.transactionId;
+        this.forCloseUserId=sessionStorage.getItem('userID')
+      }
     }
   }
   onClosePopDismiss(){
@@ -420,7 +420,7 @@ public onOptionsSelected(event) {
   closedTransaction() {
       var request = {
         "transactionId":this.forCloseTransactionId,
-        "userId":sessionStorage.getItem('userID'),
+        "userId":this.forCloseUserId,
         "statusReason":$("#closeReason").val()
       }
       this.service.custCloseTransaction(request).subscribe(

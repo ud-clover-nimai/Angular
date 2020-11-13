@@ -148,6 +148,7 @@ export class LoginComponent implements OnInit {
           let responseData = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('userID', loginData.userId);
           this.titleService.loading.next(true);
+          sessionStorage.setItem("kStatus", responseData.message);
           if (loginData.userId.startsWith('RE')) {
             // this.router.navigate(['/ref/rcs/dashboard-details']);
             this.callCustomerPopup();  

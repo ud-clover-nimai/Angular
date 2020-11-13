@@ -225,6 +225,8 @@ export class DashboardComponent implements OnInit {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
         sessionStorage.setItem("creditCount", this.nimaiCount.creditCount);
+        sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
+        sessionStorage.setItem("isvasapplied", this.nimaiCount.isvasapplied);
         sessionStorage.setItem("subsidiries", this.nimaiCount.subsidiries);
         sessionStorage.setItem("subuticount", this.nimaiCount.subuticount);  
         sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);

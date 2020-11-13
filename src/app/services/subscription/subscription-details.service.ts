@@ -33,6 +33,9 @@ export class SubscriptionDetailsService {
   public addVas(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/addVAS`, data,{ headers: { 'content-type': 'application/json' } })
   }
+  public sendAccDetails(data): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiEmail/sendAccDetails`, data,{ headers: { 'content-type': 'application/json' } })
+  }
   public viewAdvisory(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getAdvisoryListByCountry` ,data, { headers: { 'content-type': 'application/json' } })
   }
