@@ -47,11 +47,12 @@ export class ActiveTransactionComponent implements OnInit {
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
-    })
-
+    });
+    this.titleService.quote.next(false);
   }
 
   public getAllnewTransactions() {
+    this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
     if(userIdDetail.startsWith('BC')){
@@ -67,12 +68,7 @@ export class ActiveTransactionComponent implements OnInit {
         custActiveTransaction();
         this.detail = JSON.parse(JSON.stringify(response)).data;
        
-        if (!this.detail) {
-          this.hasNoRecord = true;
-        }
-        else{
-          this.hasNoRecord = false;
-        }
+       
       },(error) =>{
         this.hasNoRecord = true;
       }
@@ -100,12 +96,12 @@ export class ActiveTransactionComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    this.getAllnewTransactions();
     this.confirmation.isActive = false;
     this.discounting.isActive = false;
     this.confirmAndDiscount.isActive = false;
     this.refinancing.isActive = false;
     this.banker.isActive = false;
-    this.getAllnewTransactions();
   }
 
 

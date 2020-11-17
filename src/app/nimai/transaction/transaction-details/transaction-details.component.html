@@ -30,8 +30,8 @@
               <form>
                  <div class="row">
                     <div class="col-md-12">
-                       <div  class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">      
-                                     <table *ngIf="hasNoRecordmain" class="table table-hover" id="datatables">
+                       <div  class="table-responsive" id="transactionID" cellspacing="0" width="100%" style="width:100%">      
+                                     <table class="table table-hover" id="datatables">
                                          <thead>
                                              <tr>
                                                  <th class="disabled-sorting text-center">#</th>
@@ -102,13 +102,7 @@
                                              </tr>
                                          </tbody>
                                      </table>
-                                    <table *ngIf="!hasNoRecordmain" class="table">
-                                       <thead>
-                                          <th>
-                                             <p>No records available. </p>
-                                          </th>
-                                       </thead>
-                                    </table>
+                                   
                                  </div>
                              </div>
                          </div>

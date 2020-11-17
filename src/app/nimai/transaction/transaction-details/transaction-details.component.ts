@@ -16,7 +16,7 @@ import * as FileSaver from 'file-saver';
 })
 export class TransactionDetailsComponent {
   
-
+  public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
@@ -52,7 +52,8 @@ export class TransactionDetailsComponent {
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
-    })
+    });
+    this.titleService.quote.next(false);
   }
 
   ngOnInit() {
@@ -60,43 +61,6 @@ export class TransactionDetailsComponent {
   }
 
   public getAllnewTransactions(status) {
-
-    this.data=[];
-    this.hasNoRecordmain=false;
-
-    var userIdDetail = sessionStorage.getItem('userID');
-    var emailId = "";
-    if (userIdDetail.startsWith('BC')) {
-      emailId = sessionStorage.getItem('branchUserEmailId');
-    }
-    const data = {
-      "userId": sessionStorage.getItem('userID'),
-      "transactionStatus": status,
-      "branchUserEmail": emailId
-    }
-     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
-      (response) => {
-        custTrnsactionDetail();
-       this.data=[];
-
-        this.data = JSON.parse(JSON.stringify(response)).data;
-        console.log(this.data)
-
-        if (this.data) {
-          this.hasNoRecord=true;
-          this.hasNoRecordmain=true;
-       }else{
-               this.data=[];
-                this.hasNoRecord=false;
-                this.hasNoRecordmain=false;
-       }
-
-      },
-      (error) => {
-       
-
-      }
-    )
 
     if (status == "Rejected") {
       this.onReject = true;
@@ -129,6 +93,35 @@ export class TransactionDetailsComponent {
       this.acceptedStatus = false;
       this.expiredStatus=false;
     }
+
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if (userIdDetail.startsWith('BC')) {
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionStatus": status,
+      "branchUserEmail": emailId
+    }
+     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
+      (response) => {
+        custTrnsactionDetail();
+       this.data=[];
+
+        this.data = JSON.parse(JSON.stringify(response)).data;
+        if (this.data) {
+          this.hasNoRecord=true;
+       }
+
+      },
+      (error) => {
+       
+
+      }
+    )
+
+    
   }
 
   rejectedReasons(reason){

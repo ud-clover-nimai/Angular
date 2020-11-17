@@ -11,19 +11,13 @@
                   <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                   <!-- <form> -->
                   <div class="row" *ngIf="hasNoRecord">
-                     <div class="col-12">
-                        <table class="table">
-                           <thead>
-                              <th>
-                                 <p>No records available. </p>
-                              </th>
-                           </thead>
-                        </table>
+                     <div class="col-md-12">
+                       No records available. 
                      </div>
                   </div>
                   <div class="row" *ngIf="!hasNoRecord">
                      <div class="col-md-12">
-                        <div class="table-responsive" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                        <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                            <table class="table table-hover" id="datatables">
                               <thead>
                                  <tr>
