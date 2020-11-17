@@ -61,3 +61,12 @@ position: relative;
     background: #00bcd4;
   color: #fff;
 }
+
+
+::ng-deep .mat-form-field-flex {
+  border: 1px solid #d2d2d2;
+}
+::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  font-size: 15px!important;
+  padding-top: 5px!important;
+}

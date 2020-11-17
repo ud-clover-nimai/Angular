@@ -608,7 +608,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
 
   goodsService() {
-    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 4, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 

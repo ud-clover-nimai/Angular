@@ -15,7 +15,6 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
   styleUrls: ['./manage-subsidiary.component.css']
 })
 export class ManageSubsidiaryComponent implements OnInit {
-
   public parent: string;
   submitted: boolean = false;
   public parentURL: string = "";
@@ -28,7 +27,6 @@ export class ManageSubsidiaryComponent implements OnInit {
   subsidiries:any;
   subuticount:any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
-
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -36,10 +34,7 @@ export class ManageSubsidiaryComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-
-
   }
-
   manageSubForm = this.formBuilder.group({
     firstName: new FormControl('',[Validators.required]),
     lastName: new FormControl('',[Validators.required]),

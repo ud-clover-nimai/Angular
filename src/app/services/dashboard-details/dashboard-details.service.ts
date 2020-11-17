@@ -8,6 +8,12 @@ import { environment } from '../../../environments/environment';
 })
 export class DashboardDetailsService {
   constructor(public httpClient:HttpClient) { }
+  public getCreditAndTransactionList(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getCreditTxnForCustomerByUserId`,data, { headers: { 'content-type': 'application/json' } });
+  }
+  public getUserList(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getCreditTxnForCustomerByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
+  }
   public getCustomerDashboardDetails(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/customerDashboard`,data, { headers: { 'content-type': 'application/json' } });
   }

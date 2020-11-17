@@ -391,7 +391,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3"  *ngFor="let count of referrerdashbrdcount"> 
                   <div class="maindash">
                      <span>{{count.count}}</span>
-                     <h3 *ngIf="count.detail=='ToatalReferences'" >Toatal References</h3>
+                     <h3 *ngIf="count.detail=='ToatalReferences'" >Total References</h3>
                      <h3 *ngIf="count.detail=='ApprovedReferences'" >Approved References</h3>
                      <h3 *ngIf="count.detail=='RejectedReferences'" >Rejected References</h3>
                      <h3 *ngIf="count.detail=='PendingReferences'"  >Pending References</h3>
@@ -399,7 +399,7 @@
                      <h3 *ngIf="count.detail=='Renewalsin30Days'" class="text">Renewals in <br>30 Days</h3>
                      <i class="fas fa-users" *ngIf="count.detail=='ToatalReferences'"></i>
                      <i class="fas fa-user-check" *ngIf="count.detail=='ApprovedReferences'" ></i>
-                     <i class="fas fa-users-slash" *ngIf="count.detail=='PendingReferences'"></i>
+                     <i class="fas fa-users-slash" *ngIf="count.detail=='RejectedReferences'"></i>
                      <i class="fas fa-user-clock" *ngIf="count.detail=='PendingReferences'" ></i>
                      <i class="fas fa-comments-dollar" *ngIf="count.detail=='QuotesWon'" ></i>
                      <i class="fas fa-user-tag" *ngIf="count.detail=='Renewalsin30Days'"></i>

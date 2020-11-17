@@ -11,7 +11,7 @@ import { InterestedCountry } from 'src/app/beans/interestedcountry';
 import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ValidateRegex } from 'src/app/beans/Validations';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
-
+import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -19,7 +19,8 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
   styleUrls: ['./manage-user.component.css']
 })
 export class ManageUserComponent implements OnInit {
-
+  userData:any;
+  noData:any;
   public parent: string;
   submitted: boolean = false;
   public parentURL: string = "";
@@ -33,10 +34,7 @@ export class ManageUserComponent implements OnInit {
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
-
-
-
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -75,7 +73,7 @@ export class ManageUserComponent implements OnInit {
   }
 
   goodsService() {
-    return [{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+    return [{ id: 4, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
   }
 
 
@@ -105,8 +103,29 @@ export class ManageUserComponent implements OnInit {
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
     loads();
     manageSub();
+    this.listOfUsers();
   }
-
+  listOfUsers(){
+    const param = {
+      userid:sessionStorage.getItem('userID'),    
+    }
+    this.service.getUserList(param).subscribe(
+      (response) => {
+        if(JSON.parse(JSON.stringify(response)).data)
+          this.userData = JSON.parse(JSON.stringify(response)).data;
+        else
+          this.userData=""  
+        if(this.userData.length === 0){
+          this.noData = true;
+        }else{
+          this.noData=false;
+        }
+        console.log("this.userData----",this.userData)
+      },(error) =>{
+        this.noData = true;
+      }
+      )
+  }
   close() {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
@@ -174,7 +193,7 @@ export class ManageUserComponent implements OnInit {
 
       minLCValue: minValue,
       interestedCountry: this.intCountries,
-      blacklistedGoods: [],
+      blacklistedGoods: this.blg,
       account_source: sessionStorage.getItem('userID'),
       account_type: "BANKUSER",
       account_status: "ACTIVE",
