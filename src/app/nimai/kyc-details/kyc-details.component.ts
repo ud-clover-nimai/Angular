@@ -34,6 +34,7 @@ export class KycDetailsComponent implements OnInit {
   disabledpersonal: boolean=false;
   rejectReason: string;
   rejectedTitle: any;
+  detail: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -98,6 +99,14 @@ checkStatus(){
     response => {
       this.status= response;
 
+      if(this.status[0].kycStatus=='Pending' || this.status[1].kycStatus=='Pending'){
+ 
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]);
+      });
+      }
+      else{
+
       for (let i = 0; i < this.status.length; i++) {
         if(this.status[i].title=="Business"){
           if(this.status[i].kycStatus== "Rejected"){
@@ -129,10 +138,15 @@ checkStatus(){
           this.imageSrcPer=this.status[i].encodedFileContent;
 
          }
-      }
+      }  
+    }
+    },
+    error => {
+      this.detail = JSON.parse(JSON.stringify(error)).message;
+      console.log(this.detail)
+      this.disabledBusiness=true;
+      this.disabledpersonal=true;
 
-    
-     
     })
 
 

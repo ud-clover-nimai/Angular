@@ -61,6 +61,43 @@ export class TransactionDetailsComponent {
 
   public getAllnewTransactions(status) {
 
+    this.data=[];
+    this.hasNoRecordmain=false;
+
+    var userIdDetail = sessionStorage.getItem('userID');
+    var emailId = "";
+    if (userIdDetail.startsWith('BC')) {
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+      "transactionStatus": status,
+      "branchUserEmail": emailId
+    }
+     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
+      (response) => {
+        custTrnsactionDetail();
+       this.data=[];
+
+        this.data = JSON.parse(JSON.stringify(response)).data;
+        console.log(this.data)
+
+        if (this.data) {
+          this.hasNoRecord=true;
+          this.hasNoRecordmain=true;
+       }else{
+               this.data=[];
+                this.hasNoRecord=false;
+                this.hasNoRecordmain=false;
+       }
+
+      },
+      (error) => {
+       
+
+      }
+    )
+
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
@@ -92,35 +129,6 @@ export class TransactionDetailsComponent {
       this.acceptedStatus = false;
       this.expiredStatus=false;
     }
-
-    var userIdDetail = sessionStorage.getItem('userID');
-    var emailId = "";
-    if (userIdDetail.startsWith('BC')) {
-      emailId = sessionStorage.getItem('branchUserEmailId');
-    }
-    const data = {
-      "userId": sessionStorage.getItem('userID'),
-      "transactionStatus": status,
-      "branchUserEmail": emailId
-    }
-     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
-      (response) => {
-        custTrnsactionDetail();
-       
-        this.data = JSON.parse(JSON.stringify(response)).data;
-        
-        if (this.data) {
-          this.hasNoRecord=true;
-          this.hasNoRecordmain=true;
-
-       }
-
-      },
-      (error) => {
-       
-
-      }
-    )
   }
 
   rejectedReasons(reason){
@@ -167,6 +175,7 @@ export class TransactionDetailsComponent {
     }
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
+
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
         if( this.detailInfo.lcProForma==null ||  this.detailInfo.lcProForma=="" ||  this.detailInfo.lcProForma==undefined){
           this.noFileDisable=false;
@@ -231,7 +240,6 @@ export class TransactionDetailsComponent {
   }
 
   openOffcanvas(status) {
-console.log(status)
     if (status === "Accepted") {
       document.getElementById("menu-barnew").style.width = "600px";
   }else if (status === "Expired") {
