@@ -260,7 +260,7 @@ export class DasboardDetailsComponent implements OnInit {
         data_goods.push(header_goods);
         for (var i = 0; i < this.piechartgoods.length; i++) {
             var temp=[];
-            if(Number(this.piechartcountry[i].goodsCount)>0)
+            if(Number(this.piechartgoods[i].goodsCount)>0)
             {
             temp.push(this.piechartgoods[i].goodsType);
             temp.push(Number(this.piechartgoods[i].goodsCount));
@@ -298,6 +298,7 @@ export class DasboardDetailsComponent implements OnInit {
       chart.draw(cdata, options);   
   }
   drawChartForGoods(data){
+    console.log("data----",data)
     const cdata = new google.visualization.arrayToDataTable(data)
     const options = {
       legend: { 
