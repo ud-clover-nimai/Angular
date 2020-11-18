@@ -136,7 +136,6 @@ cancelDiscard(){
   $("#discardQuote").hide(); 
 }
   deleteDraft(data){
-    console.log(data)
     if(data){
       var req = {
         "quotationId": data.quotationId

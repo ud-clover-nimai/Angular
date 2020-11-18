@@ -49,11 +49,12 @@ export class UploadLCComponent implements OnInit {
   draftData: any;
   cloneData: any;
   document: any;
-  countryName: any;
+  countryName: any[];
   selectInfo: any;
   notImgDownload: boolean=false;
   imgDownload: boolean=false;
   fileData: any;
+  currencies: any;
 
 
   // rds: refinance Data Service
@@ -108,6 +109,10 @@ export class UploadLCComponent implements OnInit {
       loads();
     }, 500);
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+
+      
+    this.currencies = [...new Set(this.countryName.map(item => item.currency))];
+  
     
   }
   ngAfterViewInit() {
@@ -281,6 +286,7 @@ export class UploadLCComponent implements OnInit {
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
     data.requirementType = data.selector;
+    data.lcMaturityDate = (data.lcMaturityDate) ? this.dateFormat(data.lcMaturityDate) : '';
     data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     
 
@@ -343,6 +349,7 @@ export class UploadLCComponent implements OnInit {
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : '';
+    data.lcMaturityDate = (data.lcMaturityDate) ? this.dateFormat(data.lcMaturityDate) : '';
     data.requirementType = data.selector;
     data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.transactionId = this.transactionID;
@@ -670,6 +677,10 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
+  // this.draftData = JSON.parse(JSON.stringify(response)).data;
+        // var str = this.draftData.tenorFile; 
+        // var splittedStr = str.split(" |", 1); 
+        // console.log(splittedStr[0]);
 
         // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
         this.draftData = JSON.parse(JSON.stringify(response)).data;
@@ -705,7 +716,9 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           //For Refinancing
           originalTenorDays:this.draftData.originalTenorDays,
           refinancingPeriod:this.draftData.refinancingPeriod,
-          lcMaturityDate:this.draftData.lcMaturityDate,
+       //  lcMaturityDate:this.draftData.lcMaturityDate,
+          lcMaturityDate:this.setDateFromApi(this.draftData.lcMaturityDate),
+          tenorFile:this.draftData.tenorFile,
           lcNumber:this.draftData.lcNumber,
           lastBeneBank:this.draftData.lastBeneBank,
           lastBeneSwiftCode:this.draftData.lastBeneSwiftCode,
@@ -792,9 +805,9 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           //For Refinancing
           originalTenorDays:this.cloneData.originalTenorDays,
           refinancingPeriod:this.cloneData.refinancingPeriod,
-          lcMaturityDate:this.cloneData.lcMaturityDate,
+          lcMaturityDate:this.setDateFromApi(this.cloneData.lcMaturityDate),
           lcNumber:this.cloneData.lcNumber,
-          lastBeneBank:this.cloneData.lastBeneBank,
+                    lastBeneBank:this.cloneData.lastBeneBank,
           lastBeneSwiftCode:this.cloneData.lastBeneSwiftCode,
           lastBankCountry:this.cloneData.lastBankCountry,
       

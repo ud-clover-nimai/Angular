@@ -387,7 +387,6 @@ export class TransactionDetailsComponent {
   }
 
   reOpenTransaction(transactionId) {
-    console.log(transactionId)
     if ($('#addOptions select').val() == "Rejected") {
       var data = {
         "transactionId": transactionId,

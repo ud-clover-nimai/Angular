@@ -268,7 +268,6 @@ export class DiscountingComponent implements OnInit {
       case 'submit': {
         this.okSucessmsg='ok';
         this.data.userType=this.userTypes;
-        console.log("this.data---",this.data)
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';

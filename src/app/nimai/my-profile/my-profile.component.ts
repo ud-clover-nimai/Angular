@@ -57,8 +57,6 @@ export class MyProfileComponent implements OnInit {
     this.callPersonalDetailService();
     this.callBusinessDetailService(sessionStorage.getItem('userID'))
     this.callKycDetailService(sessionStorage.getItem('userID'))
-    console.log("loading//////");
-
 
   }
 
@@ -87,9 +85,7 @@ export class MyProfileComponent implements OnInit {
     .subscribe(
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
-        console.log(responseData.data)
         this.personalDetails = responseData.data;
-        console.log("this.personalDetails.kycStatus---",this.personalDetails.kycStatus)
         var username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
         this.titleService.changeUserName(username);
         this.personalDetailsForm.patchValue({
@@ -130,7 +126,6 @@ export class MyProfileComponent implements OnInit {
     )
   }
   callKycDetailService(userID: string){
-    console.log("userID--",userID)
     this.kycUpload.viewKycDetails(userID).subscribe(
       (response) => {        
         let responseData = JSON.parse(JSON.stringify(response));
@@ -209,7 +204,6 @@ export class MyProfileComponent implements OnInit {
   openDocument(file){
     $('#modal_kycView').show();
    // this.document = file;
-   console.log('kk')
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 

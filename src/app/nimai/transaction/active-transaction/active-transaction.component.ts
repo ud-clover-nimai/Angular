@@ -251,7 +251,6 @@ export class ActiveTransactionComponent implements OnInit {
       this.nts.acceptBankQuote(req).subscribe(
         (response) => {          
           var acceptQuoteResp = JSON.parse(JSON.stringify(response));
-          console.log("acceptQuoteResp--",acceptQuoteResp)
           this.acceptedQuoteMessage=acceptQuoteResp.status
           if(acceptQuoteResp.status.toLowerCase() == "failure"){
             $('.acceptedErrorDetails').show();
@@ -262,7 +261,6 @@ export class ActiveTransactionComponent implements OnInit {
             $('#TransactionDetailDiv tr:eq(' + index +') td:eq(2)').html(this.acceptedDetails.bankName + ' - ' + this.acceptedDetails.branchName + ', '+ this.acceptedDetails.countryName);
             $('#TransactionDetailDiv tr:eq(' + index +') td:eq(6)').html("Accepted");
           }
-          console.log(this.acceptedDetails);
         },
         (err) => {
           console.log("Failure");

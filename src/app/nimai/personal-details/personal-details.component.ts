@@ -167,7 +167,6 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalDetailsForm.get('landLineNo').updateValueAndValidity();
    }
    setBankAsCustomerValidators(){
-    console.log("hii")
     this.personalDetailsForm.get('mobileNo').clearValidators();
     this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
     this.personalDetailsForm.get('landLineNo').setValidators([Validators.required,Validators.minLength(7)])
@@ -178,8 +177,7 @@ export class PersonalDetailsComponent implements OnInit {
     // let items = this.personalDetailsForm.get('otherEmails') as FormArray;
     // console.log("items",items.controls)
     this.submitted = true;
-    console.log("this.personalDetailsForm--",this.personalDetailsForm)
-    console.log("this.personalDetailsForm.invalid--",this.personalDetailsForm.invalid)
+   
     if(this.personalDetailsForm.invalid) {
       return;
     }
@@ -263,12 +261,9 @@ export class PersonalDetailsComponent implements OnInit {
          if(this.personalDetails.blacklistedGoods)
           this.blgTemp = this.filterDataBG(this.personalDetails.blacklistedGoods); 
 
-          console.log(this.intCntTemp);
-          console.log(this.blgTemp)
           let subscriptionType = this.personalDetailsForm.get('subscriberType').value;
           let bankType = this.personalDetails.bankType
-          console.log("subscriptionType",subscriptionType)
-          console.log("bankType",bankType)
+        
           if (subscriptionType === 'REFERRER') {
             this.isReferrer = true;
             this.isBankCustomer = false;

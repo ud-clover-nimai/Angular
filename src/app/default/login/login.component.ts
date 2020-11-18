@@ -229,15 +229,13 @@ export class LoginComponent implements OnInit {
         }
       } else {
         this.validateCommons();
-        console.log("this.signupForm---",this.signupForm)
-        console.log("this.submittedSignup --",this.submittedSignup )
+      
         if (this.signupForm.invalid) {
           return;
         }
       }
 
     }
-   console.log("data...",this.signupForm)
 //...........changes done by dhiraj........................................//
 this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   let res = JSON.parse(JSON.stringify(response)).data;

@@ -49,7 +49,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.changePasswordForm.value)
     this.submitted = true;
     if (this.changePasswordForm.invalid) {
       return;

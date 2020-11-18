@@ -258,7 +258,6 @@ export class BankerComponent implements OnInit {
          
             (response) => {
               this.totalQuote = JSON.parse(JSON.stringify(response)).data.TotalQuote;
-              console.log(this.totalQuote)
             },
           // this.ts.saveQuotationToDraft(this.data).subscribe(
           //   (response) => {
@@ -317,7 +316,6 @@ export class BankerComponent implements OnInit {
         }
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
-            console.log(response)
             this.tab = 'tab3';
             let emailBodyUpdate = {
               "transactionid": data.transactionId,
@@ -388,7 +386,6 @@ export class BankerComponent implements OnInit {
           (response) => {
             if (JSON.parse(JSON.stringify(response)).status === 'Failure') {
               this.errmessage = `Quotation has already Accepted by the Customer for the transaction : ${this.data.transactionId}`
-              console.log(this.errmessage)
               $("#labBank").text(this.errmessage);
               document.getElementById("myModalBank").style.display = "block";
             }
