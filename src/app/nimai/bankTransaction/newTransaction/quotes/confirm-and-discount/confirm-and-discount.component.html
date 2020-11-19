@@ -392,15 +392,29 @@
                                             <td>
                                                 <input [checked]="charges1" type="radio" id="optn1" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 negotiation date</td>
-                                            <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectidNego" [(ngModel)]="data.confChgsIssuanceToNegot" [disabled]="radioid" readonly >
+                                            <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectidNego" [(ngModel)]="data.confChgsIssuanceToNegot"
+                                                #confChgsIssuanceToNegot="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToNegot.invalid }" required  >
+                                                <div *ngIf="f.submitted && confChgsIssuanceToNegot.invalid" class="invalid-feedback">
+                                                    <div *ngIf="confChgsIssuanceToNegot.errors.required"></div>
+                                                </div>
+                                                </td>
+
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn2" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
                                                 date of maturity <a class="" data-toggle="tooltip" data-placement="right" title="maturity date"><i
                                                     class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> </td>
-                                            <td><input type="hidden" name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur" [disabled]="radioid" readonly >
+                                                    style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
+                                                    <div *ngIf="f.submitted && confChgsIssuanceToMatur.invalid" style="padding-top: 20px;padding-right: 35px;" class="invalid-feedback">
+                                                        <div *ngIf="confChgsIssuanceToMatur.errors.required">Please select any one confirmation charge</div>
+                                                    </div>
+                                                </td>                                           
+                                                    <td><input type="hidden"  name="confChgsIssuanceToMatur" id="selectidMatur" [(ngModel)]="data.confChgsIssuanceToMatur"
+                                                #confChgsIssuanceToMatur="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToMatur.invalid }" required >
+                                               
+                                                </td>
+                                                
                                         </tr>
                                         <tr>
                                             <td>Applicable Benchmark (if any)</td>

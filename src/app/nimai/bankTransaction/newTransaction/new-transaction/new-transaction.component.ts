@@ -369,7 +369,7 @@ export class NewTransactionComponent implements OnInit {
     }
 
     if (pagename == 'confirmation' || pagename === 'Confirmation') {
-      this.confirmation.action(true, action, data);
+       this.confirmation.action(true, action, data);
       this.discounting.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;

@@ -782,6 +782,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
 
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
           this.ngOnInit();    
+          this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)
+          this.Others.portLoadingOnchange(this.cloneData.loadingCountry)
           this.ApplicantBeneficiary.onItemChange(this.cloneData.userType);   
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,

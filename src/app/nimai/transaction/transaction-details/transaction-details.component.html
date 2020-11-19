@@ -512,12 +512,10 @@
                                  <td>Discounting Charges p.a.</td>
                                  <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}%</td>
                               </tr>
-                              <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
-                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                              <tr *ngIf="quotationdata.confChgsIssuanceToNegot!='0.0' && (quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
                               </tr>
-                              <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
-                                 <td>
+                              <tr *ngIf="quotationdata.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                 <td>
                                     Confirmation Charges from Date of Issuance till date of maturity</td>
                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                               </tr>
@@ -921,11 +919,10 @@
                                  <td>Discounting Charges p.a.</td>
                                  <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}%</td>
                               </tr>
-                              <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
-                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                              <tr *ngIf="quotationdata.confChgsIssuanceToNegot!='0.0' && (quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                 <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
                               </tr>
-                              <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
+                              <tr *ngIf="quotationdata.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                 <td>
                                  <td>
                                     Confirmation Charges from Date of Issuance till date of maturity</td>
                                  <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
@@ -1322,12 +1319,11 @@
                                   <td>Discounting Charges p.a.</td>
                                   <td *ngIf="quotationdata">{{quotationdata.discountingCharges}}%</td>
                                </tr>
-                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
-                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                               <tr *ngIf="quotationdata.confChgsIssuanceToNegot!='0.0' && (quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                  <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
                                   <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
                                </tr>
-                               <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation'">
-                                  <td>
+                               <tr *ngIf="quotationdata.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">                                 <td>
+                                 <td>
                                      Confirmation Charges from Date of Issuance till date of maturity</td>
                                   <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                </tr>

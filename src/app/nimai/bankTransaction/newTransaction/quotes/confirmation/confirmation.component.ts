@@ -161,16 +161,21 @@ export class ConfirmationComponent implements OnInit {
   }
 
   onNegotChange(value) {
-
+    this.data.confChgsIssuanceToMatur='no';
+    this.data.confChgsIssuanceToNegot='yes';
     this.selectMature = 'no';
     this.selectNego = 'yes';
   }
 
   onMatureChange(value) {
+    this.data.confChgsIssuanceToMatur='yes';
+    this.data.confChgsIssuanceToNegot='no';
     this.selectMature = 'yes';
     this.selectNego = 'no';
   }
   public action(flag: boolean, type: Tflag, data: any) {
+
+ this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';
     } if(data.chargesType=='null'){
@@ -224,6 +229,14 @@ export class ConfirmationComponent implements OnInit {
           data.confChgsIssuanceToMatur = "";
           this.selectMature = 'no';
           this.selectNego = 'yes';
+        }else{
+          this.charges1=false;
+       this.charges2=false;
+       data.confChgsIssuanceToNegot = "";
+       data.confChgsIssuanceToMatur = "";
+     
+
+
         }
       }
     } else {
@@ -262,15 +275,15 @@ export class ConfirmationComponent implements OnInit {
         if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
-          this.dataViewEdit.confChgsIssuanceToMatur = "";
-          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
+          this.dataViewEdit.confChgsIssuanceToNegot = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
         } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
-          this.dataViewEdit.confChgsIssuanceToNegot = "";
-          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
+          this.dataViewEdit.confChgsIssuanceToMatur = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -387,15 +400,15 @@ export class ConfirmationComponent implements OnInit {
         if (data.confChgsIssuanceToMatur === 'yes') {
           this.charges2 = true;
           this.charges1 = false;
-          data.confChgsIssuanceToMatur = "";
-          data.confChgsIssuanceToNegot = "";
+          data.confChgsIssuanceToMatur = "yes";
+          data.confChgsIssuanceToNegot = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
         } else if (data.confChgsIssuanceToNegot === 'yes') {
           this.charges1 = true;
           this.charges2 = false;
-          data.confChgsIssuanceToNegot = "";
-          data.confChgsIssuanceToMatur = "";
+          data.confChgsIssuanceToNegot = "yes";
+          data.confChgsIssuanceToMatur = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -478,8 +491,8 @@ export class ConfirmationComponent implements OnInit {
         )
       } break;
       case 'generateQuote': {    
+        
         this.radioid = true;   
-        console.log("radioid generateQuote-------------",this.radioid) 
         this.tab = 'tab2';
         this.data.confChgsIssuanceToNegot = this.selectNego;
         this.data.confChgsIssuanceToMatur = this.selectMature;
