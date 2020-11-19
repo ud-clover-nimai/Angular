@@ -42,6 +42,8 @@ export class SubscriptionComponent implements OnInit {
   public isCustomer = false;
   status: any;
   hideRenew: boolean;
+  couponError=false;
+  couponAmount:any;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -129,11 +131,12 @@ export class SubscriptionComponent implements OnInit {
     //   this.showVASPlan = true;
     // }  
 
-    if(sessionStorage.getItem("isvasapplied") == 'null' || sessionStorage.getItem("isvasapplied") == 'false' || sessionStorage.getItem("isvasapplied") == '0'){
+    //if(sessionStorage.getItem("isvasapplied") == 'null' || sessionStorage.getItem("isvasapplied") == 'false' || sessionStorage.getItem("isvasapplied") == '0'){
       if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
-      this.showVASPlan = true;
-    }
-    }else{
+        this.showVASPlan = true;
+      }
+    //}
+    else{
       this.showVASPlan = false;
     }
    // console.log("this.showVASPlan---",this.showVASPlan)
@@ -151,7 +154,30 @@ export class SubscriptionComponent implements OnInit {
       }
     })
   }
-
+  applyNow(val){
+    let req = {
+      "userId": sessionStorage.getItem('userID'),
+      "subscriptionName":this.choosedPlan.subscriptionName,
+	    "coupenCode":val,
+	    "subscriptionAmount":this.choosedPlan.subscriptionAmount,
+      "subscriptionId":this.choosedPlan.subscriptionId
+    }
+    this.subscriptionService.applyCoupon(req).subscribe(response => {
+       let data= JSON.parse(JSON.stringify(response))
+       if(data.status=="Failure"){
+         this.couponError=true;
+       }else{
+        alert(data.status)
+        this.couponAmount = Number(data.data);
+        if(this.callVasService)
+          this.addedAmount = this.couponAmount+parseFloat(this.advPrice);
+        else
+          this.addedAmount=this.couponAmount
+        this.couponError=false;
+       }
+    }
+    )
+  }
   public payNow(planType) {
     this.isNew = false;
     this.isRenew=false;
@@ -166,8 +192,6 @@ export class SubscriptionComponent implements OnInit {
     $('.red').slideUp();
     $('#planUnlimited').show();
     $("#option-one"). prop("checked", true);
-
-
     // this.titleService.loading.next(true);
     $(document).ready(function () {
       if(planType == "unlimited"){
@@ -365,14 +389,21 @@ export class SubscriptionComponent implements OnInit {
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
   }
   addAdvService(event){
+    console.log("parseFloat(this.advPrice)----",parseFloat(this.advPrice))
     if (event.target.value === "Add") {
       this.callVasService=true;
-      this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
+      if(this.couponAmount)
+        this.addedAmount=parseFloat(this.couponAmount)+parseFloat(this.advPrice);
+      else  
+        this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
       event.target.value = "Remove";
       } else {
       this.callVasService=false;  
       event.target.value = "Add";
-      this.addedAmount = this.choosedPrice;
+      if(this.couponAmount)
+        this.addedAmount= this.couponAmount
+      else  
+        this.addedAmount = this.choosedPrice;
       }      
   }
   renewPlan(){

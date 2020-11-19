@@ -226,6 +226,7 @@ export class DashboardComponent implements OnInit {
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
         sessionStorage.setItem("creditCount", this.nimaiCount.creditCount);
         sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
+        sessionStorage.setItem("subscriptionid", this.nimaiCount.subscriptionid);
         sessionStorage.setItem("isvasapplied", this.nimaiCount.isvasapplied);
         sessionStorage.setItem("subsidiries", this.nimaiCount.subsidiries);
         sessionStorage.setItem("subuticount", this.nimaiCount.subuticount);  

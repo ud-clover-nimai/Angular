@@ -63,7 +63,33 @@
                         <div class="ripple-container"></div>
                      </button>
                   </div>   
-                  <div class='col-md-8' *ngIf="showSuccess"><p class="errormessage text-success" style="margin-bottom: 15px;">Congratulations! You applied Vas plan Successfully!</p></div>                                
+                  <div class='col-md-8' *ngIf="showSuccess">
+                     <p class="errormessage text-success" style="margin-bottom: 15px;">Your Vas Plan is Active.</p>
+                     <div class="col-md-4">
+                           <div class="boxline">
+                              <p>
+                                 <strong>Advisory Services</strong>
+                              </p>
+                              <table>
+                                 <tr>
+                                    <td class="text-left">
+                                       <b>{{viewAdvDetails.plan_name}}</b>
+                                       <ul>
+                                          <li *ngIf="viewAdvDetails.description_1">{{viewAdvDetails.description_1}}</li>
+                                          <li *ngIf="viewAdvDetails.description_2">{{viewAdvDetails.description_2}}</li>
+                                          <li *ngIf="viewAdvDetails.description_3">{{viewAdvDetails.description_3}}</li>
+                                          <li *ngIf="viewAdvDetails.description_4">{{viewAdvDetails.description_4}}</li>
+                                          <li *ngIf="viewAdvDetails.description_5">{{viewAdvDetails.description_5}}</li>
+                                       </ul>
+                                    </td>
+                                    <td class="text-right">
+                                       <p><strong>US ${{viewAdvDetails.pricing}}</strong></p>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </div> 
+                  </div>                                
                   <div class="clearfix"></div>
                </div>
             </div>

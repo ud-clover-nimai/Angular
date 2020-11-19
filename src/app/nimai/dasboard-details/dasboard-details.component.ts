@@ -297,8 +297,7 @@ export class DasboardDetailsComponent implements OnInit {
       const chart = new google.visualization.PieChart(document.getElementById('pieChart'));
       chart.draw(cdata, options);   
   }
-  drawChartForGoods(data){
-    console.log("data----",data)
+  drawChartForGoods(data){    
     const cdata = new google.visualization.arrayToDataTable(data)
     const options = {
       legend: { 
@@ -434,5 +433,8 @@ public onOptionsSelected(event) {
         },
         (err) => { }
       )
+  }
+  validateRegexFields(event, type){
+    event.preventDefault();
   }
 }

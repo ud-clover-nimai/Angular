@@ -148,3 +148,14 @@ background: #00bcd4;
 .plan-features {
     height: 200px!important;
 }
+.invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 186px;
+    right: 84px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}

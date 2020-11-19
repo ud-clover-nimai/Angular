@@ -140,7 +140,7 @@
                                  <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
                                  <mat-form-field>
                                     <mat-label>Start Date</mat-label>
-                                    <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate( $event)">
+                                    <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate($event)" (keydown)="validateRegexFields($event, 'date_validation')">
                                     <mat-datepicker-toggle matSuffix [for]="startDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #startDate>
@@ -152,7 +152,7 @@
                                  <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
                                  <mat-form-field>
                                     <mat-label>End Date</mat-label>
-                                    <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)">
+                                    <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)" (keydown)="validateRegexFields($event, 'date_validation')">
                                     <mat-datepicker-toggle matSuffix [for]="endDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #endDate>

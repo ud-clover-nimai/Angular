@@ -406,3 +406,16 @@
 mat-form-field {
   margin-right: 12px;
 }
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #00bcd4!important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #00bcd4;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-required-marker {
+  color: #00bcd4;
+}
+::ng-deep .mat-form-field.mat-focused .mat-input-element {
+  color: #00bcd4;
+}
