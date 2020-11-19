@@ -54,19 +54,36 @@ export class OthersComponent implements OnInit {
 
 
   portDischargeOnchange(event:any){
-    
-    const data={
-              "countryName":this.LcDetail.get('dischargeCountry').value
-            }    
+    var data;
+    if(this.LcDetail.get('dischargeCountry').value==""){
+       data={
+        "countryName":event
+        
+      } 
+    }else{
+       data={
+        "countryName":this.LcDetail.get('dischargeCountry').value
+      } 
+    }
+      
       this.upls.getPortByCountry(data).subscribe(
         (response) => {
           this.portOfDischarge = JSON.parse(JSON.stringify(response)).data;
         });
   }
   portLoadingOnchange(event:any){
-    const data={
-              "countryName":this.LcDetail.get('loadingCountry').value
-            }    
+var data;
+if(this.LcDetail.get('loadingCountry').value==""){
+   data={
+    "countryName":event
+  } 
+}else{
+   data={
+    "countryName":this.LcDetail.get('loadingCountry').value
+  } 
+}
+
+     
       this.upls.getPortByCountry(data).subscribe(
         (response) => {
           this.portOfLoading = JSON.parse(JSON.stringify(response)).data;

@@ -13,6 +13,7 @@ import { loads } from 'src/assets/js/commons'
 import { LoginService } from 'src/app/services/login/login.service';
 import { ApplicantBeneficiaryComponent } from './applicant-beneficiary/applicant-beneficiary.component';
 import * as FileSaver from 'file-saver';
+import { OthersComponent } from './others/others.component';
 
 
 
@@ -23,6 +24,8 @@ import * as FileSaver from 'file-saver';
 })
 export class UploadLCComponent implements OnInit {
   @ViewChild(ApplicantBeneficiaryComponent, { static: true }) ApplicantBeneficiary: ApplicantBeneficiaryComponent;
+  @ViewChild(OthersComponent, { static: true }) Others: OthersComponent;
+
   public lcDetailForm: FormGroup
   public selector: string = "Confirmation";
   public title: string = "New Transaction";
@@ -55,6 +58,7 @@ export class UploadLCComponent implements OnInit {
   imgDownload: boolean=false;
   fileData: any;
   currencies: any;
+  portOfDischarge: any;
 
 
   // rds: refinance Data Service
@@ -677,16 +681,17 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
+        this.draftData = JSON.parse(JSON.stringify(response)).data;
+        
   // this.draftData = JSON.parse(JSON.stringify(response)).data;
         // var str = this.draftData.tenorFile; 
         // var splittedStr = str.split(" |", 1); 
         // console.log(splittedStr[0]);
 
-        // this.upls.confirmLcMailSent(emailBodyUpdate).subscribe((resp) => {console.log("Email sent successfully");},(err) => {},);
-        this.draftData = JSON.parse(JSON.stringify(response)).data;
-      //  console.log("this.draftData---",this.draftData)
         this.ngOnInit();
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
+        this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
+        this.Others.portLoadingOnchange(this.draftData.loadingCountry)
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
@@ -759,7 +764,9 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           beneContactPersonEmail:this.draftData.beneContactPersonEmail,
         });
     // this.lc = this.lcDetailForm.value;
-      },(error) =>{
+      
+  }     
+      ,(error) =>{
       }
       )
   }
