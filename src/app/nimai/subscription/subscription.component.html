@@ -170,8 +170,9 @@
                                                 <label class="customlabel">Coupon Code</label>
                                             </td>
                                             <td>
-                                                <input type="text" name="" class="coupantext" maxlength="15" />
-                                                <a class="btn btn-info btn-xs pull-right marginzero">
+                                                <input type="text" name="" class="coupantext" maxlength="15" #coupon />
+                                                <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
+                                                <a class="btn btn-info btn-xs pull-right marginzero" (click)="applyNow(coupon.value)">
                                                     Apply
                                                     <div class="ripple-container"></div>
                                                 </a>
