@@ -17,4 +17,7 @@ export class Subscription {
     emailID:string;
     modeOfPayment:string;
     flag:string;
+    vasAmount:string;
+    grandAmount:string;
+    discount:string;
 }

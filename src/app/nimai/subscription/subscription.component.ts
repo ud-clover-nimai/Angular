@@ -31,6 +31,7 @@ export class SubscriptionComponent implements OnInit {
   advPrice: any;
   choosedPrice: any;
   addedAmount: any;
+  grandTotal:any;
   showVASPlan = false;
   callVasService=false;
   isRenew = false;
@@ -43,7 +44,8 @@ export class SubscriptionComponent implements OnInit {
   status: any;
   hideRenew: boolean;
   couponError=false;
-  couponAmount:any;
+  amountAfterCoupon:any;
+  discount:any;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -70,6 +72,8 @@ export class SubscriptionComponent implements OnInit {
     loads();
     this.titleService.changeTitle(this.title);
     this.getStatus();
+  
+
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
@@ -138,8 +142,7 @@ export class SubscriptionComponent implements OnInit {
     //}
     else{
       this.showVASPlan = false;
-    }
-   // console.log("this.showVASPlan---",this.showVASPlan)
+    }   
     let data = {
       "country_name": sessionStorage.getItem("registeredCountry")
     }
@@ -150,6 +153,9 @@ export class SubscriptionComponent implements OnInit {
         this.showVASPlan = false;
       }else{
         this.advPrice = this.advDetails.pricing;
+        // if(this.advPrice){
+        //   this.choosedPlan.subscriptionAmount=this.choosedPlan.subscriptionAmount+this.advPrice
+        // }
         this.vas_id=this.advDetails.vas_id
       }
     })
@@ -168,11 +174,16 @@ export class SubscriptionComponent implements OnInit {
          this.couponError=true;
        }else{
         alert(data.status)
-        this.couponAmount = Number(data.data);
+        this.amountAfterCoupon = Number(data.data.grandAmount);
+        this.discount=Number(data.data.discount);
         if(this.callVasService)
-          this.addedAmount = this.couponAmount+parseFloat(this.advPrice);
+        {
+          this.addedAmount = this.amountAfterCoupon+parseFloat(this.advPrice);
+        }
         else
-          this.addedAmount=this.couponAmount
+        {
+          this.addedAmount=this.amountAfterCoupon
+        }  
         this.couponError=false;
        }
     }
@@ -224,6 +235,10 @@ export class SubscriptionComponent implements OnInit {
   public payment() {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
+    this.choosedPlan.vasAmount=this.advPrice;
+    this.choosedPlan.grandAmount=this.addedAmount
+    this.choosedPlan.discount=this.discount;
+    console.log("this.choosedPlan Credit",this.choosedPlan)
     this.choosedPlan.modeOfPayment="Credit" 
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
@@ -246,7 +261,6 @@ export class SubscriptionComponent implements OnInit {
       .subscribe(
         response => {
           let data= JSON.parse(JSON.stringify(response))
-          console.log("data msg---",data.errMessage)
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
@@ -278,6 +292,7 @@ export class SubscriptionComponent implements OnInit {
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           }); 
+        //  this.viewVASPlans();  
           }
         },
         (error) => {
@@ -297,11 +312,17 @@ export class SubscriptionComponent implements OnInit {
 
       .subscribe(
         response => {
-          this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];          
+          this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];   
+          let reData=JSON.parse(JSON.stringify(response)).data[0]       
           if(this.choosedPlan.status.toLowerCase() != "active"){
             this.getSubscriptionDetails();
           }
-          this.isNew = false;
+          if(reData.isVasApplied=="1")
+            this.viewVASPlans()
+          if(reData.grandAmount)
+            this.choosedPlan.subscriptionAmount=reData.grandAmount  
+         
+          this.isNew = false
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
@@ -328,6 +349,10 @@ export class SubscriptionComponent implements OnInit {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    
     this.choosedPlan.modeOfPayment="Wire"
+    this.choosedPlan.vasAmount=this.advPrice;
+    this.choosedPlan.grandAmount=this.addedAmount
+    this.choosedPlan.discount=this.discount;
+    console.log("this.choosedPlan Wire",this.choosedPlan)  
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
     }
@@ -389,22 +414,25 @@ export class SubscriptionComponent implements OnInit {
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
   }
   addAdvService(event){
-    console.log("parseFloat(this.advPrice)----",parseFloat(this.advPrice))
     if (event.target.value === "Add") {
       this.callVasService=true;
-      if(this.couponAmount)
-        this.addedAmount=parseFloat(this.couponAmount)+parseFloat(this.advPrice);
-      else  
+      if(this.amountAfterCoupon){
+        this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);
+      }
+      else{
         this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
+      }
       event.target.value = "Remove";
       } else {
       this.callVasService=false;  
       event.target.value = "Add";
-      if(this.couponAmount)
-        this.addedAmount= this.couponAmount
-      else  
+      if(this.amountAfterCoupon){
+        this.addedAmount= this.amountAfterCoupon
+      }
+      else{  
         this.addedAmount = this.choosedPrice;
-      }      
+      }
+    }      
   }
   renewPlan(){
     this.isRenew=true;
