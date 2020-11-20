@@ -184,7 +184,8 @@ export class DashboardComponent implements OnInit {
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
           let personalDetails = responseData.data;
-
+          console.log("personalDetails---",personalDetails)
+          sessionStorage.setItem('custUserEmailId', personalDetails.emailAddress);
           this.username = personalDetails.firstName + " " + personalDetails.lastName;
           this.titleService.changeUserName(this.username);
           this.titleService.loading.next(false);

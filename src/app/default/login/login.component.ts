@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isReferrerOther=false;
+   this.isReferrerOther=false;
     loads();
     loadLogin();
     this.loginForm = this.fb.group({
@@ -320,7 +320,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       setTimeout(function () { loads() }, 100);
     }else if (subscriptionType === 'referrer') {
       this.resetSignUpForm();
-      this.isReferrerOther=false;
       this.signupForm.patchValue({ radio: 'referrer' })
       this.isBank = false;
       this.isReferrer = true;

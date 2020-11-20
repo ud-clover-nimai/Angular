@@ -176,13 +176,14 @@
                                                     Apply
                                                     <div class="ripple-container"></div>
                                                 </a>
+                                                <!-- <mat-icon style="color: red;" *ngIf="isApply" (click)="deleteCoupon()" class="deleteFile">close</mat-icon> -->
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="customlabel">Discount</label>
                                             </td>
-                                            <td>US $0</td>
+                                            <td>US $ {{discount}}</td>
                                         </tr>
                                         <tr>
                                             <th>
@@ -313,7 +314,7 @@
                                     </div>
                                 </div>
                                 <div class='col-md-8'><p class="errormessage text-success" style="margin-bottom: 15px;">Congratulations! Your Payment is Successful!</p></div>                                
-                                <!-- <div class="col-md-5">
+                                <div class="col-md-5">
                                     <div class="boxline" *ngIf="showVASPlan">
                                         <p>
                                             <strong>Advisory Services</strong>
@@ -334,14 +335,14 @@
                                                     <p><strong>US ${{advDetails.pricing}}</strong></p>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td colspan="2">
                                                     <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </table>
                                     </div>                                
-                                </div> -->
+                                </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-8">
                                     <div class="col-md-7">

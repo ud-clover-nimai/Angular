@@ -151,8 +151,8 @@ background: #00bcd4;
 .invalid-feedback {
 	display: block;
     position: absolute;
-    top: 186px;
-    right: 84px;
+    top: 221px;
+    right: 132px;
     color: #ff0330;
     padding: 2px 5px;
     border-radius: 5px;
