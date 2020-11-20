@@ -222,7 +222,7 @@ export class RefinancingComponent implements OnInit {
             (response) => {
               this.detail = JSON.parse(JSON.stringify(response)).status;
               if(this.detail=="Validate Success"){
-                alert("Quote Validated Successfully.")
+                $("#validateSuccessRef").show();
               }else{
                 console.log("Someting went wrong.")
               }
@@ -279,7 +279,9 @@ export class RefinancingComponent implements OnInit {
         break;
     }
   }
-
+  closeValidate(){
+    $("#validateSuccessRef").hide();
+  }
 
   redirectToactive() {
     const navigationExtras: NavigationExtras = {

@@ -271,6 +271,7 @@ export function manageSub() {
         setTimeout(function() {
             $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
+                destroy: true,
                 pagingType: "full_numbers",
                 scrollX: true,
                 lengthMenu: [
@@ -686,6 +687,7 @@ export function bankNewTransaction() {
         $('select').css('color', '#5c9fd9');
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
+             destroy: true,
             "pagingType": "full_numbers",
             "scrollX": true,
             "initComplete": function(settings, json) {
@@ -1050,6 +1052,7 @@ export function bankActiveTransaction() {
         $('select').css('color', '#333');
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
+            destroy: true,
             "pagingType": "full_numbers",
             "scrollX": true,
             "initComplete": function(settings, json) {
@@ -1535,6 +1538,7 @@ export function bankRequest() {
         setTimeout(function() {
            $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
+                destroy: true,
                 "pagingType": "full_numbers",
                 "scrollX": true,
                 "initComplete": function(settings, json) {
@@ -1609,7 +1613,8 @@ export function custTrnsactionDetail() {
     $('#datatables').DataTable().destroy();
     setTimeout(function() {  
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});            
-        $('#datatables').DataTable({            
+        $('#datatables').DataTable({         
+            destroy: true,   
             "pagingType": "full_numbers",
             "scrollX": true,
             "initComplete": function(settings, json) {
@@ -1648,6 +1653,7 @@ export function custActiveTransaction() {
         $('select').css('color', '#333');
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
+            destroy: true,
             "pagingType": "full_numbers",
             "scrollX": true,
             "initComplete": function(settings, json) {
@@ -2021,6 +2027,7 @@ export function newRequest() {
             $('select').css('color', '#333');
             $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             $('#datatables').DataTable({
+                destroy: true,
                 "pagingType": "full_numbers",
                 "scrollX": true,
                 "initComplete": function(settings, json) {
@@ -2081,6 +2088,7 @@ export function creditTransaction() {
         demo.initFormExtendedDatetimepickers();
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
+            destroy: true,
             "pagingType": "full_numbers",
             "scrollX": true,
             "initComplete": function(settings, json) {
@@ -2237,6 +2245,7 @@ export function dashboard_details() {
     $(document).ready(function () {
         // $('select').css('color', '#333');
         $('#datatables').DataTable({
+            destroy: true,
             "pagingType": "full_numbers", "scrollX": true,
            // "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50]],
            "lengthMenu": [ 5,10, 25, 50 ],

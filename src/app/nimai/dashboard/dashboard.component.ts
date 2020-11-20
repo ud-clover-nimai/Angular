@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   creditCount: number;
   userStat: any;
   creditenable: string;
+  enableuserStat: boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
@@ -57,6 +58,7 @@ export class DashboardComponent implements OnInit {
 
     if (userId.startsWith('RE')) {
       this.userType = "Referrer";
+      this.usersStat('RE');
     } else if (userId.startsWith('BC')) {
       this.userType = "Bank as a customer";
       this.usersStat('BC');
@@ -208,7 +210,10 @@ export class DashboardComponent implements OnInit {
         var colonSplit = splittedStr[0]
         var arrsplit = colonSplit.split(": ", 2); 
         this.userStat=arrsplit[1]+" customers placed transaction on NimaiTrade in last 24 hours";
+        }else if(users=='RE'){
+           this.enableuserStat=true;
         }
+
        
 
       })

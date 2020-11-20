@@ -219,7 +219,7 @@ export class DiscountingComponent implements OnInit {
           (response) => {
             this.detail = JSON.parse(JSON.stringify(response)).status;
             if(this.detail=="Validate Success"){
-              alert("Quote Validated Successfully.")
+              $("#validateSuccessDis").show();
             }else{
               console.log("Someting went wrong.")
             }
@@ -274,7 +274,9 @@ export class DiscountingComponent implements OnInit {
         break;
     }
   }
-
+  closeValidate(){
+    $("#validateSuccessDis").hide();
+  }
 
   redirectToactive() {
     const navigationExtras: NavigationExtras = {

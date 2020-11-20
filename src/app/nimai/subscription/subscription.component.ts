@@ -55,7 +55,9 @@ export class SubscriptionComponent implements OnInit {
 
     let navigation = this.router.getCurrentNavigation();
     if(navigation.extras.state){
+      console.log(navigation.extras.state.redirectedFrom)
       if(navigation.extras.state.redirectedFrom == "New-Transaction"){
+        console.log('hkhkjh')
         this.getSubscriptionDetails();
       }
     }
@@ -79,6 +81,7 @@ export class SubscriptionComponent implements OnInit {
       "countryName": sessionStorage.getItem('registeredCountry')
     }
     this.subscriptionService.getPlansByCountry(req).subscribe(data => {
+      console.log(this.isRenew)
       if(!this.isRenew){
         this.isNew = true;
         this.isnewPlan=true;

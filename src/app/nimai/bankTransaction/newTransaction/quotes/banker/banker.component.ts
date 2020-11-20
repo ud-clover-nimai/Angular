@@ -219,7 +219,8 @@ export class BankerComponent implements OnInit {
             (response) => {
               this.detail = JSON.parse(JSON.stringify(response)).status;
               if(this.detail=="Validate Success"){
-                alert("Quote Validated Successfully.")
+                // alert("Quote Validated Successfully.")
+                $("#validateSuccessBank").show();
               }else{
                 console.log("Someting went wrong.")
               }
@@ -282,6 +283,9 @@ export class BankerComponent implements OnInit {
     }
   }
 
+closeValidate(){
+  $("#validateSuccessBank").hide();
+}
 
   redirectToactive() {
     const navigationExtras: NavigationExtras = {

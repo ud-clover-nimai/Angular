@@ -353,7 +353,7 @@
             </li>
           </ul>
           <div class="row"></div>
-          <div class="card-columns">
+          <div [hidden]="enableuserStat" class="card-columns">
             <div class="card" style="background: #e4dede;border-radius: 2%;">
               <div class="card-footer text-center">
                 <p class="card-text">{{userStat}}</p>
