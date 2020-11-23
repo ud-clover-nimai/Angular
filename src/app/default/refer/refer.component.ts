@@ -27,6 +27,7 @@ export class ReferComponent implements OnInit {
   referViewDetails : any;
   respMessage: string;
   total_references:number;
+  total_earning:number;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -67,6 +68,7 @@ export class ReferComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.total_earning=0;
     loads();
     manageSub();
     this.viewReferDetails(sessionStorage.getItem('userID'));
@@ -151,12 +153,6 @@ export class ReferComponent implements OnInit {
     
     this.submitted = false;
     this.CompanyName = this.referForm.get('companyName').value;
-
-    const fg = {
-      "emailId": this.referForm.get('emailAddress').value,
-      "event": 'ADD_REFER',
-      "userId": sessionStorage.getItem('userID')
-    }
     this.signUpService.signUp(request).subscribe((response) => {
 
     this.service.addRefer(data)
@@ -164,6 +160,12 @@ export class ReferComponent implements OnInit {
         (response) => {
           let res = JSON.parse(JSON.stringify(response));
           console.log(res);
+          const fg = {
+            "emailId": this.referForm.get('emailAddress').value,
+            "event": 'ADD_REFER',
+            "userId": sessionStorage.getItem('userID'),
+            "referenceId":res.data.reId
+          }
           this.fps.sendEmailReferSubsidiary(fg)
             .subscribe(
               (response) => {
@@ -227,9 +229,14 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
+          let total = 0;
+          for (let i = 0; i < responseData.length; i++) {
+            console.log ("Block statement execution no." + responseData[i].earnings);
+            total +=Number(responseData[i].earnings);
+          }
+          this.total_earning=total;
           this.referViewDetails = responseData.filter(Boolean);;
           this.total_references=this.referViewDetails.length;
-          console.log("this.total_references---",this.total_references)
         },
         (error) => {}
       )

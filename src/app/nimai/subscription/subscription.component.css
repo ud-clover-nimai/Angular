@@ -148,14 +148,36 @@ background: #00bcd4;
 .plan-features {
     height: 200px!important;
 }
+.inputDiv {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 .invalid-feedback {
-	display: block;
+    display: block;
     position: absolute;
-    top: 221px;
-    right: 132px;
+    top: 16px;
+    right: 91px;
     color: #ff0330;
     padding: 2px 5px;
     border-radius: 5px;
     font-size: 10px;
     font-weight: 400;
+    width: 100px;
+}
+.valid-feedback{
+    display: block;
+    position: absolute;
+    top: 16px;
+    right: -11px;
+    color: green;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+    width: 163px;
+}
+.coupantext {
+    width: 150px!important;
 }

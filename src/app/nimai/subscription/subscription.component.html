@@ -130,7 +130,7 @@
                                     </div>
                                 </div> -->
                                 <div class="col-md-1"></div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="boxline" *ngIf="showVASPlan">
                                         <p>
                                             <strong>Advisory Services</strong>
@@ -169,14 +169,20 @@
                                             <td>
                                                 <label class="customlabel">Coupon Code</label>
                                             </td>
-                                            <td>
+                                            <td style="display: flex;">
                                                 <input type="text" name="" class="coupantext" maxlength="15" #coupon />
-                                                <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
+                                                <div class="inputDiv">
+                                                    <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
+                                                    <span *ngIf="couponSuccess" class="valid-feedback">{{couponSuccess}}</span>
+                                                </div>
                                                 <a class="btn btn-info btn-xs pull-right marginzero" (click)="applyNow(coupon.value)">
                                                     Apply
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                <!-- <mat-icon style="color: red;" *ngIf="isApply" (click)="deleteCoupon()" class="deleteFile">close</mat-icon> -->
+                                                <a style="left: 1%;" class="btn btn-danger btn-xs pull-right marginzero" *ngIf="isRemove" (click)="removeCoupon()" >
+                                                    Remove
+                                                    <div class="ripple-container"></div>
+                                                </a>
                                             </td>
                                         </tr>
                                         <tr>

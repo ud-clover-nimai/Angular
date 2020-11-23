@@ -14,6 +14,8 @@ import { loads } from '../../../assets/js/commons';
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
+  public isRemove=false;
+  discountId:any;
   public loading = true;
   public isNew = false;
   public isOrder = false;
@@ -44,6 +46,7 @@ export class SubscriptionComponent implements OnInit {
   status: any;
   hideRenew: boolean;
   couponError=false;
+  couponSuccess:any;
   amountAfterCoupon:any;
   discount:any;
   constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
@@ -163,6 +166,18 @@ export class SubscriptionComponent implements OnInit {
       }
     })
   }
+  removeCoupon(){
+    console.log("discountId---",this.discountId)
+    let req = {
+      "discountId": this.discountId
+    }
+    this.subscriptionService.removeCoupon(req).subscribe(response => {
+       let data= JSON.parse(JSON.stringify(response))
+        this.isRemove=false;
+        this.couponSuccess=false;
+    }
+    )
+  }
   applyNow(val){
     let req = {
       "userId": sessionStorage.getItem('userID'),
@@ -173,12 +188,17 @@ export class SubscriptionComponent implements OnInit {
     }
     this.subscriptionService.applyCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
+       this.isRemove=true;
        if(data.status=="Failure"){
+         console.log("data.status---",data.status)
          this.couponError=true;
+         this.isRemove=false;
        }else{
-        alert(data.status)
+        this.couponSuccess=data.status;
+        this.isRemove=true;
         this.amountAfterCoupon = Number(data.data.grandAmount);
         this.discount=Number(data.data.discount);
+        this.discountId=data.data.discountId
         if(this.callVasService)
         {
           this.addedAmount = this.amountAfterCoupon+parseFloat(this.advPrice);
