@@ -29,7 +29,7 @@ export class KycDetailsComponent implements OnInit {
   imageSrcBusi: any;
   imageSrcPer: any;
   private filename: string = '';
-  status: any;
+  kycStatusData: any;
   disabledBusiness: boolean=false;
   disabledpersonal: boolean=false;
   rejectReason: string;
@@ -85,61 +85,52 @@ export class KycDetailsComponent implements OnInit {
     this.titleService.changeTitle(this.title);
      let kycStatus = sessionStorage.getItem("kycStatus");
     if(kycStatus=="Approved"){
-      this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`]) 
-    }    
-
-this.checkStatus();
-
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
+    } 
+    if(kycStatus=="Pending"){   
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]) 
+    }
+   this.checkStatus();
   }
 checkStatus(){ 
    var userId = sessionStorage.getItem("userID")
-  
   this.kycService.viewKycDetails(userId)
   .subscribe(
     response => {
-      this.status= response;
-
-      if(this.status[0].kycStatus=='Pending' || this.status[1].kycStatus=='Pending'){
- 
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]);
-      });
-      }
-      else{
-
-      for (let i = 0; i < this.status.length; i++) {
-        if(this.status[i].title=="Business"){
-          if(this.status[i].kycStatus== "Rejected"){
+      this.kycStatusData= JSON.parse(JSON.stringify(response));
+      for (let i = 0; i < this.kycStatusData.length; i++) {
+        if(this.kycStatusData[i].title=="Business"){
+          if(this.kycStatusData[i].kycStatus== "Rejected"){
             this.disabledBusiness=true;
-            this.rejectReason=this.status[i].reason;
-            this.rejectedTitle=this.status[i].title;
+            this.rejectReason=this.kycStatusData[i].reason;
+            this.rejectedTitle=this.kycStatusData[i].title;
             $('#rejectedPopup').show();
           }
           this.kycDetailsForm.patchValue({      
-            busiCountry: this.status[i].country,
-            busiDocument:this.status[i].documentName,  
-            encodedFileContent:this.status[i].encodedFileContent,
+            busiCountry: this.kycStatusData[i].country,
+            busiDocument:this.kycStatusData[i].documentName,  
+            encodedFileContent:this.kycStatusData[i].encodedFileContent,
           })
-          this.imageSrcBusi=this.status[i].encodedFileContent;
+          this.imageSrcBusi=this.kycStatusData[i].encodedFileContent;
          } 
-         if (this.status[i].title=="Personal"){
-          if(this.status[i].kycStatus== "Rejected"){
+         if (this.kycStatusData[i].title=="Personal"){
+          if(this.kycStatusData[i].kycStatus== "Rejected"){
+            console.log("title--->",this.kycStatusData[i].title)
             this.disabledpersonal=true;
-            this.rejectReason=this.status[i].reason;
-            this.rejectedTitle=this.status[i].title;
+            this.rejectReason=this.kycStatusData[i].reason;
+            this.rejectedTitle=this.kycStatusData[i].title;
 
             $('#rejectedPopup').show();
           }
           this.kycDetailsForm.patchValue({                 
-      perCountry: this.status[i].country,  
-      perDocument :this.status[i].documentName,
-     encodedFileContent:this.status[i].encodedFileContent,
+      perCountry: this.kycStatusData[i].country,  
+      perDocument :this.kycStatusData[i].documentName,
+     encodedFileContent:this.kycStatusData[i].encodedFileContent,
           })
-          this.imageSrcPer=this.status[i].encodedFileContent;
+          this.imageSrcPer=this.kycStatusData[i].encodedFileContent;
 
          }
       }  
-    }
     },
     error => {
       this.detail = JSON.parse(JSON.stringify(error)).message;

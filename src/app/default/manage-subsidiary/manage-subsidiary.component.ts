@@ -26,7 +26,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   noData:any;
   subsidiries:any;
   subuticount:any;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -88,9 +88,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   onSubmit() {
-
     let data = {
-
       firstName: this.manageSubForm.get('firstName').value,
       lastName: this.manageSubForm.get('lastName').value,
       emailAddress: this.manageSubForm.get('emailId').value,
@@ -103,7 +101,6 @@ export class ManageSubsidiaryComponent implements OnInit {
       userId: "",
       bankType: 'customer',
       subscriberType: 'customer',
-
       minLCValue: '0',
       interestedCountry: [],
       blacklistedGoods: [],
@@ -115,7 +112,6 @@ export class ManageSubsidiaryComponent implements OnInit {
       emailAddress1: "",
       emailAddress2: "",
       emailAddress3: ""
-
     }
 
     this.submitted = true;
@@ -129,48 +125,77 @@ export class ManageSubsidiaryComponent implements OnInit {
       email: this.manageSubForm.get('emailId').value,
     }
     this.signUpService.signUp(data).subscribe((response) => {
-    let data= JSON.parse(JSON.stringify(response))
-    if(JSON.parse(JSON.stringify(response)).respMessage){
-      this.respMessage = JSON.parse(JSON.stringify(response)).errMessage;
+    let res= JSON.parse(JSON.stringify(response))
+    console.log("res",res);
+    const fg = {
+      "emailId": this.manageSubForm.get('emailId').value,
+      "event": 'ADD_SUBSIDIARY',
+      "userId": sessionStorage.getItem('userID')
+      //"referenceId":res.data.reId
     }
-    // .................changes done by dhiraj.....................
-      if(this.respMessage.indexOf('not match') > -1){
-        this.respMessage = "Domain Name does not match!";
-        $('#authemaildiv').slideDown();
-        $('#paradiv').slideDown();
-        $('#okbtn').hide();
-        $('#btninvite').show();   
-      }else if(data.errMessage){
-        if(data.status==="Success"){
-          this.status=true;
-        }else{
-          this.status=false;
+    this.fps.sendEmailReferSubsidiary(fg)
+      .subscribe(
+        (response) => {
+          this.resetPopup();
+          this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+        },
+        (error) => {
+          this.resetPopup();
+          this.respMessage = "Service not working! Please try again later."
         }
-        this.respMessage = data.errMessage
-        $('#authemaildiv').slideUp();
-        $('#paradiv').slideDown();
-        $('#okbtn').show();
-        $('#btninvite').hide();
-        this.manageSubForm.reset();
-      }
-      else{
-        this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."        
-        $('#authemaildiv').slideUp();
-        $('#paradiv').slideDown();
-        $('#okbtn').show();
-        $('#btninvite').hide();
-        this.manageSubForm.reset();
-      }
-
-    
-    (error) =>{
+      )}, (error) => {
         $('#authemaildiv').slideDown();
         $('#paradiv').slideDown();
         $('#okbtn').hide();
-        $('#btninvite').show();   
-        this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;       
-    }
-  })    
+        $('#btninvite').show();  
+        this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;
+      }
+    )
+    // if(JSON.parse(JSON.stringify(response)).respMessage){
+    //   this.respMessage = JSON.parse(JSON.stringify(response)).errMessage;
+    // }
+    // // .................changes done by dhiraj.....................
+    //   if(this.respMessage.indexOf('not match') > -1){
+    //     this.respMessage = "Domain Name does not match!";
+    //     $('#authemaildiv').slideDown();
+    //     $('#paradiv').slideDown();
+    //     $('#okbtn').hide();
+    //     $('#btninvite').show();   
+    //   }else if(data.errMessage){
+    //     if(data.status==="Success"){
+    //       this.status=true;
+    //     }else{
+    //       this.status=false;
+    //     }
+    //     this.respMessage = data.errMessage
+    //     $('#authemaildiv').slideUp();
+    //     $('#paradiv').slideDown();
+    //     $('#okbtn').show();
+    //     $('#btninvite').hide();
+    //     this.manageSubForm.reset();
+    //   }
+    //   else{
+    //     this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."        
+    //     $('#authemaildiv').slideUp();
+    //     $('#paradiv').slideDown();
+    //     $('#okbtn').show();
+    //     $('#btninvite').hide();
+    //     this.manageSubForm.reset();
+    //   }    
+    // (error) =>{
+    //     $('#authemaildiv').slideDown();
+    //     $('#paradiv').slideDown();
+    //     $('#okbtn').hide();
+    //     $('#btninvite').show();   
+    //     this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;       
+    // }   
+ }
+ resetPopup(){
+  $('#authemaildiv').slideUp();
+  $('#paradiv').slideDown();
+  $('#okbtn').show();
+  $('#btninvite').hide();
+  this.manageSubForm.reset();
  }
  validateRegexFields(event, type){
   if(type == "number"){
