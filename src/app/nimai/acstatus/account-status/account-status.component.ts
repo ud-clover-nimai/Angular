@@ -20,9 +20,12 @@ export class AccountStatusComponent implements OnInit {
 
   ngOnInit() {
     let kycStatus = sessionStorage.getItem("kycStatus");
+    console.log("kycStatus---",kycStatus)
     if(kycStatus=="Approved")
       this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
-    else
+    else if(kycStatus=="Rejected")
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
+    else  
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`])
   }
 

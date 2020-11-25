@@ -410,7 +410,7 @@
                         >Credits and Transactions</a
                       >
                     </li>
-                    <li>
+                    <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary'">
                       <a *ngIf="isCustomer" [routerLink]="['manage-sub']"
                         >Manage Subsidiary</a>
                     </li>
@@ -419,13 +419,13 @@
                         >Manage User</a
                       >
                     </li>
-                    <li><a [routerLink]="['refer']">Refer</a></li>
+                    <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'"><a [routerLink]="['refer']">Refer</a></li>
                     <li>
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
                     <li><a [routerLink]="['support']">Support</a></li>
-                    <li><a [routerLink]="['subscription']">Subscription</a></li>
-                    <li *ngIf="isCustomer"><a [routerLink]="['vasPlan']">Vas Plan</a></li>
+                    <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary'"><a [routerLink]="['subscription']">Subscription</a></li>
+                    <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary'"><a *ngIf="isCustomer"  [routerLink]="['vasPlan']">Vas Plan</a></li>
                     <!-- <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li> -->
                     <li>
                       <a

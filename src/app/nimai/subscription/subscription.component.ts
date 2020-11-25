@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { Subscription } from 'src/app/beans/subscription';
@@ -6,14 +5,16 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { loads } from '../../../assets/js/commons';
-
-
+import { Component, OnInit,ElementRef} from '@angular/core';
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
+  public isRemove=false;
+  public isApply=true;
+  discountId:any;
   public loading = true;
   public isNew = false;
   public isOrder = false;
@@ -36,7 +37,7 @@ export class SubscriptionComponent implements OnInit {
   callVasService=false;
   isRenew = false;
   isnewPlan=false;
-  isRenewPlan=false;
+isRenewPlan=false;
   vas_id:any;
   branchUserEmailId: string;
   custUserEmailId:string;
@@ -44,9 +45,12 @@ export class SubscriptionComponent implements OnInit {
   status: any;
   hideRenew: boolean;
   couponError=false;
+  couponSuccess:any;
   amountAfterCoupon:any;
   discount:any;
-  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router) {
+  paymentTransactionId:any;
+  
+  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
     this.paymentForm = this.fb.group({});
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -59,7 +63,6 @@ export class SubscriptionComponent implements OnInit {
     if(navigation.extras.state){
       console.log(navigation.extras.state.redirectedFrom)
       if(navigation.extras.state.redirectedFrom == "New-Transaction"){
-        console.log('hkhkjh')
         this.getSubscriptionDetails();
       }
     }
@@ -71,6 +74,7 @@ export class SubscriptionComponent implements OnInit {
   ngOnInit() {    
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
+    this.paymentTransactionId=sessionStorage.getItem('paymentTransId');
     loads();
     this.titleService.changeTitle(this.title);
     this.getStatus();
@@ -84,8 +88,7 @@ export class SubscriptionComponent implements OnInit {
       "userId": sessionStorage.getItem('userID'),
       "countryName": sessionStorage.getItem('registeredCountry')
     }
-    this.subscriptionService.getPlansByCountry(req).subscribe(data => {
-      console.log(this.isRenew)
+    this.subscriptionService.getPlansByCountry(req).subscribe(data => {      
       if(!this.isRenew){
         this.isNew = true;
         this.isnewPlan=true;
@@ -133,16 +136,10 @@ export class SubscriptionComponent implements OnInit {
   }
 
   viewVASPlans(){
-    var userid = sessionStorage.getItem("userID");
-    // if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
-    //   this.showVASPlan = true;
-    // }  
-
-    //if(sessionStorage.getItem("isvasapplied") == 'null' || sessionStorage.getItem("isvasapplied") == 'false' || sessionStorage.getItem("isvasapplied") == '0'){
+    var userid = sessionStorage.getItem("userID");   
       if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
         this.showVASPlan = true;
       }
-    //}
     else{
       this.showVASPlan = false;
     }   
@@ -163,6 +160,31 @@ export class SubscriptionComponent implements OnInit {
       }
     })
   }
+  removeCoupon(){
+    let req = {
+      "discountId": this.discountId
+    }
+    this.subscriptionService.removeCoupon(req).subscribe(response => {
+       let data= JSON.parse(JSON.stringify(response))
+        const first_input = this.el.nativeElement.querySelector('.coupantext');
+        first_input.value=null;
+        this.isRemove=false;
+        this.isApply=true;        
+        this.discountId="0";
+        this.discount="0";
+        if(this.callVasService)
+        {
+          this.addedAmount = this.choosedPrice+parseFloat(this.advPrice);
+        }
+        else
+        {
+
+          this.addedAmount=this.choosedPrice
+        }  
+        this.couponSuccess=false;
+    }
+    )
+  }
   applyNow(val){
     let req = {
       "userId": sessionStorage.getItem('userID'),
@@ -173,12 +195,19 @@ export class SubscriptionComponent implements OnInit {
     }
     this.subscriptionService.applyCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
+       this.isRemove=true;
+       this.isApply=false;
        if(data.status=="Failure"){
          this.couponError=true;
+         this.isRemove=false;
+         this.isApply=true;
        }else{
-        alert(data.status)
+        this.couponSuccess=data.status;
+        this.isRemove=true;
+        this.isApply=false;
         this.amountAfterCoupon = Number(data.data.grandAmount);
         this.discount=Number(data.data.discount);
+        this.discountId=data.data.discountId
         if(this.callVasService)
         {
           this.addedAmount = this.amountAfterCoupon+parseFloat(this.advPrice);
@@ -241,7 +270,7 @@ export class SubscriptionComponent implements OnInit {
     this.choosedPlan.vasAmount=this.advPrice;
     this.choosedPlan.grandAmount=this.addedAmount
     this.choosedPlan.discount=this.discount;
-    console.log("this.choosedPlan Credit",this.choosedPlan)
+    this.choosedPlan.discountId=this.discountId;
     this.choosedPlan.modeOfPayment="Credit" 
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
@@ -264,6 +293,8 @@ export class SubscriptionComponent implements OnInit {
       .subscribe(
         response => {
           let data= JSON.parse(JSON.stringify(response))
+          if(data.data)
+          this.paymentTransactionId=data.data
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
@@ -355,7 +386,7 @@ export class SubscriptionComponent implements OnInit {
     this.choosedPlan.vasAmount=this.advPrice;
     this.choosedPlan.grandAmount=this.addedAmount
     this.choosedPlan.discount=this.discount;
-    console.log("this.choosedPlan Wire",this.choosedPlan)  
+    this.choosedPlan.discountId=this.discountId;
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
     }
@@ -377,6 +408,8 @@ export class SubscriptionComponent implements OnInit {
       .subscribe(
         response => {
           let data= JSON.parse(JSON.stringify(response))
+          if(data.data)
+            this.paymentTransactionId=data.data
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;

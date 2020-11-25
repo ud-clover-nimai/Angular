@@ -36,6 +36,9 @@ export class SubscriptionDetailsService {
   public applyCoupon(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/applyCoupon`, data,{ headers: { 'content-type': 'application/json' } })
   }
+  public removeCoupon(data): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/removeCoupon`, data,{ headers: { 'content-type': 'application/json' } })
+  }
   public sendAccDetails(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiEmail/sendAccDetails`, data,{ headers: { 'content-type': 'application/json' } })
   }

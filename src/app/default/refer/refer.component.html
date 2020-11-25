@@ -12,7 +12,7 @@
                                 <li>
                                     <label>Total References <span class="">{{total_references}}</span></label>
                                 </li>
-                                <li><label>Total Earning <span>USD $892</span></label></li>
+                                <li><label>Total Earning <span>USD {{total_earning}}</span></label></li>
                                 <li>
                                     <a class="btn btn-info pull-right" (click)="addRefer()">+ Refer</a>
                                 </li>
@@ -52,10 +52,10 @@
                                                 <td>{{record.emailAddress}}</td>
                                                 <td nowrap>{{record.mobileNo}}</td>
                                                 <td nowrap>{{record.insertedDate}}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{record.planPurchased}}</td>
+                                                <td>{{record.billingAmount}}</td>
+                                                <td>{{record.earnings}}</td>
+                                                <td>{{record.purchaseType}}</td>
                                                 <td>{{record.status}}</td>
                                             </tr>
                                         </tbody>
@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
 
-                                <p id="paradiv" style="color: #ff0330;">
+                                <p id="paradiv">
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>
