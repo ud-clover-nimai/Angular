@@ -241,6 +241,7 @@ export class DashboardComponent implements OnInit {
         sessionStorage.setItem('companyName', this.nimaiCount.companyname);
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
         sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);   
+        sessionStorage.setItem('accountType', this.nimaiCount.accounttype);   
         if(this.nimaiCount.kycstatus=='Approved'){
           this.creditenable='yes';
         }else{

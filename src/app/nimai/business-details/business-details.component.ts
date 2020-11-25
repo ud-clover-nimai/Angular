@@ -34,6 +34,7 @@ export class BusinessDetailsComponent implements OnInit {
   public addMoreFlag=false;
   status: any;
   enableicon: boolean;
+  accountType:any;
   constructor(public fb: FormBuilder, public getCount: SubscriptionDetailsService, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
@@ -108,6 +109,13 @@ export class BusinessDetailsComponent implements OnInit {
   ngOnInit() { 
     loads();
     this.getStatus()
+    this.accountType=sessionStorage.getItem('accountType')
+    console.log("this.accountType---",this.accountType)
+    if(this.accountType=="SUBSIDIARY")
+      this.parentRedirection="kyc-details"
+    else
+      this.parentRedirection="subscription"  
+    //accountType
    }
 
    ngAfterViewInit() {
