@@ -170,12 +170,12 @@
                                                 <label class="customlabel">Coupon Code</label>
                                             </td>
                                             <td style="display: flex;">
-                                                <input type="text" name="" class="coupantext" maxlength="15" #coupon />
+                                                <input type="text" name=""  class="coupantext" maxlength="15" #coupon />
                                                 <div class="inputDiv">
                                                     <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
                                                     <span *ngIf="couponSuccess" class="valid-feedback">{{couponSuccess}}</span>
                                                 </div>
-                                                <a class="btn btn-info btn-xs pull-right marginzero" (click)="applyNow(coupon.value)">
+                                                <a class="btn btn-info btn-xs pull-right marginzero" *ngIf="isApply" (click)="applyNow(coupon.value)">
                                                     Apply
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -371,7 +371,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Payment Transaction ID</td>
-                                                    <td>P7898252809468274 </td>
+                                                    <td>{{ paymentTransactionId }} </td>
                                                 </tr>
                                             </table>
 

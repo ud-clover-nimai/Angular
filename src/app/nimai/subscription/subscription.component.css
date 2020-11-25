@@ -158,7 +158,7 @@ background: #00bcd4;
     display: block;
     position: absolute;
     top: 16px;
-    right: 91px;
+    right: 5px;
     color: #ff0330;
     padding: 2px 5px;
     border-radius: 5px;
@@ -180,4 +180,5 @@ background: #00bcd4;
 }
 .coupantext {
     width: 150px!important;
+    margin-left: 17%!important;
 }

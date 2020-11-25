@@ -20,4 +20,5 @@ export class Subscription {
     vasAmount:string;
     grandAmount:string;
     discount:string;
+    discountId:string;
 }

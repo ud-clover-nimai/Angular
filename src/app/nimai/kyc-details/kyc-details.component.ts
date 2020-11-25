@@ -35,7 +35,7 @@ export class KycDetailsComponent implements OnInit {
   rejectReason: string;
   rejectedTitle: any;
   detail: any;
-
+  sendData:any;
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
     loadFilestyle();
@@ -90,7 +90,10 @@ export class KycDetailsComponent implements OnInit {
     if(kycStatus=="Pending"){   
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]) 
     }
-   this.checkStatus();
+   // if(kycStatus=="Rejected"){ 
+      console.log("call service") 
+      this.checkStatus();
+    //}
   }
 checkStatus(){ 
    var userId = sessionStorage.getItem("userID")
@@ -100,7 +103,8 @@ checkStatus(){
       this.kycStatusData= JSON.parse(JSON.stringify(response));
       for (let i = 0; i < this.kycStatusData.length; i++) {
         if(this.kycStatusData[i].title=="Business"){
-          if(this.kycStatusData[i].kycStatus== "Rejected"){
+          if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
+            this.sendData="RejectedBusiness"
             this.disabledBusiness=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -114,8 +118,8 @@ checkStatus(){
           this.imageSrcBusi=this.kycStatusData[i].encodedFileContent;
          } 
          if (this.kycStatusData[i].title=="Personal"){
-          if(this.kycStatusData[i].kycStatus== "Rejected"){
-            console.log("title--->",this.kycStatusData[i].title)
+          if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
+            this.sendData="RejectedPersonal"
             this.disabledpersonal=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -123,8 +127,8 @@ checkStatus(){
             $('#rejectedPopup').show();
           }
           this.kycDetailsForm.patchValue({                 
-      perCountry: this.kycStatusData[i].country,  
-      perDocument :this.kycStatusData[i].documentName,
+           perCountry: this.kycStatusData[i].country,  
+        perDocument :this.kycStatusData[i].documentName,
      encodedFileContent:this.kycStatusData[i].encodedFileContent,
           })
           this.imageSrcPer=this.kycStatusData[i].encodedFileContent;
@@ -201,10 +205,10 @@ get kycDetails() {
     //  if(this.kycDetailsForm.invalid) {
     //         return;
     // }
-   
+   console.log("this.sendData--",this.sendData)
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
-
+    if(this.sendData=="RejectedBusiness" || this.sendData==null || this.sendData==""){
     businessDocumentList.push(this.fb.group({
       documentName: $('#busiDocument').val(),
       title: ['Business'],
@@ -212,10 +216,11 @@ get kycDetails() {
       encodedFileContent: [this.imageSrcBusi],
       documentType: ['jpg']      
     }));
+    }
   
-  
-    const personalDocumentList = <FormArray>this.kycDetailsForm.get('personalDocumentList');
+    const personalDocumentList  = <FormArray>this.kycDetailsForm.get('personalDocumentList');
     personalDocumentList.controls = [];
+    if(this.sendData=="RejectedPersonal" || this.sendData==null || this.sendData==""){
     personalDocumentList.push(this.fb.group({
       documentName: $('#perDocument').val(),
       title: ['Personal'],
@@ -223,32 +228,34 @@ get kycDetails() {
       encodedFileContent: [this.imageSrcPer],
       documentType: ['jpg']      
     }));
-
+    }
+      
     var data = {
       "userId" : sessionStorage.getItem("userID"),
       "businessDocumentList": this.kycDetailsForm.get('businessDocumentList').value,
       "personalDocumentList": this.kycDetailsForm.get('personalDocumentList').value,
     }
 
-    let busi = this.kycDetailsForm.get('businessDocumentList') as FormArray;
-    if(busi.controls.length == 0){
-      this.failedError();
-      return;
-    } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select" || busi.controls[0].value.encodedFileContent == null){
-      businessDocumentList.controls = [];
-      this.failedError();
-      return;
-    }
+    // let busi = this.kycDetailsForm.get('businessDocumentList') as FormArray;
+    // console.log("busi----->")
+    // if(busi.controls.length == 0){
+    //   this.failedError();
+    //   return;
+    // } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select" || busi.controls[0].value.encodedFileContent == null){
+    //   businessDocumentList.controls = [];
+    //   this.failedError();
+    //   return;
+    // }
 
-    let pers = this.kycDetailsForm.get('personalDocumentList') as FormArray;
-    if(pers.controls.length == 0){
-      this.failedError();
-      return;
-    } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select" || pers.controls[0].value.encodedFileContent == null){
-      personalDocumentList.controls = [];
-      this.failedError();
-      return;
-    }
+    // let pers = this.kycDetailsForm.get('personalDocumentList') as FormArray;
+    // if(pers.controls.length == 0){
+    //   this.failedError();
+    //   return;
+    // } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select" || pers.controls[0].value.encodedFileContent == null){
+    //   personalDocumentList.controls = [];
+    //   this.failedError();
+    //   return;
+    // }
     this.kycService.upload(data)
       .subscribe(
         resp => {
@@ -260,9 +267,11 @@ get kycDetails() {
               parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
             }
           };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-            .catch(console.error);
+          sessionStorage.removeItem('kycStatus');
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error); }); 
         },
         err => {
           this.failedError();
