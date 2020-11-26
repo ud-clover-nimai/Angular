@@ -90,13 +90,15 @@ export class KycDetailsComponent implements OnInit {
     if(kycStatus=="Pending"){   
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]) 
     }
-   // if(kycStatus=="Rejected"){ 
-      console.log("call service") 
+   if(kycStatus=="Rejected"){ 
       this.checkStatus();
-    //}
+    }else{
+      this.disabledBusiness=true;
+      this.disabledpersonal=true;
+    }
   }
 checkStatus(){ 
-   var userId = sessionStorage.getItem("userID")
+  var userId = sessionStorage.getItem("userID")  
   this.kycService.viewKycDetails(userId)
   .subscribe(
     response => {
@@ -200,12 +202,30 @@ remove(i: number, type) {
 get kycDetails() {
   return this.kycDetailsForm.controls;
 }
+setValidators(){
+  if(this.kycStatusData)
+  if(this.kycStatusData.length>1){
+    return;
+  }
+  if(this.sendData=="RejectedBusiness"){
+    this.kycDetailsForm.get("perDocument").disable();
+    this.kycDetailsForm.get("perCountry").disable();
+    this.kycDetailsForm.get("personalDocumentList").disable();
+    this.kycDetailsForm.get("personalDocumentList_html").disable();
+  }else if(this.sendData=="RejectedPersonal"){
+    this.kycDetailsForm.get("busiDocument").disable();
+    this.kycDetailsForm.get("busiCountry").disable();
+    this.kycDetailsForm.get("businessDocumentList").disable();
+    this.kycDetailsForm.get("businessDocumentList_html").disable();
+  }
+}
   submit(): void {
-    this.submitted = true;    
-    //  if(this.kycDetailsForm.invalid) {
-    //         return;
-    // }
-   console.log("this.sendData--",this.sendData)
+    this.setValidators();
+    this.submitted = true;  
+     if(this.kycDetailsForm.invalid) {
+      return;
+    }
+  
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
     if(this.sendData=="RejectedBusiness" || this.sendData==null || this.sendData==""){
@@ -236,26 +256,6 @@ get kycDetails() {
       "personalDocumentList": this.kycDetailsForm.get('personalDocumentList').value,
     }
 
-    // let busi = this.kycDetailsForm.get('businessDocumentList') as FormArray;
-    // console.log("busi----->")
-    // if(busi.controls.length == 0){
-    //   this.failedError();
-    //   return;
-    // } else if(busi.controls[0].value.documentName.toLowerCase() == "select" || busi.controls[0].value.country.toLowerCase() == "select" || busi.controls[0].value.encodedFileContent == null){
-    //   businessDocumentList.controls = [];
-    //   this.failedError();
-    //   return;
-    // }
-
-    // let pers = this.kycDetailsForm.get('personalDocumentList') as FormArray;
-    // if(pers.controls.length == 0){
-    //   this.failedError();
-    //   return;
-    // } else if(pers.controls[0].value.documentName.toLowerCase() == "select" || pers.controls[0].value.country.toLowerCase() == "select" || pers.controls[0].value.encodedFileContent == null){
-    //   personalDocumentList.controls = [];
-    //   this.failedError();
-    //   return;
-    // }
     this.kycService.upload(data)
       .subscribe(
         resp => {

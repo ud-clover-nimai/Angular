@@ -721,9 +721,9 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     else if(type == "alphaNum"){
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
-          event.preventDefault();
-      }    
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
+        event.preventDefault();
+    }     
     }else if(type=="mobile_number_validations"){
       if (key!= 43 && key > 31 && (key < 48 || key > 57)) {
         event.preventDefault();

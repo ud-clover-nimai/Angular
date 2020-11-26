@@ -293,8 +293,9 @@
                         <option value=''>Select</option>
                         <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
                     </select>
-                    </div>
+                    <label>Ccy </label>
                   </div>
+                </div>
                     <div
                       class="col-sm-6 col-md-6 col-lg-3 bankfields"
                       *ngIf="isBankUnderwriter"
