@@ -201,11 +201,9 @@
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType">
-                                                                                    <option value="Gold"> Gold</option>                                                                      
-                                                                                    <option value="Plastic">Plastic</option>
-                                                                                    <option value="Drugs">Drugs</option>
-                                                                                    <option value="Diamonds">Diamonds
-                                                                                    </option>
+                                                                                    <!-- <option value=''>Select</option> -->
+                                                                                    <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
+                                                                                   
                                                                                 </select>
                                                                                 <label>Types of Good</label>
                                                                             </div>

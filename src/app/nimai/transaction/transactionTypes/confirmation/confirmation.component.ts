@@ -51,6 +51,7 @@ export class ConfirmationComponent implements OnInit {
   okSucessmsg: string;
   portOfLoading: any;
   portOfDischarge: any;
+  goodsArray: any;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -107,6 +108,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.goodsService();
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
   }
 
@@ -255,6 +257,15 @@ export class ConfirmationComponent implements OnInit {
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
    }
+   goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
   public transaction(act: string,data :any) {
 
     switch (act) {

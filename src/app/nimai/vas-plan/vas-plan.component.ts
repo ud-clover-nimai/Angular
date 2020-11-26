@@ -86,7 +86,7 @@ export class VasPlanComponent implements OnInit {
       }
       )
     }else{
-      alert("Please add Vas Plan.")
+      alert("Please add Vas Plan")
     }
   }
 }

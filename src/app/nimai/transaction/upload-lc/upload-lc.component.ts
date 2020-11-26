@@ -59,6 +59,7 @@ export class UploadLCComponent implements OnInit {
   fileData: any;
   currencies: any;
   portOfDischarge: any;
+  goodsArray: any;
 
 
   // rds: refinance Data Service
@@ -91,6 +92,7 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.goodsService();
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].value)
@@ -885,6 +887,16 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     this.document = data;
     this.fileData=file;
   }
+
+  goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
 
   close(){
     $('.modal3').hide();

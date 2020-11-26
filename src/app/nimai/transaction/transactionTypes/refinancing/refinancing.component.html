@@ -162,11 +162,8 @@
                            <td>Goods/Services</td>
                            <td>
                               <select class="edit-selectColor" [(ngModel)]="data.goodsType">
-                                 <option value="Gold"> Gold</option>                                                                      
-                                 <option value="Plastic">Plastic</option>
-                                 <option value="Drugs">Drugs</option>
-                                 <option value="Diamonds">Diamonds
-                                 </option>
+                                 <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
+
                              </select>
                            </td>
                         </tr>

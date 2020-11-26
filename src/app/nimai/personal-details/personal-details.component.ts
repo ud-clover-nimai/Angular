@@ -7,6 +7,7 @@ import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { loads, selectpickercall } from '../../../assets/js/commons';
 import { ValidateRegex } from '../../beans/Validations';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 const pd = this;
@@ -34,9 +35,11 @@ export class PersonalDetailsComponent implements OnInit {
   interestedCountryList = this.countryService();
   blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
-
+  dropdownSettingGoods={};
+  goodsArray: Array<string> = [];
 
   intCntTemp: any[] = [];
+  goodsCntTemp:any[]=[];
   blgTemp: any[] = [];
 
 
@@ -48,7 +51,8 @@ export class PersonalDetailsComponent implements OnInit {
   public hasValue=false;
   resp: any;
   parentRedirection: string = "business-details";
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
+  isBankOther: boolean=false;
+  constructor(public activatedRoute: ActivatedRoute,public loginService: LoginService, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
     {
       this.hasValue=true;
@@ -73,6 +77,7 @@ export class PersonalDetailsComponent implements OnInit {
       minLCVal: [''],
       regCurrency:[''],
       blacklistedGC: [''],
+      otherTypeBank:[''],
       // otherEmails: this.fb.array([this.getOtherMails()])
       emailAddress1: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")],
       emailAddress2: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")],
@@ -90,6 +95,15 @@ export class PersonalDetailsComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: true,
       closeDropDownOnSelection: true
+    }
+    this.dropdownSettingGoods = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'productCategory',
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 5,
+      allowSearchFilter: true
     }
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -133,6 +147,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   ngOnInit() {
    // this.setUserCategoryValidators();
+   this.goodsService();
 
     $("body").on("domChanged", function () {
       const inputs = $('.inputDiv').find('input');
@@ -333,7 +348,7 @@ export class PersonalDetailsComponent implements OnInit {
       if(acdata.blackListGoods){
       var d={
         id:acdata.goodsMId,
-        name:acdata.blackListGoods
+        productCategory:acdata.blackListGoods
       }
       data.push(d);
     }
@@ -379,16 +394,25 @@ export class PersonalDetailsComponent implements OnInit {
     return data;
   }
 
-
-
   goodsService() {
-    return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
-  }
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
 
 
-  getGoodsName(gid: number) {
-    return this.goodsService().filter((res) => res.id == gid)[0];
-  }
+  // goodsService() {
+  //   return [{ id: 0, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
+  // }
+
+
+  // getGoodsName(gid: number) {
+  //   return this.goodsService().filter((res) => res.id == gid)[0];
+  // }
 
   countryService() {
     return [{ id: 1, name: 'India' }, { id: 2, name: 'USA' }, { id: 3, name: 'Australia' }]
@@ -418,7 +442,13 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   onItemSelectBG(item: any) {
-    //this.blgTemp.push(item);
+    if(item.productCategory=="Others"){
+      this.isBankOther=true;      
+     // loads();
+    }else{
+      this.isBankOther=false;
+    }
+
     if(item.id === 0){
      this.blgTemp=[];
      this.blgTemp.push(item)
@@ -468,7 +498,7 @@ export class PersonalDetailsComponent implements OnInit {
       for (let d of data) {
         let dd = {
           id: d.goodsMId,
-          name: d.blackListGoods
+          productCategory: d.blackListGoods
         }
         dataArr.push(dd);
       }
@@ -502,12 +532,22 @@ export class PersonalDetailsComponent implements OnInit {
   filterForSaveBlg(data: any[]) {
     let dataArr: any[] = [];
     for (let d1 of data) {
-      
-        let dd = {
+      let dd
+      if(d1.productCategory == 'Others'){
+        var bankothers= this.personalDetailsForm.get('otherTypeBank').value;
+         dd = {
           goods_ID: null,
-          blackListGoods: d1.name,
+          blackListGoods: "Others - "+bankothers,
           goodsMId: d1.id
         }
+     }else{
+       dd = {
+        goods_ID: null,
+        blackListGoods: d1.productCategory,
+        goodsMId: d1.id
+      }
+    }
+       
         dataArr.push(dd)
       
 

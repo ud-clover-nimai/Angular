@@ -325,7 +325,7 @@
                       *ngIf="isBankUnderwriter"
                     >
                       <div class="inputDiv">
-                        <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelectBG($event)" (onSelectAll)="onSelectAllBG($event)" (onDeSelect)="onItemDeSelectBG($event)" [(ngModel)]="blgTemp"></ng-multiselect-dropdown-angular7>
+                        <ng-multiselect-dropdown-angular7 [data]="goodsArray" formControlName="blacklistedGC" [(ngModel)]="blgTemp" [settings]="dropdownSettingGoods" (onSelect)="onItemSelectBG($event)" (onSelectAll)="onSelectAllBG($event)" (onDeSelect)="onItemDeSelectBG($event)" [(ngModel)]="blgTemp"></ng-multiselect-dropdown-angular7>
                         <label class="dropdownlabel">Blacklisted Goods</label>
                         <div
                           *ngIf="submitted && perDetails.blacklistedGC.errors"
@@ -341,8 +341,29 @@
                           </div>
                         </div>
                       </div>
+                     
                     </div>
-                   
+                    <div class="col-md-3 col-sm-3 bankfields" *ngIf="isBankOther">
+                      <div class="inputDiv">
+                        
+                         <input type="text" maxlength="30" formControlName="otherTypeBank">
+                         <!-- <i class="fa fa-address-card fa-1"></i> -->
+                         <label>Other</label>
+                         <div
+                          *ngIf="submitted && perDetails.otherTypeBank.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="
+                              submitted &&
+                              perDetails.otherTypeBank.errors?.required
+                            "
+                          >
+                            Select Blacklisted Goods
+                          </div>
+                        </div>
+                      </div>
+                   </div>
                     <input type="hidden" formControlName="subscriberType" />
                     <input type="hidden" formControlName="userId" />
                     <input type="hidden" formControlName="bankType" />

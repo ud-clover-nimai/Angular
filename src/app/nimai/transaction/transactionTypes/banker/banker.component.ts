@@ -51,6 +51,7 @@ export class BankerComponent implements OnInit {
   okSucessmsg: string;
   portOfLoading: any;
   portOfDischarge: any;
+  goodsArray: any;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -108,6 +109,7 @@ export class BankerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.goodsService();
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
@@ -187,7 +189,15 @@ export class BankerComponent implements OnInit {
     this.data.lcProForma=this.imageSrc;
 
   }
-
+  goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
   public action(flag: boolean, type: Tflag, data: any) {
     this.tab='tab2';
     if (flag) {

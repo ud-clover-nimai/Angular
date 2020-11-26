@@ -263,7 +263,7 @@
                                              <img src="assets/images/blacklisted.png" />
                                           </div> -->
                                           <div class="inputDiv">
-                                             <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <ng-multiselect-dropdown-angular7 [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                              <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
                                              <div *ngIf="submittedSignup && suf.blacklistedGC.errors" class="invalid-feedback">
                                                  <div *ngIf="suf.blacklistedGC.errors.required">
@@ -272,6 +272,14 @@
                                              </div>
                                              <img src="assets/images/blacklisted.png" class="blackListedGoodsList_img" />
                                          </div>
+                                        
+                                       </div>
+                                       <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank && isBankOther">
+                                          <div class="inputDiv">
+                                             <input type="text" maxlength="30" formControlName="otherTypeBank">
+                                             <label>Other</label>
+                                             <i class="fa fa-address-card fa-1"></i>
+                                          </div>
                                        </div>
                                        <div class="col-md-4 col-sm-4 referrerdiv" *ngIf="isReferrer">
                                           <div class="inputDiv">

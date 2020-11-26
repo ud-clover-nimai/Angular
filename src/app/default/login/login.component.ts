@@ -34,23 +34,29 @@ export class LoginComponent implements OnInit {
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
   interestedCountryList = this.countryService();
-  blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
+  dropdownSettingGoods={};
   public hasCountrycode=false;
   public submitted = false;
   public submittedSignup = false;
   public forgPassSubmitted: boolean = false;
   resp: any;
+  goodsArray: Array<string> = [];
+
+  goodsData: any;
   isTextFieldType: boolean;
   todaysDate: any;
   countryCode: any = "";
   countryName: any;
+  isBankOther: boolean=false;
   
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
+   $(document).on('focus', '.select2', function() { $(this).parent().find('.dropdown-toggle').trigger('click'); });
   }
 
   ngOnInit() {
+    this.goodsService();
    this.isReferrerOther=false;
     loads();
     loadLogin();
@@ -76,7 +82,8 @@ export class LoginComponent implements OnInit {
       companyName: [''],
       termsAndcondition:  [false, Validators.requiredTrue],
       regCurrency:[''],
-      otherType:['']
+      otherType:[''],
+      otherTypeBank:['']
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]]
@@ -90,6 +97,16 @@ export class LoginComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: false
     }
+    this.dropdownSettingGoods = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'productCategory',
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 5,
+      allowSearchFilter: true
+    }
+    
     this.getCountryData();
     sessionStorage.removeItem('subscriptionType');
     sessionStorage.removeItem('selector');
@@ -206,7 +223,7 @@ export class LoginComponent implements OnInit {
     if(this.isReferrerOther){      
       this.signupForm.get('businessType').setValue(this.signupForm.get('otherType').value)
     }
-      
+   
     sessionStorage.setItem('subscriptionType', subscriptionType);
     sessionStorage.setItem('selector', selector);
     if (subscriptionType == 'referrer') {
@@ -413,7 +430,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
         },
         (error) => {
           let responserror = JSON.parse(JSON.stringify(error));
-          console.log(responserror)
           const navigationExtras: NavigationExtras = {
             state: {
               title: responserror.error.message,
@@ -505,7 +521,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
 
   clearSignupValidation() {
-    console.log("clear signup validation*******")
     this.signupForm.get('designation').clearValidators();
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
@@ -550,11 +565,23 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.blg = [];
     this.intCountries = [];
     for (let vlg of this.blgValue) {
-      let blgData = {
-        goods_ID: null,
-        goodsMId: vlg.id,
-        blackListGoods: vlg.name
+      let blgData;
+      if(vlg.productCategory == 'Others'){
+         var bankothers= this.signupForm.get('otherTypeBank').value;
+           blgData = {
+            goods_ID: null,
+            goodsMId: vlg.id,
+            blackListGoods:"Others - "+bankothers,
+          }
+      }else{
+         blgData = {
+          goods_ID: null,
+          goodsMId: vlg.id,
+          blackListGoods: vlg.productCategory
+        }
       }
+     
+     
       this.blg.push(blgData);
     }
 
@@ -606,13 +633,15 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
 
   goodsService() {
-    return [{ id: 4, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
-  }
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
 
-
-  getGoodsName(gid: number) {
-    return this.goodsService().filter((res) => res.id == gid)[0];
-  }
 
   countryService() {
     return [{ id: 1, name: 'India' }, { id: 2, name: 'USA' }, { id: 3, name: 'Australia' }]
@@ -625,8 +654,12 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
 
 
   onItemSelect(item: any) {
-    console.log(item);
-
+    if(item.productCategory=="Others"){
+      this.isBankOther=true;      
+     // loads();
+    }else{
+      this.isBankOther=false;
+    }
   }
 
   onSelectAll(item: any) {
