@@ -60,14 +60,14 @@
                                                                 <div class="row">
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
-                                                                            <input type="text" maxlength="30"
+                                                                            <input type="text" maxlength="40"
                                                                                 formControlName="lCIssuanceBank">
                                                                             <label>LC Issuance Bank</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
-                                                                            <input type="text" maxlength="30"
+                                                                            <input type="text" maxlength="40"
                                                                                 formControlName="lCIssuanceBranch" (keypress)="validateRegexFields($event, 'alphaNum')">
                                                                             <label>Issuance Branch</label>
                                                                         </div>
@@ -200,7 +200,7 @@
                                                                         <div
                                                                             class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
                                                                             <div class="inputDiv selectdiv">
-                                                                                <select formControlName="goodsType">
+                                                                                <select formControlName="goodsType" (change)="onItemSelect($event.target.value)">
                                                                                     <!-- <option value=''>Select</option> -->
                                                                                     <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
                                                                                    
@@ -209,7 +209,13 @@
                                                                             </div>
                                                                         </div>
 
-
+                                                                        <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers " *ngIf="isBankOther">
+                                                                            <div class="inputDiv">
+                                                                               <input type="text" maxlength="50" formControlName="otherType">
+                                                                               <label>Other</label>
+                                                                               <!-- <i class="fa fa-address-card fa-1"></i> -->
+                                                                            </div>
+                                                                         </div>
 
                                                                     </div>
                                                                 </div>

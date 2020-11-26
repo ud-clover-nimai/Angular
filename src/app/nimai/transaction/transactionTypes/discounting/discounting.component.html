@@ -160,11 +160,15 @@
                         <tr>
                            <td>Goods/Services</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.goodsType">
+                              <select class="edit-selectColor" [(ngModel)]="data.goodsType" (change)="onItemSelect($event.target.value)">
                                  <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
 
                              </select>
                            </td>
+                        </tr>
+                        <tr *ngIf="isBankOther">
+                           <td>Others</td>
+                           <td><input type="text" [(ngModel)]="data.otherType"></td>
                         </tr>
                      </tbody>
                   </table>
@@ -432,6 +436,10 @@
                         <tr>
                            <td>Goods/Services</td>
                            <td>{{data.goodsType}}</td>
+                        </tr>
+                        <tr *ngIf="isBankOther">
+                           <td>Others</td>
+                           <td>{{data.otherType}}</td>
                         </tr>
                      </tbody>
                   </table>

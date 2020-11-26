@@ -52,6 +52,8 @@ export class BankerComponent implements OnInit {
   portOfLoading: any;
   portOfDischarge: any;
   goodsArray: any;
+  isBankOther: boolean=false;
+  othersStr: any;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -62,6 +64,7 @@ export class BankerComponent implements OnInit {
     })
     
     this.data = {
+      otherType:"",
       transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",
@@ -109,7 +112,6 @@ export class BankerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.goodsService();
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
@@ -189,22 +191,34 @@ export class BankerComponent implements OnInit {
     this.data.lcProForma=this.imageSrc;
 
   }
-  goodsService() {
-    this.loginService.getGoodsData().
-      subscribe(
-        (response) => {
-          this.goodsArray = JSON.parse(JSON.stringify(response));
-        },
-        (error) => {}
-      )
-}
-  public action(flag: boolean, type: Tflag, data: any) {
+  onItemSelect(item) {
+    var str = item; 
+    var splittedStr =str.split(": ",2)
+      this.othersStr=splittedStr[1];
+    if(splittedStr[1]=="Others" || splittedStr[1].startsWith('Others')){
+      this.isBankOther=true;      
+    }else{
+      this.isBankOther=false;
+    }
+  }
+  public action(flag: boolean, type: Tflag, data: any ,goods:any) {
+    this.goodsArray=goods
     this.tab='tab2';
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
         this.title = 'View';
         this.data = data;
+        if(this.data.goodsType.startsWith('Others')){
+          this.isBankOther=true;      
+          var str = this.data.goodsType; 
+          var splittedStr =str.split(" - ",2)
+          this.othersStr=splittedStr[0];
+          this.data.goodsType=this.othersStr;
+          this.data.otherType=splittedStr[1];
+         }else{
+           this.isBankOther=false;
+         }
         this.reqType=this.data.requirementType;
         if (this.data.userType === 'Applicant') {
           this.userTypes='Applicant';
@@ -280,6 +294,9 @@ export class BankerComponent implements OnInit {
 
       case 'submit': {
         this.okSucessmsg='ok';
+        if(this.othersStr=='Others'){
+          this.data.goodsType="Others - "+this.data.otherType;
+        }
         this.data.userType=this.userTypes;
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {

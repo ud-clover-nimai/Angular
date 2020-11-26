@@ -41,5 +41,5 @@ export interface TData{
         confirmationPeriod:string;
         paymentTerms:string;
         tenorFile:string;
-      
+        otherType:string;
 }

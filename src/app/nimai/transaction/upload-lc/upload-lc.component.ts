@@ -60,11 +60,13 @@ export class UploadLCComponent implements OnInit {
   currencies: any;
   portOfDischarge: any;
   goodsArray: any;
-
+  isBankOther: boolean=false;
+  othersStr: any="";
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
     this.checkLcCount();
+    this.goodsService();
 
     this.titleService.changeTitle(this.title);
 
@@ -92,7 +94,6 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.goodsService();
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].value)
@@ -285,6 +286,10 @@ export class UploadLCComponent implements OnInit {
   public save() {
     this.loading = true;
     this.titleService.loading.next(true);
+    if(this.othersStr=='Others'){
+     this.lcDetailForm.get('goodsType').setValue("Others - "+this.lcDetailForm.get('otherType').value)
+    }
+
     let data = this.lcDetailForm.value;
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
@@ -349,6 +354,9 @@ export class UploadLCComponent implements OnInit {
   public update(){
     this.loading = true;
     this.titleService.loading.next(true);
+    if(this.othersStr=='Others'){
+      this.lcDetailForm.get('goodsType').setValue("Others - "+this.lcDetailForm.get('otherType').value)
+     }
     let data = this.lcDetailForm.value;
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
@@ -362,7 +370,7 @@ export class UploadLCComponent implements OnInit {
 
     this.upls.updateLc(data).subscribe(
         (response) => {
-          // this.transactionID = JSON.parse(JSON.stringify(response)).data;
+           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           this.loading = false;
           this.titleService.loading.next(false);
           this.lc = this.lcDetailForm.value;
@@ -574,7 +582,7 @@ const navigationExtras: NavigationExtras = {
       lastShipmentDate: [''],
       negotiationDate: [''],
       goodsType:[''],
-  
+      otherType:[''],
   
       // For Confirmation 
       confirmationPeriod: [''],
@@ -657,7 +665,17 @@ const navigationExtras: NavigationExtras = {
     }
 
   }
-
+  onItemSelect(item) {
+    var str = item; 
+    var splittedStr =str.split(": ",2)
+      this.othersStr=splittedStr[1];
+    if(splittedStr[1]=="Others"){
+      this.isBankOther=true;      
+     // loads();
+    }else{
+      this.isBankOther=false;
+    }
+  }
   selectCountryInfo(e){
    let country= this.lcDetailForm.get('lCIssuanceCountry').value;
     const param={
@@ -684,13 +702,23 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
         this.draftData = JSON.parse(JSON.stringify(response)).data;
-        
+        if(this.draftData.goodsType.startsWith('Others')){
+          this.isBankOther=true;      
+          var str = this.draftData.goodsType; 
+          var splittedStr =str.split(" - ",2)
+            this.othersStr=splittedStr[0];
+       this.draftData.goodsType=this.othersStr;
+       this.draftData.otherType=splittedStr[1];
+
+         }else{
+           this.isBankOther=false;
+         }
   // this.draftData = JSON.parse(JSON.stringify(response)).data;
         // var str = this.draftData.tenorFile; 
         // var splittedStr = str.split(" |", 1); 
         // console.log(splittedStr[0]);
 
-        this.ngOnInit();
+      //  this.ngOnInit();
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
@@ -708,7 +736,6 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           lastShipmentDate: this.setDateFromApi(this.draftData.lastShipmentDate),
           negotiationDate: this.setDateFromApi(this.draftData.negotiationDate),
           goodsType:this.draftData.goodsType,
-      
       
           // For Confirmation 
           confirmationPeriod: this.draftData.confirmationPeriod,
@@ -764,6 +791,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           applicantContactPersonEmail:this.draftData.applicantContactPersonEmail,
           beneContactPerson:this.draftData.beneContactPerson,
           beneContactPersonEmail:this.draftData.beneContactPersonEmail,
+          otherType:this.draftData.otherType,
         });
     // this.lc = this.lcDetailForm.value;
       

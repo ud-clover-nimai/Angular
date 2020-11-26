@@ -11,6 +11,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { custActiveTransaction } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class ActiveTransactionComponent implements OnInit {
   detailInfo: any;
   public unlock :string="";
   noOfQR: any;  
-  constructor(public titleService: TitleService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+  goodsArray: any;
+  constructor(public titleService: TitleService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -78,6 +80,7 @@ export class ActiveTransactionComponent implements OnInit {
   ngOnInit() {
    // this.paginator._intl.itemsPerPageLabel="Transactions per page";
     //custActiveTransaction();
+    this.goodsService();
       $('#TransactionDetailDiv').hide();
       $('.acceptedPopupDetails').hide();
       $('.acceptedErrorDetails').hide();
@@ -103,7 +106,15 @@ export class ActiveTransactionComponent implements OnInit {
     this.refinancing.isActive = false;
     this.banker.isActive = false;
   }
-
+  goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
 
    showQuotePage(pagename: string,action:Tflag,val:any) {
     
@@ -112,13 +123,11 @@ export class ActiveTransactionComponent implements OnInit {
     }
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
-        this.detailInfo = JSON.parse(JSON.stringify(response)).data;
-        
-     
+        this.detailInfo = JSON.parse(JSON.stringify(response)).data;        
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,this.detailInfo);
+      this.confirmation.action(true,action,this.detailInfo,this.goodsArray);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
@@ -126,7 +135,7 @@ export class ActiveTransactionComponent implements OnInit {
       document.getElementById("menu-bar-con").style.width = "520px"; 
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
-      this.discounting.action(true,action,this.detailInfo);
+      this.discounting.action(true,action,this.detailInfo,this.goodsArray);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
@@ -134,7 +143,7 @@ export class ActiveTransactionComponent implements OnInit {
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
-      this.confirmAndDiscount.action(true,action,this.detailInfo);
+      this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-conAndDis").style.width = "520px"; 
@@ -142,7 +151,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,this.detailInfo);
+      this.refinancing.action(true,action,this.detailInfo, this.goodsArray);
       this.banker.isActive = false;
       document.getElementById("menu-bar-ref").style.width = "520px"; 
     } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
@@ -150,7 +159,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.action(true,action,this.detailInfo);
+      this.banker.action(true,action,this.detailInfo,this.goodsArray);
       document.getElementById("menu-bar-bank").style.width = "520px";  
     }
   },
