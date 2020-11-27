@@ -35,6 +35,8 @@ export class KycDetailsComponent implements OnInit {
   rejectReason: string;
   rejectedTitle: any;
   detail: any;
+  isRejectedBusiness:any;
+  isRejectedPersonal:any;
   sendData:any;
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
@@ -104,10 +106,12 @@ checkStatus(){
   .subscribe(
     response => {
       this.kycStatusData= JSON.parse(JSON.stringify(response));
+      
       for (let i = 0; i < this.kycStatusData.length; i++) {
         if(this.kycStatusData[i].title=="Business"){
           if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
             this.sendData="RejectedBusiness"
+            this.isRejectedPersonal="RejectedBusiness"
             this.disabledBusiness=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -123,6 +127,7 @@ checkStatus(){
          if (this.kycStatusData[i].title=="Personal"){
           if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
             this.sendData="RejectedPersonal"
+            this.isRejectedPersonal="rejectRejectedPersonal"
             this.disabledpersonal=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -130,14 +135,15 @@ checkStatus(){
             $('#rejectedPopup').show();
           }
           this.kycDetailsForm.patchValue({                 
-           perCountry: this.kycStatusData[i].country,  
-        perDocument :this.kycStatusData[i].documentName,
-     encodedFileContent:this.kycStatusData[i].encodedFileContent,
+            perCountry: this.kycStatusData[i].country,  
+            perDocument :this.kycStatusData[i].documentName,
+            encodedFileContent:this.kycStatusData[i].encodedFileContent,
           })
           this.imageSrcPer=this.kycStatusData[i].encodedFileContent;
-
          }
       }  
+      console.log("this.isRejectedPersonal---",this.isRejectedPersonal)
+      console.log("this.isRejectedBusiness---",this.isRejectedBusiness)
     },
     error => {
       this.detail = JSON.parse(JSON.stringify(error)).message;
@@ -208,6 +214,10 @@ setValidators(){
   //   this.sendData="both"
   //   return;
   // }
+  if(this.isRejectedPersonal && this.isRejectedBusiness){
+    this.sendData="both"
+     return;
+  }
   if(this.sendData=="RejectedBusiness"){
     this.kycDetailsForm.get("perDocument").disable();
     this.kycDetailsForm.get("perCountry").disable();
