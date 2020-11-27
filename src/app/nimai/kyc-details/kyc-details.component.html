@@ -177,12 +177,13 @@
                 <div class="row">
                    <div class="col-md-12">
                       <div class="row">
-                         <div class="col-md-12">
-                            <label> {{ rejectedTitle }} KYC has been rejected due to mentioned reason</label>
+                         <div class="col-md-12" *ngFor="let data of kycStatusData">
+                            <label> {{ data.title }}</label>
 
                             <div class="form-group">
-                                {{rejectReason}}
+                               <span> <b> Reason - </b> {{data.reason}} </span>
                               </div>
+                              <hr/>
                          </div>
                       </div>
                       <button type="submit" class="btn btn-info pull-right" (click)="closePopup()" >Reupload</button>

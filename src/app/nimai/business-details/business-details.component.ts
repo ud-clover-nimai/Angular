@@ -32,6 +32,7 @@ export class BusinessDetailsComponent implements OnInit {
   stateName: any = "";
   countryName: any = "";
   public addMoreFlag=false;
+  disableButton=false;
   status: any;
   enableicon: boolean;
   accountType:any;
@@ -359,20 +360,25 @@ export class BusinessDetailsComponent implements OnInit {
   }
 
 
-  add(i: number) {
+  add() {
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    console.log("controls",this.businessDetailsForm['controls'].owners.status)
+    console.log("items.length",items.length)
     if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")
     {
       items.push(this.getOwners());
+    }
+    if(items.length==3){
       this.addMoreFlag=false;
+      this.disableButton=true;
     }else{
       this.addMoreFlag=true;
     }
+    console.log("this.addMoreFlag--",this.addMoreFlag)
   }
 
   remove(i: number) {
     this.addMoreFlag=false;
+    this.disableButton=false;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     items.removeAt(i);
   }

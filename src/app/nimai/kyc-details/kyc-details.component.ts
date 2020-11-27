@@ -83,14 +83,15 @@ export class KycDetailsComponent implements OnInit {
   ngOnInit() {
     loads();
     this.titleService.changeTitle(this.title);
-     let kycStatus = sessionStorage.getItem("kycStatus");
-    if(kycStatus=="Approved"){
+    let kycStatus = sessionStorage.getItem("kycStatus");
+    let kStatus=sessionStorage.getItem("kStatus")
+    if(kycStatus=="Approved" || kStatus=="KycStauts:Approved"){
       this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
     } 
-    if(kycStatus=="Pending"){   
+    if(kycStatus=="Pending" || kStatus=="KycStauts:Pending"){   
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]) 
     }
-   if(kycStatus=="Rejected"){ 
+   if(kycStatus=="Rejected" || kStatus=="KycStauts:Rejected"){ 
       this.checkStatus();
     }else{
       this.disabledBusiness=true;
@@ -140,7 +141,6 @@ checkStatus(){
     },
     error => {
       this.detail = JSON.parse(JSON.stringify(error)).message;
-      console.log(this.detail)
       this.disabledBusiness=true;
       this.disabledpersonal=true;
 
@@ -203,10 +203,11 @@ get kycDetails() {
   return this.kycDetailsForm.controls;
 }
 setValidators(){
-  if(this.kycStatusData)
-  if(this.kycStatusData.length>1){
-    return;
-  }
+  // if(this.kycStatusData)
+  // if(this.kycStatusData.length>1){
+  //   this.sendData="both"
+  //   return;
+  // }
   if(this.sendData=="RejectedBusiness"){
     this.kycDetailsForm.get("perDocument").disable();
     this.kycDetailsForm.get("perCountry").disable();
@@ -220,6 +221,8 @@ setValidators(){
   }
 }
   submit(): void {
+    
+    console.log("send data")
     this.setValidators();
     this.submitted = true;  
      if(this.kycDetailsForm.invalid) {
@@ -228,7 +231,7 @@ setValidators(){
   
     const businessDocumentList = <FormArray>this.kycDetailsForm.get('businessDocumentList');
     businessDocumentList.controls = [];
-    if(this.sendData=="RejectedBusiness" || this.sendData==null || this.sendData==""){
+    if(this.sendData=="RejectedBusiness" || this.sendData==null || this.sendData=="" || this.sendData=="both"){
     businessDocumentList.push(this.fb.group({
       documentName: $('#busiDocument').val(),
       title: ['Business'],
@@ -240,7 +243,9 @@ setValidators(){
   
     const personalDocumentList  = <FormArray>this.kycDetailsForm.get('personalDocumentList');
     personalDocumentList.controls = [];
-    if(this.sendData=="RejectedPersonal" || this.sendData==null || this.sendData==""){
+  
+    if(this.sendData=="RejectedPersonal" || this.sendData==null || this.sendData=="" || this.sendData=="both"){
+      console.log("if")
     personalDocumentList.push(this.fb.group({
       documentName: $('#perDocument').val(),
       title: ['Personal'],
@@ -248,8 +253,7 @@ setValidators(){
       encodedFileContent: [this.imageSrcPer],
       documentType: ['jpg']      
     }));
-    }
-      
+    }      
     var data = {
       "userId" : sessionStorage.getItem("userID"),
       "businessDocumentList": this.kycDetailsForm.get('businessDocumentList').value,
@@ -259,7 +263,7 @@ setValidators(){
     this.kycService.upload(data)
       .subscribe(
         resp => {
-          
+
           const navigationExtras: NavigationExtras = {
             state: {
               title: 'Thank you for submitting the KYC documents.',
@@ -267,11 +271,9 @@ setValidators(){
               parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
             }
           };
-          sessionStorage.removeItem('kycStatus');
-          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-              this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
-              .then(success => console.log('navigation success?', success))
-              .catch(console.error); }); 
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
+         .then(success => console.log('navigation success?', success))
+          .catch(console.error);          
         },
         err => {
           this.failedError();
