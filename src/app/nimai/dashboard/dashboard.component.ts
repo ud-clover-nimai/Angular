@@ -253,12 +253,14 @@ export class DashboardComponent implements OnInit {
         }else{
           this.isShowPlan=false;
         }
+
         if(this.nimaiCount.issplanpurchased=="1"){
           this.isShowKyc=true;
-        }else{
+        }else if(this.nimaiCount.accounttype == 'SUBSIDIARY' && this.nimaiCount.isbdetailfilled){
+          this.isShowKyc=true;
+         }else{
           this.isShowKyc=false;
          }
-      
        if( this.nimaiCount.status=='INACTIVE'){
         const navigationExtras: NavigationExtras = {
                 state: {

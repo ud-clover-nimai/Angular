@@ -26,6 +26,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   noData:any;
   subsidiries:any;
   subuticount:any;
+  utilized:any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -51,8 +52,10 @@ export class ManageSubsidiaryComponent implements OnInit {
   ngOnInit() {
   loads();
   manageSub();
-  this.subsidiries=sessionStorage.getItem('subsidiries');
+  this.subsidiries=sessionStorage.getItem('subsidiries');  
   this.subuticount=sessionStorage.getItem('subuticount');
+  this.utilized=this.subsidiries-this.subuticount
+  console.log("this.utilized--",this.utilized)
   this.listOfSubsidiary();
   }
 

@@ -4,7 +4,7 @@
     font-weight: 500!important;
     letter-spacing: 0.4px!important;
     position: absolute!important;
-    top: -7px!important;
+    /* top: -7px!important; */
     left: 5px!important;
     transform: translateY(-50%)!important;
     color: #999!important;
@@ -42,3 +42,13 @@ select{
 .newh4 span i{
  font-size: 15px !important;
 }
+::ng-deep .multiselect-dropdown .dropdown-btn{
+    font-size: 12px!important;
+    margin-top: 8px!important;
+}
+::ng-deep .multiselect-dropdown .dropdown-btn span[hidden] {
+    display: none!important;
+  }
+  ::ng-deep .multiselect-dropdown .dropdown-btn .selected-item{
+    margin-top: 2px !important;
+  }

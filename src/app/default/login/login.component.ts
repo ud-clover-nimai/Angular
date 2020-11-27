@@ -175,6 +175,8 @@ export class LoginComponent implements OnInit {
           } else if(loginData.userId.startsWith('CU')){
             if(responseData.message=="KycStauts:Approved"){
               this.router.navigate(['/cst/dsb/dashboard-details']); 
+            }else if(responseData.message=="KycStauts:Rejected"){ 
+              this.router.navigate(['/cst/dsb/kyc-details']); 
             }else{
               this.router.navigate(['/cst/dsb/personal-details']); 
             }
