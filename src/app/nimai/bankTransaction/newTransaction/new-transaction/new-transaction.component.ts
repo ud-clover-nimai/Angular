@@ -260,6 +260,21 @@ export class NewTransactionComponent implements OnInit {
       this.notImgDownload=true;
       this.imgDownload=false;
     } 
+    else if(extension=='.xls'){
+      var  base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type:'application/vnd.ms-excel'});
+        FileSaver.saveAs(blob, filename);
+        this.imgDownload=false;
+      } 
+      else if(extension=='.doc'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/msword' });
+        FileSaver.saveAs(blob,filename);
+        this.imgDownload=false;
+
+    }
     else if(extension=='.pdf'){
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);

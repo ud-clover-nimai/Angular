@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import * as $ from 'src/assets/js/jquery.min';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { uploadFileRefinance } from 'src/assets/js/commons'
 
 
 @Component({
@@ -20,6 +21,7 @@ export class OthersComponent implements OnInit {
   portOfDischarge:any;
   minDate = new Date;
   private filename: string = '';
+  isUpload: boolean;
   constructor(public rds:DataServiceService,public loginService: LoginService,public upls: UploadLcService) {
   }
   ngOnInit() {
@@ -30,7 +32,7 @@ export class OthersComponent implements OnInit {
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
   this.filename=file.name;
-
+  this.isUpload=true;
     var pattern = /image-*/;
     var reader = new FileReader();
     // if (!file.type.match(pattern)) {
@@ -88,6 +90,15 @@ if(this.LcDetail.get('loadingCountry').value==""){
         (response) => {
           this.portOfLoading = JSON.parse(JSON.stringify(response)).data;
         });
+  }
+
+
+  deleteFileContent(){     
+
+    $('#upload_file11').val('');
+    this.LcDetail.get('lcProForma').reset;
+    this.isUpload = false;   
+    uploadFileRefinance();
   }
 }
 

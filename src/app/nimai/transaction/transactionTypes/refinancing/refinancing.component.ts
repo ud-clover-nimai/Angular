@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { uploadFileRefinance } from 'src/assets/js/commons'
 import * as FileSaver from 'file-saver';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-refinancing',
   templateUrl: './refinancing.component.html',
@@ -54,6 +55,9 @@ export class RefinancingComponent implements OnInit {
   goodsArray: any;
   isBankOther: boolean=false;
   othersStr: any;
+  checkValidity: boolean;
+  currentDateTime: string;
+  dateString: string;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -205,6 +209,16 @@ deleteFileContentForma(){
     }
   }
   public action(flag: boolean, type: Tflag, data: any,goods:any) {
+    // console.log(data.validity )
+    // console.log(data.quotationReceived)
+    // var strs=data.validity;
+    // var strsplit=strs.split('T',2)
+    //    this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US'),
+     
+    //    if(strsplit[0]==this.currentDateTime && data.quotationReceived==0){
+
+    //    }
+//this.checkValidity=true;
     this.goodsArray=goods
     this.transaction_id=this.data.transactionId;
        this.tab='tab2';
@@ -251,6 +265,7 @@ deleteFileContentForma(){
         this.title = 'Edit';
         this.data = data;
         // $('input').attr('readonly', false);
+       
       }
     } else {
       this.isActive = flag;
@@ -423,6 +438,21 @@ deleteFileContentForma(){
       FileSaver.saveAs(blob, filename);
       this.imgDownload=false;
     } 
+    else if(extension=='.xls'){
+      var  base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type:'application/vnd.ms-excel'});
+        FileSaver.saveAs(blob, filename);
+        this.imgDownload=false;
+      } 
+      else if(extension=='.doc'){
+        base64string= base64string.replace('data:application/octet-stream;base64,', '')
+        const byteArr = this.convertbase64toArrayBuffer(base64string);
+        var blob = new Blob([byteArr], { type: 'application/msword' });
+        FileSaver.saveAs(blob,filename);
+        this.imgDownload=false;
+
+    }
     else if(extension=='.pdf'){
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);

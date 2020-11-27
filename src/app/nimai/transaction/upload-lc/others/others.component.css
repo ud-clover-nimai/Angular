@@ -12,3 +12,9 @@ select{
 .mat-form-field{
     padding-top: 18px;
 }
+.deleteFile{
+    float: right;
+    margin-right: -165px;
+    cursor: pointer;
+    margin-top: -38px;
+}
