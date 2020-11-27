@@ -26,7 +26,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   noData:any;
   subsidiries:any;
   subuticount:any;
-  utilized:any;
+  available:any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -54,8 +54,7 @@ export class ManageSubsidiaryComponent implements OnInit {
   manageSub();
   this.subsidiries=sessionStorage.getItem('subsidiries');  
   this.subuticount=sessionStorage.getItem('subuticount');
-  this.utilized=this.subsidiries-this.subuticount
-  console.log("this.utilized--",this.utilized)
+  this.available=this.subsidiries-this.subuticount
   this.listOfSubsidiary();
   }
 
@@ -78,9 +77,10 @@ export class ManageSubsidiaryComponent implements OnInit {
       )
   }
   onOkClick(){    
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-      });
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+    //   });
+      window.location.reload()
       $("#addsub").hide();
   }
 
@@ -122,76 +122,35 @@ export class ManageSubsidiaryComponent implements OnInit {
       return;
     }
     this.submitted = false;
-
-    const fg = {
-      event: 'ACCOUNT_ACTIVATE',
-      email: this.manageSubForm.get('emailId').value,
-    }
     this.signUpService.signUp(data).subscribe((response) => {
     let res= JSON.parse(JSON.stringify(response))
-    console.log("res",res);
+    this.respMessage =res.errMessage
+    console.log("res",res.errMessage);
     const fg = {
       "emailId": this.manageSubForm.get('emailId').value,
       "event": 'ADD_SUBSIDIARY',
       "userId": sessionStorage.getItem('userID')
       //"referenceId":res.data.reId
     }
+    if(res.status!=="Failure"){
     this.fps.sendEmailReferSubsidiary(fg)
-      .subscribe(
-        (response) => {
-          this.resetPopup();
-          this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
-        },
-        (error) => {
-          this.resetPopup();
-          this.respMessage = "Service not working! Please try again later."
-        }
-      )}, (error) => {
-        $('#authemaildiv').slideDown();
-        $('#paradiv').slideDown();
-        $('#okbtn').hide();
-        $('#btninvite').show();  
-        this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;
+    .subscribe(
+      (response) => {
+        this.resetPopup();
+        this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+      },
+      (error) => {
+        this.resetPopup();
+        this.respMessage = "Service not working! Please try again later."
       }
     )
-    // if(JSON.parse(JSON.stringify(response)).respMessage){
-    //   this.respMessage = JSON.parse(JSON.stringify(response)).errMessage;
-    // }
-    // // .................changes done by dhiraj.....................
-    //   if(this.respMessage.indexOf('not match') > -1){
-    //     this.respMessage = "Domain Name does not match!";
-    //     $('#authemaildiv').slideDown();
-    //     $('#paradiv').slideDown();
-    //     $('#okbtn').hide();
-    //     $('#btninvite').show();   
-    //   }else if(data.errMessage){
-    //     if(data.status==="Success"){
-    //       this.status=true;
-    //     }else{
-    //       this.status=false;
-    //     }
-    //     this.respMessage = data.errMessage
-    //     $('#authemaildiv').slideUp();
-    //     $('#paradiv').slideDown();
-    //     $('#okbtn').show();
-    //     $('#btninvite').hide();
-    //     this.manageSubForm.reset();
-    //   }
-    //   else{
-    //     this.respMessage = "You've successfully invited a subsidiary to join TradeEnabler."        
-    //     $('#authemaildiv').slideUp();
-    //     $('#paradiv').slideDown();
-    //     $('#okbtn').show();
-    //     $('#btninvite').hide();
-    //     this.manageSubForm.reset();
-    //   }    
-    // (error) =>{
-    //     $('#authemaildiv').slideDown();
-    //     $('#paradiv').slideDown();
-    //     $('#okbtn').hide();
-    //     $('#btninvite').show();   
-    //     this.respMessage = JSON.parse(JSON.stringify(error.error)).errMessage;       
-    // }   
+   }else{
+    this.resetPopup();
+    this.respMessage = res.errMessage;
+   }
+
+   }
+  )
  }
  resetPopup(){
   $('#authemaildiv').slideUp();

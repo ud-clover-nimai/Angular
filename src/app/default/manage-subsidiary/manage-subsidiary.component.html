@@ -12,9 +12,9 @@
                             <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
                                 <ul class="pull-right list-unstyled list-inline statusbar">
                                     <li>
-                                        <label>Subsidiary Slots Available <span class="">{{subsidiries}}</span></label>
+                                        <label>Subsidiary Slots Available <span class="">{{available}}</span></label>
                                     </li>
-                                    <li><label>Subsidiary Slots Utilized <span>{{utilized}}</span></label></li>
+                                    <li><label>Subsidiary Slots Utilized <span>{{subuticount}}</span></label></li>
                                 </ul>
                             </h4>
                         </div>
@@ -147,11 +147,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <p id="paradiv" style="color: #ff0330;" *ngIf="!status">
-                                    {{respMessage}}
-                                </p>
-                                <p id="paradiv" style="color: green;" *ngIf="status">
+                                <p id="paradiv">
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>
