@@ -7,6 +7,9 @@
             <h4>{{title}} Transaction <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+                  <form name="form"
+                  (ngSubmit)="f.form.valid && transaction('preview')"
+                  #f="ngForm" novalidate>
                   <table class="table table-bordered">
                      <tbody>
                         <tr>
@@ -20,12 +23,12 @@
                         </tr>
                         <tr>
                            <td>Name</td>
-                           <td><input type="text" [(ngModel)]="data.applicantName" [disabled]="applicantType"></td>
+                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType"></td>
                         </tr>  
                         <tr>                      
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.applicantCountry" [disabled]="applicantType">
+                              <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
                               </select>
@@ -33,11 +36,18 @@
                         </tr>
                         <tr [hidden]="applicantType">
                            <td>Contact Person</td>
-                           <td><input type="text" [(ngModel)]="data.applicantContactPerson"></td>
+                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"></td>
                         </tr>
-                        <tr [hidden]="applicantType">
+                        <tr *ngIf="!applicantType">
+
                            <td>Email Id</td>
-                           <td><input type="text" [(ngModel)]="data.applicantContactPersonEmail"></td>
+                           <td><input type="text" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
+                               #applicantContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPersonEmail.invalid }" required email>
+                              <span> <div *ngIf="f.submitted && applicantContactPersonEmail.invalid" class="invalid-feedback">
+                                 <div *ngIf="applicantContactPersonEmail.errors.required">Email is required</div>
+                                 <div *ngIf="applicantContactPersonEmail.errors.email">Invalid Email Id</div>
+                             </div></span>                              
+                              </td>                          
                         </tr>
                      </tbody>
                   </table>
@@ -48,12 +58,12 @@
                         </tr>
                         <tr>
                            <td>Name </td>
-                           <td><input type="text" [(ngModel)]="data.beneName" [disabled]="beneficiaryType"></td>
+                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName" [disabled]="beneficiaryType"></td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType">
+                              <select name="beneficiaryType" [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
                               </select>
@@ -61,24 +71,30 @@
                         </tr>
                         <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
-                           <td><input type="text" [(ngModel)]="data.beneContactPerson"></td>
+                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"></td>
                         </tr>
-                        <tr [hidden]="beneficiaryType">
+                        <tr *ngIf="!beneficiaryType">
                            <td>Email Id</td>
-                           <td><input type="text" [(ngModel)]="data.beneContactPersonEmail"></td>
+                           <td><input type="text" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
+                              #beneContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPersonEmail.invalid }" required email>
+                              <span> <div *ngIf="f.submitted && beneContactPersonEmail.invalid" class="invalid-feedback">
+                                 <div *ngIf="beneContactPersonEmail.errors.required">Email Id is required</div>
+                                 <div *ngIf="beneContactPersonEmail.errors.email">Invalid Email Id</div>
+                             </div></span>    
+                           </td>
                         </tr>
                         <tr>
                            <td>Bank</td>
-                           <td><input type="text" [(ngModel)]="data.beneBankName"></td>
+                           <td><input type="text" name="beneBankName" [(ngModel)]="data.beneBankName"></td>
                         </tr>
                         <tr>
                            <td>Swift Code</td>
-                           <td><input type="text" [(ngModel)]="data.beneSwiftCode"></td>
+                           <td><input type="text" name="beneSwiftCode" [(ngModel)]="data.beneSwiftCode"></td>
                         </tr>
                         <tr>
                            <td>Bank Country</td>
                            <td>
-                              <select [(ngModel)]="data.beneBankCountry">
+                              <select name="beneBankCountry" [(ngModel)]="data.beneBankCountry">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                         </select>
@@ -96,20 +112,20 @@
                      <tbody>
                         <tr>
                            <td>LC Issuing Bank</td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceBank"></td>
+                           <td><input type="text" name="lCIssuanceBank" [(ngModel)]="data.lCIssuanceBank"></td>
                         </tr>
                         <tr>
                            <td>Branch </td>
-                           <td><input type="text" [(ngModel)]="data.lCIssuanceBranch"></td>
+                           <td><input type="text" name="lCIssuanceBranch" [(ngModel)]="data.lCIssuanceBranch"></td>
                         </tr>
                         <tr>
                            <td>Swift Code</td>
-                           <td><input type="text" [(ngModel)]="data.swiftCode"></td>
+                           <td><input type="text" name="swiftCode" [(ngModel)]="data.swiftCode"></td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.lCIssuanceCountry" [disabled]="productType">
+                              <select name="lCIssuanceCountry" [(ngModel)]="data.lCIssuanceCountry" [disabled]="productType">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                          </select>
@@ -122,7 +138,7 @@
                         <tr>
                            <td>Product </td>
                            <td>
-                              <select  (change)="changeReqType($event)" [(ngModel)]="data.requirementType" [disabled]="productType">                                 
+                              <select name="requirementType" (change)="changeReqType($event)" [(ngModel)]="data.requirementType" [disabled]="productType">                                 
                                  <option value='Confirmation'>Confirmation</option>
                                  <option value='Discounting'>Discounting</option>
                                  <option value='Refinance'>Refinancing</option>
@@ -133,36 +149,36 @@
                         <tr>
                         <tr>
                            <td>Amount</td>
-                           <td><input type="text" [(ngModel)]="data.lCValue"></td>
+                           <td><input type="text" name="lCValue" [(ngModel)]="data.lCValue"></td>
                         </tr>
                         <tr>
                            <td>Currency</td>
                            <td>
                              
-                             <select class="edit-selectColor" [(ngModel)]="data.lCCurrency">
+                             <select class="edit-selectColor" name="lCCurrency" [(ngModel)]="data.lCCurrency">
                               <option *ngFor="let data of countryName"  [ngValue]='data.currency'>{{data.currency}}</option>
                              </select>
                            </td>
                         </tr>
                         <tr>
                            <td>LC Issuing Date</td>
-                           <td><input type="date"  [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
+                           <td><input type="date" name="lCIssuingDate" [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lCIssuingDate = $event"></td>
                         </tr>
                         <tr *ngIf="reqType != 'Refinance'">
                            <td>LC Negotiation Date</td>
-                           <td><input type="date"  [ngModel]="data.negotiationDate | date:'yyyy-MM-dd'" 
+                           <td><input type="date" name="negotiationDate" [ngModel]="data.negotiationDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.negotiationDate = $event"></td>
                         </tr>
                         <tr *ngIf="reqType != 'Refinance'">
                            <td>Last Shipment Date</td>
-                           <td><input type="date"  [ngModel]="data.lastShipmentDate | date:'yyyy-MM-dd'" 
+                           <td><input type="date" name="lastShipmentDate" [ngModel]="data.lastShipmentDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lastShipmentDate = $event"></td>
                         </tr>
                         <tr>
                            <td>Goods/Services</td>
                            <td>
-                              <select class="edit-selectColor" [(ngModel)]="data.goodsType" (change)="onItemSelect($event.target.value)">
+                              <select class="edit-selectColor" name="goodsType" [(ngModel)]="data.goodsType" (change)="onItemSelect($event.target.value)">
                                  <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
 
                              </select>
@@ -170,7 +186,7 @@
                         </tr>
                         <tr *ngIf="isBankOther">
                            <td>Others</td>
-                           <td><input type="text" [(ngModel)]="data.otherType"></td>
+                           <td><input type="text" name="otherType" [(ngModel)]="data.otherType"></td>
                         </tr>
                      </tbody>
                   </table>
@@ -183,19 +199,19 @@
                             </tr>
                             <tr *ngIf="reqType == 'Banker'">
                                 <td>Period for which financing is required</td>
-                                <td><input type="text" [(ngModel)]="data.discountingPeriod"></td>
+                                <td><input type="text" name="discountingPeriod" [(ngModel)]="data.discountingPeriod"></td>
                             </tr>
                             <tr *ngIf="reqType == 'Discounting'">
                                 <td>Usance (Days)</td>
-                                <td><input type="text" [(ngModel)]="data.discountingPeriod"></td>
+                                <td><input type="text" name="discountingPeriod" [(ngModel)]="data.discountingPeriod"></td>
                             </tr>
                             <tr *ngIf="reqType == 'ConfirmAndDiscount' || reqType == 'Confirmation'">
                                 <td>Usance (Days)</td>
-                                <td><input type="text" [(ngModel)]="data.confirmationPeriod"></td>
+                                <td><input type="text" name="confirmationPeriod" [(ngModel)]="data.confirmationPeriod"></td>
                             </tr>
                             <tr>
                                 <td>Payments terms to seller as per LC </td>
-                                <td><textarea rows="5" [(ngModel)]="data.paymentTerms"></textarea></td>
+                                <td><textarea rows="5" name="paymentTerms" [(ngModel)]="data.paymentTerms"></textarea></td>
                             </tr>
                         </tbody>
                     </table>
@@ -206,21 +222,21 @@
                             </tr>
                             <tr>
                                 <td>Orignal Usance (Tenor) of LC</td>
-                                <td><input type="text" [(ngModel)]="data.originalTenorDays"></td>
+                                <td><input type="text" name="originalTenorDays" [(ngModel)]="data.originalTenorDays"></td>
                             </tr>
                             <tr>
                                 <td>Period for which refinancing is required</td>
-                                <td><input type="text" [(ngModel)]="data.refinancingPeriod"></td>
+                                <td><input type="text" name="refinancingPeriod" [(ngModel)]="data.refinancingPeriod"></td>
                             </tr>
                             <tr>
                                 <td>LC Maturity Date</td>
-                                <td><input type="date"  [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
+                                <td><input type="date" name="lcMaturityDate" [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
                                  (ngModelChange)="data.lcMaturityDate = $event"></td>
                             </tr>
                             <tr>
                               <td>Multiple Maturity Date</td>                               
                               <td>
-                                 <input (change)="handleFileInput($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 75%;"/>
+                                 <input (change)="handleFileInput ($event)" type="file" data-placeholder="No file"  name="upload_file1" id="upload_file1" data-icon="false" style="width: 75%;"/>
                                  <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
                               </td>
                             </tr>
@@ -229,20 +245,20 @@
                             </tr>
                             <tr>
                                 <td>LC Number</td>
-                                <td><input type="text" [(ngModel)]="data.lcNumber"></td>
+                                <td><input type="text" name="lcNumber" [(ngModel)]="data.lcNumber"></td>
                             </tr>
                             <tr>
                                 <td>Beneficiary Bank Name</td>
-                                <td><input type="text" [(ngModel)]="data.lastBeneBank"></td>
+                                <td><input type="text" name="lastBeneBank" [(ngModel)]="data.lastBeneBank"></td>
                             </tr>
                             <tr>
                                 <td>Swift Code</td>
-                                <td><input type="text" [(ngModel)]="data.lastBeneSwiftCode"></td>
+                                <td><input type="text" name="lastBeneSwiftCode" [(ngModel)]="data.lastBeneSwiftCode"></td>
                             </tr>
                             <tr>
                                 <td>Country</td>
                                 <td>
-                                    <select [(ngModel)]="data.lastBankCountry">
+                                    <select name="lastBankCountry" [(ngModel)]="data.lastBankCountry">
                                        <option [ngValue]="null" selected>Select</option>
                                           <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                                      </select>
@@ -258,7 +274,7 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.loadingCountry" (change)="portLoadingOnchange(data.loadingCountry)">
+                              <select [(ngModel)]="data.loadingCountry" name="loadingCountry" (change)="portLoadingOnchange(data.loadingCountry)">
                                  <option [ngValue]="null" selected>Select</option>
                                     <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                                </select>
@@ -267,7 +283,7 @@
                         <tr>
                            <td>Port of Loading</td>
                            <td>
-                          <select [(ngModel)]="data.loadingPort" >
+                          <select [(ngModel)]="data.loadingPort" name="loadingPort">
                            <option [ngValue]="null" selected>Select</option>
                            <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
                       </select>
@@ -276,7 +292,7 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select [(ngModel)]="data.dischargeCountry" (change)="portDischargeOnchange(data.dischargeCountry)">
+                              <select [(ngModel)]="data.dischargeCountry" name="dischargeCountry" (change)="portDischargeOnchange(data.dischargeCountry)">
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
                             </select></td>
@@ -284,7 +300,7 @@
                         <tr>
                            <td>Port of Discharge</td>
                            <td>
-                             <select class="edit-selectColor" [(ngModel)]="data.dischargePort">
+                             <select class="edit-selectColor" name="dischargePort" [(ngModel)]="data.dischargePort">
                               <option [ngValue]="null" selected>Select</option>
                               <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
                          </select>
@@ -294,12 +310,12 @@
                            <td>
                               Charges are on
                            </td>
-                           <td><input type="text" [(ngModel)]="data.chargesType"></td>
+                           <td><input type="text" name="chargesType" [(ngModel)]="data.chargesType"></td>
                         </tr>
                         <tr>
                            <td>Customer Quote Validity </td>
-                           <td><input type="date" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.validity = $event" disabled></td>
+                           <td><input type="date" name="validity" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.validity = $event" [disabled]="checkValidity"></td>
                         </tr>
                       
                         <tr>
@@ -321,14 +337,13 @@
                      </tbody>
                   </table>  
                    <br>
-                   <button type="submit" class="btn btn-info pull-right" id="btnpreview"
-                   (click)="transaction('preview')">
+                   <button type="submit" class="btn btn-info pull-right">
                    Preview
                    <div class="ripple-container"></div>
                 </button>
-    
+               </form>
+
                </div>
-              
             </div>
 
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">

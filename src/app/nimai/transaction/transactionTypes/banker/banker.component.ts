@@ -9,6 +9,7 @@ import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
 import * as FileSaver from 'file-saver';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-banker',
@@ -54,6 +55,8 @@ export class BankerComponent implements OnInit {
   goodsArray: any;
   isBankOther: boolean=false;
   othersStr: any;
+  currentDateTime: string;
+  checkValidity: boolean=true;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -201,7 +204,15 @@ export class BankerComponent implements OnInit {
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any ,goods:any) {
+  public action(flag: boolean, type: Tflag, data: any ,goods:any,validityDate:any) {
+    var strs=validityDate;
+    var strsplit=strs.split('T',2)
+       this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
+       if(strsplit[0]==this.currentDateTime && data.quotationReceived==0){
+        this.checkValidity=false;
+      }else{
+        this.checkValidity=true;
+      }
     this.goodsArray=goods
     this.tab='tab2';
     if (flag) {

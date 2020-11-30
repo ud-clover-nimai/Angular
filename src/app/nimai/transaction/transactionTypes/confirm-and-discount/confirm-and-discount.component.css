@@ -140,3 +140,15 @@
   cursor: pointer;
   margin-top: -22px;
 }
+
+.invalid-feedback {
+  display: block;
+    position: absolute;
+    top: 23px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}

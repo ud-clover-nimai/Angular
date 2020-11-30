@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
-  interestedCountryList = this.countryService();
   dropdownSetting = {};
   dropdownSettingGoods={};
   public hasCountrycode=false;
@@ -42,13 +41,14 @@ export class LoginComponent implements OnInit {
   public forgPassSubmitted: boolean = false;
   resp: any;
   goodsArray: Array<string> = [];
-
+  countryArray: Array<string> = [];
   goodsData: any;
   isTextFieldType: boolean;
   todaysDate: any;
   countryCode: any = "";
   countryName: any;
   isBankOther: boolean=false;
+  currencies: unknown[];
   
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
@@ -90,8 +90,8 @@ export class LoginComponent implements OnInit {
     })
     this.dropdownSetting = {
       singleSelection: false,
-      idField: 'id',
-      textField: 'name',
+      idField: 'code',
+      textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 5,
@@ -633,28 +633,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     return data;
   }
 
-
-  goodsService() {
-    this.loginService.getGoodsData().
-      subscribe(
-        (response) => {
-          this.goodsArray = JSON.parse(JSON.stringify(response));
-        },
-        (error) => {}
-      )
-}
-
-
-  countryService() {
-    return [{ id: 1, name: 'India' }, { id: 2, name: 'USA' }, { id: 3, name: 'Australia' }]
-  }
-
-
-  getCountryName(ccid: number) {
-    return this.countryService().filter((res) => res.id == ccid)[0];
-  }
-
-
   onItemSelect(item: any) {
     if(item.productCategory=="Others"){
       this.isBankOther=true;      
@@ -756,14 +734,24 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     //$('#checkboxError').hide();
     $("#isCheckedForTerms").prop("checked", false);
   }
-
+  goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
   getCountryData(){
     this.loginService.getCountryMasterData().
       subscribe(
         (response) => {
           this.resp = JSON.parse(JSON.stringify(response));
+        //  this.countryArray=JSON.parse(JSON.stringify(response))
           sessionStorage.setItem('countryData', JSON.stringify(response));
-          
+          this.currencies = [...new Set( this.resp.map(item => item.currency))];
+
         },
         (error) => {}
       )

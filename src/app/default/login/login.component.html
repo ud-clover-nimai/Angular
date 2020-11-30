@@ -218,7 +218,7 @@
                                              <img src="assets/images/countries.png" />
                                           </div> -->
                                           <div class="inputDiv multiselect-dropdown ">
-                                             <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                              <label class="dropdownlabel">Countries Interested</label>
                                              <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">
                                                  <div *ngIf="submittedSignup && suf.countriesInt.errors?.required">
@@ -240,7 +240,9 @@
                                              </div> -->
                                              <select class="currency" formControlName="regCurrency">
                                                 <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option>
+                                                <!-- <option *ngFor="let data of resp" [ngValue]='data.currency'>{{data.currency}}</option> -->
+                                                <option *ngFor="let data of currencies"  [ngValue]='data'>{{data}}</option>
+
                                              </select>
                                              <div *ngIf="submittedSignup && suf.regCurrency.errors" class="invalid-feedback">
                                                 <div *ngIf="suf.regCurrency.errors.required">

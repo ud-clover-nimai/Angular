@@ -55,8 +55,8 @@ export class RefinancingComponent implements OnInit {
   goodsArray: any;
   isBankOther: boolean=false;
   othersStr: any;
-  checkValidity: boolean;
   currentDateTime: string;
+  checkValidity: boolean=true;
   dateString: string;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -208,17 +208,16 @@ deleteFileContentForma(){
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any,goods:any) {
-    // console.log(data.validity )
-    // console.log(data.quotationReceived)
-    // var strs=data.validity;
-    // var strsplit=strs.split('T',2)
-    //    this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US'),
-     
-    //    if(strsplit[0]==this.currentDateTime && data.quotationReceived==0){
-
-    //    }
-//this.checkValidity=true;
+  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate:any) {
+  
+    var strs=validityDate;
+    var strsplit=strs.split('T',2)
+       this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
+       if(strsplit[0]==this.currentDateTime && data.quotationReceived==0){
+        this.checkValidity=false;
+      }else{
+        this.checkValidity=true;
+      }
     this.goodsArray=goods
     this.transaction_id=this.data.transactionId;
        this.tab='tab2';

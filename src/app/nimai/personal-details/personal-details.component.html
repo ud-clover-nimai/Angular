@@ -304,7 +304,7 @@
                 
 
                       <div class="inputDiv multiselect-dropdown">
-                        <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [(ngModel)]="intCntTemp" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
+                        <ng-multiselect-dropdown-angular7 [data]="countryArray" formControlName="countriesInt" [(ngModel)]="intCntTemp" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
                         <label class="dropdownlabel">Countries Interested</label>
                         <div
                           *ngIf="submitted && perDetails.countriesInt.errors"

@@ -32,11 +32,10 @@ export class PersonalDetailsComponent implements OnInit {
   public username: string = "";
   public submitted:boolean = false;
 
-  interestedCountryList = this.countryService();
-  blackListedGoodsList = this.goodsService();
   dropdownSetting = {};
   dropdownSettingGoods={};
   goodsArray: Array<string> = [];
+  countryArray: Array<string> = [];
 
   intCntTemp: any[] = [];
   goodsCntTemp:any[]=[];
@@ -88,13 +87,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.titleService.changeTitle(this.title);
     this.dropdownSetting = {
       singleSelection: false,
-      idField: 'id',
-      textField: 'name',
+      idField: 'code',
+      textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 2,
       allowSearchFilter: true,
-      closeDropDownOnSelection: true
     }
     this.dropdownSettingGoods = {
       singleSelection: false,
@@ -162,6 +160,8 @@ export class PersonalDetailsComponent implements OnInit {
     });
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
+    this.countryArray=JSON.parse(sessionStorage.getItem('countryData'));
+
   }
   setReferrerValidators(){
     this.personalDetailsForm.get('companyName').setValidators([Validators.required])
@@ -360,8 +360,8 @@ export class PersonalDetailsComponent implements OnInit {
     for(var acdata of interestedCountry){
       if(acdata.countriesIntrested){
       var d={
-        id:acdata.ccid,
-        name:acdata.countriesIntrested
+        code:acdata.ccid,
+        country:acdata.countriesIntrested
       }
       data.push(d);
     }
@@ -399,6 +399,7 @@ export class PersonalDetailsComponent implements OnInit {
       subscribe(
         (response) => {
           this.goodsArray = JSON.parse(JSON.stringify(response));
+
         },
         (error) => {}
       )
@@ -414,27 +415,20 @@ export class PersonalDetailsComponent implements OnInit {
   //   return this.goodsService().filter((res) => res.id == gid)[0];
   // }
 
-  countryService() {
-    return [{ id: 1, name: 'India' }, { id: 2, name: 'USA' }, { id: 3, name: 'Australia' }]
-  }
-
-
-  getCountryName(ccid: number) {
-    return this.countryService().filter((res) => res.id == ccid)[0];
-  }
+  
   onItemSelect(item: any) {
     //this.intCntTemp.push(item);
-     console.log(this.intCntTemp);
+     console.log(item);
     // console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
     // console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
   }
 
   onSelectAll(item: any) {
-    console.log(this.intCntTemp);
+    console.log(item);
     //this.intCntTemp=item;
   }
   onItemDeSelect(item:any){
-    console.log(this.intCntTemp)
+    console.log(item)
     // const index: number = this.intCntTemp.indexOf(item);
     // if (index !== -1) {
     //     this.intCntTemp.splice(index, 1);
@@ -453,17 +447,16 @@ export class PersonalDetailsComponent implements OnInit {
      this.blgTemp=[];
      this.blgTemp.push(item)
     }
-     console.log( this.blgTemp);
     // console.log(this.filterForSaveIntCon(this.intCntTemp, this.personalDetailsForm.get('countriesInt').value))
     // console.log(this.filterForSaveBlg(this.blgTemp, this.personalDetailsForm.get('blacklistedGC').value))
   }
 
   onSelectAllBG(item: any) {
-    console.log(this.blgTemp);
+    console.log(item);
    // this.blgTemp=item;
   }
   onItemDeSelectBG(item:any){
-    console.log(this.blgTemp)
+    console.log(item)
     // const index: number = this.blgTemp.indexOf(item);
     // if (index !== -1) {
     //     this.blgTemp.splice(index, 1);
@@ -476,17 +469,15 @@ export class PersonalDetailsComponent implements OnInit {
   filterInterestedCountry(data: any[]) {
     let dataArr: any[] = [];
 
-    if (data != null){
+    if (data != null)
       for (let d of data) {
         let dd = {
-          id: d.ccid,
-          name: d.countriesIntrested
+          code: d.ccid,
+          country: d.countriesIntrested
         }
         dataArr.push(dd);
       }
-    }else{
-
-    }
+   
     return dataArr;
 
   }
@@ -503,20 +494,15 @@ export class PersonalDetailsComponent implements OnInit {
         dataArr.push(dd);
       }
     return dataArr;
-
   }
-
-
-  filterForSaveIntCon(data: any[]) {
-    
+  filterForSaveIntCon(data: any[]) {    
     let dataArr: any[] = [];
     for (let d1 of data) {
-
-      
+     
         let dd = {
           countryID: null,
-          countriesIntrested: d1.name,
-          ccid: d1.id
+          countriesIntrested: d1.country,
+          ccid: d1.code
         }
         dataArr.push(dd)
       
