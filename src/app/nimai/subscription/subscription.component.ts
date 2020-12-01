@@ -178,9 +178,10 @@ isRenewPlan=false;
         }
         else
         {
-
-          this.addedAmount=this.choosedPrice
+          this.addedAmount=this.choosedPrice;
+          this.amountAfterCoupon=this.choosedPrice;
         }  
+
         this.couponSuccess=false;
     }
     )
@@ -452,7 +453,7 @@ isRenewPlan=false;
   addAdvService(event){
     if (event.target.value === "Add") {
       this.callVasService=true;
-      if(this.amountAfterCoupon){
+      if(this.isApply){
         this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);
       }
       else{
@@ -462,7 +463,7 @@ isRenewPlan=false;
       } else {
       this.callVasService=false;  
       event.target.value = "Add";
-      if(this.amountAfterCoupon){
+      if(this.isApply){
         this.addedAmount= this.amountAfterCoupon
       }
       else{  
