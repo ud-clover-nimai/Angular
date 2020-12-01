@@ -453,7 +453,7 @@ isRenewPlan=false;
   addAdvService(event){
     if (event.target.value === "Add") {
       this.callVasService=true;
-      if(this.isApply){
+      if(this.amountAfterCoupon){
         this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);
       }
       else{
@@ -463,7 +463,7 @@ isRenewPlan=false;
       } else {
       this.callVasService=false;  
       event.target.value = "Add";
-      if(this.isApply){
+      if(this.amountAfterCoupon){
         this.addedAmount= this.amountAfterCoupon
       }
       else{  
