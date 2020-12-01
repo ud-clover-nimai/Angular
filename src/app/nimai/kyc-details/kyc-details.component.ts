@@ -111,7 +111,7 @@ checkStatus(){
         if(this.kycStatusData[i].title=="Business"){
           if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
             this.sendData="RejectedBusiness"
-            this.isRejectedPersonal="RejectedBusiness"
+            this.isRejectedBusiness="RejectedBusiness"
             this.disabledBusiness=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -127,7 +127,7 @@ checkStatus(){
          if (this.kycStatusData[i].title=="Personal"){
           if(this.kycStatusData[i].kycStatus.includes("Rejected") !== -1){
             this.sendData="RejectedPersonal"
-            this.isRejectedPersonal="rejectRejectedPersonal"
+            this.isRejectedPersonal="RejectedPersonal"
             this.disabledpersonal=true;
             this.rejectReason=this.kycStatusData[i].reason;
             this.rejectedTitle=this.kycStatusData[i].title;
@@ -209,14 +209,9 @@ get kycDetails() {
   return this.kycDetailsForm.controls;
 }
 setValidators(){
-  // if(this.kycStatusData)
-  // if(this.kycStatusData.length>1){
-  //   this.sendData="both"
-  //   return;
-  // }
   if(this.isRejectedPersonal && this.isRejectedBusiness){
     this.sendData="both"
-     return;
+    return
   }
   if(this.sendData=="RejectedBusiness"){
     this.kycDetailsForm.get("perDocument").disable();
@@ -232,8 +227,9 @@ setValidators(){
 }
   submit(): void {
     
-    console.log("send data")
     this.setValidators();
+   
+    console.log("send data",this.sendData)
     this.submitted = true;  
      if(this.kycDetailsForm.invalid) {
       return;
