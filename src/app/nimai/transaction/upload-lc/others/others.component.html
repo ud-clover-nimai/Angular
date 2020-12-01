@@ -87,7 +87,8 @@
     </div>
     <div class="col-md-6">
             <mat-form-field>
-                <mat-label>Validity</mat-label>
+                <mat-label>Validity <br> (expected date to receive quote)</mat-label>
+                <br>
                 <input matInput [matDatepicker]="validity" [min]="minDate" formControlName="validity" autocomplete="off" class="validity">
                 <mat-datepicker-toggle matSuffix [for]="validity">
                 </mat-datepicker-toggle>

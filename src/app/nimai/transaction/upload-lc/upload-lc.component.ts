@@ -62,6 +62,7 @@ export class UploadLCComponent implements OnInit {
   goodsArray: any;
   isBankOther: boolean=false;
   othersStr: any="";
+  currentDateTime: string;
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
@@ -368,36 +369,46 @@ export class UploadLCComponent implements OnInit {
     data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.transactionId = this.transactionID;
 
-    this.upls.updateLc(data).subscribe(
-        (response) => {
-           this.transactionID = JSON.parse(JSON.stringify(response)).data;
-          this.loading = false;
-          this.titleService.loading.next(false);
-          this.lc = this.lcDetailForm.value;
-          this.previewShow = true;
-          this.isPrev = false;
-          this.isNext = false;
-          this.isSave = false;
-          this.isPreview = false;
-          this.showUpdateButton = false;
-          this.isEdit = true;
-          this.isConfirm = true;
-        },
-        (error) => {
-          this.loading = false;
-          this.titleService.loading.next(false);
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: 'Transaction Failed',
-              message: '',
-              parent: this.subURL+"/"+this.parentURL +'/new-transaction'
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
-            .then(success => console.log('navigation error?', success))
-            .catch(console.error);
-        }
-      )
+    
+    
+    var strs=data.validity;
+    var strsplit=strs.split('T',2)
+       this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')    
+      
+       if(strsplit[0]<this.currentDateTime ){
+        $("#invalidDate").show();         
+      }  else{
+        this.upls.updateLc(data).subscribe(
+          (response) => {
+             this.transactionID = JSON.parse(JSON.stringify(response)).data;
+            this.loading = false;
+            this.titleService.loading.next(false);
+            this.lc = this.lcDetailForm.value;
+            this.previewShow = true;
+            this.isPrev = false;
+            this.isNext = false;
+            this.isSave = false;
+            this.isPreview = false;
+            this.showUpdateButton = false;
+            this.isEdit = true;
+            this.isConfirm = true;
+          },
+          (error) => {
+            this.loading = false;
+            this.titleService.loading.next(false);
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Failed',
+                message: '',
+                parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+              .then(success => console.log('navigation error?', success))
+              .catch(console.error);
+          }
+        )
+      }
   }
 
   public confirm() {
@@ -475,6 +486,12 @@ export class UploadLCComponent implements OnInit {
             .catch(console.error);
         }
       )
+  }
+
+  invalidDateOk(){
+    
+    $("#invalidDate").hide();
+
   }
 
   dupPopYes(){
@@ -718,7 +735,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
         // var splittedStr = str.split(" |", 1); 
         // console.log(splittedStr[0]);
 
-      //  this.ngOnInit();
+        this.ngOnInit();
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
@@ -809,8 +826,19 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
   
       this.upls.custCloneTransaction(data).subscribe(
         (response) => {
-
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
+
+          if(this.cloneData.goodsType.startsWith('Others')){
+            this.isBankOther=true;      
+            var str = this.cloneData.goodsType; 
+            var splittedStr =str.split(" - ",2)
+              this.othersStr=splittedStr[0];
+         this.cloneData.goodsType=this.othersStr;
+         this.cloneData.otherType=splittedStr[1];
+  
+           }else{
+             this.isBankOther=false;
+           }
           this.ngOnInit();    
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)
           this.Others.portLoadingOnchange(this.cloneData.loadingCountry)
