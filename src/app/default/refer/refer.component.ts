@@ -218,9 +218,9 @@ export class ReferComponent implements OnInit {
           event.preventDefault();
       }    
     }else if(type=="mobile_number"){
-      if (key > 31 && (key < 48 || key > 57)) {
+      if (key!= 43 && key > 31 && (key < 48 || key > 57)) {
         event.preventDefault();
-      }
+    }
     }
   }
 

@@ -303,6 +303,7 @@
                                                 <option value="CA Firm">CA Firm</option>
                                                 <option value="Law Firm">Law Firm</option>
                                                 <option value="Corporate">Corporate</option>
+                                                <option value="Consultant">Consultant</option>
                                                 <option value="Others">Others</option>
                                              </select>
                                              <label>Business Type</label>
@@ -388,7 +389,7 @@
                                  <div>
                                     <h1>Login</h1>
                                     <span></span>
-                                    <div class="inputDiv">
+                                    <div class="inputDiv is-focused">
                                        <input oninput="this.value = this.value.toUpperCase()"  type="text"  maxlength="8" class="has-value first_input" formControlName="username" [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" (input)="validate()" autocomplete="off" >
                                        <label>User ID</label>
                                        <img src="assets/images/user.png" />

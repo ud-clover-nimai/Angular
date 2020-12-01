@@ -229,3 +229,6 @@ select.currency {
         margin-right: -8px !important;
         margin-top: 2px !important;
     }
+    ::ng-deep .multiselect-dropdown .dropdown-btn span[hidden] {
+        display: none!important;
+      }

@@ -56,15 +56,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.goodsService();
-   this.isReferrerOther=false;
-    loads();
-    loadLogin();
-    this.loginForm = this.fb.group({
-      username: [''],
-      password: ['']
-    });
-
+  this.goodsService();
+  this.isReferrerOther=false;
+  loads();
+  loadLogin();
+  this.loginForm = this.fb.group({
+    username: [''],
+    password: ['']
+  });
     this.signupForm = this.fb.group({
       firstName: [''],
       lastName: [''],
@@ -94,7 +93,7 @@ export class LoginComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 2,
       allowSearchFilter: true
     }
     this.dropdownSettingGoods = {
@@ -103,7 +102,7 @@ export class LoginComponent implements OnInit {
       textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 2,
       allowSearchFilter: true
     }
     
@@ -116,7 +115,6 @@ export class LoginComponent implements OnInit {
     const first_input = this.el.nativeElement.querySelector('.first_input');
     first_input.focus();
     const inputList = [].slice.call((<HTMLElement>this.el.nativeElement).getElementsByTagName('input'));
-    
     inputList.forEach((input: HTMLElement) => {
         input.addEventListener('focus', () => {
          if((<HTMLInputElement>event.target).id===null || (<HTMLInputElement>event.target).id===""){
@@ -731,7 +729,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.Removevalidate();
     this.forgotPasswordForm.get('email').clearValidators();
     this.forgotPasswordForm.get('email').updateValueAndValidity();
-    //$('#checkboxError').hide();
     $("#isCheckedForTerms").prop("checked", false);
   }
   goodsService() {
