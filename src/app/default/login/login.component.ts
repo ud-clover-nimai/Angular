@@ -351,6 +351,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
   public checkUserType(value: string) {
     this.hasCountrycode=false;
+    this.isReferrerOther=false;
     $('#checkboxError').hide();  
     this.clearSignupValidation();
     this.updateValidation();
@@ -607,6 +608,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       emailAddress: this.signupForm.get('officialMailId').value,
       mobileNum: this.countryCode+this.signupForm.get('mobileNo').value,
       countryName: this.countryName,
+      registredCountry:this.countryName,
       landLinenumber: this.signupForm.get('landlineNo').value,
       companyName: this.signupForm.get('companyName').value,
       designation: this.signupForm.get('designation').value,

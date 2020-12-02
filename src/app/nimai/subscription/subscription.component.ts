@@ -428,6 +428,7 @@ isRenewPlan=false;
             this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
+            this.isPaymentSuccess = true;
           }); 
           }else {
             const navigationExtras: NavigationExtras = {

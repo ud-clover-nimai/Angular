@@ -63,7 +63,7 @@ export class KycDetailsComponent implements OnInit {
 
     let userID = sessionStorage.getItem("userID");
     
-    if((userID.startsWith('BA')) || (userID.startsWith('BC'))){
+    if((userID.startsWith('BA')) || (userID.startsWith('BC')) || (userID.startsWith('RE'))){
       this.isBank = true;
     }
     else if(userID.startsWith('CU')){

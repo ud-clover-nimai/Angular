@@ -219,7 +219,7 @@ export class DasboardDetailsComponent implements OnInit {
   getCustomerDashboardDetails(){
     const param = {
       userId: this.userId,
-      year: "2020",
+      year: "",
       startDate:"",
       endDate:""
     }
