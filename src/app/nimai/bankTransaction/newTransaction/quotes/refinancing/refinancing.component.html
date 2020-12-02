@@ -57,7 +57,7 @@
                                     rows="3"></textarea>
 
                                 <tr>
-                                    <td>Refinancing Charges p.a.</td>
+                                    <td>Refinancing Interest p.a.</td>
                                     <td><input type="text" name="refinancingCharges" [(ngModel)]="dataViewEdit.refinancingCharges"
                                             placeholder="1.23" weightDirective >
                                         <span class="pull-right percent">%</span>
@@ -184,7 +184,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td>Refinancing Charges p.a.</td>
+                                    <td>Refinancing Interest p.a.</td>
                                     <td>{{dataViewEdit.refinancingCharges}}%</td>
                                 </tr>
                                 <tr>
@@ -339,7 +339,7 @@
                                             rows="3"></textarea>
 
                                         <tr>
-                                            <td>Refinancing Charges p.a ( spread over benchmark)</td>
+                                            <td>Refinancing Interest p.a ( spread over benchmark)</td>
                                             <td><input type="text" name="refinancingCharges"
                                                     [(ngModel)]="data.refinancingCharges" placeholder="0.00" #refinancingCharges="ngModel"
                                                     [ngClass]="{ 'is-invalid': f.submitted && refinancingCharges.invalid }"
@@ -462,7 +462,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Refinancing Charges p.a.(spread over benchmark)</td>
+                                        <td>Refinancing Interest p.a.(spread over benchmark)</td>
                                         <td>{{data.refinancingCharges}}%</td>
                                     </tr>
 <!-- 

@@ -37,7 +37,7 @@
                             <tbody>
                                 <br>
                                 <tr>
-                                    <td>Discounting Charges p.a.</td>
+                                    <td>Discounting Interest p.a.</td>
                                     <td><input type="text" name="discountingCharges" [(ngModel)]="dataViewEdit.discountingCharges"
                                          placeholder="0.00"  weightDirective> 
                                          <span class="pull-right percent">%</span>
@@ -167,7 +167,7 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Discounting Charges p.a.</td>
+                                    <td>Discounting Interest p.a.</td>
                                     <td>{{dataViewEdit.discountingCharges}}%</td>
                                 </tr>
                                  <tr>
@@ -325,12 +325,12 @@
                                         <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"  placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
 
                                         <tr>
-                                            <td>Discounting Charges p.a ( spread over benchmark)</td>
+                                            <td>Discounting Interest p.a ( spread over benchmark)</td>
                                             <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" 
                                                 #discountingCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && discountingCharges.invalid }" required weightDirective>
                                                 <span class="pull-right percent">%</span>
                                                 <div *ngIf="f.submitted && discountingCharges.invalid" class="invalid-feedback">
-                                                    <div *ngIf="discountingCharges.errors.required">Discounting Charges p.a is required</div>
+                                                    <div *ngIf="discountingCharges.errors.required">Discounting Interest p.a is required</div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -461,7 +461,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Discounting Charges p.a.(spread over benchmark)</td>
+                                        <td>Discounting Interest p.a.(spread over benchmark)</td>
                                         <td>{{data.discountingCharges}}%</td>
                                     </tr>
                                     <tr>

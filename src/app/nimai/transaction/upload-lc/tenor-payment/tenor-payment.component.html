@@ -95,7 +95,7 @@
             <p><strong>LC Maturity Date <i class="fas fa-info-circle tooltip" aria-hidden="true"></i></strong></p>
         </div>
         <div class="col-md-4">
-                <mat-form-field>                                
+                <mat-form-field (click)="lcMaturity.open()">                                
                 <input autocomplete="off" matInput
                     [matDatepicker]="lcMaturity"
                     formControlName="lcMaturityDate">

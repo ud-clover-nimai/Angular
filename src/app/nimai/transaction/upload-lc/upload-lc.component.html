@@ -155,12 +155,12 @@
                                                                         </div>
 
                                                                         <div class="col-md-3">
-                                                                            <mat-form-field>
+                                                                            <mat-form-field (click)="lcIssuDt.open()">
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">LC Issuance Date</mat-label>
                                                                                 <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
                                                                                     [matDatepicker]="lcIssuDt"
                                                                                     formControlName="lCIssuingDate">
-                                                                                <mat-datepicker-toggle matSuffix
+                                                                                <mat-datepicker-toggle [for]="lcIssuDt" matSuffix
                                                                                     [for]="lcIssuDt">
                                                                                 </mat-datepicker-toggle>
                                                                                 <mat-datepicker #lcIssuDt>
@@ -169,13 +169,13 @@
                                                                         </div>
                                                                         
                                                                         <div class="col-md-3" [hidden]="refinancing">
-                                                                            <mat-form-field>
+                                                                            <mat-form-field (click)="lastShipDt.open()">
                                                                                     <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Last Shipment Date
                                                                                 </mat-label>
                                                                                 <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
                                                                                     [matDatepicker]="lastShipDt"
                                                                                     formControlName="lastShipmentDate">
-                                                                                <mat-datepicker-toggle matSuffix
+                                                                                <mat-datepicker-toggle  matSuffix
                                                                                     [for]="lastShipDt">
                                                                                 </mat-datepicker-toggle>
                                                                                 <mat-datepicker #lastShipDt>
@@ -184,7 +184,7 @@
                                                                         </div>
                                                                         <div class="col-md-3" [hidden]="refinancing">
 
-                                                                            <mat-form-field>
+                                                                            <mat-form-field (click)="negDt.open()">
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Negotiation Date
                                                                                 </mat-label>
                                                                                 <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput [matDatepicker]="negDt"

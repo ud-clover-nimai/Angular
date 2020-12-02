@@ -149,7 +149,7 @@
 
                         </tr>
                          <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
-                           <td>Confirmation Charges p.a.</td>
+                           <td>Confirmation Interest p.a.</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
                         </tr>
                        
@@ -164,15 +164,15 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
-                           <td>Discounting Charges p.a.(spread over benchmark)</td>
+                           <td>Discounting Interest p.a.(spread over benchmark)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'Banker'">
-                           <td>Banker's Acceptance Charges p.a.(spread over benchmark)</td>
+                           <td>Banker's Acceptance Interest p.a.(spread over benchmark)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankAcceptCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'Refinance'">
-                           <td>Refinancing Charges p.a.</td>
+                           <td>Refinancing Interest p.a.</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">

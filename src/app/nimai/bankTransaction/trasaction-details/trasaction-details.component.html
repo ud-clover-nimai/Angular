@@ -428,12 +428,12 @@
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
-                                            <td>Confirmation Charges p.a.</td>
+                                            <td>Confirmation Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
-                                            <td>Discounting Charges p.a.</td>
+                                            <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
@@ -447,19 +447,19 @@
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
-                                            <td>Banker's Acceptance Charges p.a.</td>
+                                            <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance'">
-                                            <td>Refinancing Charges p.a.</td>
+                                            <td>Refinancing Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a.(Fixed) </td>
+                                            <td>Negotiation Interest p.a.(Fixed) </td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a.(%)<br>
+                                            <td>Negotiation Interest p.a.(%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                         </tr>
@@ -834,12 +834,12 @@
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
-                                            <td>Confirmation Charges p.a.</td>
+                                            <td>Confirmation Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
-                                            <td>Discounting Charges p.a.</td>
+                                            <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation'">
@@ -853,19 +853,19 @@
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
-                                            <td>Banker's Acceptance Charges p.a.</td>
+                                            <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance'">
-                                            <td>Refinancing Charges p.a.</td>
+                                            <td>Refinancing Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a. (Fixed)</td>
+                                            <td>Negotiation Interest p.a. (Fixed)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a.(%)<br>
+                                            <td>Negotiation Interest p.a.(%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                         </tr>
@@ -1243,13 +1243,13 @@
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount'">
-                                            <td>Confirmation Charges p.a.</td>
+                                            <td>Confirmation Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.confirmationCharges}}%</td>
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
-                                            <td>Discounting Charges p.a.</td>
+                                            <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.discountingCharges}}%</td>
 
@@ -1269,25 +1269,25 @@
                                         </tr>
 
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
-                                            <td>Banker's Acceptance Charges p.a.</td>
+                                            <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.bankerAcceptCharges}}%</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Refinance'">
-                                            <td>Refinancing Charges p.a.</td>
+                                            <td>Refinancing Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.refinancingCharges}}%</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a. (Fixed)</td>
+                                            <td>Negotiation Interest p.a. (Fixed)</td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
                                             <td *ngIf="quotes">{{quotes.negotiationChargesFixed}}</td>
 
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                            <td>Negotiation Charges p.a.(%)<br>
+                                            <td>Negotiation Interest p.a.(%)<br>
                                                 &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
                                             <td *ngIf="quotes">{{quotes.negotiationChargesPerct}}%</td>

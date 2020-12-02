@@ -13,6 +13,19 @@ select{
 	display: none;
 }
 
+::ng-deep.mat-calendar-body-selected {
+    background-color: #00bcd4;
+    color: #fff;
+}
+
+   ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color:#00bcd4 !important;;
+   }
+::ng-deep.mat-form-field-underline {
+    background-color:#dbc5c5 !important;
+   } 
+
 .selections label {
 	color: #9a929e;
 	display: inline-block;

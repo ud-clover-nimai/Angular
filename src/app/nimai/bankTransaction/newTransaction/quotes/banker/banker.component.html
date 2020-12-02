@@ -44,7 +44,7 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td>Banker's Acceptance Charges p.a.</td>
+                                        <td>Banker's Acceptance Interest p.a.</td>
                                         <td><input type="text" name="bankerAcceptCharges"
                                                 [(ngModel)]="dataViewEdit.bankerAcceptCharges" placeholder="0.00"
                                                 weightDirective><span class="pull-right percent">%</span></td>
@@ -202,7 +202,7 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Banker's Acceptance Charges p.a.</td>
+                                    <td>Banker's Acceptance Interest p.a.</td>
                                     <td>{{dataViewEdit.bankerAcceptCharges}}</td>
                                 </tr>
                                
@@ -370,13 +370,13 @@
                                             rows="3"></textarea>
 
                                             <tr>
-                                                <td>Banker's Acceptance Charges p.a ( spread over benchmark)</td>
+                                                <td>Banker's Acceptance Interest p.a ( spread over benchmark)</td>
                                                 <td><input type="text" name="bankAcceptCharges"
                                                         [(ngModel)]="data.bankAcceptCharges" placeholder="0.00"
                                                         #bankAcceptCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && bankAcceptCharges.invalid }" required weightDirective>
                                                     <span class="pull-right percent">%</span>
                                                     <div *ngIf="f.submitted && bankAcceptCharges.invalid" class="invalid-feedback">
-                                                        <div *ngIf="bankAcceptCharges.errors.required">Banker's Acceptance Charges p.a is required</div>
+                                                        <div *ngIf="bankAcceptCharges.errors.required">Banker's Acceptance Interest p.a is required</div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -517,7 +517,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Banker's Acceptance Charges p.a.(spread over benchmark)</td>
+                                        <td>Banker's Acceptance Interest p.a.(spread over benchmark)</td>
                                         <td>{{data.bankAcceptCharges}}%</td>
                                     </tr>
                                     <tr>
