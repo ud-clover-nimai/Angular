@@ -86,13 +86,12 @@
         </ul>
     </div>
     <div class="col-md-6">
-            <mat-form-field>
-                <mat-label>Validity <br> (expected date to receive quote)</mat-label>
-                <br>
-                <input matInput [matDatepicker]="validity" [min]="minDate" formControlName="validity" autocomplete="off" class="validity">
-                <mat-datepicker-toggle matSuffix [for]="validity">
+            <mat-form-field (click)="validity.open()">
+                <mat-label>Validity <br> <small> (expected date to receive quote) </small> </mat-label>
+                <input style="padding-bottom: 5px;padding-top: 8px;" matInput [matDatepicker]="validity" class="has-value" [min]="minDate" formControlName="validity" autocomplete="off" class="validity">
+                <mat-datepicker-toggle [for]="validity" matSuffix [for]="validity">
                 </mat-datepicker-toggle>
-                <mat-datepicker #validity>
+                <mat-datepicker  #validity>
                 </mat-datepicker>
             </mat-form-field>
         </div>

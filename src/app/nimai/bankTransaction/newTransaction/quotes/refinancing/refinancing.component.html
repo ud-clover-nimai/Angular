@@ -339,14 +339,14 @@
                                             rows="3"></textarea>
 
                                         <tr>
-                                            <td>Refinancing interest p.a ( spread over benchmark)</td>
+                                            <td>Refinancing Charges p.a ( spread over benchmark)</td>
                                             <td><input type="text" name="refinancingCharges"
                                                     [(ngModel)]="data.refinancingCharges" placeholder="0.00" #refinancingCharges="ngModel"
                                                     [ngClass]="{ 'is-invalid': f.submitted && refinancingCharges.invalid }"
                                                     required weightDirective>
                                                 <span class="pull-right percent">%</span>
                                                 <div *ngIf="f.submitted && refinancingCharges.invalid" class="invalid-feedback">
-                                                    <div *ngIf="refinancingCharges.errors.required">Refinancing interest is required</div>
+                                                    <div *ngIf="refinancingCharges.errors.required">Refinancing Charges is required</div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -462,7 +462,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Refinancing interest p.a.(spread over benchmark)</td>
+                                        <td>Refinancing Charges p.a.(spread over benchmark)</td>
                                         <td>{{data.refinancingCharges}}%</td>
                                     </tr>
 <!-- 

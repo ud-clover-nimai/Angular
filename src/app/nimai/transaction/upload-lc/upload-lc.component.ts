@@ -14,6 +14,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { ApplicantBeneficiaryComponent } from './applicant-beneficiary/applicant-beneficiary.component';
 import * as FileSaver from 'file-saver';
 import { OthersComponent } from './others/others.component';
+import { TenorPaymentComponent } from './tenor-payment/tenor-payment.component';
 
 
 
@@ -25,6 +26,7 @@ import { OthersComponent } from './others/others.component';
 export class UploadLCComponent implements OnInit {
   @ViewChild(ApplicantBeneficiaryComponent, { static: true }) ApplicantBeneficiary: ApplicantBeneficiaryComponent;
   @ViewChild(OthersComponent, { static: true }) Others: OthersComponent;
+  @ViewChild(TenorPaymentComponent, { static: true }) tenor: TenorPaymentComponent;
 
   public lcDetailForm: FormGroup
   public selector: string = "Confirmation";
@@ -842,7 +844,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           this.ngOnInit();    
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)
           this.Others.portLoadingOnchange(this.cloneData.loadingCountry)
-          this.ApplicantBeneficiary.onItemChange(this.cloneData.userType);   
+          this.ApplicantBeneficiary.onItemChange(this.cloneData.userType);  
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
@@ -912,6 +914,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           beneContactPerson:this.cloneData.beneContactPerson,
           beneContactPersonEmail:this.cloneData.beneContactPersonEmail,
         });
+        this.tenor.selectors(this.cloneData.requirementType) 
+console.log(this.cloneData.requirementType)
         },
         (err) => {}
     ) 

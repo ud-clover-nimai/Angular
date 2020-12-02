@@ -6,10 +6,17 @@ select{
 ::ng-deep .mat-form-field-infix{
     width: 175px!important;
 }
-::ng-deep.mat-form-field-flex {
+ ::ng-deep.mat-form-field-flex {
     margin-right: 26px;
 
 }
+
+/* 
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon, .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 1.5em;
+} */
+
+
 .radio label {
     color: #333!important;
 }

@@ -415,11 +415,11 @@
                                        </tr>
 
                                        <tr *ngIf="quotationdata.requirementType == 'Banker'">
-                                           <td>Banker's Acceptance interest p.a.</td>
+                                           <td>Banker's Acceptance Charges p.a.</td>
                                            <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
                                        </tr>
                                        <tr *ngIf="quotationdata.requirementType == 'Refinance'">
-                                           <td>Refinancing interest p.a.</td>
+                                           <td>Refinancing Charges p.a.</td>
                                            <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
                                        </tr>
                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">

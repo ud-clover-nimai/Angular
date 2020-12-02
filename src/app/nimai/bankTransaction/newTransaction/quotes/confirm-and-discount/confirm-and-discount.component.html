@@ -379,7 +379,7 @@
                                     <tbody>
                                         <br>
                                         <tr>
-                                            <td>Confirmation interest p.a </td>
+                                            <td>Confirmation Charges p.a </td>
                                             <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00"
                                                 #confirmationCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmationCharges.invalid }" required weightDirective>
                                                 <span class="pull-right percent">%</span>
@@ -425,12 +425,12 @@
                                         <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"  placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor" rows="3"></textarea>
                                        
                                         <tr>
-                                            <td>Discounting interest p.a ( spread over benchmark)</td>
+                                            <td>Discounting Charges p.a ( spread over benchmark)</td>
                                             <td><input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" placeholder="0.00" 
                                                 #discountingCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && discountingCharges.invalid }" required weightDirective>
                                                 <span class="pull-right percent">%</span>
                                                 <div *ngIf="f.submitted && discountingCharges.invalid" class="invalid-feedback">
-                                                    <div *ngIf="discountingCharges.errors.required">Discounting interest p.a is required</div>
+                                                    <div *ngIf="discountingCharges.errors.required">Discounting Charges p.a is required</div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -548,7 +548,7 @@
                                     <br>
                                 
                                     <tr>
-                                        <td>Confirmation interest p.a.</td>
+                                        <td>Confirmation Charges p.a.</td>
                                         <td>{{data.confirmationCharges}}%</td>
                                     </tr>
                                     <tr [hidden]="confNegot">
@@ -564,7 +564,7 @@
                                         <td>{{data.applicableBenchmark}}% </td>
                                     </tr>
                                     <tr>
-                                        <td>Discounting interest p.a.(spread over benchmark)</td>
+                                        <td>Discounting Charges p.a.(spread over benchmark)</td>
                                         <td>{{data.discountingCharges}}</td>
                                     </tr>
                                     
