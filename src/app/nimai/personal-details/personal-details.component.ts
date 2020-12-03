@@ -51,6 +51,9 @@ export class PersonalDetailsComponent implements OnInit {
   resp: any;
   parentRedirection: string = "business-details";
   isBankOther: boolean=false;
+  public isReferrerOther=false;
+  busiType:any;
+  otherType:any;
   constructor(public activatedRoute: ActivatedRoute,public loginService: LoginService, public fb: FormBuilder, public router: Router, public personalDetailsService: PersonalDetailsService, public titleService: TitleService) {
     if(sessionStorage.getItem('userID'))
     {
@@ -72,6 +75,7 @@ export class PersonalDetailsComponent implements OnInit {
       companyName: [''],
       designation: [''],
       businessType: [''],
+      otherType:[''],
       countriesInt: [''],
       minLCVal: [''],
       regCurrency:[''],
@@ -203,6 +207,7 @@ export class PersonalDetailsComponent implements OnInit {
     if (userID.startsWith('RE')) {
       this.parentRedirection = "kyc-details"
     }
+   
     this.personalDetailsService.updatePersonalDetails(this.pdb(), userID)
       .subscribe(
         (response) => {
@@ -239,15 +244,30 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   public getPersonalDetails(userID: string) {
-
+   
     this.titleService.loading.next(true);
     this.personalDetailsService.getPersonalDetails(userID)
+    // <option value="Bank">Bank</option>
+    // <option value="CA Firm">CA Firm</option>
+    // <option value="Law Firm">Law Firm</option>
+    // <option value="Corporate">Corporate</option>
+    // <option value="Consultant">Consultant</option>
+    // <option value="Others">Others</option>
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
           this.personalDetails = responseData.data;
           this.username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
           this.titleService.changeUserName(this.username);
+          if(this.personalDetails.businessType=="Bank" || this.personalDetails.businessType=="CA Firm" || this.personalDetails.businessType=="Law Firm" || this.personalDetails.businessType=="Corporate" || this.personalDetails.businessType=="Consultant")
+          {
+            this.busiType=this.personalDetails.businessType;
+            this.isReferrerOther=false;
+          }else{
+            this.busiType="Others"
+            this.isReferrerOther=true;
+            this.otherType=this.personalDetails.businessType;
+          }
           this.personalDetailsForm.patchValue({
             firstName: this.personalDetails.firstName,
             lastName: this.personalDetails.lastName,
@@ -257,7 +277,8 @@ export class PersonalDetailsComponent implements OnInit {
             country: this.personalDetails.countryName,
             companyName: this.personalDetails.companyName,
             designation: this.personalDetails.designation,
-            businessType: this.personalDetails.businessType,
+            businessType: this.busiType,
+            otherType: this.otherType,
             userId: this.personalDetails.userId,
             subscriberType: this.personalDetails.subscriberType,
             bankType: this.personalDetails.bankType,
@@ -369,6 +390,9 @@ export class PersonalDetailsComponent implements OnInit {
     return data;
   }
   public pdb(): signup {
+    if(this.isReferrerOther){      
+      this.personalDetailsForm.get('businessType').setValue(this.personalDetailsForm.get('otherType').value)
+    }
     let data = {
       subscriberType: this.personalDetailsForm.get('subscriberType').value,
       firstName: this.personalDetailsForm.get('firstName').value,
@@ -558,5 +582,13 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
+  changeType(type){    
+    if(type=="Others"){
+      this.isReferrerOther=true;      
+      loads();
 
+    }else{
+      this.isReferrerOther=false;
+    }
+  }
 }

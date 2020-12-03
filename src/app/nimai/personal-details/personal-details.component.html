@@ -245,13 +245,13 @@
                       <div class="inputDiv">
                         <select
                           formControlName="businessType"
-                          [ngClass]="hasValue ? 'has-value' : ''"
-                        >
+                          [ngClass]="hasValue ? 'has-value' : ''" (change)="changeType($event.target.value)">
                           <option [ngValue]="null" selected>Select</option>
                           <option value="Bank">Bank</option>
                           <option value="CA Firm">CA Firm</option>
                           <option value="Law Firm">Law Firm</option>
                           <option value="Corporate">Corporate</option>
+                          <option value="Consultant">Consultant</option>
                           <option value="Others">Others</option>
                         </select>
                         <label>Business Type</label>
@@ -270,6 +270,12 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 referrerdiv" *ngIf="isReferrer && isReferrerOther">
+                      <div class="inputDiv">
+                         <input type="text" maxlength="30" formControlName="otherType">
+                         <label>Other</label>
+                      </div>
+                   </div>
                     <div
                       class="col-sm-3 col-md-3 col-lg-2 bankfields"
                       *ngIf="isBankUnderwriter"
