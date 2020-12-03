@@ -13,25 +13,55 @@ export class CreditAndTransactionsComponent implements OnInit {
   noData:any;
   public startDate:any;
   public endDate:any;
+  creditUsed:any;
+  totalSavings:any;
+  public subsidiary:any;
+  companyName="";
   constructor(public service: DashboardDetailsService) { }
   ngOnInit() {
-    creditTransaction();
-    this.listOfCreditAndTransaction();
+  //  creditTransaction();
     this.startDate=""
     this.endDate=""
+    this.listOfCreditAndTransaction();
+
   }
-  listOfCreditAndTransaction(){   
+   arrUnique(a){
+    var t = [];
+    for(var x = 0; x < a.length; x++){
+      if(t.indexOf(a[x]) == -1)t.push(a[x]);
+    }
+    return t;
+   }
+  listOfCreditAndTransaction(){     
     const param = {
-      userid:sessionStorage.getItem('userID'),
-      txnInsertedDate:this.startDate,
-      txnDate:this.endDate
+      "userid":sessionStorage.getItem('userID'),
+      "txnInsertedDate":this.startDate,
+      "txnDate":this.endDate,
+      "companyName":this.companyName
     }
     this.service.getCreditAndTransactionList(param).subscribe(
       (response) => {
-        if(JSON.parse(JSON.stringify(response)).data)
+        creditTransaction();
+        if(JSON.parse(JSON.stringify(response)).data){
           this.creditData = JSON.parse(JSON.stringify(response)).data;
-        else
-          this.creditData=""  
+          let total = 0;
+          let savings=0;
+          this.subsidiary=[]
+          for (let i = 0; i < this.creditData.length; i++) {
+            let blgData={
+              subsidiary:this.creditData[i].companyName
+            }
+            total +=Number(this.creditData[i].creditUsed);
+            savings+=Number(this.creditData[i].savings);
+            this.subsidiary.push(this.creditData[i].companyName);
+          }
+          this.subsidiary=this.arrUnique(this.subsidiary) 
+          this.creditUsed=total;
+          this.totalSavings=savings;
+        }
+        else{
+          this.creditData=""
+        }  
         if(this.creditData.length === 0){
           this.noData = true;
         }else{
@@ -52,5 +82,12 @@ export class CreditAndTransactionsComponent implements OnInit {
     date.setDate(date.getDate() + 1);
     this.endDate=formatDate(new Date(date), 'yyyy-MM-dd', 'en');
     this.listOfCreditAndTransaction()
+  }
+  selectCompany(companyName){
+    if(companyName!="none"){
+      this.companyName=companyName;
+      this.listOfCreditAndTransaction()
+    }
+    
   }
 }

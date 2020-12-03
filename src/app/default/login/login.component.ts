@@ -563,7 +563,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   public signUpForm(): signup {
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
-    this.intCountriesValue = this.signupForm.get('countriesInt').value;
+    this.intCountriesValue = this.signupForm.get('countriesInt').value;  
     this.blg = [];
     this.intCountries = [];
     for (let vlg of this.blgValue) {

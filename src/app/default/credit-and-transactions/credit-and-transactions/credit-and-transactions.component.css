@@ -70,3 +70,11 @@ position: relative;
   font-size: 15px!important;
   padding-top: 5px!important;
 }
+::ng-deep .is-empty{
+  margin-top: -58px!important;
+  margin-left: 407%!important;
+}
+::ng-deep .addOptions{
+  width: 245px!important;
+  margin-right: 70%!important;
+} 

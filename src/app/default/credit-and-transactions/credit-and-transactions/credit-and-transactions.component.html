@@ -10,52 +10,39 @@
                         <h4 class="card-title"> <span id="changetext"> Credits and Transactions</span>
                             <ul class="pull-right list-unstyled list-inline statusbar">
                                 <li>
-                                    <label>Total Trxn <span class="numbdiv">4</span></label>
+                                    <label *ngIf="creditUsed>=0">Total Trxn <span class="numbdiv">{{creditUsed}}</span></label>
                                 </li>
-                                <li><label>Credits Utilized <span class="numbdiv">6</span></label></li>
-                                
                                 <li>
-                                    <!-- <ul class="list-unstyled list-inline">
+                                    <label *ngIf="creditUsed>=0">Credits Utilized <span class="numbdiv">{{creditUsed}}</span></label>
+                                </li>
+                                <li>
+                                    <label *ngIf="totalSavings>=0">Total Savings <span class="numbdiv">{{totalSavings}}</span></label>
+                                </li>
+                                <li>
+                                    <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;font-size: 13px;">         
                                         <li>
-                                            <div class="inputDivNew">
-                                                <input type="text" class="datepicker" placeholder="Start Date">
-                                                <i class="fas fa-calendar-week"></i>
-                                            </div>
+                                            <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
+                                            <mat-form-field style="padding-right: 14px!important;">
+                                                <mat-label>Start Date</mat-label>
+                                                <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate( $event)">
+                                                <mat-datepicker-toggle matSuffix [for]="startDate">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #startDate>
+                                                </mat-datepicker>
+                                            </mat-form-field>
                                         </li>
-                                        <li> <small>&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;</small></li>
                                         <li>
-                                            <div class="inputDivNew">
-                                                <input type="text" class="datepicker" placeholder="End Date">
-                                                <i class="fas fa-calendar-week"></i>
-                                            </div>
+                                            <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
+                                            <mat-form-field>
+                                                <mat-label>End Date</mat-label>
+                                                <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)">
+                                                <mat-datepicker-toggle matSuffix [for]="endDate">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #endDate>
+                                                </mat-datepicker>
+                                            </mat-form-field>
                                         </li>
-                                    </ul> -->
-
-                                    <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;font-size: 13px;">
-                                         
-                                            <li>
-                                               <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
-                                               <mat-form-field style="padding-right: 14px!important;">
-                                                  <mat-label>Start Date</mat-label>
-                                                  <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate( $event)">
-                                                  <mat-datepicker-toggle matSuffix [for]="startDate">
-                                                  </mat-datepicker-toggle>
-                                                  <mat-datepicker #startDate>
-                                                  </mat-datepicker>
-                                               </mat-form-field>
-                                            </li>
-                                            <li>
-                                               <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
-                                               <mat-form-field>
-                                                  <mat-label>End Date</mat-label>
-                                                  <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)">
-                                                  <mat-datepicker-toggle matSuffix [for]="endDate">
-                                                  </mat-datepicker-toggle>
-                                                  <mat-datepicker #endDate>
-                                                  </mat-datepicker>
-                                               </mat-form-field>
-                                            </li>
-                                         </ul>
+                                    </ul>
                                 </li>
                             </ul>
                         </h4>
@@ -65,8 +52,16 @@
                                     No Data is available
                                 </div>
                                 <div class="col-md-12" *ngIf="!noData">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
+                                    <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%">
+                                        <ul class="pull-right list-unstyled list-inline statusbar">
+                                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                                            <select (change)="selectCompany($event.target.value)" class="has-value"> 
+                                                <option value='none'>Select Subsidiary</option>
+                                                <option *ngFor="let data of subsidiary"  [ngValue]='data'>{{data}}</option>
+                                            </select>
+                                            </div>
+                                         </ul>       
+                                        <table class="table table-hover" id="datatables">
                                             <thead>
                                                     <tr>
                                                         <th style="min-width: 20px !important;" class="text-center">#</th>
@@ -77,6 +72,8 @@
                                                         <th style="min-width: 180px;">Trxn Type</th>
                                                         <th style="min-width: 130px;">Trxn Status</th>
                                                         <th style="min-width: 120px;">Credits Used</th>
+                                                        <th style="min-width: 120px;">Savings</th>
+                                                        <th style="min-width: 120px;">Ccy</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -89,6 +86,8 @@
                                                     <td>{{list.transactionType}}</td>
                                                     <td>{{list.accountStatus}}</td>
                                                     <td nowrap >{{list.creditUsed}}</td>
+                                                    <td nowrap >{{list.savings}}</td>
+                                                    <td nowrap >{{list.ccy}}</td>
                                                 </tr>
                                                
                                                 <!-- <tr>
