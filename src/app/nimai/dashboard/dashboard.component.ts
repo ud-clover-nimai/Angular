@@ -258,6 +258,8 @@ export class DashboardComponent implements OnInit {
           this.isShowKyc=true;
         }else if(this.nimaiCount.accounttype == 'SUBSIDIARY' && this.nimaiCount.isbdetailfilled){
           this.isShowKyc=true;
+         }else if(this.nimaiCount.subscribertype == 'REFERRER' && this.nimaiCount.kycstatus=="Rejected"){
+          this.isShowKyc=true;
          }else{
           this.isShowKyc=false;
          }

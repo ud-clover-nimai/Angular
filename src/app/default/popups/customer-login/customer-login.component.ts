@@ -133,6 +133,8 @@ export class CustomerLoginComponent implements OnInit {
           if(response.data.userId.startsWith('BC')){
             if(kycStatus=="KycStauts:Approved"){
               this.router.navigate(['/cst/dsb/dashboard-details']);   
+            }else if(kycStatus=="KycStauts:Rejected"){
+              this.router.navigate(['/cst/dsb/kyc-details']);   
             }else {
               this.router.navigate(['/cst/dsb/personal-details']);   
             }
@@ -140,18 +142,20 @@ export class CustomerLoginComponent implements OnInit {
           else if(response.data.userId.startsWith('BA')){
             if(kycStatus=="KycStauts:Approved"){
               this.router.navigate(['/bcst/dsb/dashboard-details']);  
-            } 
-            else{  
+            }else if(kycStatus=="KycStauts:Rejected"){
+              this.router.navigate(['/bcst/dsb/kyc-details']);   
+            }else{  
               this.router.navigate(['/bcst/dsb/personal-details']);  
             }
           }
           else if(response.data.userId.startsWith('RE')){
             if(kycStatus=="KycStauts:Approved"){
             this.router.navigate(['/ref/rcs/dashboard-details']);   
-             }
-          else{  
+            }else if(kycStatus=="KycStauts:Rejected"){
+            this.router.navigate(['/ref/rcs/kyc-details']);   
+            }else{  
             this.router.navigate(['/ref/rcs/personal-details']);    
-          }
+            }
           }
           $('.modal2').hide();
         } else{

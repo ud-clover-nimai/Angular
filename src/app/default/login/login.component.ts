@@ -562,7 +562,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   public signUpForm(): signup {
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
-    this.intCountriesValue = this.signupForm.get('countriesInt').value;
+    this.intCountriesValue = this.signupForm.get('countriesInt').value;  
     this.blg = [];
     this.intCountries = [];
     for (let vlg of this.blgValue) {
@@ -589,8 +589,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     for (let icc of this.intCountriesValue) {
       let icData = {
         countryID: null,
-        ccid: icc.id,
-        countriesIntrested: icc.name
+        ccid: icc.code,
+        countriesIntrested: icc.country
       }
       this.intCountries.push(icData);
     }
