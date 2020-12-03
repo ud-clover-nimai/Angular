@@ -35,17 +35,9 @@ export class OthersComponent implements OnInit {
   this.isUpload=true;
     var pattern = /image-*/;
     var reader = new FileReader();
-    // if (!file.type.match(pattern)) {
-    //   alert('invalid format');
-    //   $('#upload_file2').val('');
-    //   return;
-    // }
-    // else{
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);
-   //   console.log(file)
-    //}
-    
+  
   }
   _handleReaderLoaded(e) {
     let reader = e.target;

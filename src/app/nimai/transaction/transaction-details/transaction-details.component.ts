@@ -402,13 +402,11 @@ export class TransactionDetailsComponent {
   }
 
   reOpenTransaction(transactionId) {
-    console.log(transactionId)
     if ($('#addOptions select').val() == "Rejected") {
       var data = {
         "transactionId": transactionId,
         "userId": sessionStorage.getItem('userID'),
       }
-      console.log(data)
 
       this.nts.custReopenTransaction(data).subscribe(
         (response) => {

@@ -50,7 +50,7 @@ export class ManageUserComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 5,
-      allowSearchFilter: false
+      allowSearchFilter: true
     }
 
   }

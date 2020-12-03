@@ -64,7 +64,7 @@
                                     </td>
                                       <td>{{record.quoteRank}}</td>
                                       <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='Placed' ||record.quotationStatus=='RePlaced'">View / Edit<div class="ripple-container"></div></a>
+                                              class="handle btn btn-info btn-round" *ngIf=" record.quotationStatus=='ExpPlaced' || record.quotationStatus=='Placed' ||record.quotationStatus=='RePlaced'">View / Edit<div class="ripple-container"></div></a>
                                               <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
                                               class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
                                               <a class="handleActive" style="cursor: pointer;color:blue" (click)="getDetail(record);">Detail</a>

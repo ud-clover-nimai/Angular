@@ -241,6 +241,7 @@ export class LoginComponent implements OnInit {
         }
       }else if((subscriptionType == 'bank' && selector == 'customer')){
         this.validateBankAsCustomer();
+
         if (this.signupForm.invalid) {
           return;
         }
@@ -589,8 +590,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     for (let icc of this.intCountriesValue) {
       let icData = {
         countryID: null,
-        ccid: icc.id,
-        countriesIntrested: icc.name
+        ccid: icc.code,
+        countriesIntrested: icc.country
       }
       this.intCountries.push(icData);
     }

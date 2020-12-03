@@ -932,7 +932,7 @@ console.log(this.cloneData.requirementType)
   }
 
   openDocument(file){
-    console.log(file)
+   // console.log(file)
     $('#myModal7').show();
     var str = file; 
     var splittedStr = str.split(" |", 2); 
