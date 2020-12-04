@@ -27,7 +27,7 @@ import { ManageUserComponent } from 'src/app/default/manage-user/manage-user/man
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { weightDirective } from './directive/weight.directive';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
-
+import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 
 
 @NgModule({
@@ -51,7 +51,8 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
     ManageUserComponent,
     SupportComponent,
     weightDirective,
-    DasboardDetailsComponent
+    DasboardDetailsComponent,
+    ReferenceComponent
   ],
   imports: [
     CommonModule,
@@ -83,7 +84,8 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
     CreditAndTransactionsComponent,
     SupportComponent,
     weightDirective,
-    DasboardDetailsComponent
+    DasboardDetailsComponent,
+    ReferenceComponent
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,

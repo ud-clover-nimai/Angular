@@ -24,6 +24,7 @@ import { ReferComponent } from 'src/app/default/refer/refer.component';
 import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-transactions/credit-and-transactions/credit-and-transactions.component';
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
+import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 
 
 const routes: Routes = [
@@ -103,6 +104,12 @@ const routes: Routes = [
                 { path: "success", component: SuccessPopupComponent },
                 { path: "error", component: ErrorPopupComponent }
               ]
+            },
+            {
+                path: "reference", component: ReferenceComponent, children: [
+                  { path: "success", component: SuccessPopupComponent },
+                  { path: "error", component: ErrorPopupComponent }
+                ]
             }
         ]
     },

@@ -37,6 +37,7 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
 import { UploadLcNewComponent } from 'src/app/nimai/transaction/upload-lc/upload-lc-new/upload-lc-new/upload-lc-new.component';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
+import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 
 
 const routes: Routes = [
@@ -156,8 +157,13 @@ const routes: Routes = [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]
-      }
-      
+      },
+      {
+        path: "reference", component: ReferenceComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      }      
     ]
   },
 

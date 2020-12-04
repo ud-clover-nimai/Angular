@@ -27,8 +27,9 @@ export class DashboardComponent implements OnInit {
   public isCollapsed: string = "collapsed";
   public areaExpandedacc: boolean = false;
   public areaExpandedtra: boolean = false;
-  public isShowPlan:boolean=false;
-  public isShowKyc:boolean=false;
+  public isDisablePlan:boolean=false;
+  public isDisableKyc:boolean=false;
+  public hideSubscriptionPlan:boolean=false;
   draftData: any;
   draftcount: any;
   draftcountBank: any;
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
   userStat: any;
   creditenable: string;
   enableuserStat: boolean=false;
+  referenceTab:boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
@@ -249,19 +251,24 @@ export class DashboardComponent implements OnInit {
         }
        
         if(this.nimaiCount.isbdetailfilled){
-          this.isShowPlan=true;
+          this.isDisablePlan=true;
         }else{
-          this.isShowPlan=false;
+          this.isDisablePlan=false;
         }
-
+        if(this.nimaiCount.accounttype == 'SUBSIDIARY' || this.nimaiCount.accounttype == 'BANKUSER' || this.nimaiCount.subscribertype == 'REFERRER'){
+          this.hideSubscriptionPlan=true;
+        }
+        console.log("this.hideSubscriptionPlan--",this.hideSubscriptionPlan)
+        if(this.nimaiCount.subscribertype == 'REFERRER')
+          this.referenceTab=true;
         if(this.nimaiCount.issplanpurchased=="1"){
-          this.isShowKyc=true;
+          this.isDisableKyc=true;
         }else if(this.nimaiCount.accounttype == 'SUBSIDIARY' && this.nimaiCount.isbdetailfilled){
-          this.isShowKyc=true;
+          this.isDisableKyc=true;
          }else if(this.nimaiCount.subscribertype == 'REFERRER' && this.nimaiCount.kycstatus=="Rejected"){
-          this.isShowKyc=true;
+          this.isDisableKyc=true;
          }else{
-          this.isShowKyc=false;
+          this.isDisableKyc=false;
          }
        if( this.nimaiCount.status=='INACTIVE'){
         const navigationExtras: NavigationExtras = {

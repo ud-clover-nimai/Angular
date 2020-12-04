@@ -1,0 +1,229 @@
+<div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title"> <span id="changetext"> Reference</span>
+                                <ul class="pull-right list-unstyled list-inline statusbar">
+                                    <li>
+                                        <a class="btn btn-info pull-right" (click)="addRefer()">+ Refer</a>
+                                    </li>
+    
+                                </ul>
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive material-datatables" id="transactionID" cellspacing="0"
+                                        width="100%" style="width:100%">
+                                        <table class="table table-hover" id="datatables">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="min-width: 19px!important;">#</th>
+                                                    <th style="min-width: 120px;">Date</th>
+                                                    <th style="min-width: 100px;">UserId</th>
+                                                    <th style="min-width: 150px;">Country</th>
+                                                    <th style="min-width: 180px;">Company</th>
+                                                    <th style="min-width: 100px;">Account Status</th>
+                                                    <th style="min-width: 100px;">Expires In</th>
+                                                    <th style="min-width: 120px;">Earning</th>
+                                                    <th style="min-width: 120px;"></th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                    <td>CI1706</td>
+                                                    <td>India</td>
+                                                    <td>Clover</td>
+                                                    <td>Active</td>
+                                                    <td>2 Years</td>
+                                                    <td>1000</td>
+                                                    <td nowrap><a href="javascript:void(0)">Details</a></td>   
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                    <td>CI1706</td>
+                                                    <td>India</td>
+                                                    <td>Clover</td>
+                                                    <td>Active</td>
+                                                    <td>2 Years</td>
+                                                    <td>1000</td>
+                                                    <td nowrap><a href="javascript:void(0)">Details</a></td>   
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                    <td>CI1706</td>
+                                                    <td>India</td>
+                                                    <td>Clover</td>
+                                                    <td>Pending</td>
+                                                    <td>2 Years</td>
+                                                    <td>1000</td>
+                                                    <td nowrap><a href="javascript:void(0)">Details</a></td>   
+                                                </tr>
+                                                <tr>
+                                                        <td>4</td>
+                                                        <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                        <td>CI1706</td>
+                                                        <td>India</td>
+                                                        <td>Clover</td>
+                                                        <td>Approved</td>
+                                                        <td>2 Years</td>
+                                                        <td>1000</td>
+                                                        <td nowrap><a href="javascript:void(0)">Details</a></td>   
+                                                    </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
+                                                    <td>CI1706</td>
+                                                    <td>India</td>
+                                                    <td>Clover</td>
+                                                    <td>Rejected</td>
+                                                    <td>2 Years</td>
+                                                    <td>1000</td>
+                                                    <td nowrap><a href="javascript:void(0)">Details</a></td>   
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="addsub" class="popupnew modal fade in" role="dialog" style="display:none;">
+        <div class="modal-dialog emaildiv">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
+                    <div class="modal-body">
+                        <h2>Refer <button type="button" class="close" (click)="close()">&times;</button>
+                        </h2>
+                        <div class="padnew">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="authemaildiv">
+    
+                                        <div class="form-group"></div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                                        <label>First Name</label>
+                                                        <div *ngIf="submitted && referDetails.firstName.errors?.required" class="invalid-feedback">       
+                                                            <div *ngIf="submitted && referDetails.firstName.errors?.required">
+                                                                First Name is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="15" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && referDetails.lastName.errors?.required }" (keydown)="validateRegexFields($event, 'name_validation')">
+                                                        <label>Last Name</label>      
+                                                        <div *ngIf="submitted && referDetails.lastName.errors?.required" class="invalid-feedback">
+                                                            Last Name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="inputDiv selectdiv" >
+                                                            <select formControlName="countryName" [ngClass]="{ 'is-invalid': submitted && referDetails.countryName.errors?.required }">
+                                                                <option value="">Select</option>
+                                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>    
+                                                            </select>
+                                                            <label>Country</label>
+                                                            <div *ngIf="submitted && referDetails.countryName.errors?.required" class="invalid-feedback">
+                                                                Country is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                            <div class="inputDiv">
+                                                                <input type="text" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
+                                                                <label>Email ID</label>
+                                                                <div *ngIf="submitted && referDetails.emailAddress.errors?.required" class="invalid-feedback">
+                                                                    Email is required
+                                                                </div>
+                                                                <div *ngIf="referDetails.emailAddress.touched && referDetails.emailAddress.errors?.pattern"  class="invalid-feedback">
+                                                                    Invalid Email id
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="12" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                        <label>Mobile No.</label>      
+                                                        <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
+                                                            Mobile No. is required.
+                                                        </div>
+                                                        <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                            Mobile No atleast of 11 digits.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="inputDiv">
+                                                            <input type="text" maxlength="12" formControlName="landlineNo" [ngClass]="{ 'is-invalid': submitted && referDetails.landlineNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                            <label>Landline No.</label>      
+                                                            <div *ngIf="submitted && referDetails.landlineNo.errors?.required" class="invalid-feedback">
+                                                                Landline No. is required.
+                                                            </div>
+                                                            <div *ngIf="referDetails.landlineNo.errors?.minlength" class="invalid-feedback">
+                                                                Landline No atleast of 11 digits.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="30" formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && (referDetails.companyName.errors?.required)}">
+                                                        <label>Company Name</label>
+                                                        <div *ngIf="submitted && referDetails.companyName.errors?.required" class="invalid-feedback">
+                                                            Company Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" *ngIf="showBranchUserId" [ngClass]="{ 'is-invalid': submitted && (referDetails.branchUserId.errors?.required)}">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="30" formControlName="branchUserId" >
+                                                        <label>Branch User Id</label>
+                                                        <div *ngIf="submitted && referDetails.branchUserId.errors?.required" class="invalid-feedback">
+                                                            Branch User Id is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <p id="paradiv">
+                                        {{respMessage}}
+                                    </p>
+                                    <div class="clearfix"></div>
+                                    <button type="submit" [disabled]="!referForm.valid" id="btninvite" class="btn btn-info pull-right">Invite
+                                        User</button>
+                                    <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
