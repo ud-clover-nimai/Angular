@@ -8,7 +8,9 @@ import { ForgetPasswordService } from 'src/app/services/forget-password/forget-p
 import { formatDate } from '@angular/common';
 import { ReferService } from 'src/app/services/refer/refer.service';
 import { loads} from '../../../assets/js/commons'
+import {removeDoubleScroll} from 'src/assets/js/commons'
 import { SignupService } from 'src/app/services/signup/signup.service';
+import { TitleService } from 'src/app/services/titleservice/title.service';
 @Component({
   selector: 'app-reference',
   templateUrl: './reference.component.html',
@@ -28,7 +30,12 @@ export class ReferenceComponent implements OnInit {
   respMessage: string;
   total_references:number;
   total_earning:number;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
+  responseData: any;
+  isActiveRefer: boolean=false;
+  data: any="";
+  public detailInfo: string = "";
+  
+  constructor(public titleService: TitleService,public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -51,7 +58,6 @@ export class ReferenceComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNo: ['', [Validators.required,Validators.minLength(11)]],
-    landnineNo: ['', [Validators.required,Validators.minLength(11)]],
     emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
@@ -69,9 +75,9 @@ export class ReferenceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.total_earning=0;
     loads();
-    manageSub();
+
+    this.total_earning=0;
     this.viewReferDetails(sessionStorage.getItem('userID'));
     
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -82,24 +88,25 @@ export class ReferenceComponent implements OnInit {
     })
   }
 
+
+
   close() {
-    $("#addsub").hide();
+    $("#addsubref").hide();
     this.referForm.reset();
   }
 
   onOkClick(){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/refer`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/reference`]);
       });
-      $("#addsub").hide();
+      $("#addsubref").hide();
   }
 
   addRefer() {
-    $("#addsub").show();
+    $("#addsubref").show();
     this.referForm.reset();
     this.respMessage = "";
   }
-
   onSubmit() {
     //alert("1")
     this.submitted = true;
@@ -112,7 +119,6 @@ export class ReferenceComponent implements OnInit {
       firstName: this.referForm.get('firstName').value,
       lastName: this.referForm.get('lastName').value,
       mobileNo: this.referForm.get('mobileNo').value,
-      landlineNo: this.referForm.get('landlineNo').value,
       emailAddress: this.referForm.get('emailAddress').value,
       countryName: this.referForm.get('countryName').value,
       companyName: this.referForm.get('companyName').value,
@@ -129,15 +135,16 @@ export class ReferenceComponent implements OnInit {
       firstName: this.referForm.get('firstName').value,
       lastName: this.referForm.get('lastName').value,
       emailAddress: this.referForm.get('emailAddress').value,
-      mobileNum: this.referForm.get('mobileNo').value,     
+      mobileNum: this.referForm.get('mobileNo').value,
       countryName: this.referForm.get('countryName').value,
-      landLinenumber: this.referForm.get('landlineNo').value,
+      landLinenumber: "",
       companyName: this.referForm.get('companyName').value,
       designation: '',
       businessType: '',
       userId: sessionStorage.getItem('userID'),
       bankType: 'customer',
       subscriberType: 'customer',
+
       minLCValue: '0',
       interestedCountry: [],
       blacklistedGoods: [],
@@ -149,10 +156,13 @@ export class ReferenceComponent implements OnInit {
       emailAddress1: "",
       emailAddress2: "",
       emailAddress3: ""
+
     }
+    
     this.submitted = false;
     this.CompanyName = this.referForm.get('companyName').value;
     this.signUpService.signUp(request).subscribe((response) => {
+
     this.service.addRefer(data)
       .subscribe(
         (response) => {
@@ -223,22 +233,64 @@ export class ReferenceComponent implements OnInit {
   }
 
   viewReferDetails(userID: string) {
-    this.service.viewRefer(userID)
+    this.service.getRegisterUsers(userID)
       .subscribe(
         (response) => {
-          let responseData = JSON.parse(JSON.stringify(response));
-          let total = 0;
-          for (let i = 0; i < responseData.length; i++) {
-            console.log ("Block statement execution no." + responseData[i].earnings);
-            total +=Number(responseData[i].earnings);
-          }
-          this.total_earning=total;
-          this.referViewDetails = responseData.filter(Boolean);;
-          this.total_references=this.referViewDetails.length;
+          this.responseData = JSON.parse(JSON.stringify(response));
+          manageSub();
+
+          //let total = 0;
+          // for (let i = 0; i < responseData.length; i++) {
+          //   console.log ("Block statement execution no." + responseData[i].earnings);
+          //   total +=Number(responseData[i].earnings);
+          // }
+          // this.total_earning=total;
+          // this.referViewDetails = responseData.filter(Boolean);;
+          // this.total_references=this.referViewDetails.length;
         },
         (error) => {}
       )
   }
+  openNav3() {
+    document.getElementById("myCanvasNav").style.width = "100%";
+    document.getElementById("myCanvasNav").style.opacity = "0.6";
+  }
+  closeOffcanvas() {
+    
+    document.getElementById("referDetail").style.width = "0%";
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0";
+  }
+  openOffcanvas() {
+      document.getElementById("referDetail").style.width = "600px";
+  
+  } 
+  showDetail(data: any) {
+      this.isActiveRefer = true;
+    this.titleService.quote.next(true);
+    removeDoubleScroll()
+  
+    this.service.getRegisterUserByUserId(data.userid).subscribe(
+      (response) => {
+        this.detailInfo = JSON.parse(JSON.stringify(response));
+        this.data = this.detailInfo[0];
+
+        // this.viewData=this.detailInfo;
+        // if(this.viewData.lcProForma==null || this.viewData.lcProForma=="" || this.viewData.lcProForma==undefined){
+        //   this.noFileDisable=false;
+        //   this.viewDisable=true;
+    
+        //  }else{
+        //   this.viewDisable=false;
+        //   this.noFileDisable=true;
+        //  }
+      }, (error) => {
+        //this.hasNoRecord = true;
+      }
+    )
+
+  }
+
 
 }
 

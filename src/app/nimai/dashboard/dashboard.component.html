@@ -266,7 +266,7 @@
                   <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
                       <a [routerLink]="['reference']" >
                         <i class="fas fa-industry"></i>
-                        <p>Reference</p>
+                        <p>References</p>
                       </a>
                     </li>
                   <li
@@ -422,7 +422,10 @@
                         >Manage User</a
                       >
                     </li>
-                    <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'"><a [routerLink]="['refer']">Refer</a></li>
+                    <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved' && (nimaiCount.subscribertype | lowercase) != 'referrer' ">
+                      <a [routerLink]="['refer']">Refer</a></li>
+                      
+                     
                     <li>
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>

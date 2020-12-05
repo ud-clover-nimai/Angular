@@ -20,5 +20,10 @@ export class ReferService {
     return this.httpClient.get<signup>(`${environment.domain}/nimaiUCM/getReferListByUserId/`+userID,{headers:{'content-type':'application/json'}});
   }
   
-
+  public getRegisterUsers(userID:string):Observable<signup>{
+    return this.httpClient.get<signup>(`${environment.domain}/nimaiUCM/getRegisterUsers/`+userID,{headers:{'content-type':'application/json'}});
+  }
+  public getRegisterUserByUserId(userID:string):Observable<signup>{
+    return this.httpClient.get<signup>(`${environment.domain}/nimaiUCM/getRegisterUserByUserId/`+userID,{headers:{'content-type':'application/json'}});
+  }
 }
