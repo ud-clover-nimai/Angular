@@ -39,7 +39,14 @@ export class TenorPaymentComponent implements OnInit {
           $('.multipledate').show();
       } 
     });
-    this.selectors('Confirmation');
+    
+    let requirementType= sessionStorage.getItem('requirementType');
+if(requirementType=='appBeneReqType'){
+  this.selectors('Confirmation');
+}else{
+ // this.selectors(requirementType);
+
+}
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
@@ -53,7 +60,7 @@ export class TenorPaymentComponent implements OnInit {
  
   public selectors(selector: string) {
     this.selector = selector;
-    console.log(this.selector)
+  
     if (this.selector === 'Discounting') {
       this.discount = true;
       this.confirmation = false;

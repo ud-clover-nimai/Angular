@@ -813,7 +813,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           beneContactPersonEmail:this.draftData.beneContactPersonEmail,
         });
     // this.lc = this.lcDetailForm.value;
-      
+    this.tenor.selectors(this.draftData.requirementType) 
+
   }     
       ,(error) =>{
       }
@@ -915,7 +916,6 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           beneContactPersonEmail:this.cloneData.beneContactPersonEmail,
         });
         this.tenor.selectors(this.cloneData.requirementType) 
-console.log(this.cloneData.requirementType)
         },
         (err) => {}
     ) 
