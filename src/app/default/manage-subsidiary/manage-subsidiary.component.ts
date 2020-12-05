@@ -91,6 +91,11 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    if (this.manageSubForm.invalid) {
+      return;
+    }
+    this.submitted = false;
     let data = {
       firstName: this.manageSubForm.get('firstName').value,
       lastName: this.manageSubForm.get('lastName').value,
@@ -117,12 +122,9 @@ export class ManageSubsidiaryComponent implements OnInit {
       emailAddress3: ""
     }
 
-    this.submitted = true;
-    if (this.manageSubForm.invalid) {
-      return;
-    }
-    this.submitted = false;
+
     this.signUpService.signUp(data).subscribe((response) => {
+      console.log("responnse---",response)
     let res= JSON.parse(JSON.stringify(response))
     this.respMessage =res.errMessage
     console.log("res",res.errMessage);
@@ -132,6 +134,7 @@ export class ManageSubsidiaryComponent implements OnInit {
       "userId": sessionStorage.getItem('userID')
       //"referenceId":res.data.reId
     }
+    console.log("res.status--",res.status)
     if(res.status!=="Failure"){
     this.fps.sendEmailReferSubsidiary(fg)
     .subscribe(
@@ -145,10 +148,17 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
     )
    }else{
+     console.log("res--",res)
     this.resetPopup();
     this.respMessage = res.errMessage;
    }
 
+   },
+   (error) => {
+    console.log("error--",error)
+    let err= JSON.parse(JSON.stringify(error.error))
+     this.resetPopup();
+     this.respMessage = err.errMessage
    }
   )
  }
@@ -170,7 +180,7 @@ export class ManageSubsidiaryComponent implements OnInit {
     ValidateRegex.alphaNumeric(event);
   }else if(type=="name_validation"){
     var key = event.keyCode;
-    if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+    if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
         event.preventDefault();
     }    
   }

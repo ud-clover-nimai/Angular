@@ -1,27 +1,26 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+           
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title"> <span id="changetext"> Manage User</span>
-                            <ul class="pull-right list-unstyled list-inline statusbar">
-                                <!-- <li>
-                    <label>Subsidiary Slots Available <span class="">4</span></label>
-                  </li>
-                  <li><label>Subsidiary Slots Utilized <span>6</span></label></li> -->
+                        <h4 class="card-title"> <span id="changetext"> Manage Additional Users</span>
+                            <ul class="pull-right list-unstyled list-inline statusbar">   
+                                <li><label>Additional Users Slots Available <span class="">{{available}}</span></label></li>
+                                <li><label>Additional Users Slots Utilized <span>{{subuticount}}</span></label></li>
                                 <li>
-                                    <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add User</a>
+                                    <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Additional User</a>
                                 </li>
 
                             </ul>
                         </h4>
                         <div class="row">
                             <div class="col-md-12" *ngIf="noData">
-                                No Subsidiary Data is available
+                                No Additional Users Data is available
                             </div>
                             <div class="col-md-12" *ngIf="!noData">
                                 <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
@@ -30,12 +29,12 @@
                                             <tr>
                                                 <th style="min-width: 19px!important;" class="text-center">#</th>
                                                 <th style="min-width: 130px;">Date</th>
-                                                <th style="min-width: 150px;">Subsidiary Name</th>
+                                                <th style="min-width: 150px;">Additional User Name</th>
                                                 <th style="min-width: 120px;">First Name</th>
                                                 <th style="min-width: 120px;">Last Name</th>
                                                 <th style="min-width: 180px;">Email</th>
                                                 <th style="min-width: 100px;">Credits Used</th>
-                                                <th style="min-width: 130px;width: 100px !important;">Quotes Received</th>
+                                                <th style="min-width: 130px;width: 100px !important;">Quotes Placed</th>
                                                 <th style="min-width: 100px;" nowrap class="text-center">Status</th>
                                             </tr>
                                         </thead>
@@ -127,6 +126,7 @@
                                         <div class="inputDiv">
                                             <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
                                             <label>Mobile No.</label>
+                                          
                                             <div *ngIf="manageSubDetails.mobileNo.touched && manageSubDetails.mobileNo.errors?.minlength" class="invalid-feedback">
                                                 Mobile Number is atleast of 7 digits.
                                             </div>
@@ -185,11 +185,11 @@
                                     </div>
                                 </div>
 
-                                <p id="paradiv" style="color: #ff0330;">
+                                <p id="paradiv">
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>
-                                <button type="submit" [disabled]="!manageSubForm.valid" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                                <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite User</button>
                                 <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
                             </div>
                         </div>

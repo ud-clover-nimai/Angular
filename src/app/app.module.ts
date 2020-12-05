@@ -34,7 +34,7 @@ import { ActiveTransactionComponent } from './nimai/active-transaction/active-tr
     //ResetPasswordComponent,
     CustomerLoginComponent,
     TermAndConditionsComponent,
-    ActiveTransactionComponent,
+    ActiveTransactionComponent
     // VasPlanComponent
     
   ],

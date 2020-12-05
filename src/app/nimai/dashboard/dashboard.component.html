@@ -239,11 +239,8 @@
                         </li>
                         <li
                           [routerLinkActive]="['active']"
-                          *ngIf="
-                            (nimaiCount.accounttype | lowercase) != 'subsidiary'
-                          "
-                        >
-                          <a  [ngClass]="{'adisabled': !isShowPlan}"
+                          *ngIf="!hideSubscriptionPlan">
+                          <a  [ngClass]="{'adisabled': !isDisablePlan}"
                             [routerLink]="['subscription']" (click)="getNimaiCount()"
                             *ngIf="!isReferrer"
                           >
@@ -252,7 +249,7 @@
                           </a>
                         </li>
                         <li [routerLinkActive]="['active']">
-                          <a [routerLink]="['kyc-details']" [ngClass]="{'adisabled': !isShowKyc}" (click)="getNimaiCount()">
+                          <a [routerLink]="['kyc-details']" [ngClass]="{'adisabled': !isDisableKyc}" (click)="getNimaiCount()">
                             <i class="fas fa-user-check"></i>
                             <p>KYC Details</p>
                           </a>
@@ -266,6 +263,12 @@
                       <p>Dashboard</p>
                     </a>
                   </li>
+                  <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
+                      <a [routerLink]="['reference']" >
+                        <i class="fas fa-industry"></i>
+                        <p>Reference</p>
+                      </a>
+                    </li>
                   <li
                     *ngIf="
                       (isCustomer || isBank) &&
@@ -403,7 +406,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a [routerLink]="['my-profile']">My Profile</a></li>
-                    <li>
+                    <li *ngIf="!hideSubscriptionPlan">
                       <a
                         *ngIf="isCustomer || isBank"
                         [routerLink]="['credit-transaction']"
@@ -424,8 +427,8 @@
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
                     <li><a [routerLink]="['support']">Support</a></li>
-                    <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'"><a [routerLink]="['subscription']">Subscription</a></li>
-                    <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a [routerLink]="['subscription']">Subscription</a></li>
+                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer"  [routerLink]="['vasPlan']">Vas Plan</a></li>
                     <!-- <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li> -->
                     <li>
                       <a

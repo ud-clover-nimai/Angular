@@ -34,6 +34,9 @@ export class ManageUserComponent implements OnInit {
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
+  subsidiries:any;
+  subuticount:any;
+  available:any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -101,6 +104,9 @@ export class ManageUserComponent implements OnInit {
 
   ngOnInit() {
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
+    this.subsidiries=sessionStorage.getItem('subsidiries');  
+    this.subuticount=sessionStorage.getItem('subuticount');
+    this.available=this.subsidiries-this.subuticount
     loads();
     manageSub();
     this.listOfUsers();
@@ -120,7 +126,7 @@ export class ManageUserComponent implements OnInit {
         }else{
           this.noData=false;
         }
-        console.log("this.userData----",this.userData)
+       
       },(error) =>{
         this.noData = true;
       }
@@ -132,10 +138,11 @@ export class ManageUserComponent implements OnInit {
   }
 
   onOkClick(){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
-      });
-      $("#addsub").hide();
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
+    //   });
+    window.location.reload();
+    $("#addsub").hide();
   }
 
   addSubsidiary() {
@@ -145,14 +152,15 @@ export class ManageUserComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.submitted = true;    
+    if (this.manageSubForm.invalid) {
+      return;
+    }
+    this.submitted = false;
     this.blgValue = this.manageSubForm.get('blacklistedGC').value;
     this.intCountriesValue = this.manageSubForm.get('countriesInt').value;
-    console.log(this.intCountriesValue+"========"+this.blgValue);
-    
     this.blg = [];
     this.intCountries = [];
-
     for (let vlg of this.blgValue) {
       let blgData = {
         goods_ID: null,
@@ -190,7 +198,6 @@ export class ManageUserComponent implements OnInit {
       userId: "",
       bankType: "underwriter",
       subscriberType: "bank",
-
       minLCValue: minValue,
       interestedCountry: this.intCountries,
       blacklistedGoods: this.blg,
@@ -205,59 +212,47 @@ export class ManageUserComponent implements OnInit {
 
     }
 
-    this.submitted = true;
-    if (this.manageSubForm.invalid) {
-      return;
-    }
-    this.submitted = false;
+   
     const fg = {
       event: 'ACCOUNT_ACTIVATE',
       email: this.manageSubForm.get('emailId').value,
     }
     this.signUpService.signUp(data).subscribe((response) => {
       this.respMessage = JSON.parse(JSON.stringify(response)).message;
-    this.fps.sendRegistrationEmail(fg)
-      .subscribe(
-        (response) => {
-          this.respMessage = JSON.parse(JSON.stringify(response)).message;
-          
-          if(this.respMessage.indexOf('not match') > -1){
-            this.respMessage = "Domain Name does not match!";
-            $('#authemaildiv').slideDown();
-            $('#paradiv').slideDown();
-            $('#okbtn').hide();
-            $('#btninvite').show();  
+      let res= JSON.parse(JSON.stringify(response))
+      if(res.status!=="Failure"){
+        this.fps.sendRegistrationEmail(fg)
+        .subscribe(
+          (response) => {
+            this.resetPopup();
+            this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+          },
+          (error) => {
+            this.resetPopup();
+            this.respMessage = "Service not working! Please try again later."
           }
-          else{
-            this.respMessage = "You've been successfully invited as a user for " + "Clover Infotech" + " to join TradeEnabler."
-            $('#authemaildiv').slideUp();
-          $('#paradiv').slideDown();
-          $('#okbtn').show();
-          $('#btninvite').hide();
-          this.manageSubForm.reset();
-          }
-          
-        },
-        (error) => {
-          $('#authemaildiv').slideUp();
-          $('#paradiv').slideDown();
-          $('#okbtn').show();
-          $('#btninvite').hide();
-          this.manageSubForm.reset();
-          this.respMessage = "Service not working! Please try again later."
-        }
-      )
-    },
-    (err) =>{
-      $('#authemaildiv').slideDown();
-      $('#paradiv').slideDown();
-      $('#okbtn').hide();
-      $('#btninvite').show();  
-      this.respMessage = JSON.parse(JSON.stringify(err.error)).errMessage;
-    }
-    )
-  }
+        )
+       }else{
+        this.resetPopup();
+        this.respMessage = res.errMessage;
+      }
 
+    },
+    (error) => {
+     console.log("error--",error)
+     let err= JSON.parse(JSON.stringify(error.error))
+      this.resetPopup();
+      this.respMessage = err.errMessage
+    }
+   )
+  }
+  resetPopup(){
+    $('#authemaildiv').slideUp();
+    $('#paradiv').slideDown();
+    $('#okbtn').show();
+    $('#btninvite').hide();
+    this.manageSubForm.reset();
+   }
   validateRegexFields(event, type){
     if(type == "number"){
       ValidateRegex.validateNumber(event);
@@ -269,7 +264,7 @@ export class ManageUserComponent implements OnInit {
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
       var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
           event.preventDefault();
       }    
     }
