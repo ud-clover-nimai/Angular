@@ -57,7 +57,7 @@ export class ReferenceComponent implements OnInit {
     // referenceId: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    mobileNo: ['', [Validators.required,Validators.minLength(11)]],
+    mobileNo: ['', [Validators.required]],
     emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
@@ -94,7 +94,9 @@ export class ReferenceComponent implements OnInit {
     $("#addsubref").hide();
     this.referForm.reset();
   }
-
+  close_details(){
+    $("#referDetail").hide();
+  }
   onOkClick(){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/reference`]);
@@ -256,7 +258,6 @@ export class ReferenceComponent implements OnInit {
     document.getElementById("myCanvasNav").style.opacity = "0.6";
   }
   closeOffcanvas() {
-    
     document.getElementById("referDetail").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";

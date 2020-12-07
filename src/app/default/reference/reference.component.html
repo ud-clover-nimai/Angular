@@ -108,7 +108,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="inputDiv">
-                                                        <input type="text" maxlength="12" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                        <input type="text" maxlength="13" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
                                                         <label>Mobile No.</label>      
                                                         <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
                                                             Mobile No. is required.
@@ -188,7 +188,7 @@
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
-                    <h4>Details <button type="button" class="close ">&times;</button></h4>
+                    <h4>Details <button type="button" class="close_details" (click)="closeOffcanvas()">&times;</button></h4>
                     <div class="tab-content" style="height: 552px;overflow: auto;">
                         <div class="tab-pane active" id="pill1123">
                             <div class="row">

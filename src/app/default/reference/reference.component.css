@@ -56,6 +56,18 @@
     margin-left: 553px;
     margin-top: -51px
 }
+.close_details{
+  color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 9;
+    margin-left: 82%;
+    background-color: transparent;
+    margin-top: -2px;
+    border: none;
+}
 .popupnew .emaildiv h2{
     padding: 5px 15px!important;
 }

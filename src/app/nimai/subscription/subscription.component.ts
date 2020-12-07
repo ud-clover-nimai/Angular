@@ -61,7 +61,6 @@ isRenewPlan=false;
 
     let navigation = this.router.getCurrentNavigation();
     if(navigation.extras.state){
-      console.log(navigation.extras.state.redirectedFrom)
       if(navigation.extras.state.redirectedFrom == "New-Transaction"){
         this.getSubscriptionDetails();
       }
@@ -181,7 +180,6 @@ isRenewPlan=false;
           this.addedAmount=this.choosedPrice;
           this.amountAfterCoupon=this.choosedPrice;
         }  
-
         this.couponSuccess=false;
     }
     )
@@ -462,13 +460,14 @@ isRenewPlan=false;
       }
       event.target.value = "Remove";
       } else {
+       
       this.callVasService=false;  
       event.target.value = "Add";
       if(this.amountAfterCoupon){
         this.addedAmount= this.amountAfterCoupon
       }
       else{  
-        this.addedAmount = this.choosedPrice;
+        this.addedAmount = this.choosedPlan.subscriptionAmount;
       }
     }      
   }
