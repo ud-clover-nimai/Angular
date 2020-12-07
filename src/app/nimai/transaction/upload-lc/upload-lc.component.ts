@@ -720,6 +720,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
+        this.ngOnInit();
+
         this.draftData = JSON.parse(JSON.stringify(response)).data;
         if(this.draftData.goodsType.startsWith('Others')){
           this.isBankOther=true;      
@@ -737,10 +739,10 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
         // var splittedStr = str.split(" |", 1); 
         // console.log(splittedStr[0]);
 
-        this.ngOnInit();
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
+        this.Others.onItemChange(this.draftData.chargesType)
         this.lcDetailForm.patchValue({
           userId: this.draftData.userId,
           selector: this.draftData.requirementType,
@@ -794,7 +796,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           dischargeCountry:this.draftData.dischargeCountry,
           dischargePort:this.draftData.dischargePort,
       
-          chargesType: this.draftData.chargesType,
+         // chargesType: this.draftData.chargesType,
           validity:this.setDateFromApi(this.draftData.validity),
           lcProForma:this.draftData.lcProForma,
       

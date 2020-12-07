@@ -66,8 +66,8 @@
             <li>
                 <div class="radio">
                     <label >
-                        <input type="radio" formControlName="chargesType" name="chargesType"
-                            value="{{LcDetail.get('applicantName').value}} (Applicant)" ><span class="circle"></span><span
+                        <input [checked]="chargesTypeCk1" type="radio" id="ch1" formControlName="chargesType" name="chargesType"  (change)="onItemChangeApp('Applicant')"
+                            value="Applicant" ><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
                         {{LcDetail.get('applicantName').value}} (Applicant)
                     </label>
@@ -76,8 +76,8 @@
             <li>
                 <div class="radio">
                     <label >
-                        <input type="radio" name="chargesType" formControlName="chargesType"
-                            value="{{LcDetail.get('beneName').value}} (Beneficiary)"><span class="circle"></span><span
+                        <input [checked]="chargesTypeCk2" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary')"
+                            value="Beneficiary"><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
                         {{LcDetail.get('beneName').value}} (Beneficiary)
                     </label>

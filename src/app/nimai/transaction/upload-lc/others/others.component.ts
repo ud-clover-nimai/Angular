@@ -18,6 +18,8 @@ export class OthersComponent implements OnInit {
   private imageSrc: string = '';
   countryName: any;
   portOfLoading:any;
+  chargesTypeCk1:boolean=false;
+  chargesTypeCk2:boolean=false;
   portOfDischarge:any;
   minDate = new Date;
   private filename: string = '';
@@ -28,6 +30,43 @@ export class OthersComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
+
+  onItemChangeApp(e){
+  var appChargeType=this.LcDetail.get('applicantName').value+ " ("+e+")";
+  this.LcDetail.get('chargesType').setValue(appChargeType)
+  this.chargesTypeCk1=true;
+  this.chargesTypeCk2=false;
+  console.log(this.LcDetail.get('chargesType').value)
+
+}
+onItemChangeBene(e){
+  var benChargeType=this.LcDetail.get('beneName').value+" ("+e+")";
+  this.LcDetail.get('chargesType').setValue(benChargeType)
+  this.chargesTypeCk2=true;
+  this.chargesTypeCk1=false;
+  }
+
+  onItemChange(e){
+    var str = e; 
+    var splittedStr = str.split(" (", 2); 
+    var name1=splittedStr[1];
+    var splitted = name1.split(")", 2); 
+    e=splitted[0]
+if(e=='Applicant'){
+  this.chargesTypeCk1=true;
+  this.chargesTypeCk2=false;
+  this.onItemChangeApp(e) 
+   this.LcDetail.get('chargesType').setValue(str)
+}  
+  if(e=='Beneficiary'){
+    this.chargesTypeCk2=true;
+    this.chargesTypeCk1=false;
+    this.onItemChangeBene(e)
+    this.LcDetail.get('chargesType').setValue(str)
+
+  }
+
+ }
  
   handleFileInput1(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
