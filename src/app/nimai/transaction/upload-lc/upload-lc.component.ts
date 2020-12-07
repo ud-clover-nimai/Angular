@@ -720,9 +720,9 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
-        this.ngOnInit();
-
+    
         this.draftData = JSON.parse(JSON.stringify(response)).data;
+      
         if(this.draftData.goodsType.startsWith('Others')){
           this.isBankOther=true;      
           var str = this.draftData.goodsType; 
@@ -738,7 +738,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
         // var str = this.draftData.tenorFile; 
         // var splittedStr = str.split(" |", 1); 
         // console.log(splittedStr[0]);
-
+        this.ngOnInit();
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
@@ -848,6 +848,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)
           this.Others.portLoadingOnchange(this.cloneData.loadingCountry)
           this.ApplicantBeneficiary.onItemChange(this.cloneData.userType);  
+          this.Others.onItemChange(this.cloneData.chargesType)
+
         this.lcDetailForm.patchValue({
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
@@ -899,7 +901,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           dischargeCountry:this.cloneData.dischargeCountry,
           dischargePort:this.cloneData.dischargePort,
       
-          chargesType: this.cloneData.chargesType,
+         // chargesType: this.cloneData.chargesType,
           validity:this.setDateFromApi(this.cloneData.validity),
           lcProForma:this.cloneData.lcProForma,
       

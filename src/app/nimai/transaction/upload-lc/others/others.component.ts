@@ -36,7 +36,6 @@ export class OthersComponent implements OnInit {
   this.LcDetail.get('chargesType').setValue(appChargeType)
   this.chargesTypeCk1=true;
   this.chargesTypeCk2=false;
-  console.log(this.LcDetail.get('chargesType').value)
 
 }
 onItemChangeBene(e){
