@@ -32,7 +32,8 @@
                                                     <th style="min-width: 100px;">Account Status</th>
                                                     <th style="min-width: 130px;">Expires In</th>
                                                     <th style="min-width: 120px;">Earning</th>
-                                                    <th style="min-width: 120px;"></th>
+                                                    <th style="min-width: 120px;">Currency</th>
+                                                    <th style="min-width: 120px;">Details</th>
                                                     
                                                 </tr>
                                             </thead>
@@ -46,6 +47,7 @@
                                                     <td>{{record.accountStatus}}</td>
                                                     <td>{{record.expiredIn}}</td>
                                                     <td >{{record.earning}}</td>
+                                                    <td >{{record.currency}}</td>
                                              
                                               <td>
                                                 <a href="javascript:void()" (click)="showDetail(record);openNav3();openOffcanvas();"

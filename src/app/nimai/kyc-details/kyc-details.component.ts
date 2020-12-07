@@ -250,8 +250,7 @@ setValidators(){
     const personalDocumentList  = <FormArray>this.kycDetailsForm.get('personalDocumentList');
     personalDocumentList.controls = [];
   
-    if(this.sendData=="RejectedPersonal" || this.sendData==null || this.sendData=="" || this.sendData=="both"){
-      console.log("if")
+    if(this.sendData=="RejectedPersonal" || this.sendData==null || this.sendData=="" || this.sendData=="both"){     
     personalDocumentList.push(this.fb.group({
       documentName: $('#perDocument').val(),
       title: ['Personal'],

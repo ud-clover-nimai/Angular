@@ -4,13 +4,14 @@
 
 export const environment = {
   production: false,
- domain:'http://136.232.244.190:8081'   /// Dev server
+domain:'http://136.232.244.190:8081'   /// Dev server
 //domain:'http://203.115.123.93:8080'  /// Testing  server
 //domain:'http://203.115.123.93:9090'  /// Client port
   // domain:'http://localhost:8080'
 
   
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

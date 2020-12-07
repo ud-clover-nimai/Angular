@@ -126,7 +126,7 @@ export class MyProfileComponent implements OnInit {
     )
   }
   callKycDetailService(userID: string){
-    this.kycUpload.viewKycDetails(userID).subscribe(
+    this.kycUpload.viewKycDetailsLatest(userID).subscribe(
       (response) => {        
         let responseData = JSON.parse(JSON.stringify(response));
         this.kd = responseData;
