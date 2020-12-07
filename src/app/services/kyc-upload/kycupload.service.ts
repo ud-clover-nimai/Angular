@@ -25,4 +25,7 @@ export class KycuploadService {
   public viewKycDetails(userID: string): Observable<HttpEvent<any>> {
     return this.httpClient.get<HttpEvent<any>>(`${environment.domain}/nimaiKYC/kyc/kycList/` + userID, { headers: { 'content-type': 'application/json' } });
   }
+  public viewKycDetailsLatest(userID: string): Observable<HttpEvent<any>> {
+    return this.httpClient.get<HttpEvent<any>>(`${environment.domain}/nimaiKYC/kyc/LatestKycList/` + userID, { headers: { 'content-type': 'application/json' } });
+  }
 }
