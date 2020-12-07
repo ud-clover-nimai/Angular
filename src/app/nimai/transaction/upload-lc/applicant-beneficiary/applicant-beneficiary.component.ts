@@ -2,7 +2,7 @@ import { Component, OnInit, Input,ElementRef } from '@angular/core';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {Validators} from '@angular/forms';
 @Component({
   selector: 'app-applicant-beneficiary',
@@ -16,9 +16,15 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   public hasValue=false;
   public isValidAppEmail=false;
   public isValidBeneEmail=false;
-  constructor(public loginService: LoginService,private el: ElementRef) { 
+  constructor(public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
+  //   this.LcDetail = this.fb.group({
+  //     beneContactPersonEmail: ['', Validators.required]
+  // });
   }
   
+  
+
+
   ngOnInit() {
     $('#divBene').hide();
     this.onItemChange("Applicant");

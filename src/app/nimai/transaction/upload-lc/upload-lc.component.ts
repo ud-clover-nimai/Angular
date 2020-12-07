@@ -65,6 +65,7 @@ export class UploadLCComponent implements OnInit {
   isBankOther: boolean=false;
   othersStr: any="";
   currentDateTime: string;
+  submitted: boolean=false;
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
@@ -181,6 +182,18 @@ export class UploadLCComponent implements OnInit {
 
  
   public next() {
+//     this.submitted = true;
+//     if (this.ApplicantBeneficiary.LcDetail.valid ) {
+// console.log('if')
+//   } else {
+//     console.log('else')
+
+//     return;
+//   }
+  
+  //  this.submitted = false;
+
+
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].value)
