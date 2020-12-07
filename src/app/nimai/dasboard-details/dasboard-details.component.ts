@@ -87,7 +87,7 @@ export class DasboardDetailsComponent implements OnInit {
     for (var i = 0; i < this.referCumulativetrxn.length; i++) {
         var temp=[];
         temp.push(this.referCumulativetrxn[i].month);
-        temp.push(Number(this.referCumulativetrxn[i].transactionAmount));
+        temp.push(Number(this.referCumulativetrxn[i].transaction_Amount));
         temp.push(Number(this.referCumulativetrxn[i].count));
         data_amount.push(temp);
     }
@@ -119,7 +119,7 @@ export class DasboardDetailsComponent implements OnInit {
             for (var i = 0; i < this.referCumulativetrxn.length; i++) {
                 var temp=[];
                 temp.push(this.referCumulativetrxn[i].month);
-                temp.push(Number(this.referCumulativetrxn[i].transactionAmount));
+                temp.push(Number(this.referCumulativetrxn[i].transaction_Amount));
                 temp.push(Number(this.referCumulativetrxn[i].count));
                 data_amount.push(temp);
             }
@@ -172,6 +172,7 @@ export class DasboardDetailsComponent implements OnInit {
     this.getBankDashboardDetails()  
   }
   getBankDashboardDetails(){
+    console.log("Function called")
     const param = {
       userId:this.userId,
       country:this.selectedCountry,
@@ -181,15 +182,17 @@ export class DasboardDetailsComponent implements OnInit {
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
         this.bankdashbrdcount=this.dashboardData.bankdashbrdcount;
-        if(this.dashboardData.bankBarChart.length==0)   
-          this.noDataBarChart=true;
+        console.log("Data -- ",this.dashboardData.bankBarChart)
+        // if(this.dashboardData.bankBarChart.length==0)   
+        //   this.noDataBarChart=true;
         this.bankBarChart=this.dashboardData.bankBarChart
         if(this.dashboardData.banklatestaccepttrxn.length==0)
           this.noData=true
         this.banklatestaccepttrxn=this.dashboardData.banklatestaccepttrxn
         var header_country= ['country', 'Transaction available','Transaction quote'];
         var data_country=[];
-        data_country.push(header_country);
+        if(this.bankBarChart.length>0)
+          data_country.push(header_country);
         for (var i = 0; i < this.bankBarChart.length; i++) {
             var temp=[];
             temp.push(this.bankBarChart[i].country);
@@ -197,6 +200,7 @@ export class DasboardDetailsComponent implements OnInit {
             temp.push(Number(this.bankBarChart[i].transactionquote));
             data_country.push(temp);
         }
+        console.log("data_country---",data_country)
         google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(() => this.drawBarChartCountry(data_country));
       }, (error) => {
@@ -206,15 +210,22 @@ export class DasboardDetailsComponent implements OnInit {
   }
  
   drawBarChartCountry(data){
+    console.log("data---",data)
     var data = google.visualization.arrayToDataTable(data);
+    console.log("getNumberOfRows()---",data.getNumberOfRows())
     var options = {
       chart: {
         title: ''
       }
     };
-
-    var chart = new google.charts.Bar(document.getElementById('bar_chart_country'));
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+    if(data.getNumberOfRows() == 0){
+      $('#bar_chart_country').html("<div style='padding-left: 46%;padding-top: 10%;'><b>No data found</b></div>")
+    }else{
+      var chart = new google.charts.Bar(document.getElementById('bar_chart_country'));
+      chart.draw(data, google.charts.Bar.convertOptions(options));       
+    }
+    // var chart = new google.charts.Bar(document.getElementById('bar_chart_country'));
+    // chart.draw(data, google.charts.Bar.convertOptions(options));
   }
   getCustomerDashboardDetails(){
     const param = {
