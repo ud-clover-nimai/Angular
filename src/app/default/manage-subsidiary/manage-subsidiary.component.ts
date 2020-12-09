@@ -9,6 +9,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { SignupService } from 'src/app/services/signup/signup.service';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 @Component({
   selector: 'app-manage-subsidiary',
   templateUrl: './manage-subsidiary.component.html',
@@ -27,7 +28,8 @@ export class ManageSubsidiaryComponent implements OnInit {
   subsidiries:any;
   subuticount:any;
   available:any;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService) {
+  nimaiCount:any;
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -52,10 +54,27 @@ export class ManageSubsidiaryComponent implements OnInit {
   ngOnInit() {
   loads();
   manageSub();
-  this.subsidiries=sessionStorage.getItem('subsidiries');  
-  this.subuticount=sessionStorage.getItem('subuticount');
-  this.available=this.subsidiries-this.subuticount
+  // this.subsidiries=sessionStorage.getItem('subsidiries');  
+  // this.subuticount=sessionStorage.getItem('subuticount');
+  // this.available=this.subsidiries-this.subuticount
   this.listOfSubsidiary();
+  this.getNimaiCount();
+  }
+  getNimaiCount() {
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.subsidiries=this.nimaiCount.subsidiries
+        this.subuticount=this.nimaiCount.subuticount
+        this.available=this.subsidiries-this.subuticount
+        },  
+      error => { }
+    )
   }
 
   close() {
