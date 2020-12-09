@@ -124,17 +124,17 @@ export class ManageSubsidiaryComponent implements OnInit {
 
 
     this.signUpService.signUp(data).subscribe((response) => {
-      console.log("responnse---",response)
+     
     let res= JSON.parse(JSON.stringify(response))
     this.respMessage =res.errMessage
-    console.log("res",res.errMessage);
+   
     const fg = {
       "emailId": this.manageSubForm.get('emailId').value,
       "event": 'ADD_SUBSIDIARY',
       "userId": sessionStorage.getItem('userID')
       //"referenceId":res.data.reId
     }
-    console.log("res.status--",res.status)
+   
     if(res.status!=="Failure"){
     this.fps.sendEmailReferSubsidiary(fg)
     .subscribe(
@@ -148,14 +148,14 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
     )
    }else{
-     console.log("res--",res)
+    
     this.resetPopup();
     this.respMessage = res.errMessage;
    }
 
    },
    (error) => {
-    console.log("error--",error)
+    
     let err= JSON.parse(JSON.stringify(error.error))
      this.resetPopup();
      this.respMessage = err.errMessage

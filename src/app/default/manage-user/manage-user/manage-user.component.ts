@@ -239,7 +239,7 @@ export class ManageUserComponent implements OnInit {
 
     },
     (error) => {
-     console.log("error--",error)
+    
      let err= JSON.parse(JSON.stringify(error.error))
       this.resetPopup();
       this.respMessage = err.errMessage
