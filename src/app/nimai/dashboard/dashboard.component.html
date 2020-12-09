@@ -417,7 +417,7 @@
                       <a *ngIf="isCustomer" [routerLink]="['manage-sub']"
                         >Manage Subsidiary</a>
                     </li>
-                    <li>
+                    <li *ngIf="!hideManageUser">
                       <a *ngIf="isBank" [routerLink]="['manage-user']"
                         >Manage User</a
                       >

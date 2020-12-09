@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   public isDisablePlan:boolean=false;
   public isDisableKyc:boolean=false;
   public hideSubscriptionPlan:boolean=false;
+  public hideManageUser:boolean=false;
   draftData: any;
   draftcount: any;
   draftcountBank: any;
@@ -257,7 +258,13 @@ export class DashboardComponent implements OnInit {
         if(this.nimaiCount.accounttype == 'SUBSIDIARY' || this.nimaiCount.accounttype == 'BANKUSER' || this.nimaiCount.subscribertype == 'REFERRER'){
           this.hideSubscriptionPlan=true;
         }
-        console.log("this.hideSubscriptionPlan--",this.hideSubscriptionPlan)
+        if(this.nimaiCount.accounttype == 'MASTER' && this.nimaiCount.kycstatus!=='Approved'){
+          this.hideSubscriptionPlan=true;
+        }
+        if(this.nimaiCount.kycstatus!=='Approved'){
+          this.hideManageUser=true;
+        }
+        console.log("this.hideManageUser--",this.hideManageUser)
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
         if(this.nimaiCount.issplanpurchased=="1"){
