@@ -29,8 +29,10 @@ export class DashboardComponent implements OnInit {
   public areaExpandedtra: boolean = false;
   public isDisablePlan:boolean=false;
   public isDisableKyc:boolean=false;
-  public hideSubscriptionPlan:boolean=false;
+  public hidePlanFromProfile:boolean=false;
+  public hidePlanFromMenu:boolean=false;
   public hideManageUser:boolean=false;
+  public hideCreditTransaction:boolean=false;
   draftData: any;
   draftcount: any;
   draftcountBank: any;
@@ -256,15 +258,14 @@ export class DashboardComponent implements OnInit {
           this.isDisablePlan=false;
         }
         if(this.nimaiCount.accounttype == 'SUBSIDIARY' || this.nimaiCount.accounttype == 'BANKUSER' || this.nimaiCount.subscribertype == 'REFERRER'){
-          this.hideSubscriptionPlan=true;
-        }
-        if(this.nimaiCount.accounttype == 'MASTER' && this.nimaiCount.kycstatus!=='Approved'){
-          this.hideSubscriptionPlan=true;
+          this.hidePlanFromProfile=true;
+          this.hidePlanFromMenu=true;
         }
         if(this.nimaiCount.kycstatus!=='Approved'){
           this.hideManageUser=true;
+          this.hideCreditTransaction=true;
         }
-        console.log("this.hideManageUser--",this.hideManageUser)
+        console.log("this.hidePlanFromProfile--",this.hidePlanFromProfile)
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
         if(this.nimaiCount.issplanpurchased=="1"){

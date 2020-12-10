@@ -362,7 +362,6 @@ export class BusinessDetailsComponent implements OnInit {
 
   add() {
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    console.log("items.length",items.length)
     if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")
     {
       items.push(this.getOwners());
