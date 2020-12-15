@@ -311,10 +311,16 @@
                               
                                  <li>
                                     <div class="textfield">
-                                       <select (change)='onCountrySelected($event)' style="width: 200px!important;">
+                                       <!-- <select (change)='onCountrySelected($event)' style="width: 200px!important;">
                                        <option value="">Select</option>
                                        <option *ngFor="let data of country" [ngValue]="data">
                                          {{ data.countryName }}
+                                       </option>
+                                       </select> -->
+                                        <select (change)='onCountrySelected($event)' style="width: 200px!important;">
+                                       <option value="">Select</option>
+                                       <option *ngFor="let data of countryArray" [ngValue]="data">
+                                         {{ data}}
                                        </option>
                                        </select>
                                     </div>

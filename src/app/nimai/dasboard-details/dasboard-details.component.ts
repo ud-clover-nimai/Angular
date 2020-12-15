@@ -12,6 +12,7 @@ declare let google: any;
   styleUrls: ['./dasboard-details.component.css']
 })
 export class DasboardDetailsComponent implements OnInit {
+  public countryArray:any;
   public parentURL: string = "";
   public subURL: string = "";
   isCustomer: boolean = false;
@@ -158,21 +159,68 @@ export class DasboardDetailsComponent implements OnInit {
       )
   }
   onCountrySelected(event){ 
-  if(event.target.value)
+  if(event.target.value){ 
     this.selectedCountry=event.target.value
-  else  
-     this.selectedCountry=event.target.value
-    this.getBankDashboardDetails()   
+  }
+  else{  
+     this.selectedCountry=event.target.value  
+   }
+   this.getBankDashboardDetailsAfterFilter() 
   }
   onProductSelected(event){
-    if(event.target.value)
+    if(event.target.value){
       this.selectedProduct=event.target.value
-    else  
-      this.selectedProduct=""
-    this.getBankDashboardDetails()  
+    }
+    else{  
+      this.selectedProduct="" 
+    }
+    this.getBankDashboardDetailsAfterFilter() 
   }
+getBankDashboardDetailsAfterFilter()   
+{
+  const param = {
+    userId:this.userId,
+    country:this.selectedCountry,
+    productRequirement:this.selectedProduct
+  }
+  this.service.getBankDashboardDetails(param).subscribe(
+    (response) => {
+      this.dashboardData = JSON.parse(JSON.stringify(response)).data;
+      this.bankdashbrdcount=this.dashboardData.bankdashbrdcount;
+      // if(this.dashboardData.bankBarChart.length==0)   
+      //   this.noDataBarChart=true;
+      this.bankBarChart=this.dashboardData.bankBarChart
+      if(this.dashboardData.banklatestaccepttrxn.length==0){
+        this.noData=true
+      }
+      this.banklatestaccepttrxn=this.dashboardData.banklatestaccepttrxn
+      var header_country= ['country', 'Transaction available','Transaction quote'];
+      var data_country=[];
+      
+      let length=0;
+      if(this.selectedCountry || this.selectedProduct){
+        length=this.bankBarChart.length
+      }else{
+        length=5
+      }
+      if(this.bankBarChart.length>0)
+        data_country.push(header_country);
+      for (var i = 0; i < length; i++) {
+          var temp=[];
+          temp.push(this.bankBarChart[i].country);
+          temp.push(Number(this.bankBarChart[i].transactionavailable));
+          temp.push(Number(this.bankBarChart[i].transactionquote));
+          data_country.push(temp);
+          
+      }
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(() => this.drawBarChartCountry(data_country));
+    }, (error) => {
+
+    }
+  )
+}
   getBankDashboardDetails(){
-    console.log("Function called")
     const param = {
       userId:this.userId,
       country:this.selectedCountry,
@@ -182,25 +230,33 @@ export class DasboardDetailsComponent implements OnInit {
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
         this.bankdashbrdcount=this.dashboardData.bankdashbrdcount;
-        console.log("Data -- ",this.dashboardData.bankBarChart)
-        // if(this.dashboardData.bankBarChart.length==0)   
-        //   this.noDataBarChart=true;
         this.bankBarChart=this.dashboardData.bankBarChart
-        if(this.dashboardData.banklatestaccepttrxn.length==0)
+        if(this.dashboardData.banklatestaccepttrxn.length==0){
           this.noData=true
+        }
         this.banklatestaccepttrxn=this.dashboardData.banklatestaccepttrxn
         var header_country= ['country', 'Transaction available','Transaction quote'];
         var data_country=[];
+        this.countryArray=[]
+        let length=0;
+        if(this.selectedCountry || this.selectedProduct){
+          length=this.bankBarChart.length
+        }else{
+          length=5
+        }
         if(this.bankBarChart.length>0)
           data_country.push(header_country);
-        for (var i = 0; i < this.bankBarChart.length; i++) {
+        for (var i = 0; i < length; i++) {
             var temp=[];
             temp.push(this.bankBarChart[i].country);
             temp.push(Number(this.bankBarChart[i].transactionavailable));
             temp.push(Number(this.bankBarChart[i].transactionquote));
-            data_country.push(temp);
+            data_country.push(temp);            
         }
-        console.log("data_country---",data_country)
+        for (var i = 0; i < this.bankBarChart.length; i++) {
+        
+          this.countryArray.push(this.bankBarChart[i].country);
+      }
         google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(() => this.drawBarChartCountry(data_country));
       }, (error) => {
@@ -210,9 +266,7 @@ export class DasboardDetailsComponent implements OnInit {
   }
  
   drawBarChartCountry(data){
-    console.log("data---",data)
     var data = google.visualization.arrayToDataTable(data);
-    console.log("getNumberOfRows()---",data.getNumberOfRows())
     var options = {
       chart: {
         title: ''

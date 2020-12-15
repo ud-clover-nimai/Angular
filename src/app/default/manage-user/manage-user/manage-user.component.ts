@@ -61,8 +61,8 @@ export class ManageUserComponent implements OnInit {
   manageSubForm = this.formBuilder.group({
     firstName: new FormControl('',[Validators.required]),
     lastName: new FormControl('',[Validators.required]),
-    mobileNo: new FormControl('',[Validators.minLength(7)]),
     country: new FormControl('',[Validators.required]),
+    mobileNo: new FormControl('',[Validators.minLength(7)]),
     landlineNo: new FormControl('',[Validators.required, Validators.minLength(7)]),
     emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countriesInt: new FormControl('',[Validators.required]),
@@ -239,7 +239,7 @@ export class ManageUserComponent implements OnInit {
 
     },
     (error) => {
-    
+     console.log("error--",error)
      let err= JSON.parse(JSON.stringify(error.error))
       this.resetPopup();
       this.respMessage = err.errMessage

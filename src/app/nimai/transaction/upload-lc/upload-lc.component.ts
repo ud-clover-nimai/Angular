@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output,ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataServiceService } from 'src/app/services/upload-lc/data-service.service';
 import * as $ from '../../../../assets/js/jquery.min';
 import { LcDetail } from 'src/app/beans/LCDetails';
@@ -181,17 +181,19 @@ export class UploadLCComponent implements OnInit {
  }
 
  
-  public next() {
-//     this.submitted = true;
-//     if (this.ApplicantBeneficiary.LcDetail.valid ) {
-// console.log('if')
-//   } else {
-//     console.log('else')
+  public next() {  
+  //   this.submitted = true;
+  //   if (this.ApplicantBeneficiary.isValid(this.submitted)) {
+  //     console.log(this.ApplicantBeneficiary.isValid(this.submitted))
 
-//     return;
-//   }
+  // } else {
+  //   console.log(this.submitted)
+  //   
+
+  //   return;
+  // }
   
-  //  this.submitted = false;
+   //this.submitted = false;
 
 
     let elements = document.getElementsByTagName('input');
@@ -461,6 +463,23 @@ export class UploadLCComponent implements OnInit {
           this.upls.confirmLc(body).subscribe(
         
                 (response) => {
+
+
+                  var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
+                  if(errmsg){
+                    const navigationExtras: NavigationExtras = {
+                      state: {
+                        title: 'Transaction Failed',
+                        message: JSON.parse(JSON.stringify(response)).errMessage,
+                        parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+                      }
+                    };
+                    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+                      .then(success => console.log('navigation error?', success))
+                      .catch(console.error);
+                  }else{
+
+
  const navigationExtras: NavigationExtras = {
             state: {
               title: 'Transaction Successful',
@@ -472,13 +491,14 @@ export class UploadLCComponent implements OnInit {
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           this.isUpdate = false;
+        }
                 });
           // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
           
           // this.upls.confirmLcMailSentToBank(emailBankBody).subscribe((resp) => {
           //   console.log("bank mail sent successfully");},(err) => {},);
         
-         
+              
         }  
 
         if(errmsg=="Duplicate LC") {
@@ -520,7 +540,20 @@ export class UploadLCComponent implements OnInit {
     
     this.upls.confirmLc(body).subscribe(
         
-      (response) => {
+      (response) => {        
+        var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
+        if(errmsg){
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Transaction Failed',
+              message: JSON.parse(JSON.stringify(response)).errMessage,
+              parent: this.subURL+"/"+this.parentURL +'/new-transaction'
+            }
+          };
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
+            .then(success => console.log('navigation error?', success))
+            .catch(console.error);
+        }else{
 const navigationExtras: NavigationExtras = {
       state: {
         title: 'Transaction Successful',
@@ -532,6 +565,7 @@ const navigationExtras: NavigationExtras = {
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
     this.isUpdate = false;
+  }
       });
 
     // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => {console.log("customer mail sent successfully");},(err) => {},);
@@ -666,8 +700,7 @@ const navigationExtras: NavigationExtras = {
       applicantContactPerson:[''],
       applicantContactPersonEmail:[''],
       beneContactPerson:[''],
-      beneContactPersonEmail:['']
-    })
+      beneContactPersonEmail:['',[Validators.required,Validators.email]]    })
   }
 
 

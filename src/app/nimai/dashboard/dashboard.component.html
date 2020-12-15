@@ -238,8 +238,7 @@
                           </a>
                         </li>
                         <li
-                          [routerLinkActive]="['active']"
-                          *ngIf="!hideSubscriptionPlan">
+                          [routerLinkActive]="['active']" *ngIf="!hidePlanFromMenu">
                           <a  [ngClass]="{'adisabled': !isDisablePlan}"
                             [routerLink]="['subscription']" (click)="getNimaiCount()"
                             *ngIf="!isReferrer"
@@ -406,7 +405,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a [routerLink]="['my-profile']">My Profile</a></li>
-                    <li *ngIf="!hideSubscriptionPlan">
+                    <li *ngIf="!hideCreditTransaction">
                       <a
                         *ngIf="isCustomer || isBank"
                         [routerLink]="['credit-transaction']"

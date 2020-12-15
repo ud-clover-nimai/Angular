@@ -16,10 +16,29 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   public hasValue=false;
   public isValidAppEmail=false;
   public isValidBeneEmail=false;
+  submitted: boolean;
   constructor(public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
-  //   this.LcDetail = this.fb.group({
-  //     beneContactPersonEmail: ['', Validators.required]
-  // });
+    this.LcDetail = this.fb.group({
+     
+      swiftCode: ['', Validators.required],
+     
+           
+      applicantName:sessionStorage.getItem('companyName'),
+      applicantCountry:sessionStorage.getItem('registeredCountry'),
+  
+      beneName:sessionStorage.getItem('companyName'),
+      beneBankCountry:['', Validators.required],
+      beneBankName:['', Validators.required],
+      beneSwiftCode:['', Validators.required],
+      beneCountry:sessionStorage.getItem('registeredCountry'),
+      
+     
+      applicantContactPerson:['', Validators.required],
+      applicantContactPersonEmail:['', Validators.required],
+      beneContactPerson:['',Validators.required],
+      beneContactPersonEmail:['', Validators.required]
+    
+  });
   }
   
   
@@ -96,5 +115,21 @@ export class ApplicantBeneficiaryComponent implements OnInit {
       }    
     }
   }
+//   public isValid(data) {
+//     console.log(data)
+ 
+//   this.submitted = true;
+//   if (this.LcDetail.valid ) {
+//     console.log(this.submitted)
+// return true;
+// } else {
+//   console.log(this.submitted)
 
-}
+//   console.log('else')
+
+//   return false;
+// }
+
+//  this.submitted = false;
+//   }
+ }
