@@ -28,6 +28,7 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
 import { weightDirective } from './directive/weight.directive';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
+import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ReferenceComponent } from 'src/app/default/reference/reference.componen
     DashboardComponent,
     PersonalDetailsComponent,
     BusinessDetailsComponent,
+    OnlinePaymentComponent,
     KycDetailsComponent,
     SubscriptionComponent,   
     VasPlanComponent, 

@@ -57,6 +57,10 @@ export class NewTransactionService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/cancelTransaction`, data, { headers: { 'content-types': 'application/json' } });
   }
 
+   public withdrawQuote(data: any): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/withdrawQuote`, data, { headers: { 'content-types': 'application/json' } });
+  }
+
   public updateBankTransaction(data: editViewQuotation): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/updateMasterQuotation`, data, { headers: { 'content-types': 'application/json' } });
   }

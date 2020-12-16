@@ -19,6 +19,7 @@ export class TrasactionDetailsComponent {
   public accepted: boolean = false;
   public rejected: boolean = false;
   public expired: boolean = false;
+  public withdrawn :boolean=false;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
@@ -33,6 +34,7 @@ export class TrasactionDetailsComponent {
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
   expiredStatus :boolean=true;
+  withdrawStatus :boolean=true;
   forCloseTransactionId: any = "";
   forCloseUserId: any;
   public viewDisable: boolean = true;
@@ -74,24 +76,32 @@ export class TrasactionDetailsComponent {
       this.rejectedStatus=false;
       this.acceptedStatus = true;
       this.expiredStatus=false;
+      this.withdrawStatus=false;
     }
     else  if (status == "Rejected") {
       this.rejectedStatus=true;
       this.acceptedStatus = false;
       this.expiredStatus=false;
+      this.withdrawStatus=false;
     }
     else if(status == "Expired") {
       this.expiredStatus=true;
       this.rejectedStatus=false;
       this.acceptedStatus = false;
+      this.withdrawStatus=false;
     }
-
+    else if(status == "Withdrawn") {
+      this.expiredStatus=false;
+      this.rejectedStatus=false;
+      this.acceptedStatus = false;
+      this.withdrawStatus=true;
+    }
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "quotationStatus": status
 
     }
- 
+ console.log(data)
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
@@ -152,6 +162,11 @@ export class TrasactionDetailsComponent {
       $('.activeTab').removeClass('active');   
       $('#menuDetailsExpired li:first').addClass('active');
       $('.tab-content #pill1131').addClass('active');
+    }
+    else if(status=='Withdrawn'){  
+      $('.activeTab').removeClass('active');   
+      $('#menuDetailsWithdrawn li:first').addClass('active');
+      $('.tab-content #pill1151').addClass('active');
     }
    
   }
@@ -214,6 +229,8 @@ const data = {
       document.getElementById("menuDetailsExpired").style.width = "520px";
     } else if (status === "Rejected") {
       document.getElementById("menubarDetailrejected").style.width = "510px";
+    }  else if (status === "Withdrawn") {
+      document.getElementById("menuDetailsWithdrawn").style.width = "510px";
     } 
 
   }
@@ -226,6 +243,7 @@ const data = {
     document.getElementById("menu-barDetailnew").style.width = "0%";
     document.getElementById("menuDetailsExpired").style.width = "0%";
     document.getElementById("menubarDetailrejected").style.width = "0%";
+    document.getElementById("menuDetailsWithdrawn").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
   }

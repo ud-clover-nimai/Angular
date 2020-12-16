@@ -105,11 +105,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     load_dashboard();
-    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
+    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/online-payment` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
       this.accountPages = "in"
       this.isCollapsed = ""
       this.areaExpandedacc = !this.areaExpandedacc
-    }else if(this.router.url === `/${this.parentURL}/dsb/personal-details/success` || this.router.url === `/${this.parentURL}/dsb/business-details/success`){
+    }else if(this.router.url === `/${this.parentURL}/dsb/personal-details/success` || this.router.url === `/${this.parentURL}/dsb/business-details/success`|| this.router.url === `/${this.parentURL}/dsb/online-payment/success`){
       this.accountPages = "in"
       this.isCollapsed = ""
       this.areaExpandedacc = !this.areaExpandedacc

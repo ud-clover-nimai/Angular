@@ -35,6 +35,7 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
+import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,13 @@ const routes: Routes = [
       },
       {
         path: "business-details", component: BusinessDetailsComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "online-payment", component: OnlinePaymentComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }

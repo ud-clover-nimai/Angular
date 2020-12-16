@@ -149,7 +149,7 @@ export class DiscountingComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
-   
+    this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';
     } if(data.chargesType=='null'){
@@ -238,6 +238,35 @@ export class DiscountingComponent implements OnInit {
         )
       }
         break;
+
+        case 'withdraw': {          
+          $('#withdrawTrasactionDis').show();       
+        }
+          break;
+
+          case 'withdrawTransaction': {
+            const param={
+              "transactionId":this.dataViewEdit.transactionId,
+              "userId":sessionStorage.getItem('userID'),
+               "quotationId":this.dataViewEdit.quotationId,
+            }  
+            this.ts.withdrawQuote(param).subscribe(
+              (response) => {
+                    $('#withdrawTrasactionDis').hide();
+                this.tab = 'tab3';
+              },
+              error => {
+                alert('error')
+              }
+            )     
+              }
+                break;
+    
+                case 'noWithdrawTransaction': {
+                  $('#withdrawTrasactionDis').hide();      
+                }
+                  break;
+
       case 'ok': {
         this.closed();
         this.tab = 'tab1';

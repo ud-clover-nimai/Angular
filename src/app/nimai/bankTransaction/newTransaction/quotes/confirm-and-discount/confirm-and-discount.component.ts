@@ -294,6 +294,35 @@ export class ConfirmAndDiscountComponent implements OnInit {
         )
       }
         break;
+
+        case 'withdraw': {          
+          $('#withdrawTrasactionCnD').show();       
+        }
+          break;
+
+          case 'withdrawTransaction': {
+            const param={
+              "transactionId":this.dataViewEdit.transactionId,
+              "userId":sessionStorage.getItem('userID'),
+               "quotationId":this.dataViewEdit.quotationId,
+            }  
+            this.ts.withdrawQuote(param).subscribe(
+              (response) => {
+                    $('#withdrawTrasactionCnD').hide();
+                this.tab = 'tab3';
+              },
+              error => {
+                alert('error')
+              }
+            )     
+              }
+                break;
+    
+                case 'noWithdrawTransaction': {
+                  $('#withdrawTrasactionCnD').hide();      
+                }
+                  break;
+
       case 'ok': {
         this.closed();
         this.tab = 'tab1';

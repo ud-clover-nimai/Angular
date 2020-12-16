@@ -5,6 +5,8 @@ import { PersonalDetailsComponent } from './nimai/personal-details/personal-deta
 import { PagenotfoundComponent } from './default/pagenotfound/pagenotfound.component';
 import { DashboardComponent } from './nimai/dashboard/dashboard.component';
 import { BusinessDetailsComponent } from './nimai/business-details/business-details.component';
+import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.component';
+
 import { KycDetailsComponent } from './nimai/kyc-details/kyc-details.component';
 import { SubscriptionComponent } from './nimai/subscription/subscription.component';
 import { SuccessPopupComponent } from './default/popups/success-popup/success-popup.component';
