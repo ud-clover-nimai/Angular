@@ -101,7 +101,7 @@
    
     <div class="clearfix"></div>
     <div class="col-md-5">
-        <p><strong>Pro Forma</strong></p>
+        <p><strong>Upload LC or Proforma Invoice</strong></p>
         <label>Upload Document (only jpg, jpeg, png)</label>
         <input #myInput (change)="handleFileInput1($event)" type="file" formControlName="lcProForma" placeholder="Document" class="filestyle" name="upload_file11" id="upload_file11" data-icon="false"/>
         <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>

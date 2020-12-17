@@ -180,7 +180,7 @@ export class ReferenceComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.resetPopup();
-                this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+                this.respMessage = "You've successfully invited a corporate to join NIMAITRADE. You will be notified once corporate completes the signup processes."
               },
               (error) => {
                 this.resetPopup();

@@ -377,15 +377,9 @@ console.log(type)
       case 'ok': {
         this.closedQuote();
         this.tab = 'tab1';
-        const navigationExtras: NavigationExtras = {
-          state: {
-            redirectedFrom: "refinancing",
-            trnsactionID: data.transactionId
-          }
-        };
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
-          .then(success => console.log('navigation success?', success))
-          .catch(console.error);
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {
