@@ -20,6 +20,7 @@ export class CustomerLoginComponent implements OnInit {
   passCode: any;
   passValue: any;
   errMessage: any;
+  userId: string;
 
   constructor(public titleService: TitleService,public router: Router, public Service: SignupService, public fps: ForgetPasswordService, private el: ElementRef) {
 
@@ -42,6 +43,23 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    this.userId=sessionStorage.getItem('userID');
+    if(this.userId.startsWith('RE')){
+      $('.modal1').show();
+
+    }else if(this.userId.startsWith('BA')){
+      this.onBALoginClick()
+      $('.modal2').show();
+
+    }else if(this.userId.startsWith('BC')){
+      $('.modal1').show();
+
+    }
+
+
+
     loads();
   }
   ngAfterViewInit() {
@@ -58,6 +76,35 @@ export class CustomerLoginComponent implements OnInit {
     }
   }
 
+
+
+  onBALoginClick() {    
+    console.log('ttt')
+ 
+        let sendEmail = {
+          "event": 'ADD_BRANCH_USER',
+          "userId": sessionStorage.getItem("userID"),
+        }
+        this.fps.sendBranchUserPasscode(sendEmail)
+          .subscribe(
+            (response) => {
+             this.passCode = JSON.parse(JSON.stringify(response));
+             this.passCode = this.passCode.data;
+              sessionStorage.setItem('branchUserEmailId', this.emailAddress);
+              console.log(JSON.parse(JSON.stringify(response)))
+              $('.modal1').hide();
+              $('.modal2').show();
+            },
+            (error) => {
+              $('.modal1').hide();
+              $('.modal3').show();
+              // alert("unable to send mail")
+
+            }
+          )     
+  }
+
+
   onCustLoginClick() {    
     this.submitted = true;
     this.emailAddress = this.customerLoginForm.get('email_id').value.trim();
@@ -72,6 +119,7 @@ export class CustomerLoginComponent implements OnInit {
       let responseData = JSON.parse(JSON.stringify(response));
       var matches = responseData.data.match(/\d+/g)
       sessionStorage.setItem('custUserEmailId', this.emailAddress);
+     
       if (matches != null) {
       
         let sendEmail = {
@@ -86,6 +134,7 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
+              console.log(JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },
@@ -96,6 +145,9 @@ export class CustomerLoginComponent implements OnInit {
 
             }
           )
+
+
+          
         }
         else{
           $('.modal1').hide();

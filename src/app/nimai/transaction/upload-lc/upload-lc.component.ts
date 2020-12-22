@@ -780,11 +780,9 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
          }else{
            this.isBankOther=false;
          }
-  // this.draftData = JSON.parse(JSON.stringify(response)).data;
-        // var str = this.draftData.tenorFile; 
-        // var splittedStr = str.split(" |", 1); 
-        // console.log(splittedStr[0]);
+ 
         this.ngOnInit();
+        console.log(this.draftData.beneBankName)
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
