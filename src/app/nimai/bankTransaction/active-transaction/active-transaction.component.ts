@@ -141,9 +141,29 @@ export class ActiveTransactionComponent implements OnInit {
       $('#menu-barDetailActive li:first').addClass('active');
       $('.tab-content #pill111').addClass('active');
     
-   
+      this.getNegoMature(this.specificDetail)
   }
 
+  getNegoMature(val){
+    const params ={
+    
+      "quotationId":val.quotationId,
+      "transactionId":val.transactionId
+    
+   }
+   this.nts.getTransQuotationDtlByQuotationId(params).subscribe(
+    (response) => {
+      var str = JSON.parse(JSON.stringify(response)).status; 
+      var splittedNego = str.split(",", 1); 
+      var nego=splittedNego[0].split(":", 2)
+      this.quotationdata.confChgsIssuanceToNegot=nego[1];
+  
+      var splittedMature = str.split(" ", 2); 
+      var mature=splittedMature[1].split(":", 2)
+      this.quotationdata.confChgsIssuanceToMatur=mature[1];
+    });
+  }
+  
   ngAfterViewInit() {
     this.getAllnewTransactions();
     this.confirmation.isActive = false;

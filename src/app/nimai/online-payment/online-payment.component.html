@@ -32,75 +32,75 @@
                                 <tr>
                                     <td colspan="2">Compulsory information</td>
                                 </tr>
-                                <tr [hidden]='hiddenfields' >
+                                <tr >
                                     <td>Merchant Id</td>
-                                    <td><input type="hidden" name="merchant_id" id="merchant_id" value="" /> </td>
+                                    <td><input type="text" [(ngModel)]="data.merchantId" name="merchantId" id="merchant_id" value="" /> </td>
                                 </tr>
-                                <tr [hidden]='hiddenfields' >
+                                <tr>
                                     <td>Order Id</td>
-                                    <td><input type="hidden" name="order_id" value="" /></td>
+                                    <td><input type="text" [(ngModel)]="data.orderId" name="orderId" value="" /></td>
                                 </tr>
                                 <tr>
                                     <td>Currency</td>
-                                    <td><input type="text" name="currency" value="INR" /></td>
+                                    <td><input type="text" [(ngModel)]="data.currency" name="currency" value="INR" /></td>
                                 </tr>
                                 <tr>
                                     <td>Amount</td>
-                                    <td><input type="text" name="amount" value="1.00" /></td>
+                                    <td><input type="text" [(ngModel)]="data.amount" name="amount" value="1.00" /></td>
                                 </tr>
                                 <tr>
                                     <td>Redirect URL</td>
-                                    <td><input type="text" name="redirect_url"
+                                    <td><input type="text" [(ngModel)]="data.redirectURL" name="redirectURL"
                                         value="http://136.232.244.190:8081/nimaiSPlan/PGResponse" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Cancel URL</td>
-                                    <td><input type="text" name="cancel_url"
+                                    <td><input type="text" name="cancelURL" [(ngModel)]="data.cancelURL"
                                         value="http://136.232.244.190:8081/nimaiSPlan/PGResponse" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Language</td>
-                                    <td><input type="text" name="language" id="language" value="EN" /></td>
+                                    <td><input type="text" [(ngModel)]="data.language" name="language" id="language" value="EN" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Billing information(optional):</td>
                                 </tr>
                                 <tr>
                                     <td>Billing Name</td>
-                                    <td><input type="text" name="billing_name" value="Peter" /></td>
+                                    <td><input type="text" [(ngModel)]="data.billingName" name="billingName" value="Peter" /></td>
                                 </tr>
                                 <tr>
                                     <td>Billing Address:</td>
-                                    <td><input type="text" name="billing_address"
+                                    <td><input type="text" [(ngModel)]="data.billingAddress" name="billingAddress"
                                         value="Santacruz" /></td>
                                 </tr>
                                 <tr>
                                     <td>Billing City:</td>
-                                    <td><input type="text" name="billing_city" value="Mumbai" /></td>
+                                    <td><input type="text" [(ngModel)]="data.billingCity" name="billingCity" value="Mumbai" /></td>
                                 </tr>
                                 <tr>
                                     <td>Billing State:</td>
-                                    <td><input type="text" name="billing_state" value="MH" /></td>
+                                    <td><input type="text" [(ngModel)]="data.billingState" name="billingState" value="MH" /></td>
                                 </tr>
                                 <tr>
                                     <td>Billing Zip:</td>
-                                    <td><input type="text" name="billing_zip" value="400054" /></td>
+                                    <td><input type="text" [(ngModel)]="data.billingZip" name="billingZip" value="400054" /></td>
                                 </tr>
                                 <tr>
                                     <td>Billing Country:</td>
-                                    <td><input type="text" name="billing_country" value="India" />
+                                    <td><input type="text" [(ngModel)]="data.billingCountry" name="billingCountry" value="India" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Billing Tel:</td>
-                                    <td><input type="text" name="billing_tel" value="0229874789" />
+                                    <td><input type="text" [(ngModel)]="data.billingTel" name="billingTel" value="0229874789" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Billing Email:</td>
-                                    <td><input type="text" name="billing_email"
+                                    <td><input type="text" [(ngModel)]="data.billingEmail" name="billingEmail"
                                         value="testing@domain.com" /></td>
                                 </tr>
                                 <tr>
@@ -108,76 +108,76 @@
                                 </tr>
                                 <tr>
                                     <td>Shipping Name</td>
-                                    <td><input type="text" name="delivery_name" value="Sam" />
+                                    <td><input type="text" [(ngModel)]="data.shippingName" name="shippingName" value="Sam" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Shipping Address:</td>
-                                    <td><input type="text" name="delivery_address"
+                                    <td><input type="text" [(ngModel)]="data.shippingAddress" name="shippingAddress"
                                         value="Vile Parle" /></td>
                                 </tr>
                                 <tr>
                                     <td>Shipping City:</td>
-                                    <td><input type="text" name="delivery_city" value="Mumbai" />
+                                    <td><input type="text" [(ngModel)]="data.shippingCity" name="shippingCity" value="Mumbai" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Shipping State:</td>
-                                    <td><input type="text" name="delivery_state" value="Maharashtra" />
+                                    <td><input type="text" [(ngModel)]="data.shippingState" name="shippingState" value="Maharashtra" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Shipping Zip:</td>
-                                    <td><input type="text" name="delivery_zip" value="400038" /></td>
+                                    <td><input type="text" [(ngModel)]="data.shippingZip"  name="shippingZip" value="400038" /></td>
                                 </tr>
                                 <tr>
                                     <td>Shipping Country:</td>
-                                    <td><input type="text" name="delivery_country" value="India" />
+                                    <td><input type="text" [(ngModel)]="data.shippingCountry" name="shippingCountry" value="India" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Shipping Tel:</td>
-                                    <td><input type="text" name="delivery_tel" value="0221234321" />
+                                    <td><input type="text" [(ngModel)]="data.shippingTel" name="shippingTel" value="0221234321" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Merchant Param1</td>
-                                    <td><input type="text" name="merchant_param1"
+                                    <td><input type="text" [(ngModel)]="data.merchantParam1" name="merchantParam1"
                                         value="additional Info." /></td>
                                 </tr>
                                 <tr>
                                     <td>Merchant Param2</td>
-                                    <td><input type="text" name="merchant_param2"
+                                    <td><input type="text" [(ngModel)]="data.merchantParam2" name="merchantParam2"
                                         value="additional Info." /></td>
                                 </tr>
                                 <tr>
                                     <td>Merchant Param3</td>
-                                    <td><input type="text" name="merchant_param3"
+                                    <td><input type="text" [(ngModel)]="data.merchantParam3" name="merchantParam3"
                                         value="additional Info." /></td>
                                 </tr>
                                 <tr>
                                     <td>Merchant Param4</td>
-                                    <td><input type="text" name="merchant_param4"
+                                    <td><input type="text" [(ngModel)]="data.merchantParam4" name="merchantParam4"
                                         value="additional Info." /></td>
                                 </tr>
                                 <tr>
                                     <td>Merchant Param5</td>
-                                    <td><input type="text" name="merchant_param5"
+                                    <td><input type="text" [(ngModel)]="data.merchantParam5" name="merchantParam5"
                                         value="additional Info." /></td>
                                 </tr>
                                 <tr>
                                     <td>Integration Type:</td>
-                                    <td><select name="integration_type">
+                                    <td><select name="integrationType" [(ngModel)]="data.integrationType">
                                             <option value="iframe_normal">iframe_normal</option>
                                     </select></td>
                                 </tr>
                                 <tr>
                                     <td>Promo Code:</td>
-                                    <td><input type="text" name="promo_code" value=""/></td>
+                                    <td><input type="text" [(ngModel)]="data.promoCode" name="promoCode" value=""/></td>
                                 </tr>
                                 <tr>
                                     <td>Customer Id:</td>
-                                    <td><input type="text" name="customer_identifier" value=""/></td>
+                                    <td><input type="text" [(ngModel)]="data.customerIdentifier" name="customerIdentifier" value=""/></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -192,12 +192,27 @@
             </div>
         </div>
     </div>
-
-      
-    
+  
+    <br><br>
+    <!-- width required mininmum 482px -->
+     <iframe  width="482" height="500" scrolling="No" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.ae/transaction/transaction.do?command=initiateTransaction&merchant_id=45990&encRequest=3e3a4d12dc6f1761dc50d985fd22deb1d0276ec234dc292071dfb0972fdff8ba52a6733c6a3643dfcb2cf47839ee0904bbdd987da26b27fbd945c536ac728023311b860df7a65b9b81de8696424831c62d989b871211e1cb581158459b890f4b7325aa565087367e52649275079cfa583199205ab69b3eb55641bf42c4259fa474e881cef238f9d255da985c9e02054b3afc6d4dc416da598edce3210245b21f7ea4341fa1ce56019f0367ecf9f21835a6da849646a48a022d24cee00e00dcf4&access_code=AVXV03HL62AN81VXNA">
+    </iframe>
+	
+	<script type="text/javascript">
+    	$(document).ready(function(){
+    		$('iframe#paymentFrame').load(function() {
+				 window.addEventListener('message', function(e) {
+			    	 $("#paymentFrame").css("height",e.data['newHeight']+'px'); 	 
+			 	 }, false);
+			 }); 
+    	});
+	</script>
+  
+<!-- <iframe [src]="srcUrl|safe: 'resourceUrl'" *ngIf="displayIFrame" height="400" width="400"></iframe> -->
 
     <router-outlet></router-outlet>
-  
+ 
 </body>
 
 </html>
+

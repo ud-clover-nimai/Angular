@@ -189,6 +189,7 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
+    OnlinePaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -215,6 +216,7 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
+    OnlinePaymentComponent,
   ]
 })
 export class BankModule { }

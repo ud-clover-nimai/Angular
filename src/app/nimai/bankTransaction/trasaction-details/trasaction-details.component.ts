@@ -101,7 +101,6 @@ export class TrasactionDetailsComponent {
       "quotationStatus": status
 
     }
- console.log(data)
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
@@ -109,7 +108,7 @@ export class TrasactionDetailsComponent {
         this.data = JSON.parse(JSON.stringify(response)).data;
          if (this.data) {
          this.hasNoRecord=true;
-         this.getDetail(this.data,status);
+         this.getDetail(this.data,status,this.data.transactionID);
         
       }
 
@@ -122,7 +121,9 @@ export class TrasactionDetailsComponent {
     )
   }
 
-  getDetail(detail,status) {
+  getDetail(detail,status,trnxId) {
+    console.log(trnxId)
+
     if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
       this.noFileDisable=false;
       this.viewDisable=true;
@@ -170,6 +171,27 @@ export class TrasactionDetailsComponent {
     }
    
   }
+
+getNegoMature(val){
+  const params ={
+  
+    "quotationId":val.quotationId,
+    "transactionId":val.transactionId
+  
+ }
+ this.nts.getTransQuotationDtlByQuotationId(params).subscribe(
+  (response) => {
+    var str = JSON.parse(JSON.stringify(response)).status; 
+    var splittedNego = str.split(",", 1); 
+    var nego=splittedNego[0].split(":", 2)
+    this.quotationdata.confChgsIssuanceToNegot=nego[1];
+
+    var splittedMature = str.split(" ", 2); 
+    var mature=splittedMature[1].split(":", 2)
+    this.quotationdata.confChgsIssuanceToMatur=mature[1];
+  });
+}
+
   getQuotes(val){
 const data = {
   "transactionId": val.transactionId,

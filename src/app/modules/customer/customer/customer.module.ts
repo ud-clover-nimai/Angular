@@ -39,6 +39,7 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
 import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
+import { SafePipe } from 'src/app/nimai/online-payment/safe.pipe';
 
 
 const routes: Routes = [
@@ -182,6 +183,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    SafePipe,
     UploadLCComponent,
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,
@@ -194,8 +196,8 @@ const routes: Routes = [
     BankerComponent,
     TransactionDetailsComponent,
     DraftTransactionComponent,
-    UploadLcNewComponent
-
+    UploadLcNewComponent,
+    OnlinePaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -226,8 +228,8 @@ const routes: Routes = [
     BankerComponent,
     TransactionDetailsComponent,
     DraftTransactionComponent,
-    UploadLcNewComponent
-
+    UploadLcNewComponent,
+    OnlinePaymentComponent,
     
   ]
 })

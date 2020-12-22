@@ -48,13 +48,13 @@ const routes: Routes = [
                     { path: "error", component: ErrorPopupComponent }
                 ]
             },
-            {
-                path: "online-payment", component: OnlinePaymentComponent,
-                children: [
-                    { path: "success", component: SuccessPopupComponent },
-                    { path: "error", component: ErrorPopupComponent }
-                ]
-            },
+            // {
+            //     path: "online-payment", component: OnlinePaymentComponent,
+            //     children: [
+            //         { path: "success", component: SuccessPopupComponent },
+            //         { path: "error", component: ErrorPopupComponent }
+            //     ]
+            // },
             {
                 path: "kyc-details", component: KycDetailsComponent,
                 children: [
