@@ -79,8 +79,7 @@ export class CustomerLoginComponent implements OnInit {
 
 
   onBALoginClick() {    
-    console.log('ttt')
- 
+
         let sendEmail = {
           "event": 'ADD_BRANCH_USER',
           "userId": sessionStorage.getItem("userID"),
@@ -91,7 +90,7 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
-              console.log(JSON.parse(JSON.stringify(response)))
+              //console.log(JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },

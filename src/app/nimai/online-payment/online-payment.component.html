@@ -10,7 +10,7 @@
 </head>
 
 <body>
-   
+
     <div class="content">   
         <div class="container-fluid">
             <div class="row">
@@ -191,24 +191,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
   
-    <br><br>
-    <!-- width required mininmum 482px -->
-     <iframe  width="482" height="500" scrolling="No" frameborder="0"  id="paymentFrame" src="https://secure.ccavenue.ae/transaction/transaction.do?command=initiateTransaction&merchant_id=45990&encRequest=3e3a4d12dc6f1761dc50d985fd22deb1d0276ec234dc292071dfb0972fdff8ba52a6733c6a3643dfcb2cf47839ee0904bbdd987da26b27fbd945c536ac728023311b860df7a65b9b81de8696424831c62d989b871211e1cb581158459b890f4b7325aa565087367e52649275079cfa583199205ab69b3eb55641bf42c4259fa474e881cef238f9d255da985c9e02054b3afc6d4dc416da598edce3210245b21f7ea4341fa1ce56019f0367ecf9f21835a6da849646a48a022d24cee00e00dcf4&access_code=AVXV03HL62AN81VXNA">
-    </iframe>
-	
-	<script type="text/javascript">
-    	$(document).ready(function(){
-    		$('iframe#paymentFrame').load(function() {
-				 window.addEventListener('message', function(e) {
-			    	 $("#paymentFrame").css("height",e.data['newHeight']+'px'); 	 
-			 	 }, false);
-			 }); 
-    	});
-	</script>
-  
-<!-- <iframe [src]="srcUrl|safe: 'resourceUrl'" *ngIf="displayIFrame" height="400" width="400"></iframe> -->
 
     <router-outlet></router-outlet>
  
