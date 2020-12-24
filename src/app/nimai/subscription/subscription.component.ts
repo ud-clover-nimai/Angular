@@ -6,6 +6,8 @@ import * as $ from '../../../assets/js/jquery.min';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { loads } from '../../../assets/js/commons';
 import { Component, OnInit,ElementRef} from '@angular/core';
+import { onlinePaymentDltString } from 'src/app/beans/payment';
+import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
@@ -48,10 +50,23 @@ isRenewPlan=false;
   couponSuccess:any;
   amountAfterCoupon:any;
   discount:any;
+  public data: onlinePaymentDltString;
   paymentTransactionId:any;
+  detail: any="";
+  pgDetail: any;
+  param1: any;
+  param2: any;
   
-  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
-    this.paymentForm = this.fb.group({});
+  constructor(private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
+    this.paymentForm = this.fb.group({
+      merchantId:[''],
+      orderId:[''],
+      currency:[''],
+      amount:[''],
+      redirectURL:[''],
+      cancelURL:[''],
+    });
+   
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -68,9 +83,13 @@ isRenewPlan=false;
     else{
       this.getPlan(sessionStorage.getItem("userID"));
     }
+  
   }
 
   ngOnInit() {    
+    const firstParam: string = this.activatedRoute.snapshot.queryParamMap.get('firstParamKey');
+console.log(firstParam);
+console.log(this.activatedRoute.snapshot.queryParamMap);
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
     this.paymentTransactionId=sessionStorage.getItem('paymentTransId');
@@ -78,7 +97,15 @@ isRenewPlan=false;
     this.titleService.changeTitle(this.title);
     this.getStatus();
   
+   
 
+  //   const pgData={
+  //     "requestDump":this.detail.requestDump,
+  //   }
+  // this.onlinePayment.PGResponse(pgData).subscribe((response)=>{
+  // this.pgDetail = JSON.parse(JSON.stringify(response)).data;
+  // console.log(this.pgDetail)
+  // })
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
@@ -221,6 +248,16 @@ isRenewPlan=false;
     )
   }
   public payNow(planType) {
+    console.log(this.choosedPrice)
+    this.paymentForm.patchValue({
+      amount: this.choosedPrice,
+      currency:'USD'
+    });
+    let elements = document.getElementsByTagName('input');
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].value)
+      elements[i].classList.add('has-value')
+    }
     this.isNew = false;
     this.isRenew=false;
     this.isOrder = false;
@@ -242,8 +279,10 @@ isRenewPlan=false;
         $('#planUnlimited').hide();
       }else{
         $('.red').show();
+
         $('.selection').show();
         $('#planUnlimited').show();
+       
       }
       $('input[type="radio"]').click(function () {
         sd.loading = true;
@@ -262,7 +301,12 @@ isRenewPlan=false;
     });
     // this.titleService.loading.next(false);
   }
-
+  getGrandAmount(){
+    console.log(this.choosedPrice)
+  this.paymentForm.patchValue({
+    amount: this.choosedPrice,
+  })
+  }
   public payment() {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
@@ -494,6 +538,60 @@ isRenewPlan=false;
       });
   }
 
+
+  
+  submit(){   
+ 
+    const onlinePay={
+      "userId":sessionStorage.getItem('userID'),
+      "merchantId":"45990",
+      "orderId":"",
+      "amount":this.choosedPrice,
+      "currency":this.paymentForm.get('currency').value,
+      "redirectURL":"http://136.232.244.190:8081/nimai-uat/#/cst/dsb/online-payment",
+      "cancelURL":"http://136.232.244.190:8081/nimai-uat/#/cst/dsb/subscription"
+    }
+
+    this.onlinePayment.initiatePG(onlinePay).subscribe((response)=>{
+      this.detail = JSON.parse(JSON.stringify(response)).data; 
+
+console.log(this.detail)
+     // this.srcUrl= "https://secure.ccavenue.ae/transaction/transaction.do?command=initiateTransaction&merchant_id="+this.detail.merchantId+"&encRequest="+this.detail.requestDump+"&access_code="+this.detail.accessCode+"&embedded=true"
+var url="https://secure.ccavenue.ae/transaction/transaction.do?command=initiateTransaction"
+
+const mapForm = document.createElement('form');
+mapForm.method = 'POST';
+mapForm.action = url;
+mapForm.style.display = 'none';
+
+const mapInput = document.createElement('input');
+mapInput.type = 'hidden';
+mapInput.name = 'encRequest';
+mapInput.value = this.detail.requestDump;
+mapForm.appendChild(mapInput);
+
+const mapInput1 = document.createElement('input');
+mapInput1.type = 'hidden';
+mapInput1.name = 'access_code';
+mapInput1.value = this.detail.accessCode;
+mapForm.appendChild(mapInput1);
+document.body.appendChild(mapForm);
+
+mapForm.submit();
+})
+
+console.log(this.detail.requestDump)
+
+  //   const pgData={
+  //     "requestDump":this.detail.requestDump,
+  //   }
+  // this.onlinePayment.PGResponse(pgData).subscribe((response)=>{
+  // this.pgDetail = JSON.parse(JSON.stringify(response)).data;
+  // })
+ 
+  
+      
+  }
 
 }
 
