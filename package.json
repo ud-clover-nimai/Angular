@@ -34,6 +34,7 @@
     "ng-multiselect-dropdown-angular7": "^0.1.5",
     "ng2-charts": "^2.4.2",
     "ng2-google-charts": "^6.1.0",
+    "ngx-cookie-service": "^11.0.2",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.6.3",
     "tslib": "^1.10.0",

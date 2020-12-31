@@ -16,5 +16,8 @@ export class OnlinePaymentService {
   public PGResponse(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/PGResponse` , data, { headers: { 'content-type': 'application/json' } })
   }
+  public checkPaymentStatus(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/checkPaymentStatus` , data, { headers: { 'content-type': 'application/json' } })
+  }
 
 }

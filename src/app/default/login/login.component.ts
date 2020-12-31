@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.clear();
+
   this.goodsService();
   this.isReferrerOther=false;
   loads();

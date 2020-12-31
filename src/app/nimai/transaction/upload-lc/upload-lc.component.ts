@@ -818,7 +818,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           refinancingPeriod:this.draftData.refinancingPeriod,
        //  lcMaturityDate:this.draftData.lcMaturityDate,
           lcMaturityDate:this.setDateFromApi(this.draftData.lcMaturityDate),
-          tenorFile:this.draftData.tenorFile,
+        //  tenorFile:this.draftData.tenorFile,
           lcNumber:this.draftData.lcNumber,
           lastBeneBank:this.draftData.lastBeneBank,
           lastBeneSwiftCode:this.draftData.lastBeneSwiftCode,

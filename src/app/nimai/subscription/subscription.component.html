@@ -40,9 +40,9 @@
                                         <li class="plan-feature"> Relationship Manager <span class="plan-feature-name"> - {{plan.relationshipManager}}</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan,'new')" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Buy Now</a>
-                                        <a href="javascript:void()" *ngIf="isRenew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isRenew" (click)="choosePlan(plan,'renew')" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Renew </a>   
                                     </div>
                                 </div>

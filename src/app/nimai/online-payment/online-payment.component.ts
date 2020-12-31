@@ -30,28 +30,28 @@ export class OnlinePaymentComponent implements OnInit {
  
 
 
-  console.log('Called Constructor');
-  this.activatedRoute.queryParams.subscribe(params => {
-      this.param1 = params['encResp'];
-      let urlSearchParams = new URLSearchParams();
-      urlSearchParams.append('password', this.param1);
-      let body = urlSearchParams.toString()
-      console.log(this.param1)
-      console.log(body)
-      const pgData={
-        "requestDump":this.param1,
-      }
-    this.onlinePayment.PGResponse(pgData).subscribe((response)=>{
-    this.pgDetail = JSON.parse(JSON.stringify(response)).data;
-    console.log(this.pgDetail)
-    })
-  });
-  this.param2 = this.activatedRoute.snapshot.params.param2;
-console.log(this.param2)
-let urlSearchParams = new URLSearchParams();
-      urlSearchParams.append('password', this.param1);
-      let body = urlSearchParams.toString()
-      console.log(body)
+ // console.log('Called Constructor');
+//   this.activatedRoute.queryParams.subscribe(params => {
+//       this.param1 = params['encResp'];
+//       let urlSearchParams = new URLSearchParams();
+//       urlSearchParams.append('password', this.param1);
+//       let body = urlSearchParams.toString()
+//       console.log(this.param1)
+//       console.log(body)
+//       const pgData={
+//         "requestDump":this.param1,
+//       }
+//     this.onlinePayment.PGResponse(pgData).subscribe((response)=>{
+//     this.pgDetail = JSON.parse(JSON.stringify(response)).data;
+//     console.log(this.pgDetail)
+//     })
+//   });
+//   this.param2 = this.activatedRoute.snapshot.params.param2;
+// console.log(this.param2)
+// let urlSearchParams = new URLSearchParams();
+//       urlSearchParams.append('password', this.param1);
+//       let body = urlSearchParams.toString()
+//       console.log(body)
 
       // this.$route.params.forEach(param =>
       //   this.myvar = param['encResp']
@@ -59,20 +59,20 @@ let urlSearchParams = new URLSearchParams();
       // console.log(this.myvar)
 
     
-    const pgData2={
-      "requestDump":this.param2,
-    }
-  this.onlinePayment.PGResponse(pgData2).subscribe((response)=>{
-  this.pgDetail = JSON.parse(JSON.stringify(response)).data;
-  console.log(this.pgDetail)
-  })
-  const pgData3={
-    "requestDump":body,
-  }
-this.onlinePayment.PGResponse(pgData3).subscribe((response)=>{
-this.pgDetail = JSON.parse(JSON.stringify(response)).data;
-console.log(this.pgDetail)
-})
+//     const pgData2={
+//       "requestDump":this.param2,
+//     }
+//   this.onlinePayment.PGResponse(pgData2).subscribe((response)=>{
+//   this.pgDetail = JSON.parse(JSON.stringify(response)).data;
+//   console.log(this.pgDetail)
+//   })
+//   const pgData3={
+//     "requestDump":body,
+//   }
+// this.onlinePayment.PGResponse(pgData3).subscribe((response)=>{
+// this.pgDetail = JSON.parse(JSON.stringify(response)).data;
+// console.log(this.pgDetail)
+// })
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });

@@ -40,6 +40,7 @@ import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import { SafePipe } from 'src/app/nimai/online-payment/safe.pipe';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const routes: Routes = [
@@ -199,6 +200,8 @@ const routes: Routes = [
     UploadLcNewComponent,
     OnlinePaymentComponent,
   ],
+  providers:[CookieService],
+
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
