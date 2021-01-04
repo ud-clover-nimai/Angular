@@ -135,7 +135,9 @@ export class NewTransactionComponent implements OnInit {
   }
   ngOnInit() {
     this.getNimaiCount();
+
   }
+
 
   getNimaiCount() {
     let data = {

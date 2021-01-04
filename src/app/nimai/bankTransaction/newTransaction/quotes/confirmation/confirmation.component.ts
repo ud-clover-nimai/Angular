@@ -174,7 +174,6 @@ export class ConfirmationComponent implements OnInit {
     this.selectNego = 'no';
   }
   public action(flag: boolean, type: Tflag, data: any) {
-
  this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';
@@ -324,6 +323,34 @@ export class ConfirmationComponent implements OnInit {
         )
       }
         break;
+        case 'withdraw': {          
+          $('#withdrawTrasactionConfirm').show();       
+        }
+          break;
+
+          case 'withdrawTransaction': {
+            const param={
+              "transactionId":this.dataViewEdit.transactionId,
+              "userId":sessionStorage.getItem('userID'),
+               "quotationId":this.dataViewEdit.quotationId,
+            }  
+            this.ts.withdrawQuote(param).subscribe(
+              (response) => {
+                    $('#withdrawTrasactionConfirm').hide();
+                this.tab = 'tab3';
+              },
+              error => {
+                alert('error')
+              }
+            )     
+              }
+                break;
+    
+                case 'noWithdrawTransaction': {
+                  $('#withdrawTrasactionConfirm').hide();      
+                }
+                  break;
+
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
@@ -460,16 +487,18 @@ export class ConfirmationComponent implements OnInit {
       case 'ok': {
         this.closedQuote();
         this.tab = 'tab1';
-        const navigationExtras: NavigationExtras = {
-          state: {
-            redirectedFrom: "confirmation",
-            trnsactionID: data.transactionId
-          }
-        };
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
-          .then(success => console.log('navigation success?', success))
-          .catch(console.error);
-
+        // const navigationExtras: NavigationExtras = {
+        //   state: {
+        //     redirectedFrom: "confirmation",
+        //     trnsactionID: data.transactionId
+        //   }
+        // };
+        // this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
+        //   .then(success => console.log('navigation success?', success))
+        //   .catch(console.error);
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
       }
         break;
       case 'preview': {

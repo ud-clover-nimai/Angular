@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   nimaiCount: any = "";
   isQuote = false;
   loading = false;
-  userType: string;
+  userType: any;
   creditCount: number;
   userStat: any;
   creditenable: string;
@@ -65,18 +65,22 @@ export class DashboardComponent implements OnInit {
       this.userType = "Referrer";
       this.usersStat('RE');
     } else if (userId.startsWith('BC')) {
-      this.userType = "Bank as a customer";
+      this.userType = "Bank as a Customer";
       this.usersStat('BC');
     } else if (userId.startsWith('CU')) {
       this.userType = "Customer";
       this.usersStat('CU');
     }  else if (userId.startsWith('BA')) {
-      this.userType = "Bank as an underwriter";
+      this.userType = "Bank as an Underwriter";
+
       this.usersStat('BA');
     }  else {
       this.userType = "";
+
     }
-  
+
+
+
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -105,11 +109,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     load_dashboard();
-    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
+    if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/online-payment` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
       this.accountPages = "in"
       this.isCollapsed = ""
       this.areaExpandedacc = !this.areaExpandedacc
-    }else if(this.router.url === `/${this.parentURL}/dsb/personal-details/success` || this.router.url === `/${this.parentURL}/dsb/business-details/success`){
+    }else if(this.router.url === `/${this.parentURL}/dsb/personal-details/success` || this.router.url === `/${this.parentURL}/dsb/business-details/success`|| this.router.url === `/${this.parentURL}/dsb/online-payment/success`){
       this.accountPages = "in"
       this.isCollapsed = ""
       this.areaExpandedacc = !this.areaExpandedacc

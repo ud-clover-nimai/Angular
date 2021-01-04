@@ -408,6 +408,7 @@ export class BusinessDetailsComponent implements OnInit {
           event.preventDefault();
       }    
     }
+   
   }
 
   getCountryStateList(){

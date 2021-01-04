@@ -7,6 +7,10 @@ export const environment = {
 domain:'http://136.232.244.190:8081'   /// Dev server
 //domain:'http://203.115.123.93:8080'  /// Testing  server
 //domain:'http://203.115.123.93:9090'  /// Client port
+//domain:'http://10.1.1.86:8080'  /// prod port
+//domain:'http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com'  /// production port
+
+
   // domain:'http://localhost:8080'
 };
 

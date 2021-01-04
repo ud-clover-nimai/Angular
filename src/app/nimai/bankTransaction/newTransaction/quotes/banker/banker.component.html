@@ -161,6 +161,12 @@
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>
+                            <div *ngIf="title=='View'">
+                                <button type="submit" class="btn btn-info pull-right" (click)="transaction('withdraw')">
+                                    Withdraw
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -664,3 +670,29 @@
         </div>
     </div>
 </div>
+
+<div id="withdrawTrasactionBank" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>Withdraw Transaction </h2>
+             <div class="padnew">
+                <div class="row">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12">
+                            <h5>Are you sure want to Withdraw this transaction ?</h5>
+                           
+                         </div>
+                      </div>
+                      <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('withdrawTransaction')">Yes</button>
+                      <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('noWithdrawTransaction')">No</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>

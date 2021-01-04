@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.clear();
+
   this.goodsService();
   this.isReferrerOther=false;
   loads();
@@ -93,7 +95,7 @@ export class LoginComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 5,
       allowSearchFilter: true
     }
     this.dropdownSettingGoods = {
@@ -102,7 +104,7 @@ export class LoginComponent implements OnInit {
       textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 5,
       allowSearchFilter: true
     }
     
@@ -171,13 +173,14 @@ export class LoginComponent implements OnInit {
             // this.router.navigate(['/bcst/dsb/dashboard-details']);   
             this.callCustomerPopup();      
           } else if(loginData.userId.startsWith('CU')){
-            if(responseData.message=="KycStauts:Approved"){
-              this.router.navigate(['/cst/dsb/dashboard-details']); 
-            }else if(responseData.message=="KycStauts:Rejected"){ 
-              this.router.navigate(['/cst/dsb/kyc-details']); 
-            }else{
-              this.router.navigate(['/cst/dsb/personal-details']); 
-            }
+            this.callCustomerPopup();
+            // if(responseData.message=="KycStauts:Approved"){
+            //   this.router.navigate(['/cst/dsb/dashboard-details']); 
+            // }else if(responseData.message=="KycStauts:Rejected"){ 
+            //   this.router.navigate(['/cst/dsb/kyc-details']); 
+            // }else{
+            //   this.router.navigate(['/cst/dsb/personal-details']); 
+            // }
             
             //this.router.navigate(['/cst/dsb/personal-details']); 
           }   else if(loginData.userId.startsWith('BC')){

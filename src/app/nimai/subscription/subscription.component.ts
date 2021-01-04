@@ -6,12 +6,17 @@ import * as $ from '../../../assets/js/jquery.min';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { loads } from '../../../assets/js/commons';
 import { Component, OnInit,ElementRef} from '@angular/core';
+import { onlinePaymentDltString } from 'src/app/beans/payment';
+import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
+import {CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
+  private cookies:string;
   public isRemove=false;
   public isApply=true;
   discountId:any;
@@ -48,10 +53,25 @@ isRenewPlan=false;
   couponSuccess:any;
   amountAfterCoupon:any;
   discount:any;
+  public data: onlinePaymentDltString;
   paymentTransactionId:any;
+  detail: any="";
+  pgDetail: any;
+  param1: any;
+  param2: any;
+  pgstatus: void;
+  creditStatus: any="";
   
-  constructor(public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
-    this.paymentForm = this.fb.group({});
+  constructor(private cookieService:CookieService, private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
+    this.paymentForm = this.fb.group({
+      merchantId:[''],
+      orderId:[''],
+      currency:[''],
+      amount:[''],
+      redirectURL:[''],
+      cancelURL:[''],
+    });
+   
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -68,17 +88,48 @@ isRenewPlan=false;
     else{
       this.getPlan(sessionStorage.getItem("userID"));
     }
+  
   }
 
   ngOnInit() {    
+
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
-    this.paymentTransactionId=sessionStorage.getItem('paymentTransId');
+    
     loads();
     this.titleService.changeTitle(this.title);
-    this.getStatus();
-  
+    this.getStatus(); 
+    this.getpaymentGateway();
+  }
 
+  getpaymentGateway(){
+
+  this.cookies= this.cookieService.get('status');
+  if(this.cookies=='Success'){
+   // this.paymentTransactionId=this.cookieService.get('orderId');
+    this.payment(this.cookies);
+
+  }else if(this.cookies=='Failure'){
+    document.cookie = 'status' +'=; Path=/';
+
+    const navigationExtras: NavigationExtras = {
+      state: {
+        title: 'Transaction has been failed',
+        message:'',
+        parent: this.subURL + '/' + this.parentURL + '/subscription'
+      }
+    };          
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+    .then(success => console.log('navigation success?', success))
+    .catch(console.error);
+  }); 
+
+
+  }else{
+   
+  }
+  
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
@@ -122,8 +173,13 @@ isRenewPlan=false;
       .catch(console.error);
      }); 
    }
-  public choosePlan(plan: Subscription) {
+  public choosePlan(plan: Subscription,flag:string) {
     this.choosedPlan = plan;
+    this.choosedPlan.flag=flag;
+    sessionStorage.setItem('flag',flag);
+    sessionStorage.setItem("subscriptionamount", plan.subscriptionAmount.toFixed(2));
+    sessionStorage.setItem("subscriptionid", plan.subscriptionId);
+
     this.choosedPrice = this.choosedPlan.subscriptionAmount;
     this.addedAmount = this.choosedPrice;
     this.choosedPlan.userId = sessionStorage.getItem('userID');
@@ -131,7 +187,11 @@ isRenewPlan=false;
     this.isRenew=false;
     this.isPaymentSuccess=false;
     this.isOrder = true;
+    console.log(plan)
     this.viewVASPlans();
+    // if(this.choosedPlan.flag=='new' || sessionStorage.getItem(flag)=='new'){
+    //   this.payNowSave('CreditPending',this.choosedPlan);
+    // }
   }
 
   viewVASPlans(){
@@ -147,7 +207,7 @@ isRenewPlan=false;
     }
     this.subscriptionService.viewAdvisory(data).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
-
+     sessionStorage.setItem('vasId',this.advDetails.vas_id)
       if(!this.advDetails){
         this.showVASPlan = false;
       }else{
@@ -192,6 +252,7 @@ isRenewPlan=false;
 	    "subscriptionAmount":this.choosedPlan.subscriptionAmount,
       "subscriptionId":this.choosedPlan.subscriptionId
     }
+   
     this.subscriptionService.applyCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
        this.isRemove=true;
@@ -221,6 +282,16 @@ isRenewPlan=false;
     )
   }
   public payNow(planType) {
+
+    this.paymentForm.patchValue({
+      amount: this.addedAmount,
+      currency:'USD'
+    });
+    let elements = document.getElementsByTagName('input');
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].value)
+      elements[i].classList.add('has-value')
+    }
     this.isNew = false;
     this.isRenew=false;
     this.isOrder = false;
@@ -242,8 +313,10 @@ isRenewPlan=false;
         $('#planUnlimited').hide();
       }else{
         $('.red').show();
+
         $('.selection').show();
         $('#planUnlimited').show();
+       
       }
       $('input[type="radio"]').click(function () {
         sd.loading = true;
@@ -263,14 +336,36 @@ isRenewPlan=false;
     // this.titleService.loading.next(false);
   }
 
-  public payment() {
+
+  getGrandAmount(){
+    console.log(this.choosedPrice)
+  this.paymentForm.patchValue({
+    amount: this.choosedPrice,
+  })
+  }
+  public payment(cdstatus) {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
     this.choosedPlan.vasAmount=this.advPrice;
     this.choosedPlan.grandAmount=this.addedAmount
     this.choosedPlan.discount=this.discount;
     this.choosedPlan.discountId=this.discountId;
-    this.choosedPlan.modeOfPayment="Credit" 
+    this.choosedPlan.modeOfPayment="Credit" ;
+    this.choosedPlan.subscriptionId=sessionStorage.getItem('subscriptionid');
+
+    this.choosedPlan.flag=this.cookieService.get('subsflag');       
+    this.choosedPlan.customerSupport= this.cookieService.get('custSupport');
+    this.choosedPlan.lcCount=this.cookieService.get('lcCount');
+    this.choosedPlan.relationshipManager= this.cookieService.get('relManager');
+    this.choosedPlan.subscriptionAmount= Number(this.cookieService.get('subsAmount'));
+    this.choosedPlan.subscriptionName= this.cookieService.get('subsName');
+    this.choosedPlan.subscriptionValidity= this.cookieService.get('subsValidity');
+    this.choosedPlan.subsidiaries= this.cookieService.get('subsidiaries');
+    this.choosedPlan.userId=this.cookieService.get('userId');
+   // this.choosedPlan.vasAmount=this.cookieService.get('vasAmount');
+    console.log(this.choosedPlan)
+
+
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
     }
@@ -284,35 +379,23 @@ isRenewPlan=false;
         "subscriptionId":this.choosedPlan.subscriptionId
       }
       this.subscriptionService.addVas(req).subscribe(data => {
-       // console.log("data---",data)
       }
       )
-    } 
+    }
+    
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
           let data= JSON.parse(JSON.stringify(response))
           if(data.data)
-          this.paymentTransactionId=data.data
+          this.paymentTransactionId=this.cookieService.get('orderId');
           this.isNew = false;
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
-          if(data.status=="Failure"){
-            const navigationExtras: NavigationExtras = {
-              state: {
-                title: 'Oops! Something went wrong while Renewing the plan',
-                message: data.errMessage,
-                parent: this.subURL + '/' + this.parentURL + '/subscription'
-              }
-            };          
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
-            .then(success => console.log('navigation success?', success))
-            .catch(console.error);
-          }); 
-          }else {
+          console.log(cdstatus)
+         if(cdstatus=='Success'){
             const navigationExtras: NavigationExtras = {
               state: {
                 title: 'SubscriptionPlan',
@@ -325,13 +408,14 @@ isRenewPlan=false;
             .then(success => console.log('navigation success?', success))
             .catch(console.error);
           }); 
-        //  this.viewVASPlans();  
-          }
+        }
         },
         (error) => {
           this.titleService.loading.next(false);
         }
       )
+      document.cookie = 'status' +'=; Path=/';
+
   }
   public getPlan(userID: string) {
     if((userID.startsWith('CU'))){
@@ -355,12 +439,12 @@ isRenewPlan=false;
           if(reData.grandAmount)
             this.choosedPlan.subscriptionAmount=reData.grandAmount  
          
-          this.isNew = false
+         this.isNew = false
           this.isOrder = false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
-          
+        
         },
         (error) => {
           this.titleService.loading.next(false);
@@ -379,6 +463,10 @@ isRenewPlan=false;
       )
   }
   sendRequest(){
+    this.cookieService.delete('status');
+    document.cookie = 'status' +'=; Path=/';
+    document.cookie = 'paymentMode' +'=; Path=/';
+
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    
     this.choosedPlan.modeOfPayment="Wire"
@@ -486,14 +574,86 @@ isRenewPlan=false;
     this.subscriptionService.getTotalCount(data).subscribe(
       response => {        
         this.status = JSON.parse(JSON.stringify(response)).data;
+        if(this.cookieService.get('paymentMode')=='Credit'){
+          this.paymentTransactionId=this.cookieService.get('orderId');
+        }else{
+          this.paymentTransactionId=this.status.paymentTransId;
+        }
         if(this.status.kycstatus=='Approved'){
          this.hideRenew=true;
         }else{
           this.hideRenew=false;
         }      
+      
+    
       });
   }
 
+
+  
+  submit(){   
+  let orderid="";
+  function makeRandom(lengthOfCode: number, possible: string) {
+    let text = "";
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    console.log(text)
+    orderid=text;
+  }
+  let possible = "ABCDEFGHZ1456912";
+  const lengthOfCode = 15;
+  makeRandom(lengthOfCode, possible);
+
+    const onlinePay={
+      "userId":sessionStorage.getItem('userID'),
+      "merchantId":"45990",
+      "orderId":orderid,
+      "amount":this.addedAmount,
+      "currency":this.paymentForm.get('currency').value,
+      //   "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+      //  "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+      //  "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
+      //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
+      "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
+      "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
+
+       
+
+     "merchantParam1":sessionStorage.getItem('userID'),
+     "merchantParam2":sessionStorage.getItem('subscriptionid'),
+     "merchantParam3":sessionStorage.getItem('flag'),
+     "merchantParam4":sessionStorage.getItem('vasId'),
+    }
+
+    this.onlinePayment.initiatePG(onlinePay).subscribe((response)=>{
+      this.detail = JSON.parse(JSON.stringify(response)).data; 
+
+var url="https://secure.ccavenue.ae/transaction/transaction.do?command=initiateTransaction"
+
+const mapForm = document.createElement('form');
+mapForm.method = 'POST';
+mapForm.action = url;
+mapForm.style.display = 'none';
+
+const mapInput = document.createElement('input');
+mapInput.type = 'hidden';
+mapInput.name = 'encRequest';
+mapInput.value = this.detail.requestDump;
+mapForm.appendChild(mapInput);
+
+const mapInput1 = document.createElement('input');
+mapInput1.type = 'hidden';
+mapInput1.name = 'access_code';
+mapInput1.value = this.detail.accessCode;
+mapForm.appendChild(mapInput1);
+document.body.appendChild(mapForm);
+
+mapForm.submit();
+})
+ 
+      
+  }
 
 }
 

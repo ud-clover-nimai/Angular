@@ -232,3 +232,6 @@ select.currency {
     ::ng-deep .multiselect-dropdown .dropdown-btn span[hidden] {
         display: none!important;
       }
+      ::ng-deep .bankfields .dropdown-list .item2{
+        max-height: 161px !important;
+  }

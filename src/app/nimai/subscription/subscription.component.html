@@ -40,9 +40,9 @@
                                         <li class="plan-feature"> Relationship Manager <span class="plan-feature-name"> - {{plan.relationshipManager}}</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan,'new')" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Buy Now</a>
-                                        <a href="javascript:void()" *ngIf="isRenew" (click)="choosePlan(plan)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isRenew" (click)="choosePlan(plan,'renew')" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Renew </a>   
                                     </div>
                                 </div>
@@ -239,33 +239,30 @@
                                         </div>
                                     </div>
                                     <div class="red box col-md-12 form-group">
+                                        <input type="hidden" formControlName="merchantId" name="merchantId" />
+                                        <input type="hidden" formControlName="orderId" name="orderId" />
+                                        <input type="hidden" formControlName="redirectURL" name="redirectURL" />
+                                        <input type="hidden" name="cancelURL" formControlName="cancelURL" />
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="inputDiv">
-                                                    <input type="text" maxlength="20">
-                                                    <label>Card Number</label>
+                                                <div class="inputDiv is-focused">
+                                                    <input type="text" formControlName="amount" name="amount" maxlength="20" disabled>
+                                                    <label>Amount</label>
                                                 </div>
-                                                <img src="assets/images/accepted_c22e0.png" style="width: 180px !important;margin: -15px 0 15px 0;" />
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <div class="inputDiv">
-                                                            <input type="text" maxlength="5">
-                                                            <label>Expiration Date</label>
+                                                            <input type="text" formControlName="currency" name="currency" maxlength="5" disabled>
+                                                            <label>Currency</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <div class="inputDiv">
-                                                            <input type="password" maxlength="3">
-                                                            <label>CVV</label>
-                                                        </div>
-                                                    </div>
+                                                    </div>                                                  
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="javascript:void()" (click)="payment()" class="btn btn-info pull-right">Pay Now</a>
+                                        <a href="javascript:void()" (click)="submit()" class="btn btn-info pull-right">Pay Now</a>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="green box paymentpage col-md-12 form-group">

@@ -149,6 +149,7 @@ export class BankerComponent implements OnInit {
   ngOnInit() {
   }
   public action(flag: boolean, type: Tflag, data: any) {
+    this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';
     } if(data.chargesType=='null'){
@@ -247,6 +248,35 @@ export class BankerComponent implements OnInit {
         });
       }
         break;
+        case 'withdraw': {          
+          $('#withdrawTrasactionBank').show();       
+        }
+          break;
+
+          case 'withdrawTransaction': {
+            const param={
+              "transactionId":this.dataViewEdit.transactionId,
+              "userId":sessionStorage.getItem('userID'),
+               "quotationId":this.dataViewEdit.quotationId,
+            }  
+            this.ts.withdrawQuote(param).subscribe(
+              (response) => {
+                    $('#withdrawTrasactionBank').hide();
+                this.tab = 'tab3';
+              },
+              error => {
+                alert('error')
+              }
+            )     
+              }
+                break;
+    
+                case 'noWithdrawTransaction': {
+                  $('#withdrawTrasactionBank').hide();      
+                }
+                  break;   
+
+
       case 'preview': {
 
         if (this.title == 'Edit') {
@@ -350,16 +380,10 @@ closeValidate(){
       case 'ok': {
         this.closedQuote();
         this.tab = 'tab1';
-        const navigationExtras: NavigationExtras = {
-          state: {
-            redirectedFrom: "banker",
-            trnsactionID: data.transactionId
-          }
-        };
-        this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`], navigationExtras)
-          .then(success => console.log('navigation success?', success))
-          .catch(console.error);
-      }
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+      });
+    }
         break;
       case 'preview': {
         this.tab = 'tab2';

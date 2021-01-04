@@ -4,7 +4,9 @@ import { ResetPasswordService } from 'src/app/services/reset-password/reset-pass
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login/login.service';
 import { MustMatch } from 'src/app/beans/Validations';
-import { loads} from '../../../../assets/js/commons.js'
+import { loads} from '../../../../assets/js/commons.js';
+import * as $ from '../../../../assets/js/jquery.min';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -50,6 +52,7 @@ export class ResetPasswordComponent implements OnInit {
       oldPassword: [''],
       newPassword: ['', [Validators.required,Validators.minLength(6)]],
       retypePaasword: ['' ,[Validators.required,Validators.minLength(6)]],
+      termsAndcondition:  [false, Validators.requiredTrue],
       getToken: this.key
     },
     {
@@ -67,14 +70,39 @@ export class ResetPasswordComponent implements OnInit {
     return this.resetForm.controls;
   }
 
+  // openTermAndServiceDialog(title): void {
+  //   const dialogRef = this.dialog.open(TermAndConditionsComponent, {
+  //     height: '90%',
+  //     width: '88%',
+  //     data: { title: title },
+  //     disableClose: true
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   });
+  // }
 
+  acceptTerms(){
+    var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
+    var isChecked = element.checked;
+    if(isChecked)
+      $('#checkboxError').hide();
+    else
+      $('#checkboxError').show();      
+  }
   submit(){
+   
     this.submitted = true;
     if (this.resetForm.invalid) {
       return;
     }
-    this.submitted = false;
-
+    //this.submitted = false;
+    // var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");
+    // var isChecked = element.checked;
+    // if(isChecked)
+    //   $('#checkboxError').hide();
+    // else
+    //   $('#checkboxError').show();       
+  
     this.lgsc.resetPassword(this.resetForm.value)
     .subscribe(
       (response)=>{

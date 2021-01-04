@@ -19,6 +19,7 @@ export class TrasactionDetailsComponent {
   public accepted: boolean = false;
   public rejected: boolean = false;
   public expired: boolean = false;
+  public withdrawn :boolean=false;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public data: any;
@@ -33,6 +34,7 @@ export class TrasactionDetailsComponent {
   acceptedStatus: boolean = true;
   rejectedStatus:boolean=true;
   expiredStatus :boolean=true;
+  withdrawStatus :boolean=true;
   forCloseTransactionId: any = "";
   forCloseUserId: any;
   public viewDisable: boolean = true;
@@ -74,24 +76,31 @@ export class TrasactionDetailsComponent {
       this.rejectedStatus=false;
       this.acceptedStatus = true;
       this.expiredStatus=false;
+      this.withdrawStatus=false;
     }
     else  if (status == "Rejected") {
       this.rejectedStatus=true;
       this.acceptedStatus = false;
       this.expiredStatus=false;
+      this.withdrawStatus=false;
     }
     else if(status == "Expired") {
       this.expiredStatus=true;
       this.rejectedStatus=false;
       this.acceptedStatus = false;
+      this.withdrawStatus=false;
     }
-
+    else if(status == "Withdrawn") {
+      this.expiredStatus=false;
+      this.rejectedStatus=false;
+      this.acceptedStatus = false;
+      this.withdrawStatus=true;
+    }
     const data = {
       "bankUserId": sessionStorage.getItem('userID'),
       "quotationStatus": status
 
     }
- 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
@@ -99,7 +108,7 @@ export class TrasactionDetailsComponent {
         this.data = JSON.parse(JSON.stringify(response)).data;
          if (this.data) {
          this.hasNoRecord=true;
-         this.getDetail(this.data,status);
+         this.getDetail(this.data,status,this.data.transactionID);
         
       }
 
@@ -112,7 +121,9 @@ export class TrasactionDetailsComponent {
     )
   }
 
-  getDetail(detail,status) {
+  getDetail(detail,status,trnxId) {
+    console.log(trnxId)
+
     if(detail.lcProforma==null || detail.lcProforma=="" || detail.lcProforma==undefined){
       this.noFileDisable=false;
       this.viewDisable=true;
@@ -153,8 +164,34 @@ export class TrasactionDetailsComponent {
       $('#menuDetailsExpired li:first').addClass('active');
       $('.tab-content #pill1131').addClass('active');
     }
+    else if(status=='Withdrawn'){  
+      $('.activeTab').removeClass('active');   
+      $('#menuDetailsWithdrawn li:first').addClass('active');
+      $('.tab-content #pill1151').addClass('active');
+    }
    
   }
+
+getNegoMature(val){
+  const params ={
+  
+    "quotationId":val.quotationId,
+    "transactionId":val.transactionId
+  
+ }
+ this.nts.getTransQuotationDtlByQuotationId(params).subscribe(
+  (response) => {
+    var str = JSON.parse(JSON.stringify(response)).status; 
+    var splittedNego = str.split(",", 1); 
+    var nego=splittedNego[0].split(":", 2)
+    this.quotationdata.confChgsIssuanceToNegot=nego[1];
+
+    var splittedMature = str.split(" ", 2); 
+    var mature=splittedMature[1].split(":", 2)
+    this.quotationdata.confChgsIssuanceToMatur=mature[1];
+  });
+}
+
   getQuotes(val){
 const data = {
   "transactionId": val.transactionId,
@@ -214,6 +251,8 @@ const data = {
       document.getElementById("menuDetailsExpired").style.width = "520px";
     } else if (status === "Rejected") {
       document.getElementById("menubarDetailrejected").style.width = "510px";
+    }  else if (status === "Withdrawn") {
+      document.getElementById("menuDetailsWithdrawn").style.width = "510px";
     } 
 
   }
@@ -226,6 +265,7 @@ const data = {
     document.getElementById("menu-barDetailnew").style.width = "0%";
     document.getElementById("menuDetailsExpired").style.width = "0%";
     document.getElementById("menubarDetailrejected").style.width = "0%";
+    document.getElementById("menuDetailsWithdrawn").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
   }
