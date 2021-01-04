@@ -5,6 +5,7 @@ import { ConfirmAndDiscountComponent } from '../transactionTypes/confirm-and-dis
 import { RefinancingComponent } from '../transactionTypes/refinancing/refinancing.component';
 import { BankerComponent } from '../transactionTypes/banker/banker.component';
 import { TitleService } from 'src/app/services/titleservice/title.service';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
@@ -42,7 +43,9 @@ export class ActiveTransactionComponent implements OnInit {
   public unlock :string="";
   noOfQR: any;  
   goodsArray: any;
-  constructor(public titleService: TitleService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+  subsidiaries: any;
+  usercode: any;
+  constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -78,8 +81,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.paginator._intl.itemsPerPageLabel="Transactions per page";
-    //custActiveTransaction();
+   
     this.goodsService();
       $('#TransactionDetailDiv').hide();
       $('.acceptedPopupDetails').hide();
@@ -94,9 +96,43 @@ export class ActiveTransactionComponent implements OnInit {
           $('#transactionFilter').show();
           $('#backbtn').fadeOut();
   });
+  this.getUsercodeData();
+  this.getSubsidiaryData();
   }
 
+  getSubsidiaryData(){
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+    }
+    this.psd.getSubUserList(data).
+      subscribe(
+        (response) => {
+          this.subsidiaries = JSON.parse(JSON.stringify(response));
+          console.log(this.subsidiaries)
 
+        //  this.countryArray=JSON.parse(JSON.stringify(response))
+        
+
+        },
+        (error) => {}
+      )
+  }
+  getUsercodeData(){
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+    }
+    this.psd.getbranchUserList(data).
+      subscribe(
+        (response) => {
+          this.usercode = JSON.parse(JSON.stringify(response));
+          console.log(this.usercode)
+        //  this.countryArray=JSON.parse(JSON.stringify(response))
+        
+
+        },
+        (error) => {}
+      )
+  }
 
   ngAfterViewInit() {
     this.getAllnewTransactions();

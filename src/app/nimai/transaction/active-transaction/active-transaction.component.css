@@ -18,6 +18,24 @@
     body {
     transition: background-color .5s;
     } 
+    .addOptions{
+      padding: 0;
+      width: 220px;
+      position: absolute;
+      right: 50%;
+            top: 9px;
+      z-index: 1;
+      margin-right: -117px;
+    }
+    .addOptionsuser{
+      padding: 0;
+      width: 220px;
+      position: absolute;
+      right: 27%;
+            top: 9px;
+      z-index: 1;
+      margin-right: -117px;
+    }
     .popupcontent{
       height: 100%;
       }

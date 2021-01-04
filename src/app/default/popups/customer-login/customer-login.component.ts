@@ -56,7 +56,10 @@ export class CustomerLoginComponent implements OnInit {
     }else if(this.userId.startsWith('BC')){
       $('.modal1').show();
 
-    }
+  }else if(this.userId.startsWith('CU')){
+    $('.modal1').show();
+
+  }
 
 
 
@@ -133,7 +136,6 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
-              console.log(JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },
@@ -181,7 +183,6 @@ export class CustomerLoginComponent implements OnInit {
           this.titleService.loading.next(false);
           let kycStatus=sessionStorage.getItem("kStatus")
 
-          console.log("userid",response.data.userId)
           if(response.data.userId.startsWith('BC')){
             if(kycStatus=="KycStauts:Approved"){
               this.router.navigate(['/cst/dsb/dashboard-details']);   
@@ -191,6 +192,15 @@ export class CustomerLoginComponent implements OnInit {
               this.router.navigate(['/cst/dsb/personal-details']);   
             }
           }
+         else if(response.data.userId.startsWith('CU')){
+          if(kycStatus=="KycStauts:Approved"){
+            this.router.navigate(['/cst/dsb/dashboard-details']); 
+          }else if(kycStatus=="KycStauts:Rejected"){ 
+            this.router.navigate(['/cst/dsb/kyc-details']); 
+          }else{
+            this.router.navigate(['/cst/dsb/personal-details']); 
+          }
+        }
           else if(response.data.userId.startsWith('BA')){
             if(kycStatus=="KycStauts:Approved"){
               this.router.navigate(['/bcst/dsb/dashboard-details']);  

@@ -69,6 +69,7 @@ export class NewTransactionService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiTransaction/confirmQuotation`, data, { headers: { 'content-types': 'application/json' } });
   }
   
+ 
   
   public getSpecificTxnDetailByTxnId(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getSpecificTxnDetailByTxnId`,data , { headers: { 'content-types': 'application/json' } });
