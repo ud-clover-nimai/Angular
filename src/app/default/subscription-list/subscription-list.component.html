@@ -1,0 +1,53 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title"> <span id="changetext"> Subscription List</span>
+                        </h4>
+                            <div class="row">
+                                <div class="col-md-12" *ngIf="noData">
+                                    No Data is available
+                                </div>
+                                <div class="col-md-12" *ngIf="!noData">
+                                    <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%">
+                                           
+                                        <table class="table table-hover" id="datatables">
+                                            <thead>
+                                                    <tr>
+                                                        <th style="min-width: 20px !important;" class="text-center">#</th>
+                                                        <th style="min-width: 130px;">Country</th>
+                                                        <th style="min-width: 150px;">Plans</th>
+                                                        <th style="min-width: 150px;">Lc Count</th>
+                                                        <th style="min-width: 150px;">Additional Users</th>
+                                                        <th style="min-width: 180px;">Validity</th>
+                                                        <th style="min-width: 130px;">Pricing</th>
+                                                        <th style="min-width: 120px;">Status</th>
+                                                    </tr>
+                                                </thead>
+                                            <tbody>
+                                                <tr *ngFor="let list of subscriptionData; let i = index">
+                                                    <td>{{i+1}}</td>
+                                                    <td nowrap>{{list.sPLanCountry }}</td>
+                                                    <td>{{list.subscriptionName}}</td>
+                                                    <td>{{list.lcCount}}</td>
+                                                    <td>{{list.subsidiaries}}</td>
+                                                    <td>{{list.subscriptionValidity}}</td>
+                                                    <td>{{list.subscriptionAmount}}</td>
+                                                    <td nowrap >ACTIVE</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

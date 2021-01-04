@@ -25,6 +25,7 @@ import { CreditAndTransactionsComponent } from 'src/app/default/credit-and-trans
 import { SupportComponent } from 'src/app/default/support/support/support.component';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
+import { SubscriptionListComponent } from 'src/app/default/subscription-list/subscription-list.component';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 
 
@@ -118,7 +119,13 @@ const routes: Routes = [
                   { path: "success", component: SuccessPopupComponent },
                   { path: "error", component: ErrorPopupComponent }
                 ]
-            }
+            },
+            {
+                path: "subscription-list", component: SubscriptionListComponent, children: [
+                  { path: "success", component: SuccessPopupComponent },
+                  { path: "error", component: ErrorPopupComponent }
+                ]
+              }  
         ]
     },
 ]

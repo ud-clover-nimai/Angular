@@ -28,7 +28,7 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
 import { weightDirective } from './directive/weight.directive';
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
-
+import { SubscriptionListComponent } from 'src/app/default/subscription-list/subscription-list.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,8 @@ import { ReferenceComponent } from 'src/app/default/reference/reference.componen
     SupportComponent,
     weightDirective,
     DasboardDetailsComponent,
-    ReferenceComponent
+    ReferenceComponent,
+    SubscriptionListComponent
   ],
   imports: [
     CommonModule,
