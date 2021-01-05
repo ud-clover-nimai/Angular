@@ -10,24 +10,24 @@
                <div class="card-content">
                   <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                   <!-- <form> -->
-                     <div class="row">
+                     <!-- <div class="row">
                         <div class="parentOfSelect ">
-                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                               <select class="has-value"> 
+                            <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                               <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                                  <option value=''>Subsidiaries</option>
-                                 <option *ngFor="let data of subsidiaries" [ngValue]='data'>{{data.country}}</option>                               
+                                 <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
                                </select>
                         </div>
                     </div> 
                     <div class="parentOfSelect">
                      <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
-                        <select class="has-value"> 
+                        <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
                            <option value=''>Passcode users</option>
-                           <option *ngFor="let data of usercode" [ngValue]='data'>{{data.country}}</option>                        
+                           <option *ngFor="let data of usercode" [value]="data.userId" >{{data.userNAme}}</option>                        
                         </select>
                  </div>
              </div>
-                </div>    
+                </div>     -->
                 
                   <div class="row" *ngIf="hasNoRecord">
                      <div class="col-md-12">

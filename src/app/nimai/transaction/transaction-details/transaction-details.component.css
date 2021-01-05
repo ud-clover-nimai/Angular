@@ -39,10 +39,28 @@
   }
   .addOptions{
     padding: 0;
-    width: 220px;
+    width: 152px;
+    position: absolute;
+    right: 65%;
+          top: 9px;
+    z-index: 1;
+    margin-right: -117px;
+  }
+  .addOption{
+    padding: 0;
+    width: 152px;
     position: absolute;
     right: 30%;
-    top: 9px;
+          top: 9px;
+    z-index: 1;
+    margin-right: -117px;
+  }
+  .addOptionsuser{
+    padding: 0;
+    width: 152px;
+    position: absolute;
+    right: 48%;
+          top: 9px;
     z-index: 1;
     margin-right: -117px;
   }

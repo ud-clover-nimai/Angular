@@ -110,9 +110,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv selectdiv">
-                                            <select formControlName="country" class="countryddl">
+                                            <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
                                                 <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>                         
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>                         
                                             </select>
                                             <label>Select Country</label>
                                             <div *ngIf="submitted && manageSubDetails.country.errors" class="invalid-feedback">
@@ -123,8 +123,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="inputDiv">
-                                            <input type="text" formControlName="mobileNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                                        <div class="inputDiv divmob">
+                                            <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                            <ng-template #other_content></ng-template>
+                                            <input type="text" formControlName="mobileNo" maxlength="12" [ngClass]="hasCountrycode ? 'has-value' : ''" (keypress)="validateRegexFields($event,'number')">
                                             <label>Mobile No.</label>
                                           
                                             <div *ngIf="manageSubDetails.mobileNo.touched && manageSubDetails.mobileNo.errors?.minlength" class="invalid-feedback">
@@ -146,7 +148,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv">
-                                            <ng-multiselect-dropdown-angular7 [data]="interestedCountryList" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Countries Interested</label>
                                             <div *ngIf="submitted && manageSubDetails.countriesInt.errors?.required" class="invalid-feedback">
                                                 Select Countries Interested
@@ -155,13 +157,19 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv">
-                                            <ng-multiselect-dropdown-angular7 [data]="blackListedGoodsList" formControlName="blacklistedGC" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7 [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
                                             <div *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
                                                 Select Blacklisted Goods
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4 col-sm-4 bankfields" *ngIf=" isBankOther">
+                                        <div class="inputDiv">
+                                           <input type="text" maxlength="30" formControlName="otherTypeBank">
+                                           <label>Other</label>
+                                        </div>
+                                     </div>
                                     <div class="col-md-4">
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">

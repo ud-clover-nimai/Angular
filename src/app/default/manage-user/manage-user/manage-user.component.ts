@@ -12,6 +12,7 @@ import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ValidateRegex } from 'src/app/beans/Validations';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -27,8 +28,7 @@ export class ManageUserComponent implements OnInit {
   public subURL: string = "";
   respMessage: any;
   resp: any;
-  interestedCountryList = this.countryService();
-  blackListedGoodsList = this.goodsService();
+
   dropdownSetting = {};
   public intCountries: InterestedCountry[] = [];
   public blg: BlackListedGoods[] = [];
@@ -37,7 +37,14 @@ export class ManageUserComponent implements OnInit {
   subsidiries:any;
   subuticount:any;
   available:any;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
+  countryCode: any=" ";
+  hasCountrycode: boolean=false;
+  dropdownSettingGoods={};
+  goodsArray: Array<string> = [];
+  countryArray: Array<string> = [];
+  isBankOther: boolean;
+  countryName: any;
+    constructor(public router: Router, public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -46,10 +53,20 @@ export class ManageUserComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
 
+   
     this.dropdownSetting = {
       singleSelection: false,
+      idField: 'code',
+      textField: 'country',
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 5,
+      allowSearchFilter: true
+    }
+    this.dropdownSettingGoods = {
+      singleSelection: false,
       idField: 'id',
-      textField: 'name',
+      textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 5,
@@ -69,33 +86,24 @@ export class ManageUserComponent implements OnInit {
     minLCValue: new FormControl(''),
     regCurrency: new FormControl(''),
     blacklistedGC: new FormControl('',[Validators.required]),
+    otherTypeBank:new FormControl(''),
+
   });
 
   get manageSubDetails() {
     return this.manageSubForm.controls;
   }
 
-  goodsService() {
-    return [{ id: 4, name: 'None' },{ id: 1, name: 'Gold' }, { id: 2, name: 'Drugs' }, { id: 3, name: 'Diamonds' }]
-  }
+ 
 
-
-  getGoodsName(gid: number) {
-    return this.goodsService().filter((res) => res.id == gid)[0];
-  }
-
-  countryService() {
-    return [{ id: 1, name: 'India' }, { id: 2, name: 'USA' }, { id: 3, name: 'Australia' }]
-  }
-
-
-  getCountryName(ccid: number) {
-    return this.countryService().filter((res) => res.id == ccid)[0];
-  }
 
   onItemSelect(item: any) {
-    console.log(item);
-
+    if(item.productCategory=="Others"){
+      this.isBankOther=true;      
+     // loads();
+    }else{
+      this.isBankOther=false;
+    }
   }
 
   onSelectAll(item: any) {
@@ -103,6 +111,8 @@ export class ManageUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.goodsService();
+
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
     this.subsidiries=sessionStorage.getItem('subsidiries');  
     this.subuticount=sessionStorage.getItem('subuticount');
@@ -111,6 +121,15 @@ export class ManageUserComponent implements OnInit {
     manageSub();
     this.listOfUsers();
   }
+  goodsService() {
+    this.loginService.getGoodsData().
+      subscribe(
+        (response) => {
+          this.goodsArray = JSON.parse(JSON.stringify(response));
+        },
+        (error) => {}
+      )
+}
   listOfUsers(){
     const param = {
       userid:sessionStorage.getItem('userID'),    
@@ -162,19 +181,31 @@ export class ManageUserComponent implements OnInit {
     this.blg = [];
     this.intCountries = [];
     for (let vlg of this.blgValue) {
-      let blgData = {
-        goods_ID: null,
-        goodsMId: vlg.id,
-        blackListGoods: vlg.name
+      let blgData;
+      if(vlg.productCategory == 'Others'){
+         var bankothers= this.manageSubForm.get('otherTypeBank').value;
+           blgData = {
+            goods_ID: null,
+            goodsMId: vlg.id,
+            blackListGoods:"Others - "+bankothers,
+          }
+      }else{
+         blgData = {
+          goods_ID: null,
+          goodsMId: vlg.id,
+          blackListGoods: vlg.productCategory
+        }
       }
+     
+     
       this.blg.push(blgData);
     }
 
     for (let icc of this.intCountriesValue) {
       let icData = {
         countryID: null,
-        ccid: icc.id,
-        countriesIntrested: icc.name
+        ccid: icc.code,
+        countriesIntrested: icc.country
       }
       this.intCountries.push(icData);
     }
@@ -190,7 +221,7 @@ export class ManageUserComponent implements OnInit {
       lastName: this.manageSubForm.get('lastName').value,
       emailAddress: this.manageSubForm.get('emailId').value,
       mobileNum: this.manageSubForm.get('mobileNo').value,
-      countryName: this.manageSubForm.get('country').value,
+      countryName: this.countryName,
       landLinenumber: this.manageSubForm.get('landlineNo').value,
       companyName: '',
       designation: '',
@@ -246,6 +277,7 @@ export class ManageUserComponent implements OnInit {
     }
    )
   }
+ 
   resetPopup(){
     $('#authemaildiv').slideUp();
     $('#paradiv').slideDown();
@@ -269,6 +301,12 @@ export class ManageUserComponent implements OnInit {
       }    
     }
   }
-
+  showCountryCode(data){
+    this.countryName = data.country;
+    this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
+  }
 }
 

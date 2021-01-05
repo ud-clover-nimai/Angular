@@ -7,6 +7,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import * as FileSaver from 'file-saver';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 
 
 @Component({
@@ -44,8 +45,11 @@ export class TransactionDetailsComponent {
   imgDownload: boolean=false;
   fileData: any;
   hasNoRecordmain: boolean;
+  usercode: any;
+  subsidiaries: any;
+  selectedSub: any;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
+  constructor(public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -58,7 +62,36 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     this.getAllnewTransactions('Accepted');
-  }
+    this.getUsercodeData();
+    this.getSubsidiaryData();
+    }
+  
+    getSubsidiaryData(){
+      const data = {
+        "userId": sessionStorage.getItem('userID'),
+      }
+      this.psd.getSubUserList(data).
+        subscribe(
+          (response) => {
+            this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
+          },
+          (error) => {}
+        )
+    }
+    getUsercodeData(){
+      const data = {
+        "userId": sessionStorage.getItem('userID'),
+      }
+      this.psd.getbranchUserList(data).
+        subscribe(
+          (response) => {
+            this.usercode = JSON.parse(JSON.stringify(response)).list;
+                 
+  
+          },
+          (error) => {}
+        )
+    }
 
   public getAllnewTransactions(status) {
 
@@ -455,4 +488,12 @@ export class TransactionDetailsComponent {
         (err) => { }
       )
   }
+  selectSubsidiaries(val: any) {
+    this.selectedSub=val;
+    //this.getAllnewTransactions('Accepted');
+}
+selectUsercode(val: any) {
+  this.selectedSub=val;
+ // this.getAllnewTransactions('Accepted');
+}
 }

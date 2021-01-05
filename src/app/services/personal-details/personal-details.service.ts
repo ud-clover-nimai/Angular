@@ -22,10 +22,10 @@ export class PersonalDetailsService {
   }
 
   public getSubUserList(userID:any):Observable<any>{
-    return this.httpClient.post<signup>(`${environment.domain}/nimaiUcm/UserBranch/subUserList`,userID,{headers:{'content-type':'application/json'}});
+    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserBranch/subUserList`,userID,{headers:{'content-type':'application/json'}});
   }
   
   public getbranchUserList(userID:any):Observable<any>{
-    return this.httpClient.post<signup>(`${environment.domain}/nimaiUcm/UserBranch/branchUserList`,userID,{headers:{'content-type':'application/json'}});
+    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserBranch/branchUserList`,userID,{headers:{'content-type':'application/json'}});
   }
 }
