@@ -24,6 +24,7 @@ import { UploadLcDetailsCanDeactivate } from './services/guards/UploadDetailsCan
 import { CustomerLoginComponent } from './default/popups/customer-login/customer-login.component';
 import { TermAndConditionsComponent } from './default/term-and-conditions/term-and-conditions.component';
 import { ActiveTransactionComponent } from './nimai/active-transaction/active-transaction.component';
+//import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ActiveTransactionComponent } from './nimai/active-transaction/active-tr
     CustomerLoginComponent,
     TermAndConditionsComponent,
     ActiveTransactionComponent,
+   // SubscriptionListComponent,
   // OnlinePaymentComponent
     // VasPlanComponent
     
