@@ -75,7 +75,7 @@
         <div class="modal-content">
             <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <h2>Refer <span class="refer_span">Refer a company to join TradeEnabler and earn upto 10% of their subscription fee.</span>
+                    <h2>Refer <span class="refer_span">Refer a corporate to join NIMAITRADE and earn referral fees on an on-going basis.</span>
                         <button type="button" class="close" (click)="close()">&times;</button>
                     </h2>
                     <div class="padnew">
@@ -88,7 +88,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                                    <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }"
+                                                     formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
                                                     <label>First Name</label>
                                                     <div *ngIf="submitted && referDetails.firstName.errors?.required" class="invalid-feedback">       
                                                         <div *ngIf="submitted && referDetails.firstName.errors?.required">
@@ -106,18 +107,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="inputDiv">
-                                                    <input type="text" maxlength="12" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
-                                                    <label>Mobile No.</label>      
-                                                    <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
-                                                        Mobile No. is required.
-                                                    </div>
-                                                    <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
-                                                        Mobile No atleast of 11 digits.
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
                                                     <input type="text" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
@@ -130,16 +120,33 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-md-6">
                                                 <div class="inputDiv selectdiv" >
-                                                    <select formControlName="countryName" [ngClass]="{ 'is-invalid': submitted && referDetails.countryName.errors?.required }">
+                                                    <select formControlName="countryName" class="countryddl" (ngModelChange)="showCountryCode($event)" [ngClass]="{ 'is-invalid': submitted && referDetails.countryName.errors?.required }">
                                                         <option value="">Select</option>
-                                                        <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>    
+                                                        <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>    
                                                     </select>
                                                     <label>Country</label>
                                                     <div *ngIf="submitted && referDetails.countryName.errors?.required" class="invalid-feedback">
                                                         Country is required
                                                     </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <div class="inputDiv divmob">
+                                                    <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                                    <ng-template #other_content></ng-template>
+                                                    <input type="text" maxlength="13" formControlName="mobileNo" [ngClass]="hasCountrycode ? 'has-value' : ''" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                    <label>Mobile No.</label>      
+                                                    <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
+                                                        Mobile No. is required.
+                                                    </div>
+                                                    <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                        Mobile Number is atleast of 7 digits.
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

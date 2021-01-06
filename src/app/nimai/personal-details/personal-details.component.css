@@ -31,6 +31,9 @@ select{
     font-size: 11px !IMPORTANT;
     display: inline-block;
 }
+::ng-deep .dropdown-list .item2{
+    max-height: 155px !important;
+}
 
 .newh4{
   padding: 5px 15px 10px 15px !important;
@@ -46,9 +49,22 @@ select{
     font-size: 12px!important;
     margin-top: 8px!important;
 }
+
+  ::ng-deep .multiselect-dropdown .dropdown-btn span {
+    margin-left: 15px!important;
+    margin-top: 13px!important;
+}
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item{
+    margin-right: -8px !important;
+    margin-top: 2px !important;
+}
 ::ng-deep .multiselect-dropdown .dropdown-btn span[hidden] {
     display: none!important;
   }
-  ::ng-deep .multiselect-dropdown .dropdown-btn .selected-item{
-    margin-top: 2px !important;
-  }
+
+::ng-deep .dropdown-list .item2{
+    max-height: 130px !important;
+}
+::ng-deep .dropdown-list .item1{
+    max-height: 130px !important;
+}

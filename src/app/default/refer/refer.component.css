@@ -1,5 +1,20 @@
 /* The Modal (background) */
-
+.divmob input[type=text] {
+    padding-left: 55px !IMPORTANT;
+    }
+    .countrycode {
+        position: absolute;
+        left: 15px;
+        top: 11px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        color: #545454;
+        /* display: none; */
+        }
+        ::ng-deep .dropdown-list .item2{
+            max-height: 155px !important;
+      }
 .modal{
     display: block;
     /* Hidden by default */

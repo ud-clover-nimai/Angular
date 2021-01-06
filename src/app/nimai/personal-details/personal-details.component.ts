@@ -95,7 +95,7 @@ export class PersonalDetailsComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 4,
       allowSearchFilter: true,
     }
     this.dropdownSettingGoods = {

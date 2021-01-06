@@ -60,7 +60,7 @@ export class ManageUserComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 3,
       allowSearchFilter: true
     }
     this.dropdownSettingGoods = {
@@ -69,7 +69,7 @@ export class ManageUserComponent implements OnInit {
       textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 3,
       allowSearchFilter: true
     }
 

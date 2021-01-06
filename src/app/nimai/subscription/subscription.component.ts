@@ -105,6 +105,7 @@ isRenewPlan=false;
   getpaymentGateway(){
 
   this.cookies= this.cookieService.get('status');
+  console.log(this.cookies)
   if(this.cookies=='Success'){
    // this.paymentTransactionId=this.cookieService.get('orderId');
     this.payment(this.cookies);
@@ -127,7 +128,10 @@ isRenewPlan=false;
 
 
   }else{
-   
+    console.log("this.cookies")
+
+    console.log(this.cookies)
+
   }
   
   }
@@ -613,7 +617,7 @@ isRenewPlan=false;
       "currency":this.paymentForm.get('currency').value,
       //   "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
       //  "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      //  "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
+     //  "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
       //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
       "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
       "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",

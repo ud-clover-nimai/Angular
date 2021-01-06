@@ -28,6 +28,9 @@ export class ReferComponent implements OnInit {
   respMessage: string;
   total_references:number;
   total_earning:number;
+  countryNames: any;
+  countryCode: any;
+  hasCountrycode: boolean=false;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -50,7 +53,7 @@ export class ReferComponent implements OnInit {
     // referenceId: new FormControl(''),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    mobileNo: ['', [Validators.required,Validators.minLength(11)]],
+    mobileNo: ['', [Validators.required,Validators.minLength(7)]],
     emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
@@ -112,7 +115,7 @@ export class ReferComponent implements OnInit {
       lastName: this.referForm.get('lastName').value,
       mobileNo: this.referForm.get('mobileNo').value,
       emailAddress: this.referForm.get('emailAddress').value,
-      countryName: this.referForm.get('countryName').value,
+      countryName: this.countryNames,
       companyName: this.referForm.get('companyName').value,
       status: 'ACTIVE',
       insertedDate: this.getCurrentDate,
@@ -128,7 +131,7 @@ export class ReferComponent implements OnInit {
       lastName: this.referForm.get('lastName').value,
       emailAddress: this.referForm.get('emailAddress').value,
       mobileNum: this.referForm.get('mobileNo').value,
-      countryName: this.referForm.get('countryName').value,
+      countryName: this.countryNames,
       landLinenumber: "",
       companyName: this.referForm.get('companyName').value,
       designation: '',
@@ -170,7 +173,7 @@ export class ReferComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.resetPopup();
-                this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+                this.respMessage = "'You've successfully invited a corporate to join NIMAITRADE. You will be notified once corporate completes the sign up processes."
               },
               (error) => {
                 this.resetPopup();
@@ -214,7 +217,7 @@ export class ReferComponent implements OnInit {
     else if (type == "alphaNum") {
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/|| key==32/*SPACE*/)) {
           event.preventDefault();
       }    
     }else if(type=="mobile_number"){
@@ -241,6 +244,12 @@ export class ReferComponent implements OnInit {
         (error) => {}
       )
   }
-
+  showCountryCode(data){
+    this.countryNames = data.country;
+    this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
+  }
 }
 
