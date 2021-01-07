@@ -28,7 +28,7 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  detail: any;
+  public detail: any;
   QRdetail: any = "";
   noQRdetail: boolean = false;
   getSpecificDetail: any = "";
@@ -45,6 +45,8 @@ export class ActiveTransactionComponent implements OnInit {
   goodsArray: any;
   subsidiaries: any;
   usercode: any;
+  selectedSub: any;
+  disablesubsi: boolean=true;
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -56,24 +58,35 @@ export class ActiveTransactionComponent implements OnInit {
     this.titleService.quote.next(false);
   }
 
-  public getAllnewTransactions() {
+  public getAllnewTransactions(userid) {
     this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
+  
     var emailId = "";
     if(userIdDetail.startsWith('BC')){
       emailId = sessionStorage.getItem('branchUserEmailId');
+      this.disablesubsi=false;
     }
-    const data={
-      userId:sessionStorage.getItem('userID'),
-      "transactionStatus": 'Active',
-      "branchUserEmail":emailId
-    }
+this.getUsercodeData(userid)
+  const data ={
+    "branchUserEmail": sessionStorage.getItem('branchUserEmailId'),
+    "transactionStatus": "Active",
+    "userId": userid
+  }
+
+    console.log(data)
     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custActiveTransaction();
+        this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
-       
-       
+       if(this.detail==null){
+        this.hasNoRecord = true;
+       }else{
+         this.hasNoRecord=false
+        // this.detail=this.detail
+
+       }
       },(error) =>{
         this.hasNoRecord = true;
       }
@@ -96,8 +109,9 @@ export class ActiveTransactionComponent implements OnInit {
           $('#transactionFilter').show();
           $('#backbtn').fadeOut();
   });
-  this.getUsercodeData();
+ // this.getUsercodeData();
   this.getSubsidiaryData();
+
   }
 
   getSubsidiaryData(){
@@ -107,27 +121,23 @@ export class ActiveTransactionComponent implements OnInit {
     this.psd.getSubUserList(data).
       subscribe(
         (response) => {
-          this.subsidiaries = JSON.parse(JSON.stringify(response));
-          console.log(this.subsidiaries)
-
-        //  this.countryArray=JSON.parse(JSON.stringify(response))
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
         
-
         },
         (error) => {}
       )
   }
-  getUsercodeData(){
-    const data = {
-      "userId": sessionStorage.getItem('userID'),
+  getUsercodeData(userid){
+   var emailId = sessionStorage.getItem('branchUserEmailId');
+    const data={
+      "userId": userid,
+      "branchUserEmail":sessionStorage.getItem('branchUserEmailId')
     }
     this.psd.getbranchUserList(data).
       subscribe(
         (response) => {
-          this.usercode = JSON.parse(JSON.stringify(response));
-          console.log(this.usercode)
-        //  this.countryArray=JSON.parse(JSON.stringify(response))
-        
+          this.usercode = JSON.parse(JSON.stringify(response)).list;
+               
 
         },
         (error) => {}
@@ -135,7 +145,9 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getAllnewTransactions();
+    this.selectedSub=sessionStorage.getItem('userID');
+
+    this.getAllnewTransactions(this.selectedSub);
     this.confirmation.isActive = false;
     this.discounting.isActive = false;
     this.confirmAndDiscount.isActive = false;
@@ -316,4 +328,21 @@ export class ActiveTransactionComponent implements OnInit {
  redirectAsAccepted(){
   this.router.navigate([`/${this.subURL}/${this.parentURL}`+"/transaction-details"]);
  }
+
+
+// selectSubsidiaries(val){
+//     if(val!="none"){
+//       this.selectedSub=val;
+//     }
+// }
+
+selectSubsidiaries(val: any) {
+  
+      this.selectedSub=val;
+      this.getAllnewTransactions(this.selectedSub)
+  }
+  selectUsercode(val: any) {
+    this.selectedSub=val;
+    this.getAllnewTransactions(this.selectedSub)
+}
 }

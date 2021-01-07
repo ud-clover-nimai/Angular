@@ -58,6 +58,7 @@ export class RefinancingComponent implements OnInit {
   currentDateTime: string;
   checkValidity: boolean=true;
   dateString: string;
+  disableRadiobtn: boolean=false;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -117,7 +118,10 @@ export class RefinancingComponent implements OnInit {
 
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
-
+    var userid=sessionStorage.getItem('userID');
+    if (userid.startsWith('BC')) {
+      this.disableRadiobtn=true;
+    }
   }
   changeReqType(event){    
     this.reqType=event.target.value

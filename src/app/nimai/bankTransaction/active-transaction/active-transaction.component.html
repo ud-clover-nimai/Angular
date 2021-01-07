@@ -8,7 +8,20 @@
               </div>
                 <div class="card-content">
                    <h4 class="card-title pull-left">Active Transaction</h4>
-                     <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
+                   <div class="row">
+                    <div class="parentOfSelect ">
+                        <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                           <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                             <option value=''>Additional users</option>
+                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
+                          </select>
+                    </div>
+                </div> 
+                <div>
+                    <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
+
+         </div>
+            </div>  
                    <form>
                     <div class="row" *ngIf="hasNoRecord">
                       <div class="col-md-12">

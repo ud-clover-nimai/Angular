@@ -17,13 +17,14 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   public isValidAppEmail=false;
   public isValidBeneEmail=false;
   submitted: boolean;
+  disableRadiobtn: boolean=true;
   constructor(public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
     this.LcDetail = this.fb.group({
      
       swiftCode: ['', Validators.required],
      
            
-      applicantName:sessionStorage.getItem('companyName'),
+      applicantName:['', Validators.required],
       applicantCountry:sessionStorage.getItem('registeredCountry'),
   
       beneName:sessionStorage.getItem('companyName'),
@@ -48,6 +49,13 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     $('#divBene').hide();
     this.onItemChange("Applicant");
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+    
+     var userid=sessionStorage.getItem('userID');
+          if (userid.startsWith('BC')) {
+            this.disableRadiobtn=false;
+            this.onItemChange("");
+          }
+
   }
   onItemChange(e){
     var radioValue = $("input[name='userType']:checked").val();
@@ -73,6 +81,10 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.LcDetail.get('beneName').setValue('');
        this.LcDetail.get('beneCountry').setValue('');
        this.hasValue=true;
+    }
+    else{
+     // console.log(this.LcDetail.get('applicantName').value)
+      this.LcDetail.get('applicantName').setValue('');
     }
   }
 

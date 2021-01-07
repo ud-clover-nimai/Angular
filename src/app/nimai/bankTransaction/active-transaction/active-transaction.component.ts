@@ -11,6 +11,7 @@ import { DiscountingComponent } from '../newTransaction/quotes/discounting/disco
 import { BankerComponent } from '../newTransaction/quotes/banker/banker.component';
 import * as $ from 'src/assets/js/jquery.min';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 
 @Component({
   selector: 'app-active-transaction',
@@ -40,7 +41,9 @@ export class ActiveTransactionComponent implements OnInit {
   public subURL: string = "";
   public isFreeze: boolean=false;
   isUploadNoDoc: boolean =false;
-  constructor(public activatedRoute: ActivatedRoute,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
+  selectedSub: any;
+  subsidiaries: any;
+  constructor(public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -54,24 +57,36 @@ export class ActiveTransactionComponent implements OnInit {
     $('#myModal99').show();
     this.document = file;
   }
-  public getAllnewTransactions() {
+  public getAllnewTransactions(userid) {
     this.titleService.quote.next(true);
     const data = {
-      "bankUserId": sessionStorage.getItem('userID'),
+      "bankUserId":userid,
       "quotationStatus": "Placed"
     }
 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         bankActiveTransaction();
+        this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;  
         
         let array = this.detail;
+        if(array!=null){
         for (var value of array) {
           if(value.quotationStatus==="FreezePlaced" || value.quotationStatus==="FreezeRePlaced")
             this.isFreeze=true;
 
         }   
+      }
+        console.log('kjh')
+        if(this.detail==null){
+          
+          this.hasNoRecord = true;
+         }else{
+           this.hasNoRecord=false
+          // this.detail=this.detail
+  
+         }
       }, (error) => {
         this.hasNoRecord = true;
       }
@@ -79,6 +94,21 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getSubsidiaryData();
+  }
+
+  getSubsidiaryData(){
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+    }
+    this.psd.getSubUserList(data).
+      subscribe(
+        (response) => {
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
+        
+        },
+        (error) => {}
+      )
   }
   // public validateQuote(data: any){
   //   const param = {
@@ -165,7 +195,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
   
   ngAfterViewInit() {
-    this.getAllnewTransactions();
+    this.getAllnewTransactions(sessionStorage.getItem('userID'));
     this.confirmation.isActive = false;
     this.confirmAndDiscount.isActive = false;
     this.discounting.isActive = false;
@@ -212,4 +242,9 @@ export class ActiveTransactionComponent implements OnInit {
       this.banker.action(true, action, data);
     }
   }
+  selectSubsidiaries(val: any) {
+  
+    this.selectedSub=val;
+    this.getAllnewTransactions(this.selectedSub)
+}
 }

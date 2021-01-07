@@ -12,12 +12,12 @@
                   #f="ngForm" novalidate>
                   <table class="table table-bordered">
                      <tbody>                       
-                     <tr>
+                     <tr *ngIf="!disableRadiobtn">
                         <td colspan="2"><strong style="padding-right: 30px;">You are</strong>
                             <input [checked]="applicant" type="radio"  name="applicantEdit1"  (change)="onNegotChange('applicant')" style="width: 18px;height: 18px;">&nbsp;Applicant &nbsp;&nbsp;&nbsp;
                             <input [checked]="beneficiary" type="radio"  name="applicantEdit1"  (change)="onNegotChange('beneficiary')" style="width: 18px;height: 18px;">&nbsp;Beneficiary</td>
                     </tr>
-                    <br>
+                    <br *ngIf="!disableRadiobtn">
 
                         <tr>
                            <th colspan="2">Applicant</th>
@@ -35,6 +35,21 @@
                           </select>
 
                            </td>
+                        </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Contact Person</td>
+                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"></td>
+                        </tr>
+                        <tr *ngIf="disableRadiobtn">
+
+                           <td>Email Id</td>
+                           <td><input type="text" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
+                               #applicantContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPersonEmail.invalid }" required email>
+                              <span> <div *ngIf="f.submitted && applicantContactPersonEmail.invalid" class="invalid-feedback">
+                                 <div *ngIf="applicantContactPersonEmail.errors.required">Email is required</div>
+                                 <div *ngIf="applicantContactPersonEmail.errors.email">Invalid Email Id</div>
+                             </div></span>                              
+                              </td>                          
                         </tr>
                         <tr [hidden]="applicantType">
                            <td>Contact Person</td>
@@ -71,6 +86,20 @@
                           </select>
                            </td>
                         </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Contact Person</td>
+                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"></td>
+                        </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Email Id</td>
+                           <td><input type="text" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
+                              #beneContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPersonEmail.invalid }" required email>
+                              <span> <div *ngIf="f.submitted && beneContactPersonEmail.invalid" class="invalid-feedback">
+                                 <div *ngIf="beneContactPersonEmail.errors.required">Email Id is required</div>
+                                 <div *ngIf="beneContactPersonEmail.errors.email">Invalid Email Id</div>
+                             </div></span>    
+                           </td>
+                        </tr>
                         <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
                            <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"></td>
@@ -85,15 +114,15 @@
                              </div></span>    
                            </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Bank</td>
                            <td><input type="text" name="beneBankName" [(ngModel)]="data.beneBankName"></td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Swift Code</td>
                            <td><input type="text" name="beneSwiftCode" [(ngModel)]="data.beneSwiftCode"></td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Bank Country</td>
                            <td>
                               <select name="beneBankCountry" [(ngModel)]="data.beneBankCountry">
@@ -358,6 +387,14 @@
                            <td>Country</td>
                            <td>{{data.applicantCountry}}</td>
                         </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Contact Person</td>
+                           <td>{{data.applicantContactPerson}}</td>
+                        </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Email Id</td>
+                           <td>{{data.applicantContactPersonEmail}}</td>
+                        </tr>
                         <tr [hidden]="applicantType">
                            <td>Contact Person</td>
                            <td>{{data.applicantContactPerson}}</td>
@@ -381,6 +418,14 @@
                            <td>Country</td>
                            <td>{{data.beneCountry}}</td>
                         </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Contact Person</td>
+                           <td>{{data.beneContactPerson}}</td>
+                        </tr>
+                        <tr *ngIf="disableRadiobtn">
+                           <td>Email Id</td>
+                           <td>{{data.beneContactPersonEmail}}</td>
+                        </tr>
                         <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
                            <td>{{data.beneContactPerson}}</td>
@@ -389,15 +434,15 @@
                            <td>Email Id</td>
                            <td>{{data.beneContactPersonEmail}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Bank</td>
                            <td>{{data.beneBankName}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Swift Code</td>
                            <td>{{data.beneSwiftCode}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!disableRadiobtn">
                            <td>Bank Country</td>
                            <td>{{data.beneBankCountry}}</td>
                         </tr>

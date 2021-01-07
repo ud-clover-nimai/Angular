@@ -57,6 +57,7 @@ export class ConfirmationComponent implements OnInit {
   othersStr: any;
   currentDateTime: string;
   checkValidity: boolean=true;
+  disableRadiobtn: boolean=false;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -116,6 +117,10 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+    var userid=sessionStorage.getItem('userID');
+    if (userid.startsWith('BC')) {
+      this.disableRadiobtn=true;
+    }
   }
 
   deleteFileContent(){    
