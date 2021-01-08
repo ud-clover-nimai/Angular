@@ -6,6 +6,8 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { MustMatch } from 'src/app/beans/Validations';
 import { loads} from '../../../../assets/js/commons.js';
 import * as $ from '../../../../assets/js/jquery.min';
+import { TermAndConditionsComponent } from '../../term-and-conditions/term-and-conditions.component.js';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   submitted: boolean = false;
   isTextFieldType: boolean;
   isreTextFieldType: boolean;
-  constructor(public router: ActivatedRoute, public route: Router,public lgsc:LoginService, public rsc: ResetPasswordService, public fb: FormBuilder) {
+  constructor(public router: ActivatedRoute, public route: Router,public lgsc:LoginService,public dialog: MatDialog, public rsc: ResetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
     })
@@ -70,16 +72,7 @@ export class ResetPasswordComponent implements OnInit {
     return this.resetForm.controls;
   }
 
-  // openTermAndServiceDialog(title): void {
-  //   const dialogRef = this.dialog.open(TermAndConditionsComponent, {
-  //     height: '90%',
-  //     width: '88%',
-  //     data: { title: title },
-  //     disableClose: true
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //   });
-  // }
+ 
 
   acceptTerms(){
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");

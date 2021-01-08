@@ -27,7 +27,7 @@ const routes: Routes = [
     children: [
       { path: "success", component: SuccessPopupComponent },
       { path: "error", component: ErrorPopupComponent },
-      { path: "custPopup", component: CustomerLoginComponent }
+      { path: "custPopup", component: CustomerLoginComponent } 
     ]
   },
   {

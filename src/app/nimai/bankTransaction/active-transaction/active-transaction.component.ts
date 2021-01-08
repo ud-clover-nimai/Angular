@@ -30,7 +30,7 @@ export class ActiveTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public hasNoRecordQuote:boolean=false;
-  detail: any;
+  public detail: any="";
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   public specificDetail: any = "";
@@ -41,8 +41,9 @@ export class ActiveTransactionComponent implements OnInit {
   public subURL: string = "";
   public isFreeze: boolean=false;
   isUploadNoDoc: boolean =false;
-  selectedSub: any;
-  subsidiaries: any;
+  selectedSub: string="";
+  subsidiaries: any="";
+  currentDetails: any;
   constructor(public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -58,6 +59,7 @@ export class ActiveTransactionComponent implements OnInit {
     this.document = file;
   }
   public getAllnewTransactions(userid) {
+    console.log(userid)
     this.titleService.quote.next(true);
     const data = {
       "bankUserId":userid,
@@ -69,7 +71,7 @@ export class ActiveTransactionComponent implements OnInit {
         bankActiveTransaction();
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;  
-        
+        this.currentDetails=JSON.parse(JSON.stringify(response)).data;  
         let array = this.detail;
         if(array!=null){
         for (var value of array) {
@@ -78,14 +80,15 @@ export class ActiveTransactionComponent implements OnInit {
 
         }   
       }
-        console.log('kjh')
         if(this.detail==null){
           
           this.hasNoRecord = true;
+          this.detail=[]
+
          }else{
            this.hasNoRecord=false
-          // this.detail=this.detail
-  
+           this.detail=[];
+  this.detail=JSON.parse(JSON.stringify(response)).data;  
          }
       }, (error) => {
         this.hasNoRecord = true;
@@ -208,6 +211,7 @@ export class ActiveTransactionComponent implements OnInit {
     $('#myModal99').hide();
   }
   showQuotePage(pagename: string, action: Tflag, data: any) {
+    console.log(data)
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation') {
@@ -242,8 +246,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.banker.action(true, action, data);
     }
   }
-  selectSubsidiaries(val: any) {
-  
+  selectSubsidiaries(val: any) {  
     this.selectedSub=val;
     this.getAllnewTransactions(this.selectedSub)
 }

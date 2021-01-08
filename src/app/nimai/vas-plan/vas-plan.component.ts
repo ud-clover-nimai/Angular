@@ -49,7 +49,7 @@ export class VasPlanComponent implements OnInit {
     let data = {
       "country_name": sessionStorage.getItem("registeredCountry")
     }
-    this.subscriptionService.viewAdvisory(data).subscribe(response => {
+    this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
       this.advPrice = this.advDetails.pricing;
     })

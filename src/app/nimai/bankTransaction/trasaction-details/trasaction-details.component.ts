@@ -6,6 +6,7 @@ import { custTrnsactionDetail } from 'src/assets/js/commons';
 import * as $ from 'src/assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 
 
 @Component({
@@ -44,8 +45,11 @@ export class TrasactionDetailsComponent {
   tenor: any;
   imgDownload: boolean=false;
   fileData: any;
+  selectedSub: any;
+  subsidiaries: any;
+  currentStatus: any;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService, 
+  constructor(public titleService: TitleService, public nts: NewTransactionService,public psd: PersonalDetailsService,
     public activatedRoute: ActivatedRoute, public router: Router) {
       this.activatedRoute.parent.url.subscribe((urlPath) => {
         this.parentURL = urlPath[urlPath.length - 1].path;
@@ -57,8 +61,22 @@ export class TrasactionDetailsComponent {
   }
 
   ngOnInit() {
-    this.getAllnewTransactions('Accepted');
+    this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
+    this.getSubsidiaryData();
 
+  }
+  getSubsidiaryData(){
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+    }
+    this.psd.getSubUserList(data).
+      subscribe(
+        (response) => {
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
+        
+        },
+        (error) => {}
+      )
   }
   refreshPage(){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -70,7 +88,7 @@ export class TrasactionDetailsComponent {
     this.rejectReason=reason;
   }
 
-  public getAllnewTransactions(status) {
+  public getAllnewTransactions(status,userid) {
     
     if(status == "Accepted") {
       this.rejectedStatus=false;
@@ -96,8 +114,10 @@ export class TrasactionDetailsComponent {
       this.acceptedStatus = false;
       this.withdrawStatus=true;
     }
+
+    this.currentStatus=status;
     const data = {
-      "bankUserId": sessionStorage.getItem('userID'),
+      "bankUserId": userid,
       "quotationStatus": status
 
     }
@@ -238,7 +258,7 @@ const data = {
   }
 
   changeStatusCall(status) {
-    this.getAllnewTransactions(status);
+    this.getAllnewTransactions(status,sessionStorage.getItem('userID'));
 
   }
 
@@ -385,7 +405,7 @@ const data = {
     this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
         this.closeOffcanvas();
-        this.getAllnewTransactions('Rejected');
+        this.getAllnewTransactions('Rejected',sessionStorage.getItem('userID'));
         $('#addOptions select').val('Rejected').change();
 
       },
@@ -422,11 +442,15 @@ const data = {
         (response) => {
         this.closeOffcanvas();
         $("#closePopupForQuote").hide();
-        this.getAllnewTransactions('Accepted');
+        this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
         custTrnsactionDetail();
         },
         (err) => { }
       )
   }
-
+  selectSubsidiaries(val: any) {
+  
+    this.selectedSub=val;
+    this.getAllnewTransactions(this.currentStatus,this.selectedSub)
+}
 } 

@@ -39,11 +39,21 @@
   }
   .addOptions{
     padding: 0;
-    width: 200px;
+    width: 179px;
     position: absolute;
-    right: 30%;
-    top: 4px;
+    right: 50%;
+          top: 9px;
     z-index: 1;
+    margin-right: -117px;
+  }
+  .addOptionsuser{
+    padding: 0;
+    width: 179px;
+    position: absolute;
+    right: 27%;
+          top: 9px;
+    z-index: 1;
+    margin-right: -117px;
   }
   .card .card-header.card-header-icon + .card-content .card-title {
     padding-bottom: 15px;

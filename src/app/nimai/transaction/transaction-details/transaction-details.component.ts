@@ -48,6 +48,7 @@ export class TransactionDetailsComponent {
   usercode: any;
   subsidiaries: any;
   selectedSub: any;
+  currentStatus: string;
 
   constructor(public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -61,8 +62,8 @@ export class TransactionDetailsComponent {
   }
 
   ngOnInit() {
-    this.getAllnewTransactions('Accepted');
-    this.getUsercodeData();
+    this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
+    
     this.getSubsidiaryData();
     }
   
@@ -78,22 +79,24 @@ export class TransactionDetailsComponent {
           (error) => {}
         )
     }
-    getUsercodeData(){
-      const data = {
-        "userId": sessionStorage.getItem('userID'),
-      }
-      this.psd.getbranchUserList(data).
-        subscribe(
-          (response) => {
-            this.usercode = JSON.parse(JSON.stringify(response)).list;
-                 
-  
-          },
-          (error) => {}
-        )
-    }
+    getUsercodeData(userid){
+      var emailId = sessionStorage.getItem('branchUserEmailId');
+       const data={
+         "userId": userid,
+         "branchUserEmail":sessionStorage.getItem('branchUserEmailId')
+       }
+       this.psd.getbranchUserList(data).
+         subscribe(
+           (response) => {
+             this.usercode = JSON.parse(JSON.stringify(response)).list;
+                  
+   
+           },
+           (error) => {}
+         )
+     }
 
-  public getAllnewTransactions(status) {
+  public getAllnewTransactions(status,userid) {
 
     if (status == "Rejected") {
       this.onReject = true;
@@ -126,16 +129,17 @@ export class TransactionDetailsComponent {
       this.acceptedStatus = false;
       this.expiredStatus=false;
     }
-
+    this.currentStatus=status
+    this.getUsercodeData(userid);
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
     if (userIdDetail.startsWith('BC')) {
       emailId = sessionStorage.getItem('branchUserEmailId');
     }
     const data = {
-      "userId": sessionStorage.getItem('userID'),
+      "userId": userid,
       "transactionStatus": status,
-      "branchUserEmail": emailId
+      "branchUserEmail": sessionStorage.getItem('branchUserEmailId')
     }
      this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
@@ -192,7 +196,7 @@ export class TransactionDetailsComponent {
   }
 
   changeStatusCall(status) {
-    this.getAllnewTransactions(status);
+    this.getAllnewTransactions(status,sessionStorage.getItem('userID'));
   }
 
   displayDetails(transactionId){
@@ -407,7 +411,7 @@ export class TransactionDetailsComponent {
       (response) => {
         // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => { console.log("mail sent successfully"); }, (err) => { },);
 
-        this.getAllnewTransactions('Rejected');
+        this.getAllnewTransactions('Rejected',sessionStorage.getItem('userID'));
         this.closeOffcanvas();
         $('#addOptions select').val('Rejected').change();
       },
@@ -482,7 +486,7 @@ export class TransactionDetailsComponent {
         (response) => {
         this.closeOffcanvas();
         $("#closePopup").hide();
-        this.getAllnewTransactions('Accepted');
+        this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
         custTrnsactionDetail();
         },
         (err) => { }
@@ -490,10 +494,13 @@ export class TransactionDetailsComponent {
   }
   selectSubsidiaries(val: any) {
     this.selectedSub=val;
-    //this.getAllnewTransactions('Accepted');
+    console.log(this.selectedSub+"+"+this.currentStatus)
+
+    this.getAllnewTransactions(this.currentStatus,this.selectedSub);
 }
 selectUsercode(val: any) {
   this.selectedSub=val;
- // this.getAllnewTransactions('Accepted');
+  this.getAllnewTransactions(this.currentStatus,this.selectedSub)
 }
+
 }

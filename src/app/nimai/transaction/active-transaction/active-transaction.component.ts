@@ -47,6 +47,8 @@ export class ActiveTransactionComponent implements OnInit {
   usercode: any;
   selectedSub: any;
   disablesubsi: boolean=true;
+  public ntData: any[] = [];
+
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {

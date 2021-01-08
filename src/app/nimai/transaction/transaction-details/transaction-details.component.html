@@ -14,24 +14,24 @@
               <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                  Refresh
               </button>
-              <!-- <div class="row">
-               <div class="parentOfSelect ">
-                   <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                      <select class="has-value"> 
+              <div class="row">
+               <div class="parentOfSelect " >
+                   <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                      <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                         <option value=''>Subsidiaries</option>
-                        <option *ngFor="let data of subsidiaries" [ngValue]='data'>{{data.subName}}</option>                               
-                      </select>
+                        <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
+                     </select>
                </div>
            </div> 
            <div class="parentOfSelect">
             <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
-               <select class="has-value"> 
+               <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
                   <option value=''>Passcode users</option>
-                  <option *ngFor="let data of usercode" [ngValue]='data'>{{data.userNAme}}</option>                        
+                  <option *ngFor="let data of usercode" [value]="data.employeeId" >{{data.employeeEmail}}</option>                        
                </select>
         </div>
     </div>
-       </div>     -->
+       </div>    
               <div class="row">
               <div class="parentOfSelect">
                   <div id="addOptions" class="addOption inputDiv selectdiv pull-right col-md-4">

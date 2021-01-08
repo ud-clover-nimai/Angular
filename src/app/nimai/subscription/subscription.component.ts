@@ -209,8 +209,10 @@ isRenewPlan=false;
     let data = {
       "country_name": sessionStorage.getItem("registeredCountry")
     }
-    this.subscriptionService.viewAdvisory(data).subscribe(response => {
+    this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
+      
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
+      console.log(this.advDetails)
      sessionStorage.setItem('vasId',this.advDetails.vas_id)
       if(!this.advDetails){
         this.showVASPlan = false;
@@ -615,12 +617,12 @@ isRenewPlan=false;
       "orderId":orderid,
       "amount":this.addedAmount,
       "currency":this.paymentForm.get('currency').value,
-      //   "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      //  "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+        "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+       "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
      //  "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
       //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-      "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
-      "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
+      // "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
+      // "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
 
        
 

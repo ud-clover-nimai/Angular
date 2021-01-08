@@ -10,9 +10,20 @@
               </div>
               <div class="card-content">
                  <h4 class="card-title pull-left">Transaction Details</h4>
-                 <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
+                 <div class="row">
+                    <div class="parentOfSelect ">
+                        <div id="addOptionsub" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
+                           <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                             <option value=''>Additional users</option>
+                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
+                          </select>
+                    </div>
+                </div> 
+                <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                     Refresh
                  </button>
+            </div>  
+                
                  <div class="row">
                         <div class="parentOfSelect">
                             <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
