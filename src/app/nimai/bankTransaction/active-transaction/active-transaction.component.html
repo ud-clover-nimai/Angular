@@ -1,3 +1,5 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
+
 <div class="content">
     <div class="container-fluid">
        <div class="row">
@@ -76,11 +78,11 @@
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                     </td>
                                       <td>{{record.quoteRank}}</td>
-                                      <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round" *ngIf=" record.quotationStatus=='ExpPlaced' || record.quotationStatus=='Placed' ||record.quotationStatus=='RePlaced'">View / Edit<div class="ripple-container"></div></a>
-                                              <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record)"
-                                              class="handle btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
-                                              <a class="handleActive" style="cursor: pointer;color:blue" (click)="getDetail(record);">Detail</a>
+                                      <td><a href="javascript:void()" (click)="openNav3();showQuotePage(record.requirementType,0,record);"
+                                              class="btn btn-info btn-round" *ngIf=" record.quotationStatus=='ExpPlaced' || record.quotationStatus=='Placed' ||record.quotationStatus=='RePlaced'">View / Edit<div class="ripple-container"></div></a>
+                                              <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();"
+                                              class="btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
+                                              <a class="" style="cursor: pointer;color:blue" (click)="getDetail(record);openNav3();openOffcanvas();">Detail</a>
                                               <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.quotationStatus=='RePlaced'"
                                               style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This transaction has been reopen by the customer.You can modify your previous quote by clicking view/edit button" > </a>
                                              </td>
@@ -108,7 +110,7 @@
   </div>
 
 
-  <div id="menu-barDetailActive" [hidden]="!isDetailActive" (blur)="closed()"
+  <div id="menu-barDetailActive" [hidden]="!isDetailActive"  class="offcanvas"
   style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
    <div class="popupcontent">
        <div class="card">

@@ -9,7 +9,7 @@ import { PersonalDetailsService } from 'src/app/services/personal-details/person
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min'
 import { Tflag } from 'src/app/beans/Tflag';
-import { custActiveTransaction } from 'src/assets/js/commons';
+import { custTrnsactionDetail } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -26,6 +26,7 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
+  public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public detail: any;
@@ -47,7 +48,6 @@ export class ActiveTransactionComponent implements OnInit {
   usercode: any;
   selectedSub: any;
   disablesubsi: boolean=true;
-  public ntData: any[] = [];
 
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     this.titleService.quote.next(false);
@@ -58,6 +58,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     });
     this.titleService.quote.next(false);
+
   }
 
   public getAllnewTransactions(userid) {
@@ -79,7 +80,8 @@ this.getUsercodeData(userid)
     console.log(data)
     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
-        custActiveTransaction();
+        custTrnsactionDetail();
+
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
        if(this.detail==null){
@@ -95,24 +97,24 @@ this.getUsercodeData(userid)
     )
   }
 
-  ngOnInit() {
-   
-    this.goodsService();
-      $('#TransactionDetailDiv').hide();
-      $('.acceptedPopupDetails').hide();
-      $('.acceptedErrorDetails').hide();
-      $('#backbtn').hide();
+  ngOnInit() {     
+  this.goodsService();
 
-      $('#backbtn').click(function () {
-          $('#changetext').html('Active Transactions');
-          $('#TransactionDetailDiv').slideUp();
-          $('#transactionID').slideDown();
-          $('#TransactionDetailDiv').hide();
-          $('#transactionFilter').show();
-          $('#backbtn').fadeOut();
-  });
  // this.getUsercodeData();
   this.getSubsidiaryData();
+  $('#TransactionDetailDiv').hide();
+  $('.acceptedPopupDetails').hide();
+  $('.acceptedErrorDetails').hide();
+  $('#backbtn').hide();
+
+  $('#backbtn').click(function () {
+      $('#changetext').html('Active Transactions');
+      $('#TransactionDetailDiv').slideUp();
+      $('#transactionID').slideDown();
+      $('#TransactionDetailDiv').hide();
+      $('#transactionFilter').show();
+      $('#backbtn').fadeOut();
+});
 
   }
 

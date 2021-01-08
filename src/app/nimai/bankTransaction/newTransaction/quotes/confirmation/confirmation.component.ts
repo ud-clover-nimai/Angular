@@ -303,7 +303,7 @@ export class ConfirmationComponent implements OnInit {
               this.detail = JSON.parse(JSON.stringify(response)).status;
               if(this.detail=="Validate Success"){
                // alert("Quote Validated Successfully.")
-               $("#validateSuccessCon").show();
+              // $("#validateSuccessCon").show();
 
               }else{
                 console.log("Someting went wrong.")
@@ -354,6 +354,7 @@ export class ConfirmationComponent implements OnInit {
       case 'ok': {
         this.closed();
         this.tab = 'tab1';
+        
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
       });

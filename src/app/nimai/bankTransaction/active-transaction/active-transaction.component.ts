@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Compiler, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import { Tflag } from 'src/app/beans/Tflag';
-import { bankActiveTransaction } from 'src/assets/js/commons';
+import { custTrnsactionDetail } from 'src/assets/js/commons';
 import { ConfirmationComponent } from '../newTransaction/quotes/confirmation/confirmation.component';
 import { ConfirmAndDiscountComponent } from '../newTransaction/quotes/confirm-and-discount/confirm-and-discount.component';
 import { RefinancingComponent } from '../newTransaction/quotes/refinancing/refinancing.component';
@@ -19,18 +19,17 @@ import { PersonalDetailsService } from 'src/app/services/personal-details/person
   styleUrls: ['./active-transaction.component.css']
 })
 export class ActiveTransactionComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'beneficiary', 'bcountry', 'applicant', 'acountry', 'txnID', 'dateTime', 'validity', 'ib', 'amount', 'ccy', 'goodsTypes', 'requirement', 'receivedQuotes', 'star'];
-  dataSource: MatTableDataSource<any>;
-  public ntData: any[] = [];
+ 
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
+  public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   public hasNoRecordQuote:boolean=false;
-  public detail: any="";
+  public detail: any;
   public viewDisable: boolean = true;
   public noFileDisable: boolean= true;
   public specificDetail: any = "";
@@ -44,7 +43,7 @@ export class ActiveTransactionComponent implements OnInit {
   selectedSub: string="";
   subsidiaries: any="";
   currentDetails: any;
-  constructor(public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
+  constructor(public activatedRoute: ActivatedRoute,private comp:Compiler, public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -59,7 +58,6 @@ export class ActiveTransactionComponent implements OnInit {
     this.document = file;
   }
   public getAllnewTransactions(userid) {
-    console.log(userid)
     this.titleService.quote.next(true);
     const data = {
       "bankUserId":userid,
@@ -68,10 +66,11 @@ export class ActiveTransactionComponent implements OnInit {
 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
-        bankActiveTransaction();
-        this.detail=[];
+        custTrnsactionDetail();
+
+                this.detail=[];
+
         this.detail = JSON.parse(JSON.stringify(response)).data;  
-        this.currentDetails=JSON.parse(JSON.stringify(response)).data;  
         let array = this.detail;
         if(array!=null){
         for (var value of array) {
@@ -80,15 +79,13 @@ export class ActiveTransactionComponent implements OnInit {
 
         }   
       }
+
         if(this.detail==null){
           
           this.hasNoRecord = true;
-          this.detail=[]
-
          }else{
            this.hasNoRecord=false
-           this.detail=[];
-  this.detail=JSON.parse(JSON.stringify(response)).data;  
+           
          }
       }, (error) => {
         this.hasNoRecord = true;
@@ -96,10 +93,13 @@ export class ActiveTransactionComponent implements OnInit {
     )
   }
 
-  ngOnInit() {
-    this.getSubsidiaryData();
-  }
 
+  
+  ngOnInit() {
+    
+    this.getSubsidiaryData();
+    
+  }
   getSubsidiaryData(){
     const data = {
       "userId": sessionStorage.getItem('userID'),
@@ -210,40 +210,72 @@ export class ActiveTransactionComponent implements OnInit {
   close(){
     $('#myModal99').hide();
   }
+  
+  openOffcanvas() {   
+    document.getElementById("menu-barDetailActive").style.width = "560px";
+  
+  }
+ 
+openNav3() {
+  document.getElementById("myCanvasNav").style.width = "59.9%";
+  document.getElementById("myCanvasNav").style.opacity = "0.6";  
+  
+}
+closeOffcanvas() {
+  document.getElementById("menu-barDetailActive").style.width = "0%"; 
+  document.getElementById("menubar-con").style.width = "0%"; 
+  document.getElementById("menubarDiscounting").style.width = "0%"; 
+  document.getElementById("menubarConfDis").style.width = "0%"; 
+  document.getElementById("menubarRefinancing").style.width = "0%"; 
+  document.getElementById("menubarBanker").style.width = "0%";  
+  document.getElementById("myCanvasNav").style.width = "0%";
+  document.getElementById("myCanvasNav").style.opacity = "0"; 
+} 
   showQuotePage(pagename: string, action: Tflag, data: any) {
     console.log(data)
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation') {
+      document.getElementById("menubar-con").style.width = "560px"; 
       this.confirmation.action(true, action, data);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+     
+
     } else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
       this.discounting.action(true, action, data);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menubarDiscounting").style.width = "560px"; 
+
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmAndDiscount.action(true, action, data);
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      document.getElementById("menubarConfDis").style.width = "560px"; 
+
     } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true, action, data);
       this.banker.isActive = false;
+      document.getElementById("menubarRefinancing").style.width = "560px"; 
+
     } else if (pagename === 'banker' || pagename === 'Banker' || pagename === 'Banker’s Acceptance') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.action(true, action, data);
+      document.getElementById("menubarBanker").style.width = "560px"; 
+
     }
   }
   selectSubsidiaries(val: any) {  

@@ -221,7 +221,7 @@ export class BankerComponent implements OnInit {
               this.detail = JSON.parse(JSON.stringify(response)).status;
               if(this.detail=="Validate Success"){
                 // alert("Quote Validated Successfully.")
-                $("#validateSuccessBank").show();
+                //$("#validateSuccessBank").show();
               }else{
                 console.log("Someting went wrong.")
               }

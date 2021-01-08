@@ -1653,6 +1653,7 @@ export function custActiveTransaction() {
         $('select').css('color', '#333');
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
         $('#datatables').DataTable({
+          
             destroy: true,
             "pagingType": "full_numbers",
             "scrollX": true,
@@ -1675,7 +1676,7 @@ export function custActiveTransaction() {
 
 
         var table = $('#datatables').DataTable();
-
+        $(".dataTables_empty").empty();
         // Edit record
         table.on('click', '.edit', function() {
             $tr = $(this).closest('tr');
@@ -1698,9 +1699,10 @@ export function custActiveTransaction() {
 
         $('.card .material-datatables label').addClass('form-group');
     });
-    $('#datatables').on('draw.dt', function() {
-        $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
-    });
+    // $('#datatables').on('draw.dt', function() {
+    //     $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+    // });
+    
 }
 
 
