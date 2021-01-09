@@ -96,7 +96,7 @@ export class ActiveTransactionComponent implements OnInit {
 
   
   ngOnInit() {
-    
+   $('.slide-reveal-overlay').hide();
     this.getSubsidiaryData();
     
   }
@@ -217,7 +217,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
  
 openNav3() {
-  document.getElementById("myCanvasNav").style.width = "59.9%";
+  document.getElementById("myCanvasNav").style.width = "100%";
   document.getElementById("myCanvasNav").style.opacity = "0.6";  
   
 }
