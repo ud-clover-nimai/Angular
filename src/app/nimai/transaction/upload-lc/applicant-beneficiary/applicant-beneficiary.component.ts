@@ -51,8 +51,9 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
     
      var userid=sessionStorage.getItem('userID');
-          if (userid.startsWith('BC')) {
-            this.disableRadiobtn=false;
+     console.log("userid----",userid)
+         if (userid.startsWith('BC')) {
+           this.disableRadiobtn=false;
             this.onItemChange("");
           }
 
