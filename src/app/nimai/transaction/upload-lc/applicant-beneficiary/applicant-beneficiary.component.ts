@@ -59,6 +59,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
   }
   onItemChange(e){
+    console.log("On item Change...")
     var radioValue = $("input[name='userType']:checked").val();
     this.LcDetail.get('userType').setValue(e);
     if (e == "Beneficiary") {
