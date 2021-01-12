@@ -7,6 +7,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 @Component({
@@ -48,8 +49,11 @@ export class TrasactionDetailsComponent {
   selectedSub: any;
   subsidiaries: any;
   currentStatus: any;
+  disablesubsi: boolean;
+  nimaiCount: any;
+  getcountUser: any;
 
-  constructor(public titleService: TitleService, public nts: NewTransactionService,public psd: PersonalDetailsService,
+  constructor(public titleService: TitleService, public getCount: SubscriptionDetailsService,public nts: NewTransactionService,public psd: PersonalDetailsService,
     public activatedRoute: ActivatedRoute, public router: Router) {
       this.activatedRoute.parent.url.subscribe((urlPath) => {
         this.parentURL = urlPath[urlPath.length - 1].path;
@@ -64,6 +68,18 @@ export class TrasactionDetailsComponent {
     this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
     this.getSubsidiaryData();
 
+  }
+  getNimaiCount() {
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+    this.getcountUser=this.nimaiCount.accounttype;
+      }
+    )
   }
   getSubsidiaryData(){
     const data = {
@@ -89,7 +105,7 @@ export class TrasactionDetailsComponent {
   }
 
   public getAllnewTransactions(status,userid) {
-    
+    this.getNimaiCount();
     if(status == "Accepted") {
       this.rejectedStatus=false;
       this.acceptedStatus = true;
@@ -118,7 +134,7 @@ export class TrasactionDetailsComponent {
     this.currentStatus=status;
     const data = {
       "bankUserId": userid,
-      "quotationStatus": status
+      "quotationStatus": this.currentStatus
 
     }
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
@@ -129,7 +145,13 @@ export class TrasactionDetailsComponent {
          if (this.data) {
          this.hasNoRecord=true;
          this.getDetail(this.data,status,this.data.transactionID);
-        
+         if(this.getcountUser=='MASTER'){
+       
+          this.disablesubsi=true
+        }else{
+          this.disablesubsi=false
+          
+        }
       }
 
       },
@@ -140,6 +162,7 @@ export class TrasactionDetailsComponent {
       }
     )
   }
+  
 
   getDetail(detail,status,trnxId) {
     console.log(trnxId)

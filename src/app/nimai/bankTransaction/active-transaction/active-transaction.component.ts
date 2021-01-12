@@ -46,7 +46,7 @@ export class ActiveTransactionComponent implements OnInit {
   currentDetails: any;
   disablesubsi: boolean;
   nimaiCount: any;
-  getcountEmail: any="";
+  getcountUser: any="";
   constructor(public activatedRoute: ActivatedRoute,public getCount: SubscriptionDetailsService,private comp:Compiler, public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -84,17 +84,12 @@ export class ActiveTransactionComponent implements OnInit {
 
         }   
       }
-      if(this.getcountEmail==sessionStorage.getItem('custUserEmailId')){
-        console.log(this.getcountEmail+"if")
-        console.log(sessionStorage.getItem('custUserEmailId')+"if")
-
+      if(this.getcountUser=='MASTER'){
+       
         this.disablesubsi=true
       }else{
         this.disablesubsi=false
-        console.log(this.getcountEmail+"else")
-        console.log(sessionStorage.getItem('custUserEmailId')+"if")
-
-
+        
       }
       }, (error) => {
         this.hasNoRecord = true;
@@ -115,11 +110,10 @@ export class ActiveTransactionComponent implements OnInit {
       "userid": sessionStorage.getItem('userID'),
       "emailAddress": ""
     }
-
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-    this.getcountEmail=this.nimaiCount.emailaddress;
+    this.getcountUser=this.nimaiCount.accounttype;
       }
     )
   }
