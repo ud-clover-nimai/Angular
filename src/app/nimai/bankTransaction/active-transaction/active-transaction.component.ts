@@ -79,7 +79,7 @@ export class ActiveTransactionComponent implements OnInit {
 
         }   
       }
-
+console.log(this.detail)
         if(this.detail==null){
           
           this.hasNoRecord = true;
