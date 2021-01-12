@@ -13,6 +13,7 @@ import { custTrnsactionDetail } from 'src/assets/js/commons';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 @Component({
@@ -47,10 +48,14 @@ export class ActiveTransactionComponent implements OnInit {
   subsidiaries: any;
   usercode: any;
   selectedSub: any;
-  disablesubsi: boolean=true;
+  disablesubsi: boolean=false;
+  nimaiCount: any;
+  getcountEmail: any="";
+  disableForBC: boolean=true;
+  disableUserCode: boolean=false;
 
-  constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
-    this.titleService.quote.next(false);
+  constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+    //this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -62,39 +67,44 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions(userid) {
+    this.getNimaiCount();
+
     this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
   
     var emailId = "";
     if(userIdDetail.startsWith('BC')){
       emailId = sessionStorage.getItem('branchUserEmailId');
-      this.disablesubsi=false;
+      this.disablesubsi=true;
     }
-this.getUsercodeData(userid)
   const data ={
     "branchUserEmail": sessionStorage.getItem('branchUserEmailId'),
     "transactionStatus": "Active",
     "userId": userid
   }
 
-    console.log(data)
     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
 
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
-       if(this.detail==null){
-        this.hasNoRecord = true;
-       }else{
-         this.hasNoRecord=false
-        // this.detail=this.detail
 
-       }
+      if(this.getcountEmail==sessionStorage.getItem('branchUserEmailId')){
+        this.disablesubsi=true
+        this.disableUserCode=true
+      }else{
+        this.disablesubsi=false
+        this.disableUserCode=false
+
+      }
+     
       },(error) =>{
         this.hasNoRecord = true;
       }
     )
+    this.getUsercodeData(userid)
+
   }
 
   ngOnInit() {     
@@ -118,6 +128,19 @@ this.getUsercodeData(userid)
 
   }
 
+  getNimaiCount() {
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+    this.getcountEmail=this.nimaiCount.emailaddress;
+      }
+    )
+  }
   getSubsidiaryData(){
     const data = {
       "userId": sessionStorage.getItem('userID'),
@@ -346,7 +369,7 @@ selectSubsidiaries(val: any) {
       this.getAllnewTransactions(this.selectedSub)
   }
   selectUsercode(val: any) {
-    this.selectedSub=val;
+    this.selectedSub="";
     this.getAllnewTransactions(this.selectedSub)
 }
 }

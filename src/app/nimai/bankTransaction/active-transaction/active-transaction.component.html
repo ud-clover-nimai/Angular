@@ -11,7 +11,7 @@
                 <div class="card-content">
                    <h4 class="card-title pull-left">Active Transaction</h4>
                    <div class="row">
-                    <div class="parentOfSelect ">
+                    <div class="parentOfSelect" *ngIf="disablesubsi">
                         <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
                            <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                              <option value=''>Additional users</option>
@@ -24,7 +24,8 @@
 
          </div>
             </div>  
-                   <form>
+
+                  <form>
                     <div class="row" *ngIf="hasNoRecord">
                       <div class="col-md-12">
                           No records available

@@ -9,7 +9,7 @@
                </div>
                <div class="card-content">
                   <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
-                  <!-- <form> -->
+                  <form>
                      <div class="row">
                         <div class="parentOfSelect " *ngIf="disablesubsi">
                             <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
@@ -19,7 +19,7 @@
                               </select>
                         </div>
                     </div> 
-                    <div class="parentOfSelect">
+                    <div class="parentOfSelect" *ngIf="disableUserCode">
                      <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
                         <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
                            <option value=''>Passcode users</option>
@@ -134,7 +134,7 @@
                      </div>
                   </div>
                <div class="clearfix"></div>
-               <!-- </form> -->
+               </form>
             </div>
          </div>
       </div>

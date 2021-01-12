@@ -12,6 +12,7 @@ import { BankerComponent } from '../newTransaction/quotes/banker/banker.componen
 import * as $ from 'src/assets/js/jquery.min';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 @Component({
   selector: 'app-active-transaction',
@@ -43,7 +44,10 @@ export class ActiveTransactionComponent implements OnInit {
   selectedSub: string="";
   subsidiaries: any="";
   currentDetails: any;
-  constructor(public activatedRoute: ActivatedRoute,private comp:Compiler, public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
+  disablesubsi: boolean;
+  nimaiCount: any;
+  getcountEmail: any="";
+  constructor(public activatedRoute: ActivatedRoute,public getCount: SubscriptionDetailsService,private comp:Compiler, public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -58,6 +62,7 @@ export class ActiveTransactionComponent implements OnInit {
     this.document = file;
   }
   public getAllnewTransactions(userid) {
+    this.getNimaiCount();
     this.titleService.quote.next(true);
     const data = {
       "bankUserId":userid,
@@ -79,14 +84,18 @@ export class ActiveTransactionComponent implements OnInit {
 
         }   
       }
-console.log(this.detail)
-        if(this.detail==null){
-          
-          this.hasNoRecord = true;
-         }else{
-           this.hasNoRecord=false
-           
-         }
+      if(this.getcountEmail==sessionStorage.getItem('custUserEmailId')){
+        console.log(this.getcountEmail+"if")
+        console.log(sessionStorage.getItem('custUserEmailId')+"if")
+
+        this.disablesubsi=true
+      }else{
+        this.disablesubsi=false
+        console.log(this.getcountEmail+"else")
+        console.log(sessionStorage.getItem('custUserEmailId')+"if")
+
+
+      }
       }, (error) => {
         this.hasNoRecord = true;
       }
@@ -99,6 +108,20 @@ console.log(this.detail)
    $('.slide-reveal-overlay').hide();
     this.getSubsidiaryData();
     
+  }
+  
+  getNimaiCount() {
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+    this.getcountEmail=this.nimaiCount.emailaddress;
+      }
+    )
   }
   getSubsidiaryData(){
     const data = {

@@ -318,7 +318,7 @@ export class UploadLCComponent implements OnInit {
     data.lcMaturityDate = (data.lcMaturityDate) ? this.dateFormat(data.lcMaturityDate) : '';
     data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     
-
+data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
     this.upls.saveLc(data)
       .subscribe(
         (response) => {

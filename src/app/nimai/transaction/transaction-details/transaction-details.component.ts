@@ -8,6 +8,7 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import * as FileSaver from 'file-saver';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 @Component({
@@ -49,8 +50,12 @@ export class TransactionDetailsComponent {
   subsidiaries: any;
   selectedSub: any;
   currentStatus: string;
+  nimaiCount: any;
+  getcountEmail: any="";
+  disablesubsi: boolean;
+  disableUserCode: boolean;
 
-  constructor(public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
+  constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -63,10 +68,21 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
-    
     this.getSubsidiaryData();
     }
+    getNimaiCount() {
+      let data = {
+        "userid": sessionStorage.getItem('userID'),
+        "emailAddress": ""
+      }
   
+      this.getCount.getTotalCount(data).subscribe(
+        response => {
+          this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+      this.getcountEmail=this.nimaiCount.emailaddress;
+        }
+      )
+    }
     getSubsidiaryData(){
       const data = {
         "userId": sessionStorage.getItem('userID'),
@@ -97,7 +113,7 @@ export class TransactionDetailsComponent {
      }
 
   public getAllnewTransactions(status,userid) {
-
+    this.getNimaiCount();
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
@@ -130,7 +146,7 @@ export class TransactionDetailsComponent {
       this.expiredStatus=false;
     }
     this.currentStatus=status
-    this.getUsercodeData(userid);
+    
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
     if (userIdDetail.startsWith('BC')) {
@@ -138,7 +154,7 @@ export class TransactionDetailsComponent {
     }
     const data = {
       "userId": userid,
-      "transactionStatus": status,
+      "transactionStatus": this.currentStatus,
       "branchUserEmail": sessionStorage.getItem('branchUserEmailId')
     }
      this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
@@ -147,9 +163,18 @@ export class TransactionDetailsComponent {
        this.data=[];
 
         this.data = JSON.parse(JSON.stringify(response)).data;
-        if (this.data) {
-          this.hasNoRecord=true;
-       }
+if(this.data){
+  this.hasNoRecord=true;
+}       
+
+        if(this.getcountEmail==sessionStorage.getItem('branchUserEmailId')){
+          this.disablesubsi=true
+          this.disableUserCode=true
+        }else{
+          this.disablesubsi=false
+          this.disableUserCode=false  
+        }
+
 
       },
       (error) => {
@@ -157,7 +182,7 @@ export class TransactionDetailsComponent {
 
       }
     )
-
+    this.getUsercodeData(userid);
     
   }
 
@@ -236,7 +261,8 @@ export class TransactionDetailsComponent {
     this.nts.getQuotationDetails(data).subscribe(
       (response) => {
        
-        this.quotationdata = "";
+       // this.quotationdata = "";
+        console.log(JSON.parse(JSON.stringify(response)).data[0])
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
 
@@ -494,13 +520,12 @@ export class TransactionDetailsComponent {
   }
   selectSubsidiaries(val: any) {
     this.selectedSub=val;
-    console.log(this.selectedSub+"+"+this.currentStatus)
-
     this.getAllnewTransactions(this.currentStatus,this.selectedSub);
 }
 selectUsercode(val: any) {
-  this.selectedSub=val;
+  this.selectedSub="";
   this.getAllnewTransactions(this.currentStatus,this.selectedSub)
 }
+
 
 }

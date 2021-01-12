@@ -1614,9 +1614,11 @@ export function custTrnsactionDetail() {
     setTimeout(function() {  
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});            
         $('#datatables').DataTable({         
-            destroy: true,   
+           // destroy: true,   
             "pagingType": "full_numbers",
             "scrollX": true,
+            "stateSave" : true,
+			"bDestroy" : true,
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },
@@ -1632,6 +1634,9 @@ export function custTrnsactionDetail() {
                 searchPlaceholder: "Search records",
             }
         });
+        // var table = $('#datatables').DataTable();
+        // $(".dataTables_empty").empty();
+        // Edit record
       
         // $('#addOptions').appendTo(".card-content");
         // $("#addOptions select").attr("(change)","changeStatusCall($event.target.value)");
