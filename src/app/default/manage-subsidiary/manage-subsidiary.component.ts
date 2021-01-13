@@ -159,7 +159,7 @@ export class ManageSubsidiaryComponent implements OnInit {
     .subscribe(
       (response) => {
         this.resetPopup();
-        this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+        this.respMessage = " You've successfully invited a subsidiary to join NimaiTrade. You will be notified once invitee complete the sign up process"
       },
       (error) => {
         this.resetPopup();

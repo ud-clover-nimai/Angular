@@ -66,6 +66,8 @@ export class DashboardComponent implements OnInit {
       this.usersStat('RE');
     } else if (userId.startsWith('BC')) {
       this.userType = "Bank as a Customer";
+      this.hideManageUser=true;
+      this.hideCreditTransaction=true;
       this.usersStat('BC');
     } else if (userId.startsWith('CU')) {
       this.userType = "Customer";

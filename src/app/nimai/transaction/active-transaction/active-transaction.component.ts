@@ -49,12 +49,11 @@ export class ActiveTransactionComponent implements OnInit {
   usercode: any;
   selectedSub: any;
   disablesubsi: boolean=false;
-  nimaiCount: any;
-  getcountEmail: any="";
   disableForBC: boolean=true;
   disableUserCode: boolean=false;
+  accountType: string;
 
-  constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+  constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -67,8 +66,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions(userid) {
-    this.getNimaiCount();
-
+   
     this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
   
@@ -89,14 +87,17 @@ export class ActiveTransactionComponent implements OnInit {
 
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
-
-      if(this.getcountEmail==sessionStorage.getItem('branchUserEmailId')){
+      if(this.accountType=='MASTER' && userIdDetail.startsWith('CU')){
         this.disablesubsi=true
         this.disableUserCode=true
-      }else{
+      }     
+      else  if (this.accountType=='MASTER' && userIdDetail.startsWith('BC')){
+        this.disablesubsi=false
+        this.disableUserCode=true
+      }
+       else{
         this.disablesubsi=false
         this.disableUserCode=false
-
       }
      
       },(error) =>{
@@ -108,8 +109,9 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   ngOnInit() {     
-  this.goodsService();
-
+    
+    this.accountType=sessionStorage.getItem('accountType')
+     this.goodsService();
  // this.getUsercodeData();
   this.getSubsidiaryData();
   $('#TransactionDetailDiv').hide();
@@ -128,19 +130,7 @@ export class ActiveTransactionComponent implements OnInit {
 
   }
 
-  getNimaiCount() {
-    let data = {
-      "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
-    }
-
-    this.getCount.getTotalCount(data).subscribe(
-      response => {
-        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-    this.getcountEmail=this.nimaiCount.emailaddress;
-      }
-    )
-  }
+ 
   getSubsidiaryData(){
     const data = {
       "userId": sessionStorage.getItem('userID'),

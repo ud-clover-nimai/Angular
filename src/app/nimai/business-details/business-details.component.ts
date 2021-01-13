@@ -112,7 +112,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.getStatus()
     this.accountType=sessionStorage.getItem('accountType')
     console.log("this.accountType---",this.accountType)
-    if(this.accountType=="SUBSIDIARY")
+    if(this.accountType=="SUBSIDIARY" || this.accountType=="BANKUSER")
       this.parentRedirection="kyc-details"
     else
       this.parentRedirection="subscription"  
@@ -196,8 +196,7 @@ export class BusinessDetailsComponent implements OnInit {
     this.titleService.loading.next(true);
     this.perDetailsSubmit = true;
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    console.log("businessDetailsForm--",this.businessDetailsForm)    
-    console.log("invalid--",this.businessDetailsForm.invalid)   
+    
     if (this.businessDetailsForm.invalid) {
       // ignore: ['#hidden',':not(:visible)']
       return;

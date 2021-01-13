@@ -256,7 +256,7 @@ export class ManageUserComponent implements OnInit {
         .subscribe(
           (response) => {
             this.resetPopup();
-            this.respMessage = "You've successfully invited to join TradeEnabler. You will be notified once invitee complete the signup process."
+            this.respMessage = "You've successfully invited an additional user to join NimaiTrade. You will be notified once the invitee completes the sign up process."
           },
           (error) => {
             this.resetPopup();

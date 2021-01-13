@@ -54,6 +54,7 @@ export class TransactionDetailsComponent {
   getcountEmail: any="";
   disablesubsi: boolean;
   disableUserCode: boolean;
+  accountType: string;
 
   constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -67,6 +68,8 @@ export class TransactionDetailsComponent {
   }
 
   ngOnInit() {
+    this.accountType=sessionStorage.getItem('accountType')
+
     this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
     this.getSubsidiaryData();
     }
@@ -167,13 +170,18 @@ if(this.data){
   this.hasNoRecord=true;
 }       
 
-        if(this.getcountEmail==sessionStorage.getItem('branchUserEmailId')){
-          this.disablesubsi=true
-          this.disableUserCode=true
-        }else{
-          this.disablesubsi=false
-          this.disableUserCode=false  
-        }
+if(this.accountType=='MASTER' && userIdDetail.startsWith('CU')){
+  this.disablesubsi=true
+  this.disableUserCode=true
+}     
+else  if (this.accountType=='MASTER' && userIdDetail.startsWith('BC')){
+  this.disablesubsi=false
+  this.disableUserCode=true
+}
+ else{
+  this.disablesubsi=false
+  this.disableUserCode=false
+}
 
 
       },
