@@ -38,6 +38,8 @@ export class ReferenceComponent implements OnInit {
   public detailInfo: string = "";
   userRId: string="";
   expiration_date: number;
+  queryDate: any;
+  hideresend: boolean;
   
   constructor(public titleService: TitleService,public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
@@ -249,16 +251,32 @@ export class ReferenceComponent implements OnInit {
       .subscribe(
         (response) => {
           this.responseData = JSON.parse(JSON.stringify(response));
+
+          
+         for(this.queryDate of this.responseData)
+{
+ 
+  this.date= new Date((new Date(this.queryDate.insertedDate)).getTime() + (60*60*24* 1000));
+ let formatedDate = formatDate(new Date(this.date), "yyyy-MM-dd", 'en-US');
+
+  if(this.getCurrentDate==formatedDate){
+       this.hideresend=true;
+
+  }else{
+    this.hideresend=false;
+    console.log( 'not expired')
+  }
+}
+
         //   let uu=this.responseData[0].insertedDate;
         //   this.expiration_date = Date.parse(this.responseData[0].insertedDate.value);
-        //   let formatedDate = formatDate(new Date(uu), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
         //  // this.date = parse(formatedDate, 'd/M/yyyy HH:mm:ss', new Date());
       
         //   Date date=this.expiration_date;
       
         // let test1= this.date.setDate( this.date.getDate() + 1 );
         // this.date = new Date(test1);
-        // console.log(this.date)
+       
 
         // let test2= this.date.setDate( this.date.getDate());
         // this.date = new Date(test2);
@@ -318,6 +336,7 @@ export class ReferenceComponent implements OnInit {
     )
 
   }
+ 
   resend(data){
     this.userRId=data.userid;
     $('#successResend').show();

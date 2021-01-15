@@ -240,6 +240,9 @@ this.selectedUCode="";
   }
 
   showQuoteDetail(transactionId,requirementType,lCCurrency){
+    this.disablesubsi=false;
+    this.disableUserCode=false;
+  
     $('#changetext').html('Bank Quotes');
     $('#transactionID').slideUp();
     $('#TransactionDetailDiv').slideDown();
@@ -320,7 +323,8 @@ this.selectedUCode="";
  }
 
  showAcceptedDetails(index,qId, tId, quotationDetails){
-  let req = {
+
+    let req = {
     "quotationId": qId,
 	  "transactionId": tId
   }

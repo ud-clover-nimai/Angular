@@ -477,7 +477,9 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
           $('#reOpenPopup').hide();
           $('.modal-backdrop').hide();
           this.closeOffcanvas();
-          this.router.navigate([`/${this.subURL}/${this.parentURL}` + "/active-transaction"]);
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+        });
         },
         (err) => { }
       )

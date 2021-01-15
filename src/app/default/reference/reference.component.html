@@ -34,7 +34,7 @@
                                                     <th style="min-width: 120px;">Earning</th>
                                                     <th style="min-width: 120px;">Currency</th>
                                                     <th style="min-width: 120px;">Details</th>
-                                                    <th></th>
+                                                    <th class="disabled-sorting text-center"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -55,7 +55,7 @@
                                                     <div class="ripple-container"></div></a>                                                   
                                               </td>
                                               <td>
-                                                <button type="submit" class="btn btn-info pull-right"  (click)="resend(record)">
+                                                <button *ngIf="hideresend" type="submit" class="btn btn-info pull-right"  (click)="resend(record)">
                                                     Resend
                                                  </button>
                                               </td>

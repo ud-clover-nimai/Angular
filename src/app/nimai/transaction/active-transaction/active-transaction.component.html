@@ -14,7 +14,7 @@
                         <div class="parentOfSelect " *ngIf="disablesubsi">
                             <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
                                <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                                 <option value=''>Subs idiaries</option>
+                                 <option value=''>Subsidiaries</option>
                                  <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
                               </select>
                         </div>
