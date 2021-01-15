@@ -431,12 +431,13 @@
                       <a [routerLink]="['refer']">Refer</a></li>
                       
                      
-                    <li>
+                    <li *ngIf="!hideSubAccount">
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
-                    <li><a [routerLink]="['support']">Support</a></li>
-                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a [routerLink]="['subscription']">Subscription</a></li>
-                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                    <li>
+                      <a [routerLink]="['support']">Support</a></li>
+                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a  *ngIf="!hideSubAccount" [routerLink]="['subscription']">Subscription</a></li>
+                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
                     <!-- <li><a [routerLink]="['/']" id="btnLogin">Logout</a></li> -->
                     <li>
                       <a

@@ -29,12 +29,12 @@
                                                     <th style="min-width: 100px;">User Id</th>
                                                     <th style="min-width: 150px;">Country</th>
                                                     <th style="min-width: 180px;">Company</th>
-                                                    <th style="min-width: 100px;">Account Status</th>
+                                                    <th style="min-width: 120px;">Account Status</th>
                                                     <th style="min-width: 130px;">Expires In</th>
                                                     <th style="min-width: 120px;">Earning</th>
                                                     <th style="min-width: 120px;">Currency</th>
                                                     <th style="min-width: 120px;">Details</th>
-                                                    
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -52,7 +52,12 @@
                                               <td>
                                                 <a href="javascript:void()" (click)="showDetail(record);openNav3();openOffcanvas();"
                                                 style="color: blue;text-decoration: underline;" class="referhandle">Detail
-                                                    <div class="ripple-container"></div></a>
+                                                    <div class="ripple-container"></div></a>                                                   
+                                              </td>
+                                              <td>
+                                                <button type="submit" class="btn btn-info pull-right"  (click)="resend(record)">
+                                                    Resend
+                                                 </button>
                                               </td>
                                                 </tr>
                                             
@@ -312,3 +317,41 @@
             </div>
         </div>
     </div>
+    <div id="successResend1" class="modal3" style="display: none;">
+        <div class="modal-content-image">
+         <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close_successmsg()">&times;</button></div>
+         <div class="modal-body" style="text-align:center">
+           <h4>Success</h4>
+           <div class="row">
+             <div class="col-md-12">
+                 <p>Email send successfully</p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div id="successResend" style="display: none;top: 0%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv" style="margin-top: 200px;">
+           <!-- Modal content-->
+           <div class="modal-content">
+              <div class="modal-body">
+                 <h2>Resend </h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>Are you sure want to resend this transaction ?</h5>
+                               
+                             </div>
+                          </div>
+                          <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="successResend()">Yes</button>
+                          <button type="submit" class="handle1 btn btn-info pull-right" (click)="closeResend()">No</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>

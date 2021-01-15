@@ -72,7 +72,11 @@ export class ResetPasswordComponent implements OnInit {
     return this.resetForm.controls;
   }
 
- 
+  close(){
+    $('#resetId').hide();
+    $('.modal-backdrop').hide();
+
+  }
 
   acceptTerms(){
     var element = <HTMLInputElement> document.getElementById("isCheckedForTerms");

@@ -52,6 +52,7 @@ export class ActiveTransactionComponent implements OnInit {
   disableForBC: boolean=true;
   disableUserCode: boolean=false;
   accountType: string;
+  selectedUCode: string="";
 
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
@@ -71,12 +72,17 @@ export class ActiveTransactionComponent implements OnInit {
     var userIdDetail = sessionStorage.getItem('userID');
   
     var emailId = "";
+    emailId = sessionStorage.getItem('branchUserEmailId');
+
     if(userIdDetail.startsWith('BC')){
-      emailId = sessionStorage.getItem('branchUserEmailId');
       this.disablesubsi=true;
     }
+    if(this.selectedUCode){
+      emailId=this.selectedUCode;
+    }
+
   const data ={
-    "branchUserEmail": sessionStorage.getItem('branchUserEmailId'),
+    "branchUserEmail": emailId,
     "transactionStatus": "Active",
     "userId": userid
   }
@@ -84,7 +90,6 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
-
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
       if(this.accountType=='MASTER' && userIdDetail.startsWith('CU')){
@@ -92,6 +97,10 @@ export class ActiveTransactionComponent implements OnInit {
         this.disableUserCode=true
       }     
       else  if (this.accountType=='MASTER' && userIdDetail.startsWith('BC')){
+        this.disablesubsi=false
+        this.disableUserCode=true
+      }
+      else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
         this.disablesubsi=false
         this.disableUserCode=true
       }
@@ -105,7 +114,7 @@ export class ActiveTransactionComponent implements OnInit {
       }
     )
     this.getUsercodeData(userid)
-
+this.selectedUCode="";
   }
 
   ngOnInit() {     
@@ -145,10 +154,9 @@ export class ActiveTransactionComponent implements OnInit {
       )
   }
   getUsercodeData(userid){
-   var emailId = sessionStorage.getItem('branchUserEmailId');
     const data={
       "userId": userid,
-      "branchUserEmail":sessionStorage.getItem('branchUserEmailId')
+      "branchUserEmail":this.selectedUCode
     }
     this.psd.getbranchUserList(data).
       subscribe(
@@ -359,7 +367,9 @@ selectSubsidiaries(val: any) {
       this.getAllnewTransactions(this.selectedSub)
   }
   selectUsercode(val: any) {
-    this.selectedSub="";
+    console.log(val)
+    this.selectedUCode=val;
+    this.selectedSub=""
     this.getAllnewTransactions(this.selectedSub)
 }
 }

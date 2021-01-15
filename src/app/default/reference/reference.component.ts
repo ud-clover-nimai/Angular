@@ -26,6 +26,8 @@ export class ReferenceComponent implements OnInit {
   getCurrentDate: any;
   showBranchUserId: boolean = false;
   resp: any;
+  
+  date: Date = null;
   referViewDetails : any;
   respMessage: string;
   total_references:number;
@@ -34,6 +36,8 @@ export class ReferenceComponent implements OnInit {
   isActiveRefer: boolean=false;
   data: any="";
   public detailInfo: string = "";
+  userRId: string="";
+  expiration_date: number;
   
   constructor(public titleService: TitleService,public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
@@ -96,6 +100,9 @@ export class ReferenceComponent implements OnInit {
   }
   close_details(){
     $("#referDetail").hide();
+  }
+  close_successmsg(){
+    $("#successResend1").hide();
   }
   onOkClick(){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -169,7 +176,7 @@ export class ReferenceComponent implements OnInit {
       .subscribe(
         (response) => {
           let res = JSON.parse(JSON.stringify(response));
-          console.log(res);
+          
           const fg = {
             "emailId": this.referForm.get('emailAddress').value,
             "event": 'ADD_REFER',
@@ -233,12 +240,32 @@ export class ReferenceComponent implements OnInit {
     }
     }
   }
-
+  addDays(date: Date, days: number): Date {
+    date.setDate(date.getDate() + days);
+    return date;
+}
   viewReferDetails(userID: string) {
     this.service.getRegisterUsers(userID)
       .subscribe(
         (response) => {
           this.responseData = JSON.parse(JSON.stringify(response));
+        //   let uu=this.responseData[0].insertedDate;
+        //   this.expiration_date = Date.parse(this.responseData[0].insertedDate.value);
+        //   let formatedDate = formatDate(new Date(uu), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
+        //  // this.date = parse(formatedDate, 'd/M/yyyy HH:mm:ss', new Date());
+      
+        //   Date date=this.expiration_date;
+      
+        // let test1= this.date.setDate( this.date.getDate() + 1 );
+        // this.date = new Date(test1);
+        // console.log(this.date)
+
+        // let test2= this.date.setDate( this.date.getDate());
+        // this.date = new Date(test2);
+        // console.log(this.date)
+
+// console.log(test2)
+
           manageSub();
 
           //let total = 0;
@@ -291,7 +318,32 @@ export class ReferenceComponent implements OnInit {
     )
 
   }
+  resend(data){
+    this.userRId=data.userid;
+    $('#successResend').show();
+    
+    }
 
+    closeResend(){
+      $('#successResend').hide();
+    }
+  
+successResend(){
+  const param = {
+    "emailId": sessionStorage.getItem('custUserEmailId'),
+    "event": 'ADD_REFER',
+    "userId": this.userRId,
+    "referenceId":""
+  }
+  console.log(param);
+  
+  this.fps.sendEmailReferSubsidiary(param).subscribe((response)=>{
+    if(response.message=='Email Send Succefully'){
+ $('#successResend').hide();
+ $('#successResend1').show();
 
+    }
+  })
+}
 }
 

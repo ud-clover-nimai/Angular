@@ -21,7 +21,7 @@ export class TransactionDetailsComponent {
   public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  public data: any;
+  public data: any=[];
   public specificDetail: any = "";
   quotationdata: any = "";
   document: any = "";
@@ -55,6 +55,7 @@ export class TransactionDetailsComponent {
   disablesubsi: boolean;
   disableUserCode: boolean;
   accountType: string;
+  selectedUCode: string="";
 
   constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -73,19 +74,7 @@ export class TransactionDetailsComponent {
     this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
     this.getSubsidiaryData();
     }
-    getNimaiCount() {
-      let data = {
-        "userid": sessionStorage.getItem('userID'),
-        "emailAddress": ""
-      }
-  
-      this.getCount.getTotalCount(data).subscribe(
-        response => {
-          this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-      this.getcountEmail=this.nimaiCount.emailaddress;
-        }
-      )
-    }
+
     getSubsidiaryData(){
       const data = {
         "userId": sessionStorage.getItem('userID'),
@@ -99,10 +88,10 @@ export class TransactionDetailsComponent {
         )
     }
     getUsercodeData(userid){
-      var emailId = sessionStorage.getItem('branchUserEmailId');
+      
        const data={
          "userId": userid,
-         "branchUserEmail":sessionStorage.getItem('branchUserEmailId')
+         "branchUserEmail":this.selectedUCode
        }
        this.psd.getbranchUserList(data).
          subscribe(
@@ -116,7 +105,6 @@ export class TransactionDetailsComponent {
      }
 
   public getAllnewTransactions(status,userid) {
-    this.getNimaiCount();
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
@@ -152,13 +140,17 @@ export class TransactionDetailsComponent {
     
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
+    emailId = sessionStorage.getItem('branchUserEmailId');
     if (userIdDetail.startsWith('BC')) {
-      emailId = sessionStorage.getItem('branchUserEmailId');
+      this.disablesubsi=true;
+    }
+    if(this.selectedUCode){
+   emailId=this.selectedUCode
     }
     const data = {
       "userId": userid,
       "transactionStatus": this.currentStatus,
-      "branchUserEmail": sessionStorage.getItem('branchUserEmailId')
+      "branchUserEmail": emailId
     }
      this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(
       (response) => {
@@ -178,20 +170,21 @@ else  if (this.accountType=='MASTER' && userIdDetail.startsWith('BC')){
   this.disablesubsi=false
   this.disableUserCode=true
 }
+else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
+  this.disablesubsi=false
+  this.disableUserCode=true
+}
  else{
   this.disablesubsi=false
   this.disableUserCode=false
 }
-
-
       },
-      (error) => {
-       
-
-      }
+      (error) => {       
+        custTrnsactionDetail();
+        this.data=[];      }
     )
     this.getUsercodeData(userid);
-    
+    this.selectedUCode="";
   }
 
   rejectedReasons(reason){
@@ -531,7 +524,8 @@ else  if (this.accountType=='MASTER' && userIdDetail.startsWith('BC')){
     this.getAllnewTransactions(this.currentStatus,this.selectedSub);
 }
 selectUsercode(val: any) {
-  this.selectedSub="";
+  this.selectedUCode=val;
+  this.selectedSub=""
   this.getAllnewTransactions(this.currentStatus,this.selectedSub)
 }
 

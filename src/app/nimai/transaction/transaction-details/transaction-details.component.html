@@ -27,7 +27,7 @@
             <div id="addOptionsuser" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
                <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
                   <option value=''>Passcode users</option>
-                  <option *ngFor="let data of usercode" [value]="data.employeeId" >{{data.employeeEmail}}</option>                        
+                  <option *ngFor="let data of usercode" [value]="data.employeeEmail" >{{data.employeeEmail}}</option>                        
                </select>
         </div>
     </div>

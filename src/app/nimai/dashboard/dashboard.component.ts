@@ -45,17 +45,27 @@ export class DashboardComponent implements OnInit {
   creditenable: string;
   enableuserStat: boolean=false;
   referenceTab:boolean=false;
+  hideSubAccount: boolean=false;
+  accountType: string;
+  public hideVas: boolean=true;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
       this.isReferrer = true;
-    } else if (userId.startsWith('BC') || userId.startsWith('CU')) {
+    } else if (userId.startsWith('CU')) {
       this.isReferrer = false;
       this.isCustomer = true;
       this.isBank = false;
-    } else {
+      
+    }   else if (userId.startsWith('BC')) {
+      this.isReferrer = false;
+      this.isCustomer = true;
+      this.isBank = false;
+     
+    
+    }else {
       this.isReferrer = false;
       this.isCustomer = false;
       this.isBank = true;
@@ -139,7 +149,12 @@ export class DashboardComponent implements OnInit {
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
    // this.callAllDraftTransaction();
     this.getNimaiCount();
-  
+    this.accountType=sessionStorage.getItem('accountType');
+  if(this.accountType == 'SUBSIDIARY'){
+    this.hideSubAccount=true;
+    this.hideCreditTransaction=true;
+this.hideVas=false;
+  }
   }
   callAllDraftTransaction() {
     if (this.isCustomer) {
