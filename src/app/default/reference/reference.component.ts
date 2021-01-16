@@ -256,7 +256,7 @@ export class ReferenceComponent implements OnInit {
          for(this.queryDate of this.responseData)
 {
  
-  this.date= new Date((new Date(this.queryDate.insertedDate)).getTime() + (60*60*24* 1000));
+  this.date= new Date((new Date(this.queryDate.insertedDate)).getTime() + (60*60*24* 30000));
  let formatedDate = formatDate(new Date(this.date), "yyyy-MM-dd", 'en-US');
 
   if(this.getCurrentDate==formatedDate){
@@ -264,7 +264,7 @@ export class ReferenceComponent implements OnInit {
 
   }else{
     this.hideresend=false;
-    console.log( 'not expired')
+   
   }
 }
 
