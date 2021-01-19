@@ -239,6 +239,13 @@ this.selectedUCode="";
 )
   }
 
+  closed_div(){
+//$('#menu-barnew').hide();
+document.getElementById("menu-barnew").style.width = "0%"; 
+document.getElementById("myCanvasNav").style.width = "0%";
+document.getElementById("myCanvasNav").style.opacity = "0"; 
+  }
+
   showQuoteDetail(transactionId,requirementType,lCCurrency){
     this.disablesubsi=false;
     this.disableUserCode=false;

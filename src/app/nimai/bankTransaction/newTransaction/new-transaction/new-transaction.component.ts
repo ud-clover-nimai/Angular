@@ -53,6 +53,7 @@ export class NewTransactionComponent implements OnInit {
   public notImgDownload:boolean=false;
   fileData: any;
   nimaiCount: any;
+  chkPlaceQuote: any="";
 
   constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
      public activatedRoute: ActivatedRoute, public router: Router) {
@@ -357,11 +358,15 @@ export class NewTransactionComponent implements OnInit {
 
   close() {
     $('#myModalAttach').hide();
+
   }
+  closeDup() {
+    $('#myModalDup').hide();
+    this.refreshPage()
 
+  }
   showQuotePage(pagename: string, action: Tflag, val: any) {
-
-    this.titleService.quote.next(true);
+     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     removeDoubleScroll()
     const data = {
@@ -384,39 +389,57 @@ export class NewTransactionComponent implements OnInit {
 
 
     }
-
-    if (pagename == 'confirmation' || pagename === 'Confirmation') {
-       this.confirmation.action(true, action, data);
-      this.discounting.isActiveQuote = false;
-      this.confirmAndDiscount.isActiveQuote = false;
-      this.refinancing.isActiveQuote = false;
-      this.banker.isActiveQuote = false;
-    } else if (pagename === 'discounting' || pagename === 'Discounting') {
-
-      this.confirmation.isActiveQuote = false;
-      this.confirmAndDiscount.isActiveQuote = false;
-      this.refinancing.isActiveQuote = false;
-      this.banker.isActiveQuote = false;
-      this.discounting.action(true, action, data);
-    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
-      this.confirmAndDiscount.action(true, action, data);
-      this.confirmation.isActiveQuote = false;
-      this.discounting.isActiveQuote = false;
-      this.refinancing.isActiveQuote = false;
-      this.banker.isActiveQuote = false;
-    } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
-      this.refinancing.action(true, action, data);
-      this.confirmation.isActiveQuote = false;
-      this.discounting.isActiveQuote = false;
-      this.confirmAndDiscount.isActiveQuote = false;
-      this.banker.isActiveQuote = false;
-    } else if (pagename === 'banker' || pagename === "Banker" || pagename === 'Banker’s Acceptance') {
-      this.confirmation.isActiveQuote = false;
-      this.discounting.isActiveQuote = false;
-      this.confirmAndDiscount.isActiveQuote = false;
-      this.refinancing.isActiveQuote = false;
-      this.banker.action(true, action, data);
+    const req = {
+     
+      "transactionId":val.transactionId,
+    "bankUserId":sessionStorage.getItem('userID')
     }
+
+    this.nts.getcheckQuotationPlaced(req).subscribe(
+      (response) => {
+        this.chkPlaceQuote = JSON.parse(JSON.stringify(response)).status;
+        console.log(this.chkPlaceQuote)
+if(this.chkPlaceQuote=='Success'){
+  if (pagename == 'confirmation' || pagename === 'Confirmation') {
+    this.confirmation.action(true, action, data);
+   this.discounting.isActiveQuote = false;
+   this.confirmAndDiscount.isActiveQuote = false;
+   this.refinancing.isActiveQuote = false;
+   this.banker.isActiveQuote = false;
+ } else if (pagename === 'discounting' || pagename === 'Discounting') {
+
+   this.confirmation.isActiveQuote = false;
+   this.confirmAndDiscount.isActiveQuote = false;
+   this.refinancing.isActiveQuote = false;
+   this.banker.isActiveQuote = false;
+   this.discounting.action(true, action, data);
+ } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
+   this.confirmAndDiscount.action(true, action, data);
+   this.confirmation.isActiveQuote = false;
+   this.discounting.isActiveQuote = false;
+   this.refinancing.isActiveQuote = false;
+   this.banker.isActiveQuote = false;
+ } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+   this.refinancing.action(true, action, data);
+   this.confirmation.isActiveQuote = false;
+   this.discounting.isActiveQuote = false;
+   this.confirmAndDiscount.isActiveQuote = false;
+   this.banker.isActiveQuote = false;
+ } else if (pagename === 'banker' || pagename === "Banker" || pagename === 'Banker’s Acceptance') {
+   this.confirmation.isActiveQuote = false;
+   this.discounting.isActiveQuote = false;
+   this.confirmAndDiscount.isActiveQuote = false;
+   this.refinancing.isActiveQuote = false;
+   this.banker.action(true, action, data);
+ }
+}else{
+  $('#myModalDup').show();
+console.log(JSON.parse(JSON.stringify(response)).status)
+}
+       
+    
+    
+  });
   }
 
 

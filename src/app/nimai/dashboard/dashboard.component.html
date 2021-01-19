@@ -419,7 +419,7 @@
                       >
                     </li>
                     <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'">
-                      <a *ngIf="!hideManageUser" [routerLink]="['manage-sub']"
+                      <a *ngIf="isCustomer && !hideManageUser" [routerLink]="['manage-sub']"
                         >Manage Subsidiary</a>
                     </li>
                     <li *ngIf="!hideManageUser">

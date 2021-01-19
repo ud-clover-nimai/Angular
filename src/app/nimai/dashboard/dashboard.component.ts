@@ -151,6 +151,7 @@ export class DashboardComponent implements OnInit {
     this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
   if(this.accountType == 'SUBSIDIARY'){
+    console.log('ghkjh')
     this.hideSubAccount=true;
     this.hideCreditTransaction=true;
 this.hideVas=false;

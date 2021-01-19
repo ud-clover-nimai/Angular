@@ -75,6 +75,7 @@ export class ActiveTransactionComponent implements OnInit {
 
                 this.detail=[];
 
+
         this.detail = JSON.parse(JSON.stringify(response)).data;  
         let array = this.detail;
         if(array!=null){
@@ -83,7 +84,9 @@ export class ActiveTransactionComponent implements OnInit {
             this.isFreeze=true;
 
         }   
+
       }
+      
       if(this.getcountUser=='MASTER'){
        
         this.disablesubsi=true
@@ -95,6 +98,7 @@ export class ActiveTransactionComponent implements OnInit {
         this.hasNoRecord = true;
       }
     )
+
   }
 
 

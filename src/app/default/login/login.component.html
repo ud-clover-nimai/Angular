@@ -278,7 +278,7 @@
                                        </div>
                                        <div class="col-md-12 col-sm-12 bankfields" *ngIf="isBank && isBankOther">
                                           <div class="inputDiv" style="width:30%">
-                                             <input type="text" maxlength="30" formControlName="otherTypeBank">
+                                             <input type="text" class="has-value" maxlength="30" formControlName="otherTypeBank">
                                              <label>Other</label>
                                              <i class="fa fa-address-card fa-1"></i>
                                           </div>
@@ -372,7 +372,7 @@
                                        </div>
                     
                                        <button type="submit" class="btnclass" style="margin: 5px 0px 0px;">Sign Up</button>
-                                       <p style="font-size: 12px;font-weight: 400;">Already have an account ? 
+                                       <p style="font-size: 12px;font-weight: 400;">Already have an account? 
                                           <a (click)="clearInvalidationText();" class="ghost" style="display: inline-block;cursor: pointer;" id="signIn">Login</a>
                                        </p>
                                     </div>

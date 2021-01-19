@@ -25,5 +25,4 @@ export interface signup {
 	 emailAddress1:string;
 	 emailAddress2:string;
 	 emailAddress3:string;
-
 }

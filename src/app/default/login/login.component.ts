@@ -479,7 +479,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     //$('#checkboxError').show();
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
-    this.signupForm.get('mobileNo').clearValidators();
+    this.signupForm.get('mobileNo').clearValidators();    
+    this.signupForm.get('otherTypeBank').clearValidators();
     this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);    
     var minValue = this.signupForm.get('minLCValue').value;
     if(minValue>0)
@@ -491,11 +492,14 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       this.signupForm.get('regCurrency').updateValueAndValidity();
     }
     this.updateValidation();
+    this.isBankOther=false;
+
   }
   removeReferrerValidation() {
     this.signupForm.get('designation').clearValidators();
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
+    this.signupForm.get('otherType').clearValidators();
     this.updateValidation();
 
   }e
@@ -522,6 +526,9 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
+    this.signupForm.get('otherTypeBank').clearValidators();
+
+    
     this.updateValidation();
   }
 
@@ -529,17 +536,18 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('designation').clearValidators();
     this.signupForm.get('companyName').clearValidators();
     this.signupForm.get('businessType').clearValidators();
-
+    this.signupForm.get('otherType').clearValidators();
     this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
-
+    this.signupForm.get('otherTypeBank').clearValidators();
     this.signupForm.get('firstName').clearValidators();
     this.signupForm.get('lastName').clearValidators();
     this.signupForm.get('officialMailId').clearValidators();
     this.signupForm.get('mobileNo').clearValidators();
     this.signupForm.get('landlineNo').clearValidators();
     this.signupForm.get('country').clearValidators();
+    this.isBankOther=false;
     $("#checkboxError").hide();
   }
 
@@ -547,11 +555,11 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('designation').updateValueAndValidity();
     this.signupForm.get('companyName').updateValueAndValidity();
     this.signupForm.get('businessType').updateValueAndValidity();
-
+    this.signupForm.get('otherType').updateValueAndValidity();
     this.signupForm.get('minLCValue').updateValueAndValidity();
     this.signupForm.get('blacklistedGC').updateValueAndValidity();
     this.signupForm.get('countriesInt').updateValueAndValidity();
-
+    this.signupForm.get('otherTypeBank').updateValueAndValidity();
     this.signupForm.get('firstName').updateValueAndValidity();
     this.signupForm.get('lastName').updateValueAndValidity();
     this.signupForm.get('officialMailId').updateValueAndValidity();
@@ -559,6 +567,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('landlineNo').updateValueAndValidity();
     this.signupForm.get('country').updateValueAndValidity();
     this.signupForm.get('termsAndcondition').updateValueAndValidity();
+    this.isBankOther=false;
+
   }
 
 
@@ -631,8 +641,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       regCurrency: this.signupForm.get('regCurrency').value,
       emailAddress1: "",
       emailAddress2: "",
-      emailAddress3: ""
-
+      emailAddress3: "",
+      otherTypeBank:""
     }
     return data;
   }
@@ -673,7 +683,9 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       minLCValue: '',
       blacklistedGC: '',
       companyName: '',
-      regCurrency:''
+      regCurrency:'',
+      otherTypeBank:'',
+      otherType:''
     })
     $("#isCheckedForTerms"). prop("checked", false);
   }

@@ -1614,11 +1614,10 @@ export function custTrnsactionDetail() {
     setTimeout(function() {  
         $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});            
         $('#datatables').DataTable({         
-           // destroy: true,   
+            destroy: true,   
             "pagingType": "full_numbers",
             "scrollX": true,
-            "stateSave" : true,
-			"bDestroy" : true,
+           
             "initComplete": function(settings, json) {
                 $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
             },

@@ -19,7 +19,7 @@
                    <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
                       <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                         <option value=''>Subsidiaries</option>
-                        <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
+                        <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
                      </select>
                </div>
            </div> 

@@ -15,7 +15,7 @@
                             <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
                                <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                                  <option value=''>Subsidiaries</option>
-                                 <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subName}}</option>                               
+                                 <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
                               </select>
                         </div>
                     </div> 
@@ -147,7 +147,7 @@
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
-            <h4> Bank Quote</h4>
+            <h4><button type="button" class="close" (click)="closed_div()">&times;</button> Bank Quote</h4>
             <div class="tab-content" id="tab1">
                <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
                 <div class="table-responsive"  cellspacing="0" >
