@@ -38,7 +38,8 @@
                                <table class="table table-hover" id="datatables">
                                   <thead>
                                     <tr>
-                                      <th class="disabled-sorting text-center">#</th> 
+                                        <th class="disabled-sorting text-center"></th>
+                                      <th style="min-width: 60px;" class="disabled-sorting text-center">#</th> 
                                       <th nowrap>LC Issuing Bank</th>
                                       <th nowrap>Transaction ID</th>
                                       <th style="min-width: 110px;">Goods/Services</th>
@@ -56,6 +57,7 @@
                                   </thead>
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
+                                        <td></td>
                                       <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'"><div class="circle red"></div></div> </td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.transactionId}}</td>
