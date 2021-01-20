@@ -170,7 +170,8 @@
                                                 <label class="customlabel">Coupon Code</label>
                                             </td>
                                             <td style="display: flex;">
-                                                <input type="text" name=""  class="coupantext" maxlength="15" #coupon />
+                                                <input type="text" name=""  class="coupantext" maxlength="15" #coupon
+                                                  (keyup)="validateRegexFields($event, 'name_validation')" (keydown)="validateRegexFields($event, 'name_validation')"/>
                                                 <div class="inputDiv">
                                                     <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
                                                     <span *ngIf="couponSuccess" class="valid-feedback">{{couponSuccess}}</span>

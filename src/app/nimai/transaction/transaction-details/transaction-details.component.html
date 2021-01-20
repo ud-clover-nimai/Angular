@@ -17,16 +17,16 @@
               <div class="row">
                <div class="parentOfSelect " *ngIf="disablesubsi">
                    <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                      <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                        <option value=''>Subsidiaries</option>
+                     <label style="top: 0px;font-size: 12px;">Subsidiaries</label>
+                     <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                         <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
                      </select>
                </div>
            </div> 
            <div class="parentOfSelect" *ngIf="disableUserCode">
             <div id="addOptionsuser" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
+               <label style="top: 0px;font-size: 12px;">Passcode users</label>
                <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
-                  <option value=''>Passcode users</option>
                   <option *ngFor="let data of usercode" [value]="data.employeeEmail" >{{data.employeeEmail}}</option>                        
                </select>
         </div>

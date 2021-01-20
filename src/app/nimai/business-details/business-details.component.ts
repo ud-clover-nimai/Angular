@@ -36,6 +36,7 @@ export class BusinessDetailsComponent implements OnInit {
   status: any;
   enableicon: boolean;
   accountType:any;
+  count: number=0;
   constructor(public fb: FormBuilder, public getCount: SubscriptionDetailsService, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
@@ -360,6 +361,7 @@ export class BusinessDetailsComponent implements OnInit {
 
 
   add() {
+    this.count=this.count+1;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")
     {
@@ -368,10 +370,18 @@ export class BusinessDetailsComponent implements OnInit {
     if(items.length==3){
       this.addMoreFlag=false;
       this.disableButton=true;
-    }else{
+    }else if(items.length==2){
+      if(this.count>1){
+        this.addMoreFlag=true;
+
+      }else{
+        this.addMoreFlag=false;
+
+      }
+    }
+      else{
       this.addMoreFlag=true;
     }
-    console.log("this.addMoreFlag--",this.addMoreFlag)
   }
 
   remove(i: number) {
