@@ -249,7 +249,7 @@ this.hideVas=false;
     this.callAllDraftTransaction();
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress":sessionStorage.getItem('custUserEmailId')
     }
 
     this.getCount.getTotalCount(data).subscribe(

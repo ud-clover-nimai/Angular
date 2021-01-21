@@ -103,7 +103,7 @@ export class ActiveTransactionComponent implements OnInit {
       else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
         this.disablesubsi=false
         this.disableUserCode=true
-      }
+      } 
        else{
         this.disablesubsi=false
         this.disableUserCode=false
