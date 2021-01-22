@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                            <td>Name</td>
-                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType"></td>
+                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"></td>
                         </tr>
                         <tr>
                            <td>Country</td>
@@ -74,7 +74,7 @@
                         </tr>
                         <tr>
                            <td>Name </td>
-                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName" [disabled]="beneficiaryType"></td>
+                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName" [disabled]="beneficiaryType && appBenBAC"></td>
                         </tr>
                         <tr>
                            <td>Country</td>

@@ -58,6 +58,7 @@ export class BankerComponent implements OnInit {
   currentDateTime: string;
   checkValidity: boolean=true;
   disableRadiobtn: boolean=false;
+  appBenBAC: boolean=true;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -257,6 +258,10 @@ export class BankerComponent implements OnInit {
           this.appliCountry=this.data.applicantCountry;
           data.beneCountry=data.beneCountry.toUpperCase();
 
+        }else if(this.data.userType==""){
+          this.beneficiaryType = true;
+          this.applicantType=true;
+          this.appBenBAC=false;
         }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';

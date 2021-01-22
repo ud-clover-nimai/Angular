@@ -193,7 +193,7 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
     this.specificDetail = detail;
-   
+   console.log(this.specificDetail)
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');
       $('#menu-barnew li:first').addClass('active');

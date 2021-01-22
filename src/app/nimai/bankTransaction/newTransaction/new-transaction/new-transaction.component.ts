@@ -150,18 +150,34 @@ export class NewTransactionComponent implements OnInit {
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
      if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+       if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: 'Transaction Not Allowed !',
-                        message: 'You had reached maximum LC Count ! Please Renew Your Subscription Plan',
-                        parent: this.subURL+"/"+this.parentURL + '/subscription',
-                        redirectedFrom: "New-Transaction"
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
-                      .then(success => console.log('navigation success?', success))
-                      .catch(console.error);
-                  
+          state: {
+            title: 'Transaction Not Allowed !',
+            message: 'You had reached maximum LC Count ! Please Renew Your Subscription Plan',
+            parent: this.subURL+"/"+this.parentURL + '/subscription',
+            redirectedFrom: "New-Transaction"
+          }
+        };
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
+  
+       }else{
+        const navigationExtras: NavigationExtras = {
+          state: {
+            title: 'Transaction Not Allowed !',
+            message: 'You had reached maximum LC credits! Please ask your parent user to renew the subscription plan',
+            parent: this.subURL+"/"+this.parentURL + '/dashboard-details',
+            redirectedFrom: "New-Transaction"
+          }
+        };
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
+  
+       }
+          
        }
       },
       error => { }

@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   hideSubAccount: boolean=false;
   accountType: string;
   public hideVas: boolean=true;
+  emailid: string="";
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
@@ -151,10 +152,14 @@ export class DashboardComponent implements OnInit {
     this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
   if(this.accountType == 'SUBSIDIARY'){
-    console.log('ghkjh')
     this.hideSubAccount=true;
     this.hideCreditTransaction=true;
-this.hideVas=false;
+    this.hideVas=false;
+  }else if(this.accountType == 'Passcode'){
+    this.hideSubAccount=true;
+    this.hideCreditTransaction=true;
+    this.hideVas=false;
+    this.hideManageUser=true;
   }
   }
   callAllDraftTransaction() {
@@ -247,9 +252,15 @@ this.hideVas=false;
   }
   getNimaiCount() {
     this.callAllDraftTransaction();
+    console.log(sessionStorage.getItem('branchUserEmailId'))
+    if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined){
+      this.emailid=""
+    }else{
+      this.emailid=sessionStorage.getItem('branchUserEmailId')
+    }
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress":sessionStorage.getItem('custUserEmailId')
+      "emailAddress":this.emailid
     }
 
     this.getCount.getTotalCount(data).subscribe(
