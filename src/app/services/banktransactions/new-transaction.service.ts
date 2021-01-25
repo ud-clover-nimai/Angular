@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TransactionBean } from 'src/app/beans/TransactionBean';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class NewTransactionService {
 
 
   constructor(public httpClient: HttpClient) { }
-
+  creditCount = new Subject<any>();
   public getAllNewTransaction(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllTxnByUserIdAndStatus`,data, { headers: { 'content-types': 'application/json' } });
   }

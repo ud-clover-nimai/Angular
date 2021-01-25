@@ -53,6 +53,7 @@ export class ActiveTransactionComponent implements OnInit {
   disableUserCode: boolean=false;
   accountType: string;
   selectedUCode: string="";
+  usersid: string;
 
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public loginService: LoginService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
@@ -67,7 +68,7 @@ export class ActiveTransactionComponent implements OnInit {
   }
 
   public getAllnewTransactions(userid) {
-   
+
     this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
   
@@ -80,11 +81,17 @@ export class ActiveTransactionComponent implements OnInit {
     if(this.selectedUCode){
       emailId=this.selectedUCode;
     }
+    this.accountType=sessionStorage.getItem('accountType')
+    if(this.accountType=='Passcode'){
+   this.usersid=""
+    }else{
+      this.usersid=userid
+    }
 
   const data ={
     "branchUserEmail": emailId,
     "transactionStatus": "Active",
-    "userId": userid
+    "userId": this.usersid
   }
 
     this.nts.getTxnForCustomerByUserIdAndStatus(data).subscribe(

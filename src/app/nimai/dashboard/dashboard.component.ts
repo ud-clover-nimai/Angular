@@ -8,6 +8,7 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { LoginService } from 'src/app/services/login/login.service';
 // import { filter } from 'rxjs/operators';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
+import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
   isQuote = false;
   loading = false;
   userType: any;
-  creditCount: number;
+  creditCount: any;
   userStat: any;
   creditenable: string;
   enableuserStat: boolean=false;
@@ -49,7 +50,8 @@ export class DashboardComponent implements OnInit {
   accountType: string;
   public hideVas: boolean=true;
   emailid: string="";
-  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
+  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
+     public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
     this.getPersonalDetails(userId);
@@ -92,7 +94,9 @@ export class DashboardComponent implements OnInit {
 
     }
 
-
+    this.nts.creditCount.subscribe(ccredit=>{
+      this.creditCount=ccredit;
+          });
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -267,7 +271,7 @@ export class DashboardComponent implements OnInit {
       response => {        
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
-        sessionStorage.setItem("creditCount", this.nimaiCount.creditCount);
+        sessionStorage.setItem("creditCount", this.creditCount);
         sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
         sessionStorage.setItem("paymentTransId", this.nimaiCount.paymentTransId);
         sessionStorage.setItem("subscriptionid", this.nimaiCount.subscriptionid);
