@@ -234,4 +234,6 @@ select.currency {
       }
       ::ng-deep .bankfields .dropdown-list .item2{
         max-height: 161px !important;
+        top: 67px;
+
   }

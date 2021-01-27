@@ -9,6 +9,7 @@ import { Component, OnInit,ElementRef} from '@angular/core';
 import { onlinePaymentDltString } from 'src/app/beans/payment';
 import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
 import {CookieService } from 'ngx-cookie-service';
+import { ValidateRegex } from 'src/app/beans/Validations';
 
 @Component({
   selector: 'app-subscription',
@@ -178,6 +179,7 @@ isRenewPlan=false;
      }); 
    }
   public choosePlan(plan: Subscription,flag:string) {
+   
     this.choosedPlan = plan;
     this.choosedPlan.flag=flag;
     sessionStorage.setItem('flag',flag);
@@ -624,6 +626,8 @@ isRenewPlan=false;
        "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
       // "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
       // "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
+        //  "redirectURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
+        //  "cancelURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
 
        
 
@@ -661,6 +665,21 @@ mapForm.submit();
  
       
   }
+  
+  validateRegexFields(event, type){
+    var key = event.keyCode;
+   
+      if(type=="name_validation"){
+        this.couponError=false
+        if (!((key >= 65 && key <= 90) ||(key < 33 || key > 47) ||(key < 48 || key > 57) || (key < 58 || key > 64) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/ || key==32/* space key*/)) {
 
+          event.preventDefault();
+      }
+      // else if (key==8){
+      //   this.couponSuccess=false;
+      // } 
+    }
+   
+  }
 }
 

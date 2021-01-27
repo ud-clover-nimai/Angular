@@ -8,6 +8,7 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { LoginService } from 'src/app/services/login/login.service';
 // import { filter } from 'rxjs/operators';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
+import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
   isQuote = false;
   loading = false;
   userType: any;
-  creditCount: number;
+  creditCount: any;
   userStat: any;
   creditenable: string;
   enableuserStat: boolean=false;
@@ -48,7 +49,9 @@ export class DashboardComponent implements OnInit {
   hideSubAccount: boolean=false;
   accountType: string;
   public hideVas: boolean=true;
-  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService, public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
+  emailid: string="";
+  constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
+     public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
   this.getNimaiCount();
     this.getPersonalDetails(userId);
@@ -91,7 +94,9 @@ export class DashboardComponent implements OnInit {
 
     }
 
-
+    this.nts.creditCount.subscribe(ccredit=>{
+      this.creditCount=ccredit;
+          });
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -151,10 +156,14 @@ export class DashboardComponent implements OnInit {
     this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
   if(this.accountType == 'SUBSIDIARY'){
-    console.log('ghkjh')
     this.hideSubAccount=true;
     this.hideCreditTransaction=true;
-this.hideVas=false;
+    this.hideVas=false;
+  }else if(this.accountType == 'Passcode'){
+    this.hideSubAccount=true;
+    this.hideCreditTransaction=true;
+    this.hideVas=false;
+    this.hideManageUser=true;
   }
   }
   callAllDraftTransaction() {
@@ -247,16 +256,22 @@ this.hideVas=false;
   }
   getNimaiCount() {
     this.callAllDraftTransaction();
+    console.log(sessionStorage.getItem('branchUserEmailId'))
+    if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined){
+      this.emailid=""
+    }else{
+      this.emailid=sessionStorage.getItem('branchUserEmailId')
+    }
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress":this.emailid
     }
 
     this.getCount.getTotalCount(data).subscribe(
       response => {        
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
-        sessionStorage.setItem("creditCount", this.nimaiCount.creditCount);
+        sessionStorage.setItem("creditCount", this.creditCount);
         sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
         sessionStorage.setItem("paymentTransId", this.nimaiCount.paymentTransId);
         sessionStorage.setItem("subscriptionid", this.nimaiCount.subscriptionid);

@@ -170,7 +170,8 @@
                                                 <label class="customlabel">Coupon Code</label>
                                             </td>
                                             <td style="display: flex;">
-                                                <input type="text" name=""  class="coupantext" maxlength="15" #coupon />
+                                                <input type="text" name=""  class="coupantext" maxlength="15" #coupon
+                                                  (keyup)="validateRegexFields($event, 'name_validation')" (keydown)="validateRegexFields($event, 'name_validation')"/>
                                                 <div class="inputDiv">
                                                     <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
                                                     <span *ngIf="couponSuccess" class="valid-feedback">{{couponSuccess}}</span>
@@ -189,7 +190,7 @@
                                             <td>
                                                 <label class="customlabel">Discount</label>
                                             </td>
-                                            <td>US $ {{discount}}</td>
+                                            <td> $ {{discount}}</td>
                                         </tr>
                                         <tr>
                                             <th>
@@ -266,12 +267,12 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="green box paymentpage col-md-12 form-group">
-                                        <span><a href="#"  data-toggle="modal" data-target="#myModal4">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@tradeenabler.com</b>
+                                        <span><a href="#"  data-toggle="modal" data-target="#myModal4">Click here</a> to receive bank details to initiate wire transfer payment. We will send you an email on your registered email address. Once you successfully transfer the payment, please share your transaction ID/transaction details on <b>support@nimaitrade.com</b>
                                         </span>
                                         <a (click)="sendRequest()" class="btn btn-info pull-right">Send Request</a>
                                     </div>
                                     <div class="box paymentpage col-md-12 form-group" *ngIf="afterSendRequest">
-                                        <span>The request has been sent to <b>support@tradeenabler.com</b>
+                                        <span>The request has been sent to <b>support@nimaitrade.com</b>
                                         </span>
                                         <a (click)="gotokyc()" class="btn btn-info pull-right">Next</a>
                                     </div>

@@ -114,11 +114,11 @@
                                             <td>Country</td>
                                             <td>{{detailInfo.applicantCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.userType == 'Beneficiary'">
+                                        <tr *ngIf="detailInfo.userType == 'Beneficiary' || detailInfo.userType == ''">
                                             <td>Contact Person</td>
                                             <td>{{detailInfo.applicantContactPerson}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.userType == 'Beneficiary'">
+                                        <tr *ngIf="detailInfo.userType == 'Beneficiary' || detailInfo.userType == ''">
                                             <td>Email Id</td>
                                             <td>{{detailInfo.applicantContactPersonEmail}}</td>
                                         </tr>
@@ -138,11 +138,11 @@
                                             <td>Country</td>
                                             <td>{{detailInfo.beneCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.userType == 'Applicant'">
+                                        <tr *ngIf="detailInfo.userType == 'Applicant' || detailInfo.userType == ''">
                                             <td>Contact Person</td>
                                             <td>{{detailInfo.beneContactPerson}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.userType == 'Applicant'">
+                                        <tr *ngIf="detailInfo.userType == 'Applicant' || detailInfo.userType == ''">
                                             <td>Email Id</td>
                                             <td>{{detailInfo.beneContactPersonEmail}}</td>
                                         </tr>

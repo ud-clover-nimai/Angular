@@ -59,6 +59,7 @@ export class RefinancingComponent implements OnInit {
   checkValidity: boolean=true;
   dateString: string;
   disableRadiobtn: boolean=false;
+  appBenBAC: boolean=true;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -263,6 +264,10 @@ deleteFileContentForma(){
           this.appliName=this.data.applicantName;
           this.appliCountry=this.data.applicantCountry;
           data.beneCountry=data.beneCountry.toUpperCase();
+        }else if(this.data.userType==""){
+          this.beneficiaryType = true;
+          this.applicantType=true;
+          this.appBenBAC=false;
         }
       } else if (type === Tflag.EDIT) {
         this.title = 'Edit';

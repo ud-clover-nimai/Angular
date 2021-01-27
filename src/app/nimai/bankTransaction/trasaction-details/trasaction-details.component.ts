@@ -52,6 +52,8 @@ export class TrasactionDetailsComponent {
   disablesubsi: boolean;
   nimaiCount: any;
   getcountUser: any;
+  creditCounts: number;
+  creditCount: any;
 
   constructor(public titleService: TitleService, public getCount: SubscriptionDetailsService,public nts: NewTransactionService,public psd: PersonalDetailsService,
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -62,6 +64,9 @@ export class TrasactionDetailsComponent {
         this.subURL = urlPath[urlPath.length - 1].path;
       });
     this.titleService.quote.next(false);
+    this.nts.creditCount.subscribe(ccredit=>{
+      this.creditCount=ccredit;
+          });
   }
 
   ngOnInit() {
@@ -78,6 +83,9 @@ export class TrasactionDetailsComponent {
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
     this.getcountUser=this.nimaiCount.accounttype;
+    this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+    this.nts.creditCount.next(this.creditCounts)
+  
       }
     )
   }

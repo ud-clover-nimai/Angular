@@ -26,15 +26,17 @@
             top: 9px;
       z-index: 1;
       margin-right: -117px;
+      margin-top: 13px;
     }
     .addOptionsuser{
       padding: 0;
       width: 179px;
       position: absolute;
-      right: 27%;
+      right: 29%;
             top: 9px;
       z-index: 1;
       margin-right: -117px;
+      margin-top: 13px;
     }
     .popupcontent{
       height: 100%;

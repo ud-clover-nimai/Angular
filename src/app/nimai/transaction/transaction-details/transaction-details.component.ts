@@ -9,6 +9,7 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import * as FileSaver from 'file-saver';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
+import { DashboardComponent } from '../../dashboard/dashboard.component';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent {
-  
+    @ViewChild(DashboardComponent, { static: false }) dashboard: DashboardComponent;
+
   public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
@@ -56,6 +58,10 @@ export class TransactionDetailsComponent {
   disableUserCode: boolean;
   accountType: string;
   selectedUCode: string="";
+  usersid: string;
+  creditCount: any;
+  emailid: string;
+  creditCounts: any="";
 
   constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -66,13 +72,18 @@ export class TransactionDetailsComponent {
       this.subURL = urlPath[urlPath.length - 1].path;
     });
     this.titleService.quote.next(false);
-  }
+
+    this.nts.creditCount.subscribe(ccredit=>{
+      this.creditCount=ccredit;
+          });
+          }
 
   ngOnInit() {
     this.accountType=sessionStorage.getItem('accountType')
 
     this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
     this.getSubsidiaryData();
+    
     }
 
     getSubsidiaryData(){
@@ -103,8 +114,27 @@ export class TransactionDetailsComponent {
            (error) => {}
          )
      }
+     getNimaiCount(){
+      if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined){
+        this.emailid=""
+      }else{
+        this.emailid=sessionStorage.getItem('branchUserEmailId')
+      }
+     let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress":this.emailid
+    }
 
+    this.getCount.getTotalCount(data).subscribe(
+      response => {        
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+        this.nts.creditCount.next(this.creditCounts)
+      
+      })
+    }
   public getAllnewTransactions(status,userid) {
+  
     if (status == "Rejected") {
       this.onReject = true;
       this.NotAllowed = true;
@@ -147,8 +177,14 @@ export class TransactionDetailsComponent {
     if(this.selectedUCode){
    emailId=this.selectedUCode
     }
+    this.accountType=sessionStorage.getItem('accountType')
+    if(this.accountType=='Passcode'){
+   this.usersid=""
+    }else{
+      this.usersid=userid
+    }
     const data = {
-      "userId": userid,
+      "userId": this.usersid,
       "transactionStatus": this.currentStatus,
       "branchUserEmail": emailId
     }
@@ -193,7 +229,7 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
   getDetail(detail,status,transactionId) {
     this.displayDetails(transactionId);
     this.specificDetail = detail;
-   
+   console.log(this.specificDetail)
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');
       $('#menu-barnew li:first').addClass('active');
@@ -433,14 +469,15 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
       "userId": sessionStorage.getItem('userID'),
       "event": "LC_REJECT"
     }
-
     this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
-        // this.upls.confirmLcMailSent(emailBody).subscribe((resp) => { console.log("mail sent successfully"); }, (err) => { },);
+              this.getNimaiCount();
 
         this.getAllnewTransactions('Rejected',sessionStorage.getItem('userID'));
+        custTrnsactionDetail();
         this.closeOffcanvas();
         $('#addOptions select').val('Rejected').change();
+         
       },
       (err) => { }
     )
