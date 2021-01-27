@@ -256,8 +256,9 @@ export class DashboardComponent implements OnInit {
   }
   getNimaiCount() {
     this.callAllDraftTransaction();
-    console.log(sessionStorage.getItem('branchUserEmailId'))
-    if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined){
+    //console.log("Email id --",sessionStorage.getItem('branchUserEmailId'))
+    if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined || sessionStorage.getItem('branchUserEmailId')=="undefined"){
+    //  console.log("if")
       this.emailid=""
     }else{
       this.emailid=sessionStorage.getItem('branchUserEmailId')

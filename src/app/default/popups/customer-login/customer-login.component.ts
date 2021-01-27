@@ -93,7 +93,7 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
-              //console.log(JSON.parse(JSON.stringify(response)))
+              console.log("Response---",JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },
@@ -182,7 +182,6 @@ export class CustomerLoginComponent implements OnInit {
         if(response.flag == 1){
           this.titleService.loading.next(false);
           let kycStatus=sessionStorage.getItem("kStatus")
-
           if(response.data.userId.startsWith('BC')){
             if(kycStatus=="KycStauts:Approved"){
               this.router.navigate(['/cst/dsb/dashboard-details']);   

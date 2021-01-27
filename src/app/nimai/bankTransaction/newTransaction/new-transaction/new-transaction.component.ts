@@ -153,8 +153,8 @@ export class NewTransactionComponent implements OnInit {
        if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Transaction Not Allowed !',
-            message: 'You had reached maximum LC Count ! Please Renew Your Subscription Plan',
+            title: 'Transaction Not Allowed!',
+            message: 'You had reached maximum LC Count! Please Renew Your Subscription Plan',
             parent: this.subURL+"/"+this.parentURL + '/subscription',
             redirectedFrom: "New-Transaction"
           }
@@ -166,7 +166,7 @@ export class NewTransactionComponent implements OnInit {
        }else{
         const navigationExtras: NavigationExtras = {
           state: {
-            title: 'Transaction Not Allowed !',
+            title: 'Transaction Not Allowed!',
             message: 'You had reached maximum LC credits! Please ask your parent user to renew the subscription plan',
             parent: this.subURL+"/"+this.parentURL + '/dashboard-details',
             redirectedFrom: "New-Transaction"

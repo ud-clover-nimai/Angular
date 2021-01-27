@@ -1023,8 +1023,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           if(resp == "Failure"){
             const navigationExtras: NavigationExtras = {
               state: {
-                title: 'Transaction Not Allowed !',
-                message: 'You had reached maximum LC Count ! Please Renew Your Subscribe Plan',
+                title: 'Transaction Not Allowed!',
+                message: 'You had reached maximum LC Count! Please Renew Your Subscribe Plan',
                 parent: this.subURL+"/"+this.parentURL + '/subscription',
                 redirectedFrom: "New-Transaction"
               }
