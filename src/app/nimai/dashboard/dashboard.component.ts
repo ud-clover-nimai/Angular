@@ -33,6 +33,8 @@ export class DashboardComponent implements OnInit {
   public hidePlanFromProfile:boolean=false;
   public hidePlanFromMenu:boolean=false;
   public hideManageUser:boolean=false;
+  public hideMyProfile:boolean=true;
+  
   public hideCreditTransaction:boolean=false;
   draftData: any;
   draftcount: any;
@@ -50,6 +52,7 @@ export class DashboardComponent implements OnInit {
   accountType: string;
   public hideVas: boolean=true;
   emailid: string="";
+  hideRefer: boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
@@ -80,6 +83,7 @@ export class DashboardComponent implements OnInit {
     } else if (userId.startsWith('BC')) {
       this.userType = "Bank as a Customer";
       this.hideManageUser=true;
+      this.hideRefer=false;
       this.hideCreditTransaction=true;
       this.usersStat('BC');
     } else if (userId.startsWith('CU')) {
@@ -155,15 +159,22 @@ export class DashboardComponent implements OnInit {
    // this.callAllDraftTransaction();
     this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
+    console.log(this.accountType)
   if(this.accountType == 'SUBSIDIARY'){
     this.hideSubAccount=true;
     this.hideCreditTransaction=true;
     this.hideVas=false;
+    this.hideMyProfile=true;
   }else if(this.accountType == 'Passcode'){
     this.hideSubAccount=true;
     this.hideCreditTransaction=true;
     this.hideVas=false;
     this.hideManageUser=true;
+    this.hideRefer=true;
+    this.hideMyProfile=false;
+
+  }else if(this.accountType == 'MASTER'){
+    this.hideMyProfile=true;
   }
   }
   callAllDraftTransaction() {
@@ -302,6 +313,7 @@ export class DashboardComponent implements OnInit {
         if(this.nimaiCount.kycstatus!=='Approved'){
           this.hideManageUser=true;
           this.hideCreditTransaction=true;
+          this.hideRefer=true;
         }
         console.log("this.hidePlanFromProfile--",this.hidePlanFromProfile)
         if(this.nimaiCount.subscribertype == 'REFERRER')

@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 1,
       allowSearchFilter: true
     }
     this.dropdownSettingGoods = {
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
       textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 1,
       allowSearchFilter: true
     }
     

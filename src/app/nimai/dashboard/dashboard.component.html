@@ -410,7 +410,7 @@
                     <p class="hidden-lg hidden-md">Profile</p>
                   </a>
                   <ul class="dropdown-menu">
-                    <li *ngIf="!hideManageUser"><a [routerLink]="['my-profile']">My Profile</a></li>
+                    <li *ngIf="hideMyProfile"><a [routerLink]="['my-profile']">My Profile</a></li>
                     <li *ngIf="!hideCreditTransaction">
                       <a
                         *ngIf="isCustomer || isBank"
@@ -427,7 +427,7 @@
                         >Manage User</a>
                     </li>
                     <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved' && (nimaiCount.subscribertype | lowercase) != 'referrer' ">
-                      <a *ngIf="!hideManageUser" [routerLink]="['refer']">Refer</a>
+                      <a *ngIf="!hideRefer" [routerLink]="['refer']">Refer</a>
                     </li>
                     <li *ngIf="!hideSubAccount">
                       <a [routerLink]="['change-password']">Change Password</a>

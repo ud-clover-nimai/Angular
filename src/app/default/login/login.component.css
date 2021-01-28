@@ -233,7 +233,7 @@ select.currency {
         display: none!important;
       }
       ::ng-deep .bankfields .dropdown-list .item2{
-        max-height: 161px !important;
+        max-height: 130px !important;
         top: 67px;
 
   }
