@@ -101,12 +101,12 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="emailId" oninput="this.value = this.value.toLowerCase()">
+                                            <input type="text" formControlName="emailId" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault();">
                                             <label>Your Email ID</label>
                                             <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
                                                 Email is required
                                             </div>
-                                            <div *ngIf="manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern" class="invalid-feedback">
+                                            <div *ngIf="(manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern || !isValidEmail)" class="invalid-feedback">
                                                 Invalid Email id
                                             </div>
                                         </div>

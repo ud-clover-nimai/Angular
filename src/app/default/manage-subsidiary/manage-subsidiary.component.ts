@@ -17,6 +17,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 })
 export class ManageSubsidiaryComponent implements OnInit {
   public parent: string;
+  public isValidEmail=true;
   submitted: boolean = false;
   public parentURL: string = "";
   public subURL: string = "";
@@ -167,16 +168,19 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
     )
    }else{
-     console.log("res--",res)
     this.resetPopup();
     this.respMessage = res.errMessage;
    }
 
    },
    (error) => {
-    console.log("error--",error)
     let err= JSON.parse(JSON.stringify(error.error))
-     this.resetPopup();
+   //  this.resetPopup();
+     console.log("error--",err)
+     console.log("error--",err.errMessage)
+     if(err.errMessage==="Email Id already exists. Please try another email Address."){
+      this.isValidEmail=false;
+     }
      this.respMessage = err.errMessage
    }
   )

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   countryName: any;
   isBankOther: boolean=false;
   currencies: unknown[];
-  
+  //captchaToken:any;
   constructor(public fb: FormBuilder, public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
    $(document).on('focus', '.select2', function() { $(this).parent().find('.dropdown-toggle').trigger('click'); });
@@ -84,7 +84,8 @@ export class LoginComponent implements OnInit {
       termsAndcondition:  [false, Validators.requiredTrue],
       regCurrency:[''],
       otherType:[''],
-      otherTypeBank:['']
+      otherTypeBank:[''],
+     // recaptchaReactive:['']
     });
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]]
@@ -452,6 +453,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
   validateBankAsCustomer(){
     // $('#checkboxError').show();
+    //this.signupForm.get('recaptchaReactive').setValidators(Validators.required);
     this.signupForm.get('firstName').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
@@ -464,6 +466,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
   validateCommons() {
     this.signupForm.get('firstName').setValidators(Validators.required);
+    //this.signupForm.get('recaptchaReactive').setValidators(Validators.required);
     this.signupForm.get('lastName').setValidators(Validators.required);
     this.signupForm.get('officialMailId').setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]);
     this.signupForm.get('mobileNo').setValidators([Validators.required,Validators.minLength(7)]);
@@ -542,6 +545,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('countriesInt').clearValidators();
     this.signupForm.get('otherTypeBank').clearValidators();
     this.signupForm.get('firstName').clearValidators();
+    //this.signupForm.get('recaptchaReactive').clearValidators();
     this.signupForm.get('lastName').clearValidators();
     this.signupForm.get('officialMailId').clearValidators();
     this.signupForm.get('mobileNo').clearValidators();
@@ -561,6 +565,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     this.signupForm.get('countriesInt').updateValueAndValidity();
     this.signupForm.get('otherTypeBank').updateValueAndValidity();
     this.signupForm.get('firstName').updateValueAndValidity();
+    //this.signupForm.get('recaptchaReactive').updateValueAndValidity();
     this.signupForm.get('lastName').updateValueAndValidity();
     this.signupForm.get('officialMailId').updateValueAndValidity();
     this.signupForm.get('mobileNo').updateValueAndValidity();
@@ -618,6 +623,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     let data = {
 
       firstName: this.signupForm.get('firstName').value,
+      //captchaToken:this.signupForm.get('recaptchaReactive').value,
       lastName: this.signupForm.get('lastName').value,
       emailAddress: this.signupForm.get('officialMailId').value,
       mobileNum: this.countryCode+this.signupForm.get('mobileNo').value,
@@ -670,6 +676,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   resetSignUpForm() {
     this.signupForm.patchValue({
       firstName: '',
+      //recaptchaReactive:'',
       lastName: '',
       officialMailId: '',
       mobileNo: '',
@@ -788,7 +795,10 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       this.hasCountrycode=true;
     }
   }
-
+  // resolved(event){    
+  //   this.captchaToken=event;
+  //   console.log("this.captchaToken---->",this.captchaToken)
+  // }
 }
 
 

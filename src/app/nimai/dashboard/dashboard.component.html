@@ -424,13 +424,11 @@
                     </li>
                     <li *ngIf="!hideManageUser">
                       <a *ngIf="isBank" [routerLink]="['manage-user']"
-                        >Manage User</a
-                      >
+                        >Manage User</a>
                     </li>
                     <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved' && (nimaiCount.subscribertype | lowercase) != 'referrer' ">
-                      <a *ngIf="!hideManageUser" [routerLink]="['refer']">Refer</a></li>
-                      
-                     
+                      <a *ngIf="!hideManageUser" [routerLink]="['refer']">Refer</a>
+                    </li>
                     <li *ngIf="!hideSubAccount">
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
