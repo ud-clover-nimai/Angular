@@ -55,6 +55,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     this.titleService.quote.next(false);
+    this.getSubsidiaryData();
 
   }
   openDocument(file){
@@ -104,8 +105,8 @@ export class ActiveTransactionComponent implements OnInit {
 
   
   ngOnInit() {
+
    $('.slide-reveal-overlay').hide();
-    this.getSubsidiaryData();
     
   }
   

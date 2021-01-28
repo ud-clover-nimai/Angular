@@ -96,7 +96,7 @@ isRenewPlan=false;
 
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
-    
+   
     loads();
     this.titleService.changeTitle(this.title);
     this.getStatus(); 
@@ -446,8 +446,8 @@ isRenewPlan=false;
           if(reData.isVasApplied=="1")
             this.viewVASPlans()
           if(reData.grandAmount)
-            this.choosedPlan.subscriptionAmount=reData.grandAmount  
-         
+            this.choosedPlan.subscriptionAmount=Number(sessionStorage.getItem("subscriptionamount"));
+            console.log(this.choosedPlan.subscriptionAmount)
          this.isNew = false
           this.isOrder = false;
           this.isPayment = false;
@@ -620,10 +620,10 @@ isRenewPlan=false;
       "orderId":orderid,
       "amount":this.addedAmount,
       "currency":this.paymentForm.get('currency').value,
-      //   "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      //  "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-       "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
+        "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+       "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
+      // "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
+      //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
       // "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
       // "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
         //  "redirectURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
