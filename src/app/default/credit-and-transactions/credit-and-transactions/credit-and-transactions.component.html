@@ -46,17 +46,23 @@
                                 </li>
                             </ul>
                         </h4>
+                           
                         <!-- <form> -->
-                            <div class="row">
-                                <div class="col-md-12" *ngIf="noData">
+                            <div class="row" *ngIf="noData">
+                                <div class="col-md-12" >
                                     No Data is available
                                 </div>
-                                <div class="col-md-12" *ngIf="!noData">
-                                    <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%">
+                                </div>
+
+                                <div class="row" *ngIf="!noData">
+
+                                <div class="col-md-12" >
+                                    <!-- <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%"> -->
                                         <ul class="pull-right list-unstyled list-inline statusbar">
                                             <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                                            <select (change)="selectCompany($event.target.value)" class="has-value"> 
-                                                <option value='none'>Select Subsidiary</option>
+                                                <label style="top: 0px;font-size: 12px;padding-left: 7px;">Select Subsidiary</label>
+                                                <select (change)="selectCompany($event.target.value)" class="has-value"> 
+                                                <option value=''>All</option>
                                                 <option *ngFor="let data of subsidiary"  [ngValue]='data'>{{data}}</option>
                                             </select>
                                             </div>
@@ -89,20 +95,10 @@
                                                     <td nowrap >{{list.savings}}</td>
                                                     <td nowrap >{{list.ccy}}</td>
                                                 </tr>
-                                               
-                                                <!-- <tr>
-                                                        <td>1</td>
-                                                        <td nowrap>12-06-2019<br> 17:25:30 GMT</td>
-                                                        <td>Jumbo Foam Mattresses</td>
-                                                        <td>Jayesh</td>
-                                                        <td>Patel</td>
-                                                        <td>Confirmation</td>
-                                                        <td>Active</td>
-                                                        <td nowrap>1</td>   
-                                                    </tr> -->
+                                                                                        
                                             </tbody>
                                         </table>
-                                    </div>
+                                    <!-- </div> -->
                                     <div class="text-right downloaddiv">
                                         <ul class="list-unstyled list-inline">
                                             <li>Download</li>

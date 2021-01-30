@@ -161,6 +161,7 @@ this.selectedUCode="";
       )
   }
   getUsercodeData(userid){
+
     const data={
       "userId": userid,
       "branchUserEmail":this.selectedUCode
@@ -287,7 +288,11 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       }
     )
   }
-
+  closed_QA(){
+     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+  });
+  }
   openOffcanvas(act) {
     if(act=='quote'){
       document.getElementById("menu-barnew").style.width = "500px";
@@ -385,9 +390,15 @@ selectSubsidiaries(val: any) {
       this.getAllnewTransactions(this.selectedSub)
   }
   selectUsercode(val: any) {
-    console.log(val)
-    this.selectedUCode=val;
-    this.selectedSub=""
-    this.getAllnewTransactions(this.selectedSub)
+    if(val=='All'){
+      this.selectedUCode=val;
+      this.selectedSub=sessionStorage.getItem('userID')
+      this.getAllnewTransactions(this.selectedSub)
+    }else{
+      this.selectedUCode=val;
+      this.selectedSub=""
+      this.getAllnewTransactions(this.selectedSub)
+    }
+   
 }
 }

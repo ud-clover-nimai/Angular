@@ -58,7 +58,7 @@
                            </th>
                         </tr>
                      </table>
-                     <button type="button" (click)="addVasPlan(advDetails)" style="margin-top:10px;" class="btn btn-info pull-right">
+                     <button *ngIf="hideAddBtn" type="button" (click)="addVasPlan(advDetails)" style="margin-top:10px;" class="btn btn-info pull-right">
                         Add Vas
                         <div class="ripple-container"></div>
                      </button>

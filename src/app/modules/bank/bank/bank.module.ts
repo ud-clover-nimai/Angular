@@ -61,6 +61,13 @@ const routes: Routes = [
         ]
       },
       {
+        path: "change-password", component: ChangePasswordComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
         path: "online-payment", component: OnlinePaymentComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },

@@ -19,6 +19,7 @@ export class VasPlanComponent implements OnInit {
   showSuccess=false;
   isvasapplied:any;
   subscriptionId:any;
+  hideAddBtn: boolean=false;
   constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) { }
   ngOnInit() {
     this.addedAmount = sessionStorage.getItem('subscriptionamount');
@@ -29,10 +30,13 @@ export class VasPlanComponent implements OnInit {
       this.getVASByUserId();   
       this.showSuccess=true;
       this.showVasPlan =false;
+      this.hideAddBtn=false;
     }else{
       this.viewVASPlans();   
       this.showSuccess=false;
       this.showVasPlan =true;
+      this.hideAddBtn=true;
+
     }
   }
   getVASByUserId(){

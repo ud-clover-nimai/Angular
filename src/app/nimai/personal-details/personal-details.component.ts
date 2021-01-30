@@ -95,7 +95,7 @@ export class PersonalDetailsComponent implements OnInit {
       textField: 'country',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 4,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
     }
     this.dropdownSettingGoods = {
@@ -104,7 +104,7 @@ export class PersonalDetailsComponent implements OnInit {
       textField: 'productCategory',
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
-      itemsShowLimit: 2,
+      itemsShowLimit: 1,
       allowSearchFilter: true
     }
     this.activatedRoute.parent.url.subscribe((urlPath) => {

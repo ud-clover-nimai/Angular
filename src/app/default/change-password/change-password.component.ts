@@ -82,7 +82,7 @@ export class ChangePasswordComponent implements OnInit {
             state: {
               title: 'Old Password is incorrect!',
               message: 'Kindly check the password and try again!',
-              parent: this.subURL + '/' + this.parentURL + '/business-details'
+              parent: this.subURL + '/' + this.parentURL + '/change-password'
             }
           };
         this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details/error`], navigationExtras)

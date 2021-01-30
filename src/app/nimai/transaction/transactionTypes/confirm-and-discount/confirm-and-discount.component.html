@@ -7,7 +7,7 @@
             <h4>{{title}} Transaction  <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
               
-               <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+               <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
                   <form name="form"
                   (ngSubmit)="f.form.valid && transaction('preview')"
                   #f="ngForm" novalidate>
@@ -374,7 +374,7 @@
             </div>
 
             <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
-               <div class="tab-pane active datadiv" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+               <div class="tab-pane active datadiv" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
                   <table class="table table-bordered">
                      <tbody>
                         <tr>

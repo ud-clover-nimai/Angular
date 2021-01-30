@@ -1,28 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { creditTransaction } from  'src/assets/js/commons';
+import { creditTransaction,        custTrnsactionDetail} from  'src/assets/js/commons';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
+import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-credit-and-transactions',
   templateUrl: './credit-and-transactions.component.html',
   styleUrls: ['./credit-and-transactions.component.css']
 })
 export class CreditAndTransactionsComponent implements OnInit {
-  creditData:any;
-  noData:any;
+ public creditData:any;
+ public noData:boolean=false;
   public startDate:any;
   public endDate:any;
   creditUsed:any;
   totalSavings:any;
   public subsidiary:any;
   companyName="";
-  constructor(public service: DashboardDetailsService) { }
-  ngOnInit() {
+  constructor(public service: DashboardDetailsService) {
   //  creditTransaction();
+
+   }
+  ngOnInit() {
+    this.listOfCreditAndTransaction();
+
     this.startDate=""
     this.endDate=""
-    this.listOfCreditAndTransaction();
 
   }
    arrUnique(a){
@@ -41,9 +45,13 @@ export class CreditAndTransactionsComponent implements OnInit {
     }
     this.service.getCreditAndTransactionList(param).subscribe(
       (response) => {
-        creditTransaction();
-        if(JSON.parse(JSON.stringify(response)).data){
+       // creditTransaction();
+        custTrnsactionDetail();
+
+        this.creditData=[];
           this.creditData = JSON.parse(JSON.stringify(response)).data;
+        if(JSON.parse(JSON.stringify(response)).data){
+          
           let total = 0;
           let savings=0;
           this.subsidiary=[]
@@ -59,14 +67,14 @@ export class CreditAndTransactionsComponent implements OnInit {
           this.creditUsed=total;
           this.totalSavings=savings;
         }
-        else{
-          this.creditData=""
-        }  
-        if(this.creditData.length === 0){
-          this.noData = true;
-        }else{
-          this.noData=false;
-        }
+        // else{
+        //   this.creditData=""
+        // }  
+        // if(this.creditData.length === 0){
+        //   this.noData = true;
+        // }else{
+        //   this.noData=false;
+        // }
       },(error) =>{
         this.noData = true;
       }
