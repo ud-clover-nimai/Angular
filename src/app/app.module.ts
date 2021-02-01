@@ -25,7 +25,7 @@ import { CustomerLoginComponent } from './default/popups/customer-login/customer
 import { TermAndConditionsComponent } from './default/term-and-conditions/term-and-conditions.component';
 import { ActiveTransactionComponent } from './nimai/active-transaction/active-transaction.component';
 import { ResetPasswordComponent } from './default/reset-password/reset-password/reset-password.component';
-//import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
 @NgModule({
@@ -57,8 +57,8 @@ import { ResetPasswordComponent } from './default/reset-password/reset-password/
     MatInputModule,
     FormsModule,
     SharedModule,
-  //  RecaptchaModule,  //this is the recaptcha main module
-   // RecaptchaFormsModule, //this is the module for form incase form validation
+    RecaptchaModule,  //this is the recaptcha main module
+    RecaptchaFormsModule, //this is the module for form incase form validation
   ],
   providers: [MatDatepickerModule,
     LoaderServiceService,CustomerCanActiveService,BankCanActiveService,UploadLcDetailsCanDeactivate,
