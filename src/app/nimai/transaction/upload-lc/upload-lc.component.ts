@@ -66,6 +66,7 @@ export class UploadLCComponent implements OnInit {
   othersStr: any="";
   currentDateTime: string;
   submitted: boolean=false;
+  goodsList: any="";
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
@@ -1002,6 +1003,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       subscribe(
         (response) => {
           this.goodsArray = JSON.parse(JSON.stringify(response));
+          this.goodsList = this.goodsArray.filter(item => item.productCategory !== 'None');
         },
         (error) => {}
       )

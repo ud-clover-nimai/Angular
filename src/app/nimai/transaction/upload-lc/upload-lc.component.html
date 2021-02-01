@@ -202,7 +202,7 @@
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType" (change)="onItemSelect($event.target.value)">
                                                                                     <!-- <option value=''>Select</option> -->
-                                                                                    <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
+                                                                                    <option *ngFor="let data of goodsList" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
                                                                                    
                                                                                 </select>
                                                                                 <label>Types of Good</label>

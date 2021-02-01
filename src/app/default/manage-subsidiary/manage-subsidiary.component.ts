@@ -80,6 +80,10 @@ export class ManageSubsidiaryComponent implements OnInit {
 
   close() {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+    $("#dupEmailId").hide();
+  }
+
+  close_email(){
     $("#addsub").hide();
   }
   listOfSubsidiary(){  
@@ -100,7 +104,7 @@ export class ManageSubsidiaryComponent implements OnInit {
     // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
     //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     //   });
-      window.location.reload()
+     // window.location.reload()
       $("#addsub").hide();
   }
 
@@ -179,7 +183,9 @@ export class ManageSubsidiaryComponent implements OnInit {
      console.log("error--",err)
      console.log("error--",err.errMessage)
      if(err.errMessage==="Email Id already exists. Please try another email Address."){
-      this.isValidEmail=false;
+//      this.isValidEmail=false;
+this.resetPopup();
+
      }
      this.respMessage = err.errMessage
    }

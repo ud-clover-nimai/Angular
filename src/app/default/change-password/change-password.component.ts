@@ -45,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   close() {
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details`])
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
   }
 
   onSubmit() {

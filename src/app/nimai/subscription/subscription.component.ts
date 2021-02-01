@@ -10,6 +10,7 @@ import { onlinePaymentDltString } from 'src/app/beans/payment';
 import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
 import {CookieService } from 'ngx-cookie-service';
 import { ValidateRegex } from 'src/app/beans/Validations';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-subscription',
@@ -620,23 +621,17 @@ isRenewPlan=false;
       "orderId":orderid,
       "amount":this.addedAmount,
       "currency":this.paymentForm.get('currency').value,
-        "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-       "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      // "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-      //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-      // "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
-      // "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
-        //  "redirectURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
-        //  "cancelURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
-
-       
+  
+       "cancelURL":`${environment.domain}/nimaiSPlan/PGResponse`,
+       "redirectURL":`${environment.domain}/nimaiSPlan/PGResponse`,
+      
 
      "merchantParam1":sessionStorage.getItem('userID'),
      "merchantParam2":sessionStorage.getItem('subscriptionid'),
      "merchantParam3":sessionStorage.getItem('flag'),
      "merchantParam4":sessionStorage.getItem('vasId'),
     }
-
+console.log(onlinePay.redirectURL)
     this.onlinePayment.initiatePG(onlinePay).subscribe((response)=>{
       this.detail = JSON.parse(JSON.stringify(response)).data; 
 
