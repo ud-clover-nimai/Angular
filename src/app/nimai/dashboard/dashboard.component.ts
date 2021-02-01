@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
-  this.getNimaiCount();
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
       this.isReferrer = true;

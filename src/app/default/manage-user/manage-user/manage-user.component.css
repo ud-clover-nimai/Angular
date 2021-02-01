@@ -99,6 +99,7 @@
 
 ::ng-deep .dropdown-list .item2{
     max-height: 130px !important;
+    top: 67px;
 }
 ::ng-deep .dropdown-list .item1{
     max-height: 130px !important;
