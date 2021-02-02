@@ -42,7 +42,7 @@ export class ReferComponent implements OnInit {
     this.getCurrentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en'); 
 
     if(sessionStorage.getItem('userID').startsWith('BC')){
-      this.showBranchUserId = true;
+      this.showBranchUserId = false;
     }
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
 

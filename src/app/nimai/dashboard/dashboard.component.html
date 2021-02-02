@@ -429,7 +429,7 @@
                     <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved' && (nimaiCount.subscribertype | lowercase) != 'referrer' ">
                       <a *ngIf="!hideRefer" [routerLink]="['refer']">Refer</a>
                     </li>
-                    <li *ngIf="!hideSubAccount">
+                    <li *ngIf="!hideChangepass">
                       <a [routerLink]="['change-password']">Change Password</a>
                     </li>
                     <li>

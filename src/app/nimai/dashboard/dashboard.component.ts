@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
   public hideVas: boolean=true;
   emailid: string="";
   hideRefer: boolean=false;
+  hideChangepass: boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
@@ -128,6 +129,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getNimaiCount();
+
     load_dashboard();
     if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/online-payment` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
       this.accountPages = "in"
@@ -156,17 +159,18 @@ export class DashboardComponent implements OnInit {
     //this.titleService.loader.subscribe(flag => this.loading = flag);
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
    // this.callAllDraftTransaction();
-    this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
     console.log(this.accountType)
   if(this.accountType == 'SUBSIDIARY'){
     this.hideSubAccount=true;
+    this.hideChangepass=true;
     this.hideCreditTransaction=true;
     this.hideVas=false;
     this.hideMyProfile=true;
   }else if(this.accountType == 'Passcode'){
     this.hideSubAccount=true;
-    this.hideCreditTransaction=true;
+    this.hideChangepass=true;
+    this.hideCreditTransaction=false;
     this.hideVas=false;
     this.hideManageUser=true;
     this.hideRefer=true;
@@ -174,6 +178,12 @@ export class DashboardComponent implements OnInit {
 
   }else if(this.accountType == 'MASTER'){
     this.hideMyProfile=true;
+    this.hideCreditTransaction=false;
+
+  }else if(this.accountType=='BANKUSER'){
+    this.hideManageUser=true;
+    this.hideSubAccount=true;
+    this.hideChangepass=false;
   }
   }
   callAllDraftTransaction() {

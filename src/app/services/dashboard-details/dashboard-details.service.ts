@@ -11,6 +11,10 @@ export class DashboardDetailsService {
   public getCreditAndTransactionList(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getCreditTxnForCustomerByUserId`,data, { headers: { 'content-type': 'application/json' } });
   }
+  
+  public getCreditTxnForCustomerByBankUserId(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getCreditTxnForCustomerByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
+  }
   public getUserList(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getCreditTxnForCustomerByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
   }

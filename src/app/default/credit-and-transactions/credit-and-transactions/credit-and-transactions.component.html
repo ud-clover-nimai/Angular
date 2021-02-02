@@ -8,7 +8,7 @@
                     </div>
                     <div class="card-content">
                         <h4 class="card-title"> <span id="changetext"> Credits and Transactions</span>
-                            <ul class="pull-right list-unstyled list-inline statusbar">
+                            <ul class="pull-right list-unstyled list-inline statusbar" style="margin-top: -24px;margin-bottom: 23px;">
                                 <li>
                                     <label *ngIf="creditUsed>=0">Total Trxn <span class="numbdiv">{{creditUsed}}</span></label>
                                 </li>
@@ -22,7 +22,7 @@
                                     <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;font-size: 13px;">         
                                         <li>
                                             <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
-                                            <mat-form-field style="padding-right: 14px!important;">
+                                            <mat-form-field style="padding-right: 14px!important;top: 19px;">
                                                 <mat-label>Start Date</mat-label>
                                                 <input autocomplete="off" matInput  [matDatepicker]="startDate" (dateChange)="changeStartDate( $event)">
                                                 <mat-datepicker-toggle matSuffix [for]="startDate">
@@ -33,7 +33,7 @@
                                         </li>
                                         <li>
                                             <!-- <input type="text" class="datepicker" placeholder="Start Date">  -->
-                                            <mat-form-field>
+                                            <mat-form-field style="top: 19px;">
                                                 <mat-label>End Date</mat-label>
                                                 <input autocomplete="off" matInput  [matDatepicker]="endDate" (dateChange)="changeEndDate($event)">
                                                 <mat-datepicker-toggle matSuffix [for]="endDate">
@@ -46,7 +46,16 @@
                                 </li>
                             </ul>
                         </h4>
-                           
+                      
+                        <!-- <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">Select Subsidiary</label>
+                            <select (change)="selectCompany($event.target.value)" class="has-value"> 
+                            <option value=''>All</option>
+                            <option *ngFor="let data of subsidiary"  [ngValue]='data'>{{data}}</option>
+                        </select>
+                        </div> -->
+                       
+         
                         <!-- <form> -->
                             <div class="row" *ngIf="noData">
                                 <div class="col-md-12" >
@@ -57,16 +66,53 @@
                                 <div class="row" *ngIf="!noData">
 
                                 <div class="col-md-12" >
-                                    <!-- <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%"> -->
-                                        <ul class="pull-right list-unstyled list-inline statusbar">
-                                            <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                                    <div class="table-responsive material-datatables" cellspacing="0" width="100%" style="width:100%">
+                                            <!-- <div id="addOptions" class="addOptions inputDiv selectdiv pull-right col-md-4">
                                                 <label style="top: 0px;font-size: 12px;padding-left: 7px;">Select Subsidiary</label>
                                                 <select (change)="selectCompany($event.target.value)" class="has-value"> 
                                                 <option value=''>All</option>
                                                 <option *ngFor="let data of subsidiary"  [ngValue]='data'>{{data}}</option>
                                             </select>
+                                            </div> -->
+                                            <div class="row" *ngIf="userCU">
+                                                <div class="parentOfSelect" *ngIf="disablesubsi" >
+                                                    <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                                                       <label style="top: 0px;font-size: 12px;padding-left: 7px;">Subsidiaries</label>
+                                                       <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                                                         <option *ngFor="let data of subsidiaries" [value]="data.subCompany" >{{data.subCompany}}</option>                               
+                                                      </select>
+                                                </div>
+                                            </div> 
+                                            <div class="parentOfSelect" *ngIf="disableUserCode">
+                                             <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
+                                                <label style="top: 0px;font-size: 12px;padding-left: 7px;">Passcode users</label>
+                                                <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
+                                                   <option *ngFor="let data of usercode" [value]="data.employeeEmail" >{{data.employeeEmail}}</option>                        
+                                                </select>
+                                         </div>
+                                     </div>
+                                        </div>  
+                                        <div class="row" *ngIf="userBC">
+                                           
+                                        <div class="parentOfSelect" *ngIf="disableUserCode">
+                                         <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
+                                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">Passcode users</label>
+                                            <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
+                                               <option *ngFor="let data of usercode" [value]="data.employeeEmail" >{{data.employeeEmail}}</option>                        
+                                            </select>
+                                     </div>
+                                 </div>
+                                    </div>    
+                                        <div class="row" *ngIf="userBA">
+                                            <div class="parentOfSelect" *ngIf="disablesubsi">
+                                                <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                                                   <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                                                     <option value=''>Additional users</option>
+                                                     <option *ngFor="let data of subsidiaries" [value]="data.subCompany" >{{data.subCompany}}</option>                               
+                                                  </select>
                                             </div>
-                                         </ul>       
+                                        </div> 
+                                        </div>
                                         <table class="table table-hover" id="datatables">
                                             <thead>
                                                     <tr>
@@ -98,7 +144,7 @@
                                                                                         
                                             </tbody>
                                         </table>
-                                    <!-- </div> -->
+                                    </div>
                                     <div class="text-right downloaddiv">
                                         <ul class="list-unstyled list-inline">
                                             <li>Download</li>
