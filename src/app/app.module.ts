@@ -40,7 +40,6 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     ActiveTransactionComponent,
    
    // SubscriptionListComponent,
-  // OnlinePaymentComponent
     // VasPlanComponent
     
   ],

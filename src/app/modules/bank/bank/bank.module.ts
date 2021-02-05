@@ -36,7 +36,6 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
 import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 import { SubscriptionListComponent } from 'src/app/default/subscription-list/subscription-list.component';
-import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import {CookieService } from 'ngx-cookie-service';
 
 
@@ -61,13 +60,7 @@ const routes: Routes = [
         ]
       },
      
-      {
-        path: "online-payment", component: OnlinePaymentComponent,
-        children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
-      },
+    
       {
         path: "kyc-details", component: KycDetailsComponent,
         children: [
@@ -198,7 +191,6 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
-    OnlinePaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -226,7 +218,6 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
-    OnlinePaymentComponent,
   ]
 })
 export class BankModule { }

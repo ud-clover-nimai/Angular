@@ -33,7 +33,7 @@
                                     </div>
                                     <ul class="plan-features">
                                         <li class="plan-feature">{{plan.lcCount}} <span class="plan-feature-name">Transaction Credits</span></li>
-                                        <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
+                                        <div *ngIf="isCustomer; else elseBlock"><li *ngIf="subscriptionBAC" class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Subsidiaries</span></li></div>
                                         <ng-template #elseBlock> <li class="plan-feature">{{plan.subsidiaries}} <span class="plan-feature-name">Branches</span></li></ng-template>                                       
                                         <li class="plan-feature">{{plan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
                                         <li class="plan-feature">{{plan.subscriptionValidity}} <span class="plan-feature-name">Month Validity</span></li>

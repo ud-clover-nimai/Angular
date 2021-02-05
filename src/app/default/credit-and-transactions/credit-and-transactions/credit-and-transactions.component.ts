@@ -30,6 +30,7 @@ export class CreditAndTransactionsComponent implements OnInit {
   selectedUCode: any="";
   usercode: any;
   usersid: string;
+  totalTrnx: any="";
   constructor(public service: DashboardDetailsService,public psd: PersonalDetailsService) {
 
    }
@@ -115,6 +116,7 @@ if(this.userId.startsWith('BA')){
 
       this.creditData=[];
         this.creditData = JSON.parse(JSON.stringify(response)).data;
+     
       if(JSON.parse(JSON.stringify(response)).data){
         
         let total = 0;
@@ -126,6 +128,8 @@ if(this.userId.startsWith('BA')){
         }
         this.creditUsed=total;
         this.totalSavings=savings;
+        this.totalTrnx= this.creditData.length;
+        console.log(this.totalTrnx)
       }
    
      
@@ -165,6 +169,8 @@ if(this.userId.startsWith('BA')){
           this.subsidiary=this.arrUnique(this.subsidiary) 
           this.creditUsed=total;
           this.totalSavings=savings;
+          this.totalTrnx= this.creditData.length;
+          console.log(this.totalTrnx)
         }
         // else{
         //   this.creditData=""

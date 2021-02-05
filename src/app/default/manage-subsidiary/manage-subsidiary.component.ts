@@ -80,12 +80,10 @@ export class ManageSubsidiaryComponent implements OnInit {
 
   close() {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-    $("#dupEmailId").hide();
-  }
-
-  close_email(){
     $("#addsub").hide();
   }
+
+  
   listOfSubsidiary(){  
     let userID: string = sessionStorage.getItem('userID');
     this.signUpService.getSubsidiaryList(userID).subscribe(

@@ -63,6 +63,7 @@ isRenewPlan=false;
   param2: any;
   pgstatus: void;
   creditStatus: any="";
+  subscriptionBAC: boolean=true;
   
   constructor(private cookieService:CookieService, private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
     this.paymentForm = this.fb.group({
@@ -160,6 +161,7 @@ isRenewPlan=false;
         } else if(userid.startsWith('BC')){
           this.subscriptionDetails = data.data.customerSplans;
           this.isCustomer=true;
+          this.subscriptionBAC=false;
         }
         else{
         this.subscriptionDetails = data.data.banksSplans;

@@ -87,7 +87,7 @@ export class BusinessDetailsComponent implements OnInit {
       telephone: ['',[Validators.required,Validators.minLength(7)]],
       bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
       branchName: ['', [Validators.required,Validators.minLength(3)]],
-      swiftCode: ['', [Validators.required,Validators.minLength(3)]],
+      swiftCode: ['', [Validators.required,Validators.minLength(8)]],
       lCCurrencyValue: [''],
       owners: this.fb.array([this.getOwners()])
     });
