@@ -3,8 +3,8 @@ import { creditTransaction,        custTrnsactionDetail} from  'src/assets/js/co
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
-import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { TitleService } from 'src/app/services/titleservice/title.service';
 @Component({
   selector: 'app-credit-and-transactions',
   templateUrl: './credit-and-transactions.component.html',
@@ -28,10 +28,11 @@ export class CreditAndTransactionsComponent implements OnInit {
   disablesubsi: boolean;
   disableUserCode: boolean;
   selectedUCode: any="";
-  usercode: any;
-  usersid: string;
+  usercode: any="";
+  usersid: string="";
   totalTrnx: any="";
-  constructor(public service: DashboardDetailsService,public psd: PersonalDetailsService) {
+  selecteduserCode: string="";
+  constructor(public titleService: TitleService,public service: DashboardDetailsService,public psd: PersonalDetailsService) {
 
    }
   ngOnInit() {
@@ -39,6 +40,7 @@ export class CreditAndTransactionsComponent implements OnInit {
     this.userId=sessionStorage.getItem('userID');
     this.listOfCreditAndTransaction(undefined,this.userId);
    this.getSubsidiaryData();
+ 
     this.startDate=""
     this.endDate=""
 
@@ -84,21 +86,20 @@ export class CreditAndTransactionsComponent implements OnInit {
     }
     return t;
    }
-  listOfCreditAndTransaction(comanyname:any,userid:any){    
-    console.log(comanyname)
+  listOfCreditAndTransaction(comanyname:any,userid:any){   
+    this.titleService.quote.next(true);
+
+    this.usersid=userid
     var emailId = "";
     emailId = sessionStorage.getItem('branchUserEmailId');
     if(this.selectedUCode){
       emailId=this.selectedUCode;
     }else{
       emailId=""
+      this.getUsercodeData(userid)
+    this.selectedUCode="";
     }
-    this.accountType=sessionStorage.getItem('accountType')
-    if(this.accountType=='Passcode'){
-   this.usersid=""
-    }else{
-      this.usersid=userid
-    } 
+  
 if(comanyname==undefined){
   this.companyName=""
 }else{
@@ -106,7 +107,7 @@ if(comanyname==undefined){
 }
 if(this.userId.startsWith('BA')){
   const param = {
-    "userid":sessionStorage.getItem('userID'),
+    "userid":userid,
    
   }
   this.service.getCreditTxnForCustomerByBankUserId(param).subscribe(
@@ -129,7 +130,6 @@ if(this.userId.startsWith('BA')){
         this.creditUsed=total;
         this.totalSavings=savings;
         this.totalTrnx= this.creditData.length;
-        console.log(this.totalTrnx)
       }
    
      
@@ -138,14 +138,21 @@ if(this.userId.startsWith('BA')){
     }
     )
 }else{
+  //this.accountType=sessionStorage.getItem('accountType')
+  // if(this.accountType=='Passcode'){
+  //   this.usersid=""
+  //    }else{
+  //      this.usersid=userid
+  //    } 
 
  const param = {
-  "userid":sessionStorage.getItem('userID'),
+  "userid":userid,
   "txnInsertedDate":this.startDate,
   "txnDate":this.endDate,
   "companyName":this.companyName,
   "passcodeUser":emailId
 }
+this.usersid=userid
     this.service.getCreditAndTransactionList(param).subscribe(
       (response) => {
        // creditTransaction();
@@ -170,39 +177,33 @@ if(this.userId.startsWith('BA')){
           this.creditUsed=total;
           this.totalSavings=savings;
           this.totalTrnx= this.creditData.length;
-          console.log(this.totalTrnx)
         }
-        // else{
-        //   this.creditData=""
-        // }  
-        // if(this.creditData.length === 0){
-        //   this.noData = true;
-        // }else{
-        //   this.noData=false;
-        // }
-        this.getUsercodeData(userid)
-        this.selectedUCode="";
+        
+       
       },(error) =>{
         this.noData = true;
       }
       )
+     
+     
     }
+    
   }
   changeStartDate(event: MatDatepickerInputEvent<Date>) {    
     let formatedDate  = formatDate(new Date(event.target.value), 'yyyy-MM-dd', 'en'); 
     this.startDate=formatedDate
-    this.listOfCreditAndTransaction(undefined,"")
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
   }
   changeEndDate(event: MatDatepickerInputEvent<Date>) { 
     let date = new Date(event.target.value);
     date.setDate(date.getDate() + 1);
     this.endDate=formatDate(new Date(date), 'yyyy-MM-dd', 'en');
-    this.listOfCreditAndTransaction(undefined,"")
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
   }
   selectCompany(companyName){
     if(companyName!="none"){
       this.companyName=companyName;
-      this.listOfCreditAndTransaction(undefined,"")
+      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
     }
     
   }
@@ -228,28 +229,22 @@ if(this.userId.startsWith('BA')){
       subscribe(
         (response) => {
           this.usercode = JSON.parse(JSON.stringify(response)).list;
-               
-
-        },
+               },
         (error) => {}
       )
+ 
   }
   
 selectSubsidiaries(val: any) {
  // this.selectedSub=val;
-  this.listOfCreditAndTransaction(val,undefined)
+ 
+  this.listOfCreditAndTransaction(undefined,val)
   
 }
 selectUsercode(val: any) {
-  console.log(val)
-
-if(val=='All'){
+  this.selecteduserCode =sessionStorage.getItem('userID')
   this.selectedUCode=val;
-  this.listOfCreditAndTransaction(undefined,val)
-}else{
-  this.selectedUCode=val;
-  this.listOfCreditAndTransaction(undefined,"")
-}
+  this.listOfCreditAndTransaction(undefined,this.selecteduserCode)
 
 }
 }

@@ -67,6 +67,7 @@ export class UploadLCComponent implements OnInit {
   currentDateTime: string;
   submitted: boolean=false;
   goodsList: any="";
+  trnxFailedMsg: any="";
 
   // rds: refinance Data Service
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
@@ -319,7 +320,11 @@ export class UploadLCComponent implements OnInit {
     data.lcMaturityDate = (data.lcMaturityDate) ? this.dateFormat(data.lcMaturityDate) : '';
     data.startDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     
+
+
+
 data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
+if(data.validity){
     this.upls.saveLc(data)
       .subscribe(
         (response) => {
@@ -352,6 +357,11 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
             .catch(console.error);
         }
       )
+  }
+     else {
+      $("#invalidDate").show();         
+
+      }
   }
 
   public preview() {
@@ -430,8 +440,10 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public confirm() {
-  //  this.titleService.loading.next(true);
-    //this.loading = true;
+    console.log('uytyt')
+   this.titleService.loading.next(true);
+
+    this.loading = true;
     let body = {
       transactionId: this.transactionID,
       userId: sessionStorage.getItem('userID')
@@ -459,8 +471,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
          
 
         if(errmsg=="No Duplicate LC"){
-          this.setForm();
-          this.edit();
+         
           this.upls.confirmLc(body).subscribe(
         
                 (response) => {
@@ -468,18 +479,15 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
 
                   var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
                   if(errmsg){
-                    const navigationExtras: NavigationExtras = {
-                      state: {
-                        title: 'Transaction Failed',
-                        message: JSON.parse(JSON.stringify(response)).errMessage,
-                        parent: this.subURL+"/"+this.parentURL +'/new-transaction'
-                      }
-                    };
-                    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
-                      .then(success => console.log('navigation error?', success))
-                      .catch(console.error);
-                  }else{
-
+                    this.loading = false;
+                    this.titleService.loading.next(false);
+                    this.trnxFailedMsg=errmsg;
+                    $('#trnxFailed').show();
+                  
+                  }
+                  else{
+                    this.setForm();
+                    this.edit();
 
  const navigationExtras: NavigationExtras = {
             state: {
@@ -527,13 +535,12 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   invalidDateOk(){
     
     $("#invalidDate").hide();
-
+    $("#trnxFailed").hide();
   }
 
   dupPopYes(){
     $("#duplicatePopup").hide();
-    this.setForm();
-    this.edit();
+   
     let body = {
       transactionId: this.transactionID,
       userId: sessionStorage.getItem('userID')
@@ -544,17 +551,12 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
       (response) => {        
         var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
         if(errmsg){
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: 'Transaction Failed',
-              message: JSON.parse(JSON.stringify(response)).errMessage,
-              parent: this.subURL+"/"+this.parentURL +'/new-transaction'
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/error`], navigationExtras)
-            .then(success => console.log('navigation error?', success))
-            .catch(console.error);
+          this.trnxFailedMsg=errmsg;
+          $('#trnxFailed').show();
+       
         }else{
+          this.setForm();
+          this.edit();
 const navigationExtras: NavigationExtras = {
       state: {
         title: 'Transaction Successful',
