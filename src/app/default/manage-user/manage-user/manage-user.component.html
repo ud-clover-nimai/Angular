@@ -147,12 +147,7 @@
                                         </div>
                                     </div>
                                    
-                                    <div class="col-md-4 col-sm-4 bankfields" *ngIf=" isBankOther">
-                                        <div class="inputDiv">
-                                           <input type="text" maxlength="30" formControlName="otherTypeBank">
-                                           <label>Other</label>
-                                        </div>
-                                     </div>
+                                   
                                     <div class="col-md-4">
                                         <div class="inputDiv">
                                             <input type="text" maxlength="15" formControlName="minLCValue" (keypress)="validateRegexFields($event, 'number')">
@@ -176,7 +171,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv multiselect-dropdown">
-                                            <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Countries Interested</label>
                                             <div *ngIf="submitted && manageSubDetails.countriesInt.errors?.required" class="invalid-feedback">
                                                 Select Countries Interested
@@ -185,13 +180,19 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv multiselect-dropdown">
-                                            <ng-multiselect-dropdown-angular7 [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7  [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
                                             <div *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
                                                 Select Blacklisted Goods
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 col-sm-6 bankfields" *ngIf=" isBankOther">
+                                        <div class="inputDiv">
+                                           <input type="text" maxlength="30" formControlName="otherTypeBank">
+                                           <label>Other</label>
+                                        </div>
+                                     </div>
                                 </div>
 
                                 <p id="paradiv">

@@ -382,7 +382,8 @@ isRenewPlan=false;
     if(this.isRenewPlan){
       this.choosedPlan.flag="renew"
     }
-    if(this.vas_id && this.callVasService){
+    console.log(this.vas_id)
+    if(sessionStorage.getItem('vasId') && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
         "vasId": this.vas_id,
@@ -440,8 +441,10 @@ isRenewPlan=false;
         response => {
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];   
           let reData=JSON.parse(JSON.stringify(response)).data[0]       
-          if(this.choosedPlan.discount){
+          if(this.choosedPlan.vasAmount){
             this.showVASPlan=true
+            this.advPrice=this.choosedPlan.vasAmount;
+            this.viewVASPlans()
           }
           if(this.choosedPlan.status.toLowerCase() != "active"){
             this.getSubscriptionDetails();

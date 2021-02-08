@@ -105,6 +105,7 @@ if(comanyname==undefined){
 }else{
   this.companyName=comanyname
 }
+
 if(this.userId.startsWith('BA')){
   const param = {
     "userid":userid,
@@ -130,23 +131,23 @@ if(this.userId.startsWith('BA')){
         this.creditUsed=total;
         this.totalSavings=savings;
         this.totalTrnx= this.creditData.length;
-      }
-   
+      }   
      
     },(error) =>{
       this.noData = true;
     }
     )
 }else{
-  //this.accountType=sessionStorage.getItem('accountType')
-  // if(this.accountType=='Passcode'){
-  //   this.usersid=""
-  //    }else{
-  //      this.usersid=userid
-  //    } 
 
+  this.accountType=sessionStorage.getItem('accountType')
+  if(this.accountType=='Passcode'){
+    this.usersid=userid
+    emailId='All'
+     }else{
+       this.usersid=userid
+     } 
  const param = {
-  "userid":userid,
+  "userid":this.usersid,
   "txnInsertedDate":this.startDate,
   "txnDate":this.endDate,
   "companyName":this.companyName,

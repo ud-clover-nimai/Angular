@@ -119,7 +119,7 @@ export class ReferComponent implements OnInit {
       emailAddress: this.referForm.get('emailAddress').value,
       countryName: this.countryNames,
       companyName: this.referForm.get('companyName').value,
-      status: 'ACTIVE',
+      status: 'PENDING',
       insertedDate: this.getCurrentDate,
       modifiedDate: this.getCurrentDate,
       branchUserId: 'TEST',//this.referForm.get('branchUserId').value,
@@ -234,6 +234,7 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
+          console.log(responseData)
           let total = 0;
           for (let i = 0; i < responseData.length; i++) {
             console.log ("Block statement execution no." + responseData[i].earnings);
