@@ -162,8 +162,8 @@ export class DashboardComponent implements OnInit {
     this.accountType=sessionStorage.getItem('accountType');
   if(this.accountType == 'SUBSIDIARY'){
     this.hideSubAccount=true;
-    this.hideChangepass=true;
-    this.hideCreditTransaction=true;
+    this.hideChangepass=false;
+    this.hideCreditTransaction=false;
     this.hideVas=false;
     this.hideMyProfile=true;
   }else if(this.accountType == 'Passcode'){
@@ -317,6 +317,7 @@ export class DashboardComponent implements OnInit {
         if(this.nimaiCount.accounttype == 'SUBSIDIARY' || this.nimaiCount.accounttype == 'BANKUSER' || this.nimaiCount.subscribertype == 'REFERRER'){
           this.hidePlanFromProfile=true;
           this.hidePlanFromMenu=true;
+         
         }
         if(this.nimaiCount.kycstatus!=='Approved'){
           this.hideManageUser=true;

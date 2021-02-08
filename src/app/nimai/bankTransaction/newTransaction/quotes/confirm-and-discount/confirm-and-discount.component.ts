@@ -309,7 +309,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
             this.ts.withdrawQuote(param).subscribe(
               (response) => {
                     $('#withdrawTrasactionCnD').hide();
-                this.tab = 'tab3';
+                this.tab = 'tab4';
               },
               error => {
                 alert('error')

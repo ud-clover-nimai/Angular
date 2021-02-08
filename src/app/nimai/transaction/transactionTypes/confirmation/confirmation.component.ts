@@ -59,6 +59,7 @@ export class ConfirmationComponent implements OnInit {
   checkValidity: boolean=true;
   disableRadiobtn: boolean=false;
   appBenBAC: boolean=true;
+  chargesTypeArr: any=[];
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -231,7 +232,14 @@ export class ConfirmationComponent implements OnInit {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
         this.title = 'View';
-        this.data = data;
+        this.data = data; 
+      
+        if(this.data.chargesType.startsWith(this.data.applicantName)){
+          this.chargesTypeArr.push(this.data.beneName+" "+"(Beneficiary)")
+        }else{
+          this.chargesTypeArr.push(this.data.applicantName+" "+"(Applicant)")
+        }
+
         if(this.data.goodsType.startsWith('Others')){
           this.isBankOther=true;      
           var str = this.data.goodsType; 
@@ -513,4 +521,9 @@ export class ConfirmationComponent implements OnInit {
                     this.portOfDischarge = JSON.parse(JSON.stringify(response)).data;
                   });
             }
+
+            chargesTypeOnSelect(){
+
+            }
+
 }

@@ -337,7 +337,7 @@ export class ConfirmationComponent implements OnInit {
             this.ts.withdrawQuote(param).subscribe(
               (response) => {
                     $('#withdrawTrasactionConfirm').hide();
-                this.tab = 'tab3';
+                this.tab = 'tab4';
               },
               error => {
                 alert('error')

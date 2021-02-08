@@ -375,12 +375,9 @@
                            </td>
                            <td>
                               <!-- <input type="text" name="chargesType" [(ngModel)]="data.chargesType"> -->
-                              <select name="chargesType" [(ngModel)]="data.chargesType">
-                            
-                                 <option [ngValue]="null" selected>Select</option>
-                                 <option [ngValue]='test'>test</option>
-
-                                 <option [ngValue]='data.chargesType'>{{data.chargesType}}</option>
+                              <select name="chargesType" [(ngModel)]="data.chargesType">                            
+                                 <option [ngValue]='data.chargesType' selected>{{data.chargesType}}</option>
+                                 <option *ngFor="let data of chargesTypeArr" [ngValue]='data'>{{data}}</option>
                               </select>
                            </td>
                         </tr>
