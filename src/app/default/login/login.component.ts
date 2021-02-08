@@ -797,7 +797,6 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
   }
   resolved(event){    
     this.captchaToken=event;
-    console.log("this.captchaToken---->",this.captchaToken)
   }
 }
 
