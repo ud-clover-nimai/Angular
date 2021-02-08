@@ -373,7 +373,16 @@
                            <td>
                               Charges are on
                            </td>
-                           <td><input type="text" name="chargesType" [(ngModel)]="data.chargesType"></td>
+                           <td>
+                              <!-- <input type="text" name="chargesType" [(ngModel)]="data.chargesType"> -->
+                              <select name="chargesType" [(ngModel)]="data.chargesType">
+                            
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option [ngValue]='test'>test</option>
+
+                                 <option [ngValue]='data.chargesType'>{{data.chargesType}}</option>
+                              </select>
+                           </td>
                         </tr>
                         <tr>
                            <td>Customer Quote Validity </td>

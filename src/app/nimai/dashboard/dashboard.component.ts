@@ -160,7 +160,6 @@ export class DashboardComponent implements OnInit {
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
    // this.callAllDraftTransaction();
     this.accountType=sessionStorage.getItem('accountType');
-    console.log(this.accountType)
   if(this.accountType == 'SUBSIDIARY'){
     this.hideSubAccount=true;
     this.hideChangepass=true;
@@ -334,6 +333,10 @@ export class DashboardComponent implements OnInit {
          }else if(this.nimaiCount.subscribertype == 'REFERRER' && this.nimaiCount.kycstatus=="Rejected"){
           this.isDisableKyc=true;
          }else{
+          this.isDisableKyc=false;
+         }
+         console.log(this.nimaiCount.kycstatus)
+         if(this.nimaiCount.kycstatus=="Pending"){
           this.isDisableKyc=false;
          }
        if( this.nimaiCount.status=='INACTIVE'){

@@ -274,6 +274,7 @@ export class ConfirmationComponent implements OnInit {
         this.title = 'Edit';
         this.data = data;
         // $('input').attr('readonly', false);
+       
       }
     } else {
       this.isActive = flag;
