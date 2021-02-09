@@ -64,6 +64,7 @@ isRenewPlan=false;
   pgstatus: void;
   creditStatus: any="";
   subscriptionBAC: boolean=true;
+  addVasEnabled: boolean=false;
   
   constructor(private cookieService:CookieService, private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
     this.paymentForm = this.fb.group({
@@ -138,6 +139,7 @@ isRenewPlan=false;
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
+    console.log('gjhj--------------------------')
     this.titleService.loading.next(true);
     let req = {
       "userId": sessionStorage.getItem('userID'),
@@ -232,6 +234,8 @@ isRenewPlan=false;
     let req = {
       "discountId": this.discountId
     }
+    this.addVasEnabled=false;
+
     this.subscriptionService.removeCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
         const first_input = this.el.nativeElement.querySelector('.coupantext');
@@ -356,7 +360,10 @@ isRenewPlan=false;
   public payment(cdstatus) {
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
-    this.choosedPlan.vasAmount=this.advPrice;
+    //this.choosedPlan.vasAmount=this.advPrice;
+    if(this.addVasEnabled){
+      this.choosedPlan.vasAmount=this.advPrice;
+    }
     this.choosedPlan.grandAmount=this.cookieService.get('subsAmount');      
     this.choosedPlan.discount=sessionStorage.getItem('discount')
     this.choosedPlan.discountId=sessionStorage.getItem('discountId');
@@ -484,7 +491,9 @@ isRenewPlan=false;
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId    
     this.choosedPlan.modeOfPayment="Wire"
-    this.choosedPlan.vasAmount=this.advPrice;
+if(this.addVasEnabled){
+  this.choosedPlan.vasAmount=this.advPrice;
+}
     this.choosedPlan.grandAmount=this.addedAmount
     this.choosedPlan.discount=this.discount;
     this.choosedPlan.discountId=this.discountId;
@@ -553,6 +562,7 @@ isRenewPlan=false;
   }
   addAdvService(event){
     if (event.target.value === "Add") {
+      this.addVasEnabled=true;
       this.callVasService=true;
       if(this.amountAfterCoupon){
         this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);

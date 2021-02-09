@@ -198,6 +198,7 @@ getBankDashboardDetailsAfterFilter()
       var data_country=[];
       
       let length=0;
+      console.log(this.selectedCountry)
       if(this.selectedCountry || this.selectedProduct){
         length=this.bankBarChart.length
       }else{
@@ -242,7 +243,8 @@ getBankDashboardDetailsAfterFilter()
         if(this.selectedCountry || this.selectedProduct){
           length=this.bankBarChart.length
         }else{
-          length=5
+        //  length=5
+        length=this.bankBarChart.length
         }
         if(this.bankBarChart.length>0)
           data_country.push(header_country);

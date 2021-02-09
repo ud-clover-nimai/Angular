@@ -15,6 +15,7 @@ import { ApplicantBeneficiaryComponent } from './applicant-beneficiary/applicant
 import * as FileSaver from 'file-saver';
 import { OthersComponent } from './others/others.component';
 import { TenorPaymentComponent } from './tenor-payment/tenor-payment.component';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 
 
@@ -68,11 +69,14 @@ export class UploadLCComponent implements OnInit {
   submitted: boolean=false;
   goodsList: any="";
   trnxFailedMsg: any="";
+  accountType: string;
+  nimaiCount: any;
 
   // rds: refinance Data Service
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
-    this.checkLcCount();
+  constructor(public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+   
     this.goodsService();
+ 
 
     this.titleService.changeTitle(this.title);
 
@@ -100,6 +104,36 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.accountType=sessionStorage.getItem('accountType');
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+          if(this.accountType=='SUBSIDIARY' || this.accountType=='Passcode'){
+            const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Not Allowed!',
+                message: 'You had reached maximum LC credits! Please ask your parent user to renew the subscription plan',
+                parent: this.subURL+"/"+this.parentURL + '/dashboard-details',
+                redirectedFrom: "New-Transaction"
+              }
+            };
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error);
+        }
+      }
+        },  
+     
+    )   
+    
+
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].value)
@@ -126,7 +160,7 @@ export class UploadLCComponent implements OnInit {
       
     this.currencies = [...new Set(this.countryName.map(item => item.currency))];
   
-    
+    this.checkLcCount();
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs

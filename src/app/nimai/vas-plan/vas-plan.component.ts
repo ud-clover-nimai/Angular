@@ -20,7 +20,16 @@ export class VasPlanComponent implements OnInit {
   isvasapplied:any;
   subscriptionId:any;
   hideAddBtn: boolean=false;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) { }
+  constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) {
+
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    })
+
+   }
   ngOnInit() {
     this.addedAmount = sessionStorage.getItem('subscriptionamount');
     this.choosedPrice=sessionStorage.getItem('subscriptionamount');
@@ -76,13 +85,15 @@ export class VasPlanComponent implements OnInit {
         "vasId": data.vas_id,
         "subscriptionId":this.subscriptionId
       }
+     
       this.subscriptionService.addVas(req).subscribe(data => {
         let sdata= JSON.parse(JSON.stringify(data))
+        console.log(sdata.status)
         if(sdata.status=="Success"){
           this.showVasPlan =false;
           this.showSuccess=true;
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-            this.router.navigate([`/${this.subURL}/${this.parentURL}/vasPlan`]);
+            this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
         });
         }else{
           console.log("error")
