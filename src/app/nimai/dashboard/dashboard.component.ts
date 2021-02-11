@@ -200,8 +200,8 @@ export class DashboardComponent implements OnInit {
            this.hideSubAccount=true;
            this.hideChangepass=false;
          }
-       if( this.nimaiCount.status=='INACTIVE'){
-        $('#trnxInactive').show();
+      // if( this.nimaiCount.status=='INACTIVE'){
+       // $('#trnxInactive').show();
 
         // const navigationExtras: NavigationExtras = {
         //         state: {
@@ -215,7 +215,7 @@ export class DashboardComponent implements OnInit {
         //         .then(success => console.log('navigation success?', success))
         //         .catch(console.error);
             
-            }
+           // }
       },
       error => { }
     )
@@ -493,8 +493,8 @@ export class DashboardComponent implements OnInit {
            this.hideSubAccount=true;
            this.hideChangepass=false;
          }
-      //  if( this.nimaiCount.status=='INACTIVE'){
-      //   $('#trnxInactive').show();
+       if( this.nimaiCount.status=='INACTIVE'){
+        $('#trnxInactive').show();
 
         // const navigationExtras: NavigationExtras = {
         //         state: {
@@ -508,7 +508,7 @@ export class DashboardComponent implements OnInit {
         //         .then(success => console.log('navigation success?', success))
         //         .catch(console.error);
             
-           // }
+            }
       },
       error => { }
     )

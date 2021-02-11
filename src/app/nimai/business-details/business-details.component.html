@@ -543,16 +543,11 @@
                       >
                         Address Line 2 is required
                       </div>
-                      <div
-                        *ngIf="
-                          perDetailsSubmit && busiDetails.addressLine2.errors
-                        "
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="busiDetails.addressLine2.errors?.minlength">
+                                          
+                        <div *ngIf="busiDetails.addressLine2.errors?.minlength" class="invalid-feedback">
                           Address Line 2 atleast 2 characters long.
                         </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-3">
@@ -567,16 +562,11 @@
                       <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
                                                 Landmark is required
                                             </div> -->
-                      <div
-                        *ngIf="
-                          perDetailsSubmit && busiDetails.addressLine3.errors
-                        "
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="busiDetails.addressLine3.errors?.minlength">
+                     
+                        <div *ngIf="busiDetails.addressLine3.errors?.minlength" class="invalid-feedback">
                           Landmark atleast 2 characters long.
                         </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-3">

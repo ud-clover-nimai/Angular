@@ -109,6 +109,10 @@ if(comanyname==undefined){
 if(this.userId.startsWith('BA')){
   const param = {
     "userid":userid,
+    "txnInsertedDate":this.startDate,
+    "txnDate":this.endDate,
+    "companyName":this.companyName,
+    "passcodeUser":emailId
    
   }
   this.service.getCreditTxnForCustomerByBankUserId(param).subscribe(

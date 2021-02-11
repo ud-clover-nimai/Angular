@@ -168,13 +168,24 @@ export class LoginComponent implements OnInit {
           this.titleService.loading.next(true);
           sessionStorage.setItem("kStatus", responseData.message);
           if (loginData.userId.startsWith('RE')) {
-            // this.router.navigate(['/ref/rcs/dashboard-details']);
-            this.callCustomerPopup();  
-          } else  if (loginData.userId.startsWith('BA')){
-            // this.router.navigate(['/bcst/dsb/dashboard-details']);   
-            this.callCustomerPopup();      
+            if(sessionStorage.getItem('kStatus')=='KycStauts:Approved'){
+              this.callCustomerPopup();
+            }else{
+              this.router.navigate(['/ref/rcs/dashboard-details']); 
+            }       
+             } else  if (loginData.userId.startsWith('BA')){
+            if(sessionStorage.getItem('kStatus')=='KycStauts:Approved'){
+              this.callCustomerPopup();
+            }else{
+              this.router.navigate(['/bcst/dsb/dashboard-details']); 
+            }
           } else if(loginData.userId.startsWith('CU')){
-            this.callCustomerPopup();
+              if(sessionStorage.getItem('kStatus')=='KycStauts:Approved'){
+                this.callCustomerPopup();
+              }else{
+                this.router.navigate(['/cst/dsb/dashboard-details']); 
+              }
+
             // if(responseData.message=="KycStauts:Approved"){
             //   this.router.navigate(['/cst/dsb/dashboard-details']); 
             // }else if(responseData.message=="KycStauts:Rejected"){ 

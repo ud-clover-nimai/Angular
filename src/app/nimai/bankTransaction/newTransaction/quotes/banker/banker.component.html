@@ -115,7 +115,7 @@
                                     placeholder="Customer needs to pay standard swift transfer  &#10; charges"
                                     rows="3"></textarea>
                                     <tr>
-                                        <td>Minimum Transaction Charges</td>
+                                        <td>Minimum Transaction Charges (if any)</td>
                                         <td>
                                             <input type="text" name="minTransactionCharges"
                                                 [(ngModel)]="dataViewEdit.minTransactionCharges" placeholder="0.00"
@@ -444,7 +444,7 @@
                                  <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
                             </tr> -->
                                         <tr>
-                                            <td>Minimum Transaction Charges</td>
+                                            <td>Minimum Transaction Charges (if any)</td>
                                             <td><input type="text" name="minTransactionCharges"
                                                     [(ngModel)]="data.minTransactionCharges" placeholder="50.00"
                                                     weightDirective>
@@ -572,7 +572,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Minimum Transaction Charges</td>
+                                        <td>Minimum Transaction Charges (if any)</td>
                                         <td>
                                             {{data.minTransactionCharges}}
                                         </td>

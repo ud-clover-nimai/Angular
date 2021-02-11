@@ -318,7 +318,7 @@
                                        </option>
                                        </select> -->
                                         <select (change)='onCountrySelected($event)' style="width: 200px!important;">
-                                       <option value="">Select</option>
+                                       <option value="">Select a Country</option>
                                        <option *ngFor="let data of countryArray" [ngValue]="data">
                                          {{ data}}
                                        </option>

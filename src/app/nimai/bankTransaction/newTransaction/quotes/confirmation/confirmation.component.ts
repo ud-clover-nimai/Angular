@@ -457,6 +457,7 @@ export class ConfirmationComponent implements OnInit {
         }
 
         this.tab = 'tab3';
+        //this.title = '';
         this.ts.confirmQuotation(param).subscribe(
           (response) => {
 

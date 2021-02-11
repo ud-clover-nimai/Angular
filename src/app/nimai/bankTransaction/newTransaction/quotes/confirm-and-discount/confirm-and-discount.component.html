@@ -114,7 +114,7 @@ right: 0px; z-index:9999;">
                         placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                         <tr>
-                           <td>Minimum Transaction Charges</td>
+                           <td>Minimum Transaction Charges (if any)</td>
                            <td>
                               <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges"
                                  placeholder="0.00" weightDirective />
@@ -497,7 +497,7 @@ right: 0px; z-index:9999;">
                                     <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
                                   </tr> -->
                                         <tr>
-                                            <td>Minimum Transaction Charges</td>
+                                            <td>Minimum Transaction Charges (if any)</td>
                                             <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
                                         </tr>
                                         <tr>
@@ -622,7 +622,7 @@ right: 0px; z-index:9999;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Minimum Transaction Charges</td>
+                                        <td>Minimum Transaction Charges (if any)</td>
                                         <td>
                                             {{data.minTransactionCharges}}
                                         </td>

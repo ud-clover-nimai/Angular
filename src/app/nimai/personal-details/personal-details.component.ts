@@ -200,7 +200,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
 if(emailId==emailId1 || emailId==emailId2 || emailId==emailId3){
-alert(emailId)
+alert('Official Email ID and Additional Email ID cannot be same ')
 }else{
 
     this.submitted = true;
