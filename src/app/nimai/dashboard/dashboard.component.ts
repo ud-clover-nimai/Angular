@@ -6,6 +6,8 @@ import { PersonalDetailsService } from 'src/app/services/personal-details/person
 import { load_dashboard } from '../../../assets/js/commons'
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { LoginService } from 'src/app/services/login/login.service';
+import * as $ from '../../../assets/js/jquery.min';
+
 // import { filter } from 'rxjs/operators';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
@@ -56,7 +58,15 @@ export class DashboardComponent implements OnInit {
   hideChangepass: boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
-    let userId = sessionStorage.getItem('userID');
+     
+      this.activatedRoute.parent.url.subscribe((urlPath) => {
+        this.parentURL = urlPath[urlPath.length - 1].path;
+      });
+      this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+        this.subURL = urlPath[urlPath.length - 1].path;
+      });
+
+      let userId = sessionStorage.getItem('userID');
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
       this.isReferrer = true;
@@ -191,17 +201,19 @@ export class DashboardComponent implements OnInit {
            this.hideChangepass=false;
          }
        if( this.nimaiCount.status=='INACTIVE'){
-        const navigationExtras: NavigationExtras = {
-                state: {
-                  title: 'Transaction Not Allowed !',
-                  message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
-                  parent: this.parentURL + '/dsb/subscription',
-                  redirectedFrom: "New-Transaction"
-                }
-              };
-              this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
-                .then(success => console.log('navigation success?', success))
-                .catch(console.error);
+        $('#trnxInactive').show();
+
+        // const navigationExtras: NavigationExtras = {
+        //         state: {
+        //           title: 'Transaction Not Allowed !',
+        //           message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
+        //           parent: this.parentURL + '/dsb/subscription',
+        //           redirectedFrom: "New-Transaction"
+        //         }
+        //       };
+        //       this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
+        //         .then(success => console.log('navigation success?', success))
+        //         .catch(console.error);
             
             }
       },
@@ -215,12 +227,12 @@ export class DashboardComponent implements OnInit {
       this.creditCount=ccredit;
           });
 
-    this.activatedRoute.parent.url.subscribe((urlPath) => {
-      this.parentURL = urlPath[urlPath.length - 1].path;
-    });
-    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
-      this.subURL = urlPath[urlPath.length - 1].path;
-    });
+    // this.activatedRoute.parent.url.subscribe((urlPath) => {
+    //   this.parentURL = urlPath[urlPath.length - 1].path;
+    // });
+    // this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+    //   this.subURL = urlPath[urlPath.length - 1].path;
+    // });
     // router.events.pipe(
     //   filter(event => event instanceof NavigationEnd)  
     // ).subscribe((event: NavigationEnd) => {
@@ -240,7 +252,11 @@ export class DashboardComponent implements OnInit {
     //   }
     // });
   }
-
+  inactiveOk(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.parentURL}/dsb/subscription`]);
+      });
+  }
   ngOnInit() {
    // this.getNimaiCount();
 
@@ -437,7 +453,6 @@ export class DashboardComponent implements OnInit {
           this.hideCreditTransaction=true;
           this.hideRefer=true;
         }
-        console.log("this.hidePlanFromProfile--",this.hidePlanFromProfile)
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
         if(this.nimaiCount.issplanpurchased=="1"){
@@ -478,20 +493,22 @@ export class DashboardComponent implements OnInit {
            this.hideSubAccount=true;
            this.hideChangepass=false;
          }
-       if( this.nimaiCount.status=='INACTIVE'){
-        const navigationExtras: NavigationExtras = {
-                state: {
-                  title: 'Transaction Not Allowed !',
-                  message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
-                  parent: this.parentURL + '/dsb/subscription',
-                  redirectedFrom: "New-Transaction"
-                }
-              };
-              this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
-                .then(success => console.log('navigation success?', success))
-                .catch(console.error);
+      //  if( this.nimaiCount.status=='INACTIVE'){
+      //   $('#trnxInactive').show();
+
+        // const navigationExtras: NavigationExtras = {
+        //         state: {
+        //           title: 'Transaction Not Allowed !',
+        //           message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
+        //           parent: this.parentURL + '/dsb/subscription',
+        //           redirectedFrom: "New-Transaction"
+        //         }
+        //       };
+        //       this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
+        //         .then(success => console.log('navigation success?', success))
+        //         .catch(console.error);
             
-            }
+           // }
       },
       error => { }
     )

@@ -38,6 +38,7 @@ export class KycDetailsComponent implements OnInit {
   isRejectedBusiness:any;
   isRejectedPersonal:any;
   sendData:any;
+  count: number;
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
     loadFilestyle();
@@ -200,6 +201,7 @@ add(i: number, type) {
       items.push(this.getPersList());
     }
   }
+
 }
 
 remove(i: number, type) {
@@ -314,19 +316,17 @@ setValidators(){
   }
 
   selectFile(e, data) {
-    // $("#moreImageUploadLinkType").show();
+     $("#moreImageUploadLinkType").show();
+     this.count=0;
+
     this.itemData = data;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename=file.name;
     var reader = new FileReader();
-    // if (!file.type.match(pattern)) {
-    //   alert('invalid format');
-    //   return;
-    // }
-    // else{
+ 
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);     
-   // }
+  
     
   }
   _handleReaderLoaded(e) {
@@ -337,25 +337,19 @@ setValidators(){
   }
 
   selectFile_KYC(e) {
-      // $("#moreImageUploadLink").show();
+     $("#moreImageUploadLink").show();
     
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename=file.name;
     var reader = new FileReader();
-    // if (!file.type.match(pattern)) {
-    //   alert('invalid format');
-    //   return;
-    // }
-    // else{
-      reader.onload = this._handleReaderLoaded_KYC.bind(this);
+         reader.onload = this._handleReaderLoaded_KYC.bind(this);
       reader.readAsDataURL(file);
-   // }
+   
     
   }
   _handleReaderLoaded_KYC(e) {
     let reader = e.target;
-  
-    this.imageSrcPer =this.filename +" |" + reader.result;
+      this.imageSrcPer =this.filename +" |" + reader.result;
     this.kycDetailsForm.get('encodedFileContent').setValue(this.imageSrcPer);
    
   }

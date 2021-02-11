@@ -434,6 +434,7 @@ isRenewPlan=false;
       document.cookie = 'status' +'=; Path=/';
 
   }
+ 
   public getPlan(userID: string) {
     if((userID.startsWith('CU'))){
   

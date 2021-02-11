@@ -160,10 +160,9 @@ console.log(item.productCategory)
       )
 }
   listOfUsers(){
-    const param = {
-      userid:sessionStorage.getItem('userID'),    
-    }
-    this.service.getUserList(param).subscribe(
+    let userID: string = sessionStorage.getItem('userID');
+
+    this.service.getUserList(userID).subscribe(
       (response) => {
         if(JSON.parse(JSON.stringify(response)).data)
           this.userData = JSON.parse(JSON.stringify(response)).data;
