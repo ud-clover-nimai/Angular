@@ -38,6 +38,7 @@ export class KycDetailsComponent implements OnInit {
   isRejectedBusiness:any;
   isRejectedPersonal:any;
   sendData:any;
+  count: number;
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
     loadFilestyle();
@@ -157,6 +158,14 @@ checkStatus(){
 closePopup(){
   $('#rejectedPopup').hide();
 }
+
+closeAR(){
+  $('#accountReview').hide();
+
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]);
+});
+}
   getBusiList(){
     return this.fb.group({
     documentName: [''],
@@ -192,6 +201,7 @@ add(i: number, type) {
       items.push(this.getPersList());
     }
   }
+
 }
 
 remove(i: number, type) {
@@ -269,20 +279,26 @@ setValidators(){
       .subscribe(
         resp => {
 
-          const navigationExtras: NavigationExtras = {
-            state: {
-              title: 'Thank you for submitting the KYC documents.',
-              message: 'Currently we are reviewing your account. You will be notified on registered email address once we complete the review.',
-              parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
-            }
-          };
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
-         .then(success => console.log('navigation success?', success))
-          .catch(console.error);          
-        },
+        //   const navigationExtras: NavigationExtras = {
+        //     state: {
+        //       title: 'Thank you for submitting the KYC documents.',
+        //       message: 'Currently we are reviewing your account. You will be notified on registered email address once we complete the review.',
+        //       parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
+        //     }
+        //   };
+        //   this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
+        //  .then(success => console.log('navigation success?', success))
+        //   .catch(console.error);      
+        $('#accountReview').show();
+   
+        }
+        
+         
+        ,
         err => {
           this.failedError();
         });
+       
   }
 
   failedError(){
@@ -300,19 +316,17 @@ setValidators(){
   }
 
   selectFile(e, data) {
-    // $("#moreImageUploadLinkType").show();
+     $("#moreImageUploadLinkType").show();
+     this.count=0;
+
     this.itemData = data;
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename=file.name;
     var reader = new FileReader();
-    // if (!file.type.match(pattern)) {
-    //   alert('invalid format');
-    //   return;
-    // }
-    // else{
+ 
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);     
-   // }
+  
     
   }
   _handleReaderLoaded(e) {
@@ -323,25 +337,19 @@ setValidators(){
   }
 
   selectFile_KYC(e) {
-      // $("#moreImageUploadLink").show();
+     $("#moreImageUploadLink").show();
     
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename=file.name;
     var reader = new FileReader();
-    // if (!file.type.match(pattern)) {
-    //   alert('invalid format');
-    //   return;
-    // }
-    // else{
-      reader.onload = this._handleReaderLoaded_KYC.bind(this);
+         reader.onload = this._handleReaderLoaded_KYC.bind(this);
       reader.readAsDataURL(file);
-   // }
+   
     
   }
   _handleReaderLoaded_KYC(e) {
     let reader = e.target;
-  
-    this.imageSrcPer =this.filename +" |" + reader.result;
+      this.imageSrcPer =this.filename +" |" + reader.result;
     this.kycDetailsForm.get('encodedFileContent').setValue(this.imageSrcPer);
    
   }

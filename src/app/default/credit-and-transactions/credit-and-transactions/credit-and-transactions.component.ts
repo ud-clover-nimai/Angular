@@ -141,8 +141,10 @@ if(this.userId.startsWith('BA')){
 
   this.accountType=sessionStorage.getItem('accountType')
   if(this.accountType=='Passcode'){
+    //this.usersid=""
     this.usersid=userid
-    emailId='All'
+    emailId = sessionStorage.getItem('branchUserEmailId');
+
      }else{
        this.usersid=userid
      } 
@@ -193,18 +195,18 @@ this.usersid=userid
   changeStartDate(event: MatDatepickerInputEvent<Date>) {    
     let formatedDate  = formatDate(new Date(event.target.value), 'yyyy-MM-dd', 'en'); 
     this.startDate=formatedDate
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
   }
   changeEndDate(event: MatDatepickerInputEvent<Date>) { 
     let date = new Date(event.target.value);
     date.setDate(date.getDate() + 1);
     this.endDate=formatDate(new Date(date), 'yyyy-MM-dd', 'en');
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
   }
   selectCompany(companyName){
     if(companyName!="none"){
       this.companyName=companyName;
-      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userId'))
+      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
     }
     
   }

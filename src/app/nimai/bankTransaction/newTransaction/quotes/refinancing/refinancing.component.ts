@@ -261,7 +261,7 @@ console.log(type)
             this.ts.withdrawQuote(param).subscribe(
               (response) => {
                     $('#withdrawTrasactionRef').hide();
-                this.tab = 'tab3';
+                this.tab = 'tab4';
               },
               error => {
                 alert('error')

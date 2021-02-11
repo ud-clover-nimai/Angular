@@ -34,6 +34,7 @@ export class AccountStatusComponent implements OnInit {
     //   .catch(console.error);
     //  }); 
       window.location.reload();
+
     else  
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`])
   }

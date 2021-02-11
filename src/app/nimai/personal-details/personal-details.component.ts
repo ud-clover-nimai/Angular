@@ -193,8 +193,16 @@ export class PersonalDetailsComponent implements OnInit {
     
    }
   submit(): void {
-    // let items = this.personalDetailsForm.get('otherEmails') as FormArray;
-    // console.log("items",items.controls)
+  let emailId=  this.personalDetailsForm.get('emailId').value;
+  let emailId1=  this.personalDetailsForm.get('emailAddress1').value
+  let emailId2=  this.personalDetailsForm.get('emailAddress2').value
+  let emailId3=  this.personalDetailsForm.get('emailAddress3').value
+
+
+if(emailId==emailId1 || emailId==emailId2 || emailId==emailId3){
+alert(emailId)
+}else{
+
     this.submitted = true;
    
     if(this.personalDetailsForm.invalid) {
@@ -240,7 +248,7 @@ export class PersonalDetailsComponent implements OnInit {
             .catch(console.error);
         }
       )
-
+      }
   }
 
   public getPersonalDetails(userID: string) {

@@ -278,6 +278,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-content" id="tab4" *ngIf="tab==='tab4'">
+                    <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <p>Your Quote has been withdrawn successfully.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="posfix">
+                            <button class="btn btn-info" (click)="transaction('ok')">
+                                OK
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

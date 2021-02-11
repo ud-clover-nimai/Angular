@@ -262,7 +262,7 @@ export class BankerComponent implements OnInit {
             this.ts.withdrawQuote(param).subscribe(
               (response) => {
                     $('#withdrawTrasactionBank').hide();
-                this.tab = 'tab3';
+                this.tab = 'tab4';
               },
               error => {
                 alert('error')
