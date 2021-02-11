@@ -63,6 +63,7 @@ export function selectpickercall() {
 
 }
 export function load_dashboard() {
+    console.log("JQUERY FUNCTION IS LOADED")
     var sidebar_mini = false
     if ($('body').hasClass('sidebar-mini')) {
         sidebar_mini = true;

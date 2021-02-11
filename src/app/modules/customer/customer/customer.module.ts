@@ -39,8 +39,6 @@ import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboar
 import { VasPlanComponent } from 'src/app/nimai/vas-plan/vas-plan.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 import { SubscriptionListComponent } from 'src/app/default/subscription-list/subscription-list.component';
-import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
-import { SafePipe } from 'src/app/nimai/online-payment/safe.pipe';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -64,20 +62,8 @@ const routes: Routes = [
           { path: "error", component: ErrorPopupComponent }
         ]
       },
-      {
-        path: "change-password", component: ChangePasswordComponent,
-        children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
-      },
-      {
-        path: "online-payment", component: OnlinePaymentComponent,
-        children: [
-          { path: "success", component: SuccessPopupComponent },
-          { path: "error", component: ErrorPopupComponent }
-        ]
-      },
+     
+    
       {
         path: "kyc-details", component: KycDetailsComponent,
         children: [
@@ -198,7 +184,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    SafePipe,
     UploadLCComponent,
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,
@@ -212,7 +197,6 @@ const routes: Routes = [
     TransactionDetailsComponent,
     DraftTransactionComponent,
     UploadLcNewComponent,
-    OnlinePaymentComponent,
   ],
   providers:[CookieService],
 
@@ -246,7 +230,6 @@ const routes: Routes = [
     TransactionDetailsComponent,
     DraftTransactionComponent,
     UploadLcNewComponent,
-    OnlinePaymentComponent,
     
   ]
 })

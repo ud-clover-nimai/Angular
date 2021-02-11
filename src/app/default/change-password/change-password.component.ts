@@ -29,10 +29,9 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePasswordForm = this.formBuilder.group({
-    oldpassword: new FormControl('', Validators.required),
-    newPassword: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', [Validators.required])
-  }, {
+    oldpassword: new FormControl('', [Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
+    newPassword: new FormControl('', [Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
     validators: MustMatch('newPassword', 'confirmPassword')
   });
 
@@ -45,7 +44,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   close() {
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/business-details`])
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
   }
 
   onSubmit() {

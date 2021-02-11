@@ -10,6 +10,7 @@ import { onlinePaymentDltString } from 'src/app/beans/payment';
 import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
 import {CookieService } from 'ngx-cookie-service';
 import { ValidateRegex } from 'src/app/beans/Validations';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-subscription',
@@ -62,6 +63,7 @@ isRenewPlan=false;
   param2: any;
   pgstatus: void;
   creditStatus: any="";
+  subscriptionBAC: boolean=true;
   
   constructor(private cookieService:CookieService, private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
     this.paymentForm = this.fb.group({
@@ -106,7 +108,6 @@ isRenewPlan=false;
   getpaymentGateway(){
 
   this.cookies= this.cookieService.get('status');
-  console.log(this.cookies)
   if(this.cookies=='Success'){
    // this.paymentTransactionId=this.cookieService.get('orderId');
     this.payment(this.cookies);
@@ -131,7 +132,6 @@ isRenewPlan=false;
   }else{
     console.log("this.cookies")
 
-    console.log(this.cookies)
 
   }
   
@@ -159,6 +159,7 @@ isRenewPlan=false;
         } else if(userid.startsWith('BC')){
           this.subscriptionDetails = data.data.customerSplans;
           this.isCustomer=true;
+          this.subscriptionBAC=false;
         }
         else{
         this.subscriptionDetails = data.data.banksSplans;
@@ -193,7 +194,6 @@ isRenewPlan=false;
     this.isRenew=false;
     this.isPaymentSuccess=false;
     this.isOrder = true;
-    console.log(plan)
     this.viewVASPlans();
     // if(this.choosedPlan.flag=='new' || sessionStorage.getItem(flag)=='new'){
     //   this.payNowSave('CreditPending',this.choosedPlan);
@@ -276,7 +276,9 @@ isRenewPlan=false;
         this.isApply=false;
         this.amountAfterCoupon = Number(data.data.grandAmount);
         this.discount=Number(data.data.discount);
+        sessionStorage.setItem('discount',data.data.discount);
         this.discountId=data.data.discountId
+        sessionStorage.setItem('discountId',data.data.discountId);
         if(this.callVasService)
         {
           this.addedAmount = this.amountAfterCoupon+parseFloat(this.advPrice);
@@ -347,7 +349,6 @@ isRenewPlan=false;
 
 
   getGrandAmount(){
-    console.log(this.choosedPrice)
   this.paymentForm.patchValue({
     amount: this.choosedPrice,
   })
@@ -356,9 +357,9 @@ isRenewPlan=false;
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
     this.choosedPlan.vasAmount=this.advPrice;
-    this.choosedPlan.grandAmount=this.addedAmount
-    this.choosedPlan.discount=this.discount;
-    this.choosedPlan.discountId=this.discountId;
+    this.choosedPlan.grandAmount=this.cookieService.get('subsAmount');      
+    this.choosedPlan.discount=sessionStorage.getItem('discount')
+    this.choosedPlan.discountId=sessionStorage.getItem('discountId');
     this.choosedPlan.modeOfPayment="Credit" ;
     this.choosedPlan.subscriptionId=sessionStorage.getItem('subscriptionid');
 
@@ -366,13 +367,13 @@ isRenewPlan=false;
     this.choosedPlan.customerSupport= this.cookieService.get('custSupport');
     this.choosedPlan.lcCount=this.cookieService.get('lcCount');
     this.choosedPlan.relationshipManager= this.cookieService.get('relManager');
-    this.choosedPlan.subscriptionAmount= Number(this.cookieService.get('subsAmount'));
+    this.choosedPlan.subscriptionAmount= Number(this.cookieService.get('actualAmt'));
     this.choosedPlan.subscriptionName= this.cookieService.get('subsName');
     this.choosedPlan.subscriptionValidity= this.cookieService.get('subsValidity');
     this.choosedPlan.subsidiaries= this.cookieService.get('subsidiaries');
     this.choosedPlan.userId=this.cookieService.get('userId');
    // this.choosedPlan.vasAmount=this.cookieService.get('vasAmount');
-    console.log(this.choosedPlan)
+  //  console.log(this.choosedPlan)
 
 
     if(this.isnewPlan){
@@ -381,7 +382,8 @@ isRenewPlan=false;
     if(this.isRenewPlan){
       this.choosedPlan.flag="renew"
     }
-    if(this.vas_id && this.callVasService){
+    console.log(this.vas_id)
+    if(sessionStorage.getItem('vasId') && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
         "vasId": this.vas_id,
@@ -403,7 +405,6 @@ isRenewPlan=false;
           this.isPayment = false;
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
-          console.log(cdstatus)
          if(cdstatus=='Success'){
             const navigationExtras: NavigationExtras = {
               state: {
@@ -440,6 +441,11 @@ isRenewPlan=false;
         response => {
           this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];   
           let reData=JSON.parse(JSON.stringify(response)).data[0]       
+          if(this.choosedPlan.vasAmount){
+            this.showVASPlan=true
+            this.advPrice=this.choosedPlan.vasAmount;
+            this.viewVASPlans()
+          }
           if(this.choosedPlan.status.toLowerCase() != "active"){
             this.getSubscriptionDetails();
           }
@@ -447,7 +453,6 @@ isRenewPlan=false;
             this.viewVASPlans()
           if(reData.grandAmount)
             this.choosedPlan.subscriptionAmount=Number(sessionStorage.getItem("subscriptionamount"));
-            console.log(this.choosedPlan.subscriptionAmount)
          this.isNew = false
           this.isOrder = false;
           this.isPayment = false;
@@ -607,7 +612,6 @@ isRenewPlan=false;
     for (let i = 0; i < lengthOfCode; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-    console.log(text)
     orderid=text;
   }
   let possible = "ABCDEFGHZ1456912";
@@ -620,23 +624,17 @@ isRenewPlan=false;
       "orderId":orderid,
       "amount":this.addedAmount,
       "currency":this.paymentForm.get('currency').value,
-        "redirectURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-       "cancelURL":"http://136.232.244.190:8081/nimaiSPlan/PGResponse",
-      // "redirectURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-      //  "cancelURL":"http://203.115.123.93:8080/nimaiSPlan/PGResponse",
-      // "redirectURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
-      // "cancelURL":"http://nimai-pilot-lb-468660897.me-south-1.elb.amazonaws.com/nimaiSPlan/PGResponse",
-        //  "redirectURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
-        //  "cancelURL":"https://uat.nimaitrade.com/nimaiSPlan/PGResponse",
-
-       
+  
+       "cancelURL":`${environment.domain}/nimaiSPlan/PGResponse`,
+       "redirectURL":`${environment.domain}/nimaiSPlan/PGResponse`,
+      
 
      "merchantParam1":sessionStorage.getItem('userID'),
      "merchantParam2":sessionStorage.getItem('subscriptionid'),
      "merchantParam3":sessionStorage.getItem('flag'),
      "merchantParam4":sessionStorage.getItem('vasId'),
+     "merchantParam5":sessionStorage.getItem('subscriptionamount'),
     }
-
     this.onlinePayment.initiatePG(onlinePay).subscribe((response)=>{
       this.detail = JSON.parse(JSON.stringify(response)).data; 
 

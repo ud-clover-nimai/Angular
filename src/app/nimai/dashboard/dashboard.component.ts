@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   draftData: any;
   draftcount: any;
   draftcountBank: any;
-  nimaiCount: any = "";
+  nimaiCount: any = "";  
   isQuote = false;
   loading = false;
   userType: any;
@@ -53,9 +53,11 @@ export class DashboardComponent implements OnInit {
   public hideVas: boolean=true;
   emailid: string="";
   hideRefer: boolean=false;
+  hideChangepass: boolean=false;
   constructor(public service: UploadLcService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
-     public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
+    public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
     let userId = sessionStorage.getItem('userID');
+   //this.getNimaiCount();
     this.getPersonalDetails(userId);
     if (userId.startsWith('RE')) {
       this.isReferrer = true;
@@ -125,9 +127,95 @@ export class DashboardComponent implements OnInit {
     //     this.areaExpandedtra=!this.areaExpandedtra
     //   }
     // });
+
+  }
+  ngAfterViewInit(){
+ //   this.getNimaiCount();
+  this.callAllDraftTransaction();
+  //console.log("Email id --",sessionStorage.getItem('branchUserEmailId'))
+  if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined || sessionStorage.getItem('branchUserEmailId')=="undefined"){
+  //  console.log("if")
+    this.emailid=""
+  }else{
+    this.emailid=sessionStorage.getItem('branchUserEmailId')
+  }
+  let data = {
+    "userid": sessionStorage.getItem('userID'),
+    "emailAddress":this.emailid
   }
 
+  this.getCount.getTotalCount(data).subscribe(
+    response => {        
+      this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+      console.log("this.nimaiCount--",this.nimaiCount)
+      this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+      sessionStorage.setItem("creditCount", this.creditCount);
+      sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
+      sessionStorage.setItem("paymentTransId", this.nimaiCount.paymentTransId);
+      sessionStorage.setItem("subscriptionid", this.nimaiCount.subscriptionid);
+      sessionStorage.setItem("isvasapplied", this.nimaiCount.isvasapplied);
+      sessionStorage.setItem("subsidiries", this.nimaiCount.subsidiries);
+      sessionStorage.setItem("subuticount", this.nimaiCount.subuticount);  
+      sessionStorage.setItem("kycStatus", this.nimaiCount.kycstatus);
+      sessionStorage.setItem('companyName', this.nimaiCount.companyname);
+      sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
+      sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);   
+      sessionStorage.setItem('accountType', this.nimaiCount.accounttype);   
+      if(this.nimaiCount.kycstatus=='Approved' && this.nimaiCount.subscribertype !== 'REFERRER'){
+        this.creditenable='yes';
+      }else{
+        this.creditenable='no';
+      }
+     
+      if(this.nimaiCount.isbdetailfilled){
+        this.isDisablePlan=true;
+      }else{
+        this.isDisablePlan=false;
+      }
+      if(this.nimaiCount.accounttype == 'SUBSIDIARY' || this.nimaiCount.accounttype == 'BANKUSER' || this.nimaiCount.subscribertype == 'REFERRER'){
+        this.hidePlanFromProfile=true;
+        this.hidePlanFromMenu=true;
+      }
+      if(this.nimaiCount.kycstatus!=='Approved'){
+        this.hideManageUser=true;
+        this.hideCreditTransaction=true;
+        this.hideRefer=true;
+      }
+      if(this.nimaiCount.subscribertype == 'REFERRER')
+        this.referenceTab=true;
+      if(this.nimaiCount.issplanpurchased=="1"){
+        this.isDisableKyc=true;
+      }else if(this.nimaiCount.accounttype == 'SUBSIDIARY' && this.nimaiCount.isbdetailfilled){
+        this.isDisableKyc=true;
+       }else if(this.nimaiCount.subscribertype == 'REFERRER' && this.nimaiCount.kycstatus=="Rejected"){
+        this.isDisableKyc=true;
+       }else{
+        this.isDisableKyc=false;
+       }
+       if(this.nimaiCount.kycstatus=="Pending"){
+        this.isDisableKyc=false;
+       }
+     if( this.nimaiCount.status=='INACTIVE'){
+      const navigationExtras: NavigationExtras = {
+              state: {
+                title: 'Transaction Not Allowed !',
+                message: 'Your Subscription Plan has been INACTIVATE ! Please Renew Your Subscription Plan',
+                parent: this.parentURL + '/dsb/subscription',
+                redirectedFrom: "New-Transaction"
+              }
+            };
+            this.router.navigate([`/${this.parentURL}/dsb/subscription/error`], navigationExtras)
+              .then(success => console.log('navigation success?', success))
+              .catch(console.error);
+          
+          }
+    },
+    error => { }
+  )
+
+  }
   ngOnInit() {
+    this.getNimaiCount();
     load_dashboard();
     if (this.router.url === `/${this.parentURL}/dsb/personal-details` || this.router.url === `/${this.parentURL}/dsb/online-payment` || this.router.url === `/${this.parentURL}/dsb/business-details` || this.router.url === `/${this.parentURL}/dsb/subscription` || this.router.url === `/${this.parentURL}/dsb/kyc-details`) {      
       this.accountPages = "in"
@@ -156,17 +244,17 @@ export class DashboardComponent implements OnInit {
     //this.titleService.loader.subscribe(flag => this.loading = flag);
     //this.titleService.quote.subscribe(flag=>this.isQuote=flag);
    // this.callAllDraftTransaction();
-    this.getNimaiCount();
     this.accountType=sessionStorage.getItem('accountType');
-    console.log(this.accountType)
   if(this.accountType == 'SUBSIDIARY'){
     this.hideSubAccount=true;
+    this.hideChangepass=true;
     this.hideCreditTransaction=true;
     this.hideVas=false;
     this.hideMyProfile=true;
   }else if(this.accountType == 'Passcode'){
     this.hideSubAccount=true;
-    this.hideCreditTransaction=true;
+    this.hideChangepass=true;
+    this.hideCreditTransaction=false;
     this.hideVas=false;
     this.hideManageUser=true;
     this.hideRefer=true;
@@ -174,6 +262,12 @@ export class DashboardComponent implements OnInit {
 
   }else if(this.accountType == 'MASTER'){
     this.hideMyProfile=true;
+    this.hideCreditTransaction=false;
+
+  }else if(this.accountType=='BANKUSER'){
+    this.hideManageUser=true;
+    this.hideSubAccount=true;
+    this.hideChangepass=false;
   }
   }
   callAllDraftTransaction() {
@@ -281,6 +375,7 @@ export class DashboardComponent implements OnInit {
     this.getCount.getTotalCount(data).subscribe(
       response => {        
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        console.log("this.nimaiCount--",this.nimaiCount)
         this.creditCount=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
         sessionStorage.setItem("creditCount", this.creditCount);
         sessionStorage.setItem("subscriptionamount", this.nimaiCount.subscriptionamount);
@@ -314,7 +409,6 @@ export class DashboardComponent implements OnInit {
           this.hideCreditTransaction=true;
           this.hideRefer=true;
         }
-        console.log("this.hidePlanFromProfile--",this.hidePlanFromProfile)
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
         if(this.nimaiCount.issplanpurchased=="1"){
@@ -324,6 +418,9 @@ export class DashboardComponent implements OnInit {
          }else if(this.nimaiCount.subscribertype == 'REFERRER' && this.nimaiCount.kycstatus=="Rejected"){
           this.isDisableKyc=true;
          }else{
+          this.isDisableKyc=false;
+         }
+         if(this.nimaiCount.kycstatus=="Pending"){
           this.isDisableKyc=false;
          }
        if( this.nimaiCount.status=='INACTIVE'){
@@ -340,6 +437,7 @@ export class DashboardComponent implements OnInit {
                 .catch(console.error);
             
             }
+      
       },
       error => { }
     )

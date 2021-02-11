@@ -149,6 +149,25 @@
                                                    
                                                 </div>
                                             </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="inputDiv">
+                                                  
+                                                    <input type="text" maxlength="13" formControlName="landLinenumber" [ngClass]="hasCountrycode ? 'has-value' : ''" [ngClass]="{ 'is-invalid': submitted && referDetails.landLinenumber.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                    <label>Landline No.</label>      
+                                                    <div *ngIf="submitted && referDetails.landLinenumber.errors?.required" class="invalid-feedback">
+                                                        Landline No. is required.
+                                                    </div>
+                                                    <div *ngIf="referDetails.landLinenumber.errors?.minlength" class="invalid-feedback">
+                                                        Landline Number is atleast of 7 digits.
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                           
+
+
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
                                                     <input type="text" maxlength="30" formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && (referDetails.companyName.errors?.required)}">

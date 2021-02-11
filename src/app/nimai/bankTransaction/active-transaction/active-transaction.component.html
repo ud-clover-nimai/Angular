@@ -33,7 +33,7 @@
                     </div>
                       <div class="row" *ngIf="!hasNoRecord">
                          <div class="col-md-12">
-                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%;">
                               
                                <table class="table table-hover" id="datatables">
                                   <thead>
@@ -148,11 +148,11 @@
                                            <td>Country</td>
                                            <td>{{specificDetail.applicantCountry}}</td>
                                        </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                                       <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
                                            <td>Contact Person</td>
                                            <td>{{specificDetail.applicantContactPerson}}</td>
                                        </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Beneficiary'">
+                                       <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
                                            <td>Email Id</td>
                                            <td>{{specificDetail.applicantContactPersonEmail}}</td>
                                        </tr>
@@ -171,11 +171,11 @@
                                            <td>Country</td>
                                            <td>{{specificDetail.beneCountry}}</td>
                                        </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Applicant'">
+                                       <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
                                            <td>Contact Person</td>
                                            <td>{{specificDetail.beneContactPerson}}</td>
                                        </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Applicant'">
+                                       <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
                                            <td>Email Id</td>
                                            <td>{{specificDetail.beneContactPersonEmail}}</td>
                                        </tr>

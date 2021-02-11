@@ -24,13 +24,21 @@
                         </tr>
                         <tr>
                            <td>Name</td>
-                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"></td>
+                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
+                              #applicantName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantName.invalid }" required>
+                              <span> <div *ngIf="f.submitted && applicantName.invalid" class="invalid-feedback">
+                                 <div *ngIf="applicantName.errors.required">Name is required</div>
+                             </div></span></td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>
-                          <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType">
-                           <option [ngValue]="null" selected>Select</option>
+                          <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType"
+                          #applicantCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantCountry.invalid }" required>
+                          <span> <div *ngIf="f.submitted && applicantCountry.invalid" class="invalid-feedback">
+                             <div *ngIf="applicantCountry.errors.required">Name is required</div>
+                         </div></span> 
+                          <option [ngValue]="null" selected>Select</option>
                            <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
                           </select>
 
@@ -38,7 +46,12 @@
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Contact Person</td>
-                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"></td>
+                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"
+                              #applicantContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPerson.invalid }" required>
+                              <span> <div *ngIf="f.submitted && applicantContactPerson.invalid" class="invalid-feedback">
+                                 <div *ngIf="applicantContactPerson.errors.required">Contact Person is required</div>
+                             </div></span>
+                           </td>
                         </tr>
                         <tr *ngIf="disableRadiobtn">
 
@@ -53,7 +66,12 @@
                         </tr>
                         <tr [hidden]="applicantType">
                            <td>Contact Person</td>
-                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"></td>
+                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"
+                              #applicantContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPerson.invalid }" required>
+                              <span> <div *ngIf="f.submitted && applicantContactPerson.invalid" class="invalid-feedback">
+                                 <div *ngIf="applicantContactPerson.errors.required">Contact Person is required</div>
+                             </div></span>   
+                           </td>
                         </tr>
                         <tr *ngIf="!applicantType">
 
@@ -75,12 +93,21 @@
                         </tr>
                         <tr>
                            <td>Name </td>
-                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName"  [disabled]="beneficiaryType && appBenBAC"></td>
+                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName"  [disabled]="beneficiaryType && appBenBAC"
+                              #beneName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneName.invalid }" required>
+                              <span> <div *ngIf="f.submitted && beneName.invalid" class="invalid-feedback">
+                                 <div *ngIf="beneName.errors.required">Name is required</div>
+                             </div></span>
+                           </td>
                         </tr>
                         <tr>
                            <td>Country</td>
                            <td>                            
-                         <select [(ngModel)]="data.beneCountry" name="beneCountry" [disabled]="beneficiaryType">
+                         <select [(ngModel)]="data.beneCountry" name="beneCountry" [disabled]="beneficiaryType"
+                         #beneCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneCountry.invalid }" required>
+                         <span> <div *ngIf="f.submitted && beneCountry.invalid" class="invalid-feedback">
+                            <div *ngIf="beneCountry.errors.required">Name is required</div>
+                        </div></span>
                                  <option [ngValue]="null" selected>Select</option>
                                  <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
                           </select>
@@ -88,7 +115,12 @@
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Contact Person</td>
-                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"></td>
+                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"
+                              #beneContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPerson.invalid }" required>
+                              <span> <div *ngIf="f.submitted && beneContactPerson.invalid" class="invalid-feedback">
+                                 <div *ngIf="beneContactPerson.errors.required">Contact Person is required</div>
+                             </div></span>
+                           </td>
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Email Id</td>
@@ -102,7 +134,11 @@
                         </tr>
                         <tr [hidden]="beneficiaryType">
                            <td>Contact Person</td>
-                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"></td>
+                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"
+                              #beneContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPerson.invalid }" required>
+                              <span> <div *ngIf="f.submitted && beneContactPerson.invalid" class="invalid-feedback">
+                                 <div *ngIf="beneContactPerson.errors.required">Contact Person is required</div>
+                             </div></span></td>
                         </tr>
                         <tr *ngIf="!beneficiaryType">
                            <td>Email Id</td>

@@ -71,8 +71,9 @@ export class ManageUserComponent implements OnInit {
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 1,
       allowSearchFilter: true
+    
     }
-
+    
   }
 
   manageSubForm = this.formBuilder.group({
@@ -104,6 +105,34 @@ export class ManageUserComponent implements OnInit {
     }else{
       this.isBankOther=false;
     }
+console.log(item.productCategory)
+    // if(item.productCategory=='None'){
+      
+    //   this.dropdownSettingGoods = {
+    //     singleSelection: false,
+    //     idField: 'id',
+    //     textField: 'productCategory',
+    //     selectAllText: 'Select All',
+    //     unSelectAllText: 'Unselect All',
+    //     itemsShowLimit: 1,
+    //     allowSearchFilter: true,
+    //     enableCheckAll:false,
+
+    //    // limitSelection:'none'
+    //   }
+    // }else{
+    //   this.dropdownSettingGoods = {
+    //     singleSelection: false,
+    //     idField: 'id',
+    //     textField: 'productCategory',
+    //     selectAllText: 'Select All',
+    //     unSelectAllText: 'Unselect All',
+    //     itemsShowLimit: 1,
+    //     allowSearchFilter: true,
+        
+    //   }
+    // }
+
   }
 
   onSelectAll(item: any) {
@@ -154,6 +183,7 @@ export class ManageUserComponent implements OnInit {
   close() {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
+    this.isBankOther=false;
   }
 
   onOkClick(){
