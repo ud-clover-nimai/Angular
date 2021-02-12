@@ -6,6 +6,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-discounting',
   templateUrl: './discounting.component.html',
@@ -24,6 +25,7 @@ export class DiscountingComponent implements OnInit {
   public subURL: string = "";
   public errmessage: string = "";
   public totalQuotes: any;
+  CurrentDate: string;
 
 
 
@@ -149,6 +151,8 @@ export class DiscountingComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';

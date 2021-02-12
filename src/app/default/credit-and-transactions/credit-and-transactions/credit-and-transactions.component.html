@@ -119,10 +119,9 @@
                                                         <th style="min-width: 20px !important;" class="text-center">#</th>
                                                         <th style="min-width: 130px;">Date</th>
                                                         <th style="min-width: 150px;">Company / Subsidiary</th>
-                                                        <th style="min-width: 150px;">First Name</th>
-                                                        <th style="min-width: 150px;">Last Name</th>
+                                                        <th style="min-width: 180px;">Trxn ID</th>
                                                         <th style="min-width: 180px;">Trxn Type</th>
-                                                        <th style="min-width: 130px;">Trxn Status</th>
+                                                        <th style="min-width: 150px;">Trxn Status</th>
                                                         <th style="min-width: 120px;">Credits Used</th>
                                                         <th style="min-width: 120px;">Savings</th>
                                                         <th style="min-width: 120px;">Ccy</th>
@@ -133,9 +132,15 @@
                                                     <td>{{i+1}}</td>
                                                     <td nowrap>{{list.txnInsertedDate | date : "dd-MM-y"}}</td>
                                                     <td>{{list.companyName}}</td>
-                                                    <td>{{list.firstName}}</td>
-                                                    <td>{{list.lastName}}</td>
-                                                    <td>{{list.transactionType}}</td>
+                                                    <td>{{list.transactionId}}</td>
+                                                    <td>
+                                                        <div *ngIf="list.transactionType=='Banker' || list.transactionType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                        <div *ngIf="list.transactionType=='ConfirmAndDiscount' || list.transactionType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                        <div *ngIf="list.transactionType=='Refinance' || list.transactionType=='Refinancing'">Refinancing </div>
+                                                        <div *ngIf="list.transactionType=='Discounting'">Discounting</div>
+                                                        <div *ngIf="list.transactionType=='Confirmation'">Confirmation</div>
+                                                    </td>
+                                                    <!-- <td>{{list.transactionType}}</td> -->
                                                     <td>{{list.transactionStatus}}</td>
                                                     <td nowrap >{{list.creditUsed}}</td>
                                                     <td nowrap >{{list.savings}}</td>

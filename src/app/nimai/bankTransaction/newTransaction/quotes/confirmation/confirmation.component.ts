@@ -35,10 +35,12 @@ export class ConfirmationComponent implements OnInit {
   totalQuote: any;
   public confNegot:boolean=false;
   public confMature:boolean=false;
+  CurrentDate: string;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
-    this.activatedRoute.parent.url.subscribe((urlPath) => {
+   
+      this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
@@ -174,6 +176,7 @@ export class ConfirmationComponent implements OnInit {
     this.selectNego = 'no';
   }
   public action(flag: boolean, type: Tflag, data: any) {
+  this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
  this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';

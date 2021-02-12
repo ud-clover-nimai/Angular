@@ -452,7 +452,7 @@
                                         <tr>
                                             <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                                 <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a></td>
-                                            <td><input type="date" name="validityDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                            <td><input type="date" name="validityDate"  [min]="CurrentDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                                 (ngModelChange)="data.validityDate = $event" #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }"
                                                     required>
                                                 <div *ngIf="f.submitted && validityDate.invalid"

@@ -6,6 +6,7 @@ import { ViewChild, OnInit, Component } from '@angular/core';
 import { PlaceQuote, editViewQuotation } from 'src/app/beans/BankNewTransaction';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-confirm-and-discount',
   templateUrl: './confirm-and-discount.component.html',
@@ -35,6 +36,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
   totalQuotes: any;
   public confNegot:boolean=false;
   public confMature:boolean=false;
+  CurrentDate: string;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -173,6 +175,8 @@ export class ConfirmAndDiscountComponent implements OnInit {
   }
 
   public action(flag: boolean, type: Tflag, data: any) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     this.tab='tab1';
     if(data.termConditionComments=='null'){
       data.termConditionComments='';

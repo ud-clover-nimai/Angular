@@ -47,6 +47,7 @@ export class VasPlanComponent implements OnInit {
       this.hideAddBtn=true;
 
     }
+    
   }
   getVASByUserId(){
     let data = {
@@ -80,26 +81,33 @@ export class VasPlanComponent implements OnInit {
   }
   addVasPlan(data){
     if(this.callVasService)   {
-      let req = {
-        "userId": sessionStorage.getItem('userID'),
-        "vasId": data.vas_id,
-        "subscriptionId":this.subscriptionId
-      }
-     
-      this.subscriptionService.addVas(req).subscribe(data => {
-        let sdata= JSON.parse(JSON.stringify(data))
-        console.log(sdata.status)
-        if(sdata.status=="Success"){
-          this.showVasPlan =false;
+      this.showVasPlan =false;
           this.showSuccess=true;
+          sessionStorage.setItem('vasPending','No')
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
         });
-        }else{
-          console.log("error")
-        }
-      }
-      )
+      // let req = {
+      //   "userId": sessionStorage.getItem('userID'),
+      //   "vasId": data.vas_id,
+      //   "subscriptionId":this.subscriptionId
+      // }
+     
+      // this.subscriptionService.addVas(req).subscribe(data => {
+      //   let sdata= JSON.parse(JSON.stringify(data))
+      //   console.log(sdata.status)
+      //   if(sdata.status=="Success"){
+      //     this.showVasPlan =false;
+      //     this.showSuccess=true;
+      //     sessionStorage.setItem('vasPending','No')
+      //     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      //       this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
+      //   });
+      //   }else{
+      //     console.log("error")
+      //   }
+      // }
+      // )
     }else{
       alert("Please add Vas Plan")
     }

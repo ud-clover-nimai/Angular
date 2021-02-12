@@ -45,6 +45,7 @@ export class ConfirmationComponent implements OnInit {
   private filename: string = '';
   imgDownload: boolean=false;
   fileData: any;
+  minDate = new Date;
 
   reqType : string;
   transaction_id: string;
@@ -62,6 +63,9 @@ export class ConfirmationComponent implements OnInit {
   chargesTypeArr: any=[];
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+    
+  
+    
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
