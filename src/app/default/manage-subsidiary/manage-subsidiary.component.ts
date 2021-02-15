@@ -99,11 +99,11 @@ export class ManageSubsidiaryComponent implements OnInit {
       )
   }
   onOkClick(){    
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-    //   });
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+      });
      // window.location.reload()
-      $("#addsub").hide();
+     // $("#addsub").hide();
   }
 
   addSubsidiary() {

@@ -155,12 +155,12 @@
                                                 <div class="inputDiv">
                                                   
                                                     <input type="text" maxlength="13" formControlName="landLineNo" 
-                                                    [ngClass]="hasCountrycode ? 'has-value' : ''" [ngClass]="{ 'is-invalid': submitted && referDetails.landLineNo.errors?.required }"
+                                                    [ngClass]="hasCountrycode ? 'has-value' : ''" 
                                                       maxlength="12" (keypress)="validateRegexFields($event, 'number')">
                                                     <label>Landline No.</label>      
-                                                    <div *ngIf="submitted && referDetails.landLineNo.errors?.required" class="invalid-feedback">
+                                                    <!-- <div *ngIf="submitted && referDetails.landLineNo.errors?.required" class="invalid-feedback">
                                                         Landline No. is required.
-                                                    </div>
+                                                    </div> -->
                                                     <div *ngIf="referDetails.landLineNo.errors?.minlength" class="invalid-feedback">
                                                         Landline Number is atleast of 7 digits.
                                                     </div>

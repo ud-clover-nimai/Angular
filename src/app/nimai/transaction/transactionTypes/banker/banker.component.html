@@ -64,7 +64,7 @@
                              </div></span>                              
                               </td>                          
                         </tr>
-                        <tr [hidden]="applicantType">
+                        <tr [hidden]="!applicantType">
                            <td>Contact Person</td>
                            <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"
                               #applicantContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPerson.invalid }" required>

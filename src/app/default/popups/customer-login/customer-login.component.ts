@@ -93,7 +93,6 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
-              console.log("Response---",JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },

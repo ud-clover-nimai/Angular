@@ -186,10 +186,10 @@ console.log(item.productCategory)
   }
 
   onOkClick(){
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
-    //   });
-    window.location.reload();
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
+      });
+   // window.location.reload();
     $("#addsub").hide();
   }
 

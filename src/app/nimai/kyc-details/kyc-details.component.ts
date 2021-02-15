@@ -316,7 +316,7 @@ setValidators(){
   }
 
   selectFile(e, data) {
-     $("#moreImageUploadLinkType").show();
+    // $("#moreImageUploadLinkType").show();
      this.count=0;
 
     this.itemData = data;
@@ -337,7 +337,7 @@ setValidators(){
   }
 
   selectFile_KYC(e) {
-     $("#moreImageUploadLink").show();
+    // $("#moreImageUploadLink").show();
     
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.filename=file.name;
