@@ -427,7 +427,12 @@ export class ConfirmationComponent implements OnInit {
       .catch(console.error);
   }
 
-
+  closed_div(){
+    this.isActive = false;
+    document.getElementById("menubar-con").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+   }
   public transactionForQuotes(act: string, data: any, detail: any) {
      
     switch (act) {

@@ -13,8 +13,10 @@
                    <div class="row">
                     <div class="parentOfSelect" *ngIf="disablesubsi">
                         <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                           <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                             <option value=''>Additional users</option>
+                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">Subsidiaries</label>
+
+                            <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                             <!-- <option value=''>Additional users</option> -->
                              <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
                           </select>
                     </div>

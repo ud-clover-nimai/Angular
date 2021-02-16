@@ -274,10 +274,15 @@ export function manageSub() {
                 destroy: true,
                 pagingType: "full_numbers",
                 scrollX: true,
-                lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50]
-                ],
+                "initComplete": function(settings, json) {
+                    $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+                },
+                // lengthMenu: [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50]
+                // ],
+                "lengthMenu": [ 5,10, 25, 50 ],
+                "pageLength":10,
                 responsive: false, //scrollX: true,
                 language: {
                     search: "_INPUT_",

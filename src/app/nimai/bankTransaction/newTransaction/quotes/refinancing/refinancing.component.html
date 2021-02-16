@@ -1,11 +1,11 @@
-<div id="menubarRefinancing" [hidden]="!isActive" (blur)="closed()"
+<div id="menubarRefinancing" [hidden]="!isActive" class="offcanvas" (blur)="closed()"
     style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; 
     right: 0px; z-index:9999;">
 
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
-                <h4>{{title}} <button type="button" class="close handle">&times;</button></h4>
+                <h4>{{title}} <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
                 <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 110px;">
                    
                     <div class="tab-pane active" id="pill1">

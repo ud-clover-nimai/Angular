@@ -180,12 +180,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv multiselect-dropdown">
-                                            <ng-multiselect-dropdown-angular7  [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7  [data]="goodsArray" [(ngModel)]="BGselected" [disabled]="disabledNone" formControlName="blacklistedGC"  [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
                                             <div *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
                                                 Select Blacklisted Goods
                                             </div>
+                                           
                                         </div>
+                                    </div>
+                                    <div class="col-md-6"  *ngIf=" isOptionNone">
+                                        <button type="button" class="closeNone" style="left: 15px;margin-left: 0px;" (click)="closeNone()">&times;</button>
                                     </div>
                                     <div class="col-md-6 col-sm-6 bankfields" *ngIf=" isBankOther">
                                         <div class="inputDiv">

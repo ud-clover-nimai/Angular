@@ -32,7 +32,7 @@
                         <tr>                      
                            <td>Country</td>
                            <td>
-                              <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType"
+                              <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType && appBenBAC"
                               #applicantCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantCountry.invalid }" required>
                               <span> <div *ngIf="f.submitted && applicantCountry.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantCountry.errors.required">Country is required</div>
@@ -99,7 +99,7 @@
                         <tr>
                            <td>Country</td>
                            <td>
-                              <select name="beneCountry" [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType"
+                              <select name="beneCountry" [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType && appBenBAC"
                               #beneCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneCountry.invalid }" required>
                             
                                  <option [ngValue]="null" selected>Select</option>

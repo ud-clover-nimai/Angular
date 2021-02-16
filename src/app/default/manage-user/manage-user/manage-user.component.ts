@@ -44,6 +44,9 @@ export class ManageUserComponent implements OnInit {
   countryArray: Array<string> = [];
   isBankOther: boolean;
   countryName: any;
+  disabledNone: boolean=false;
+  isOptionNone: boolean=false;
+  BGselected: any;
     constructor(public router: Router, public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -102,39 +105,31 @@ export class ManageUserComponent implements OnInit {
     if(item.productCategory=="Others"){
       this.isBankOther=true;      
      // loads();
-    }else{
+    }
+    else{
       this.isBankOther=false;
     }
-console.log(item.productCategory)
-    // if(item.productCategory=='None'){
-      
-    //   this.dropdownSettingGoods = {
-    //     singleSelection: false,
-    //     idField: 'id',
-    //     textField: 'productCategory',
-    //     selectAllText: 'Select All',
-    //     unSelectAllText: 'Unselect All',
-    //     itemsShowLimit: 1,
-    //     allowSearchFilter: true,
-    //     enableCheckAll:false,
 
-    //    // limitSelection:'none'
-    //   }
-    // }else{
-    //   this.dropdownSettingGoods = {
-    //     singleSelection: false,
-    //     idField: 'id',
-    //     textField: 'productCategory',
-    //     selectAllText: 'Select All',
-    //     unSelectAllText: 'Unselect All',
-    //     itemsShowLimit: 1,
-    //     allowSearchFilter: true,
-        
-    //   }
-    // }
+  
 
+if(item.productCategory=='None'){
+    // this.manageSubForm.get('blacklistedGC').setValue('');
+
+  this.isOptionNone=true;
+ // this.BGselected.push({ id: '1',productCategory: "None",description:""});
+  this.disabledNone=true
+
+}else{
+  console.log(item.productCategory)
+
+  this.disabledNone=false;
+}
   }
-
+  closeNone(){
+    this.manageSubForm.get('blacklistedGC').setValue('');
+    this.disabledNone=false
+    this.isOptionNone=false;
+  }
   onSelectAll(item: any) {
     console.log(item);
   }
@@ -183,6 +178,8 @@ console.log(item.productCategory)
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
     this.isBankOther=false;
+    this.disabledNone=false;
+
   }
 
   onOkClick(){

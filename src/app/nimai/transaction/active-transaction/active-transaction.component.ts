@@ -67,7 +67,8 @@ export class ActiveTransactionComponent implements OnInit {
 
   }
 
-  public getAllnewTransactions(userid) {
+  public getAllnewTransactions(userid,userIdOnLoad) {
+    this.getUsercodeData(userid)
 
     this.titleService.quote.next(true);
     var userIdDetail = sessionStorage.getItem('userID');
@@ -82,10 +83,12 @@ export class ActiveTransactionComponent implements OnInit {
       emailId=this.selectedUCode;
     }
     this.accountType=sessionStorage.getItem('accountType')
+
+    
     if(this.accountType=='Passcode'){
    this.usersid=""
     }else{
-      this.usersid=userid
+      this.usersid=userIdOnLoad
     }
 
   const data ={
@@ -120,8 +123,10 @@ export class ActiveTransactionComponent implements OnInit {
         this.hasNoRecord = true;
       }
     )
-    this.getUsercodeData(userid)
+    
 this.selectedUCode="";
+this.selectedSub='';
+
   }
 
   ngOnInit() {     
@@ -180,7 +185,7 @@ this.selectedUCode="";
   ngAfterViewInit() {
     this.selectedSub=sessionStorage.getItem('userID');
 
-    this.getAllnewTransactions(this.selectedSub);
+    this.getAllnewTransactions(this.selectedSub,'All'+this.selectedSub);
     this.confirmation.isActive = false;
     this.discounting.isActive = false;
     this.confirmAndDiscount.isActive = false;
@@ -385,19 +390,20 @@ document.getElementById("myCanvasNav").style.opacity = "0";
 // }
 
 selectSubsidiaries(val: any) {
-  
+  this.selectedSub='';
+
       this.selectedSub=val;
-      this.getAllnewTransactions(this.selectedSub)
+      this.getAllnewTransactions(this.selectedSub,this.selectedSub)
   }
   selectUsercode(val: any) {
     if(val=='All'){
       this.selectedUCode=val;
       this.selectedSub=sessionStorage.getItem('userID')
-      this.getAllnewTransactions(this.selectedSub)
+      this.getAllnewTransactions(this.selectedSub,this.selectedSub)
     }else{
       this.selectedUCode=val;
       this.selectedSub=""
-      this.getAllnewTransactions(this.selectedSub)
+      this.getAllnewTransactions(this.selectedSub,this.selectedSub)
     }
    
 }
