@@ -38,7 +38,7 @@ export class CreditAndTransactionsComponent implements OnInit {
   ngOnInit() {
     this.accountType=sessionStorage.getItem('accountType')
     this.userId=sessionStorage.getItem('userID');
-    this.listOfCreditAndTransaction(undefined,this.userId);
+    this.listOfCreditAndTransaction(undefined,this.userId,'All'+sessionStorage.getItem('userID'));
    this.getSubsidiaryData();
  
     this.startDate=""
@@ -86,7 +86,7 @@ export class CreditAndTransactionsComponent implements OnInit {
     }
     return t;
    }
-  listOfCreditAndTransaction(comanyname:any,userid:any){   
+  listOfCreditAndTransaction(comanyname:any,userid:any,userIdOnLoad){   
     this.titleService.quote.next(true);
 
     this.usersid=userid
@@ -146,11 +146,11 @@ if(this.userId.startsWith('BA')){
   this.accountType=sessionStorage.getItem('accountType')
   if(this.accountType=='Passcode'){
     //this.usersid=""
-    this.usersid=userid
+    this.usersid=userIdOnLoad
     emailId = sessionStorage.getItem('branchUserEmailId');
 
      }else{
-       this.usersid=userid
+       this.usersid=userIdOnLoad
      } 
  const param = {
   "userid":this.usersid,
@@ -199,18 +199,18 @@ this.usersid=userid
   changeStartDate(event: MatDatepickerInputEvent<Date>) {    
     let formatedDate  = formatDate(new Date(event.target.value), 'yyyy-MM-dd', 'en'); 
     this.startDate=formatedDate
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
   }
   changeEndDate(event: MatDatepickerInputEvent<Date>) { 
     let date = new Date(event.target.value);
     date.setDate(date.getDate() + 1);
     this.endDate=formatDate(new Date(date), 'yyyy-MM-dd', 'en');
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
   }
   selectCompany(companyName){
     if(companyName!="none"){
       this.companyName=companyName;
-      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
     }
     
   }
@@ -245,13 +245,13 @@ this.usersid=userid
 selectSubsidiaries(val: any) {
  // this.selectedSub=val;
  
-  this.listOfCreditAndTransaction(undefined,val)
+  this.listOfCreditAndTransaction(undefined,val,val)
   
 }
 selectUsercode(val: any) {
   this.selecteduserCode =sessionStorage.getItem('userID')
   this.selectedUCode=val;
-  this.listOfCreditAndTransaction(undefined,this.selecteduserCode)
+  this.listOfCreditAndTransaction(undefined,this.selecteduserCode,sessionStorage.getItem('userID'))
 
 }
 }

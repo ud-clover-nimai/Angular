@@ -30,6 +30,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   subuticount:any;
   available:any;
   nimaiCount:any;
+  countryName: any;
+  countryCode: any;
+  hasCountrycode: boolean=false;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -82,7 +85,13 @@ export class ManageSubsidiaryComponent implements OnInit {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
   }
-
+  showCountryCode(data){
+    this.countryName = data.country;
+    this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
+  }
   
   listOfSubsidiary(){  
     let userID: string = sessionStorage.getItem('userID');

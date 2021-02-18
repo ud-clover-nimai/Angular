@@ -396,12 +396,16 @@
             </div>
         </div>
     </div>
-    <div id="myModal4" class="popupnew modal fade in" role="dialog">
+    <div id="myModal4" class="popupnew modal fade in myModal4" role="dialog">
         <div class="modal-dialog modal-md emaildiv">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Wire Transfer Details</h2>
+                    <h2>Wire Transfer Details
+                        <button type="button" class="close" (click)="closeWT()">
+                            &times;
+                        </button>
+                    </h2>
                     <div class="padnew">
                         <!--<p><strong>Enter Email ID here</strong></p> -->
                         <div class="">

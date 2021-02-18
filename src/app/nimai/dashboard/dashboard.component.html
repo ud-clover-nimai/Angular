@@ -412,7 +412,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li *ngIf="hideMyProfile"><a [routerLink]="['my-profile']">My Profile</a></li>
-                    <li *ngIf="!hideCreditTransaction">
+                    <li *ngIf="!hideCreditTransaction && (nimaiCount.kycstatus | lowercase) == 'approved'">
                       <a
                         *ngIf="isCustomer || isBank"
                         [routerLink]="['credit-transaction']"

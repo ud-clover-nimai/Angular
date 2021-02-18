@@ -164,7 +164,6 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let res = JSON.parse(JSON.stringify(response));
-          console.log(res);
           const fg = {
             "emailId": this.referForm.get('emailAddress').value,
             "event": 'ADD_REFER',
@@ -234,10 +233,8 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
-          console.log(responseData)
           let total = 0;
           for (let i = 0; i < responseData.length; i++) {
-            console.log ("Block statement execution no." + responseData[i].earnings);
             total +=Number(responseData[i].earnings);
           }
           this.total_earning=total;

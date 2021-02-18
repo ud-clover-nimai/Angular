@@ -161,7 +161,6 @@ closePopup(){
 
 closeAR(){
   $('#accountReview').hide();
-
   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
     this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`]);
 });

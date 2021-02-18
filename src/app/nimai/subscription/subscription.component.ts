@@ -501,6 +501,13 @@ this.choosePlan(this.vasPDetails,'renew')
         }
       )
   }
+
+  closeWT(){
+    $('#myModal4').hide();
+    $('.modal-backdrop').hide();
+
+
+  }
   sendAccDetails(){    
       let req = {
         "userId": sessionStorage.getItem('userID'),
