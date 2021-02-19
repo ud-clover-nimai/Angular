@@ -65,7 +65,13 @@ export class VasPlanComponent implements OnInit {
     }
     this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
-      this.advPrice = this.advDetails.pricing;
+      if(this.advDetails){
+        this.advPrice = this.advDetails.pricing;
+      }
+      else {
+        this.advDetails=0;
+      }
+
     })
   }
   addAdvService(event){

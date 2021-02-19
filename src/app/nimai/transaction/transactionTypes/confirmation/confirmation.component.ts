@@ -235,7 +235,7 @@ export class ConfirmationComponent implements OnInit {
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        this.title = 'View';
+        this.title = 'View Transaction';
         this.data = data; 
       
         if(this.data.chargesType.startsWith(this.data.applicantName)){
@@ -283,7 +283,7 @@ export class ConfirmationComponent implements OnInit {
           this.appBenBAC=false;
         }
       } else if (type === Tflag.EDIT) {
-        this.title = 'Edit';
+        this.title = 'Edit Transaction';
         this.data = data;
         // $('input').attr('readonly', false);
        
@@ -328,7 +328,7 @@ export class ConfirmationComponent implements OnInit {
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);
-        this.title = 'Edit';
+        this.title = 'Edit Transaction';
         this.portLoadingOnchange(data.loadingCountry);
         this. portDischargeOnchange(data.dischargeCountry)
       }
@@ -336,6 +336,8 @@ export class ConfirmationComponent implements OnInit {
 
       case 'submit': {
         this.okSucessmsg='ok';
+        this.title = 'Transaction Updated';
+
         if(this.othersStr=='Others'){
           this.data.goodsType="Others - "+this.data.otherType;
         }
@@ -392,6 +394,8 @@ export class ConfirmationComponent implements OnInit {
         break;
       case 'preview': {
         this.tab = 'tab2';
+        this.title = 'Preview Transaction';
+
         if(this.data.lcProForma){
           this.viewDisable=false;
           this.noFileDisable=true;

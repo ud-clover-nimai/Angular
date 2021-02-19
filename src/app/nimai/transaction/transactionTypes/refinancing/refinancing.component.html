@@ -4,7 +4,7 @@
    <div class="popupcontent">
       <div class="card">
          <div class="card-content">
-            <h4>{{title}} Transaction<button type="button" class="close" (click)="closed_div()">&times;</button></h4>
+            <h4>{{title}}<button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                <form name="form"
                (ngSubmit)="f.form.valid && transaction('preview')"

@@ -8,26 +8,27 @@
                                         </div>
                     
                     <div class="card-content">
-                        <div class="col-md-7 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
                             <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
                                 <ul class="pull-right list-unstyled list-inline statusbar">
                                     <li>
                                         <label>Subsidiary Slots Available <span class="">{{available}}</span></label>
                                     </li>
                                     <li><label>Subsidiary Slots Utilized <span>{{subuticount}}</span></label></li>
+                              <li> <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a></li>
                                 </ul>
                             </h4>
                         </div>
-                       <div class="col-md-4 col-sm-12 col-xs-12">
+                       <!-- <div class="col-md-4 col-sm-12 col-xs-12">
                         <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
-                       </div>
+                       </div> -->
                        <div class="row">
                         <div class="col-md-12" *ngIf="noData">
                             No Subsidiary Data is available
                         </div>
                         <div class="col-md-12" *ngIf="!noData">
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                                <table class="table table-hover" id="datatables">
                                 <thead>
                                     <tr>
                                         <th style="min-width: 19px !important;" class="text-center">#</th>

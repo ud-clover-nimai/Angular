@@ -13,6 +13,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 import { LoginService } from 'src/app/services/login/login.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -47,7 +48,8 @@ export class ManageUserComponent implements OnInit {
   disabledNone: boolean=false;
   isOptionNone: boolean=false;
   BGselected: any;
-    constructor(public router: Router, public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
+  nimaiCount: any;
+    constructor(public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -135,12 +137,23 @@ if(item.productCategory=='None'){
   }
 
   ngOnInit() {
-    this.goodsService();
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress":sessionStorage.getItem('branchUserEmailId')
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {        
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.subsidiries=this.nimaiCount.subsidiries;;  
+        this.subuticount=this.nimaiCount.subuticount;;
+        this.available=this.subsidiries-this.subuticount
+      })
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    this.subsidiries=sessionStorage.getItem('subsidiries');  
-    this.subuticount=sessionStorage.getItem('subuticount');
-    this.available=this.subsidiries-this.subuticount
+   
+    this.goodsService();
+
     loads();
     manageSub();
     this.listOfUsers();
@@ -262,7 +275,7 @@ if(item.productCategory=='None'){
       account_type: "BANKUSER",
       account_status: "ACTIVE",
       account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
-      regCurrency: "",
+      regCurrency: this.manageSubForm.get('regCurrency').value,
       emailAddress1: "",
       emailAddress2: "",
       emailAddress3: ""

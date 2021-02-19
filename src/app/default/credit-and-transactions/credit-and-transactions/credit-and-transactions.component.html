@@ -142,7 +142,9 @@
                                                     </td>
                                                     <!-- <td>{{list.transactionType}}</td> -->
                                                     <td>{{list.transactionStatus}}</td>
-                                                    <td nowrap >{{list.creditUsed}}</td>
+                                                    <td nowrap >{{list.creditUsed}}
+                                                       <div *ngIf="list.transactionStatus=='Rejected' && list.creditUsed==0 ">Refunded</div>
+                                                    </td>
                                                     <td [hidden]="userBA" nowrap >{{list.savings}}</td>
                                                     <td nowrap >{{list.ccy}}</td>
                                                 </tr>

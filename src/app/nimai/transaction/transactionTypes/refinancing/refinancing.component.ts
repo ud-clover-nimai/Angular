@@ -230,7 +230,7 @@ deleteFileContentForma(){
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        this.title = 'View';
+        this.title = 'View Transaction';
         this.data = data;
         if(this.data.chargesType.startsWith(this.data.applicantName)){
           this.chargesTypeArr.push(this.data.beneName+" "+"(Beneficiary)")
@@ -276,7 +276,7 @@ deleteFileContentForma(){
           this.appBenBAC=false;
         }
       } else if (type === Tflag.EDIT) {
-        this.title = 'Edit';
+        this.title = 'Edit Transaction';
         this.data = data;
         // $('input').attr('readonly', false);
        
@@ -326,13 +326,14 @@ deleteFileContentForma(){
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);
-        this.title = 'Edit';
+        this.title = 'Edit Transaction';
         this.portLoadingOnchange(data.loadingCountry);
         this. portDischargeOnchange(data.dischargeCountry)      }
         break;
 
       case 'submit': {
         this.okSucessmsg='ok';
+        this.title = 'Transaction Updated';
         if(this.othersStr=='Others'){
           this.data.goodsType="Others - "+this.data.otherType;
         }
@@ -389,6 +390,8 @@ deleteFileContentForma(){
         break;
       case 'preview': {
         this.tab = 'tab2';
+        this.title = 'Preview Transaction';
+
         if(this.data.lcProForma){
           this.viewDisable=false;
           this.noFileDisable=true;

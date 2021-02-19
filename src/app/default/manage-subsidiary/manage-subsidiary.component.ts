@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { manageSub } from 'src/assets/js/commons'
+import { manageSub ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { loads } from '../../../assets/js/commons';
 import { ValidateRegex } from 'src/app/beans/Validations';
@@ -97,6 +97,8 @@ export class ManageSubsidiaryComponent implements OnInit {
     let userID: string = sessionStorage.getItem('userID');
     this.signUpService.getSubsidiaryList(userID).subscribe(
       (response) => {
+        custTrnsactionDetail();
+
         this.subsidiaryData = JSON.parse(JSON.stringify(response)).data;
         if(this.subsidiaryData.length === 0){
           this.noData = true;
