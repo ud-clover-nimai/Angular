@@ -93,7 +93,7 @@ export class TrasactionDetailsComponent {
     const data = {
       "userId": sessionStorage.getItem('userID'),
     }
-    this.psd.getSubUserList(data).
+    this.psd.getAddUserList(data).
       subscribe(
         (response) => {
           this.subsidiaries = JSON.parse(JSON.stringify(response)).list;

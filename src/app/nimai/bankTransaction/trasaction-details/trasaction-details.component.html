@@ -17,7 +17,7 @@
 
                            <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                              <!-- <option value=''>All</option> -->
-                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
+                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.emailId}}</option>                               
                           </select>
                     </div>
                 </div> 

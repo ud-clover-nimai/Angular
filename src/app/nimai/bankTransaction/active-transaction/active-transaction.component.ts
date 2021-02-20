@@ -126,7 +126,7 @@ export class ActiveTransactionComponent implements OnInit {
     const data = {
       "userId": sessionStorage.getItem('userID'),
     }
-    this.psd.getSubUserList(data).
+    this.psd.getAddUserList(data).
       subscribe(
         (response) => {
           this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
@@ -301,7 +301,15 @@ closeOffcanvas() {
     }
   }
   selectSubsidiaries(val: any) {  
-    this.selectedSub=val;
-    this.getAllnewTransactions(this.selectedSub)
+    if(val=='All'){
+      this.selectedSub=sessionStorage.getItem('userID');
+      this.getAllnewTransactions(this.selectedSub)
+    }else{
+      this.selectedSub=val;
+      this.getAllnewTransactions(this.selectedSub)
+    }
+   
+
+
 }
 }

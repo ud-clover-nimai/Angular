@@ -16,8 +16,8 @@
                             <label style="top: 0px;font-size: 12px;padding-left: 7px;">Additional user</label>
 
                             <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                             <!-- <option value=''>Additional users</option> -->
-                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
+                             <!-- <option value='All'>All</option> -->
+                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.emailId}}</option>                               
                           </select>
                     </div>
                 </div> 

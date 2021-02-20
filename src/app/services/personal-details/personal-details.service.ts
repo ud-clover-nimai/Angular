@@ -25,6 +25,10 @@ export class PersonalDetailsService {
     return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserBranch/subUserList`,userID,{headers:{'content-type':'application/json'}});
   }
   
+  public getAddUserList(userID:any):Observable<any>{
+    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserBranch/addUserList`,userID,{headers:{'content-type':'application/json'}});
+  }
+
   public getbranchUserList(userID:any):Observable<any>{
     return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserBranch/branchUserList`,userID,{headers:{'content-type':'application/json'}});
   }
