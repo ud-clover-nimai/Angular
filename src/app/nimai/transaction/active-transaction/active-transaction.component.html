@@ -76,7 +76,7 @@
                                           {{record.quotationReceived}}
                                        </div>
                                        <div *ngIf="record.quotationReceived != 0"> 
-                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
+                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.userId,record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
                                           {{record.quotationReceived}}
                                           </span>
                                        </div>

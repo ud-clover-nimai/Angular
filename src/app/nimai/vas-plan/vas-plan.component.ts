@@ -86,10 +86,14 @@ export class VasPlanComponent implements OnInit {
       }      
   }
   addVasPlan(data){
+    console.log(data)
     if(this.callVasService)   {
       this.showVasPlan =false;
           this.showSuccess=true;
           sessionStorage.setItem('vasPending','No')
+          sessionStorage.setItem('withVasAmt',this.addedAmount)
+          sessionStorage.setItem('vasId',data.vas_id)
+          sessionStorage.setItem('flag','renew'),
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
         });

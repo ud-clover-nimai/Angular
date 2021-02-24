@@ -259,7 +259,8 @@ document.getElementById("myCanvasNav").style.width = "0%";
 document.getElementById("myCanvasNav").style.opacity = "0"; 
   }
 
-  showQuoteDetail(transactionId,requirementType,lCCurrency){
+  showQuoteDetail(userId,transactionId,requirementType,lCCurrency){
+    console.log(userId)
     this.disablesubsi=false;
     this.disableUserCode=false;
   
@@ -271,7 +272,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
     this.noQRdetail = false;
 
     let data = {
-      "userId": sessionStorage.getItem('userID'),
+      "userId": userId,
       "transactionId": transactionId
     }
     

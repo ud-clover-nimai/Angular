@@ -64,7 +64,7 @@ export class NewTransactionComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     });
 
-    this.titleService.quote.next(false);
+   // this.titleService.quote.next(false);
 
     this.data = {
       transactionId: "",

@@ -88,6 +88,7 @@ isRenewPlan=false;
     });
    let vasPending= sessionStorage.getItem('vasPending')
 if(vasPending=='No'){
+  this.addedAmount=sessionStorage.getItem('withVasAmt')
   this.getVasPending();
 }else{
 
@@ -193,6 +194,7 @@ if(vasPending=='No'){
    }
 
 public getVasPending(){
+  this.callVasService=true
     let req = {
     "userId": sessionStorage.getItem('userID'),
     "countryName": sessionStorage.getItem('registeredCountry')
@@ -205,8 +207,11 @@ public getVasPending(){
         this.vasPDetails=this.data[x];
       }     
     }
- //   console.log(this.vasPDetails)
-this.choosePlan(this.vasPDetails,'renew')
+//this.choosePlan(this.vasPDetails,'renew')
+this.vasPDetails.userId=sessionStorage.getItem('userID')
+this.choosedPlan=this.vasPDetails;
+
+this.payNow(undefined);
     })
     console.log(this.vasPDetails)
 }
@@ -356,7 +361,6 @@ this.choosePlan(this.vasPDetails,'renew')
     )
   }
   public payNow(planType) {
-
     this.paymentForm.patchValue({
       amount: this.addedAmount,
       currency:'USD'
@@ -451,7 +455,7 @@ this.choosePlan(this.vasPDetails,'renew')
     if(sessionStorage.getItem('vasId') && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
-        "vasId": this.vas_id,
+        "vasId": sessionStorage.getItem('vasId'),
         "subscriptionId":this.choosedPlan.subscriptionId
       }
       this.subscriptionService.addVas(req).subscribe(data => {
@@ -491,6 +495,7 @@ this.choosePlan(this.vasPDetails,'renew')
       )
       document.cookie = 'status' +'=; Path=/';
      // document.cookie = 'vasAmount' +'=; Path=/';
+     sessionStorage.setItem('vasPending','Yes')
 
   }
  
@@ -561,9 +566,14 @@ this.choosePlan(this.vasPDetails,'renew')
 if(this.addVasEnabled){
   this.choosedPlan.vasAmount=this.advPrice;
 }
+// else(sessionStorage.getItem('vasPending')=='No'){
+//   this.choosedPlan.vasAmount=this.advPrice;
+
+// }
     this.choosedPlan.grandAmount=this.addedAmount
     this.choosedPlan.discount=this.discount;
     this.choosedPlan.discountId=this.discountId;
+    this.choosedPlan.subscriptionId=sessionStorage.getItem('subscriptionid')
     if(this.isnewPlan){
       this.choosedPlan.flag="new"
     }
@@ -573,7 +583,7 @@ if(this.addVasEnabled){
     if(sessionStorage.getItem('vasId') && this.callVasService){
       let req = {
         "userId": sessionStorage.getItem('userID'),
-        "vasId": this.vas_id,
+        "vasId": sessionStorage.getItem('vasId'),
         "subscriptionId":this.choosedPlan.subscriptionId
       }
       this.subscriptionService.addVas(req).subscribe(data => {
@@ -626,6 +636,7 @@ if(this.addVasEnabled){
         }
       )
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
+    sessionStorage.setItem('vasPending','Yes')
 
   }
   addAdvService(event){
@@ -702,7 +713,7 @@ if(this.addVasEnabled){
   const lengthOfCode = 15;
   makeRandom(lengthOfCode, possible);
 
-if(this.addVasEnabled){
+if(this.addVasEnabled || sessionStorage.getItem('vasPending')=='No'){
 this.vasPlanId=sessionStorage.getItem('vasId');
 }else{
   this.vasPlanId="";
