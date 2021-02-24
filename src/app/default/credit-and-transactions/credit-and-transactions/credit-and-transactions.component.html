@@ -118,9 +118,10 @@
                                                     <tr>
                                                         <th style="min-width: 20px !important;" class="text-center">#</th>
                                                         <th style="min-width: 130px;">Date</th>
-                                                        <th style="min-width: 150px;">Company / Subsidiary</th>
+                                                        <th style="min-width: 150px;">Bank Name</th>
                                                         <th style="min-width: 180px;">Trxn ID</th>
                                                         <th style="min-width: 180px;">Trxn Type</th>
+                                                        <th style="min-width: 150px;">Email Id</th>
                                                         <th style="min-width: 150px;">Trxn Status</th>
                                                         <th style="min-width: 120px;">Credits Used</th>
                                                         <th [hidden]="userBA" style="min-width: 120px;">Savings</th>
@@ -140,7 +141,7 @@
                                                         <div *ngIf="list.transactionType=='Discounting'">Discounting</div>
                                                         <div *ngIf="list.transactionType=='Confirmation'">Confirmation</div>
                                                     </td>
-                                                    <!-- <td>{{list.transactionType}}</td> -->
+                                                    <td>{{list.emailAddress}}</td>
                                                     <td>{{list.transactionStatus}}</td>
                                                     <td nowrap >{{list.creditUsed}}
                                                        <div *ngIf="list.transactionStatus=='Rejected' && list.creditUsed==0 ">Refunded</div>

@@ -85,7 +85,7 @@
                         type="text"
                         formControlName="companyName" 
                         [ngClass]="hasValue ? 'has-value' : ''"
-                        maxlength="50"
+                        maxlength="45"
                       />
                       <label>Company Name</label>
                       <div
@@ -358,11 +358,11 @@
                             >
                               Add More
                             </button>
-                            <div
+                            <!-- <div
                             *ngIf="addMoreFlag"
                             class="invalid-feedback" style="right: 81px!important;">
                             Please fill all three fields.
-                          </div>
+                          </div> -->
                           </div>
                           <div class="inputDiv" *ngIf="i > 0">
                             <button

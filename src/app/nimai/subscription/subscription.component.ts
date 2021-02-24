@@ -66,6 +66,9 @@ isRenewPlan=false;
   subscriptionBAC: boolean=true;
   addVasEnabled: boolean=false;
   vasPDetails: any="";
+  vasPlanId: string;
+  nimaiCount: any;
+  buyNowfailMsg: any;
   //vasPDetails: Array<Subscription> = new Array<Subscription>();
   constructor(private cookieService:CookieService, private onlinePayment:OnlinePaymentService,public activatedRoute: ActivatedRoute, public titleService: TitleService, public subscriptionService: SubscriptionDetailsService, public fb: FormBuilder, public router: Router,private el: ElementRef) {
     this.paymentForm = this.fb.group({
@@ -85,7 +88,6 @@ isRenewPlan=false;
     });
    let vasPending= sessionStorage.getItem('vasPending')
 if(vasPending=='No'){
-  console.log(vasPending)
   this.getVasPending();
 }else{
 
@@ -119,7 +121,7 @@ if(vasPending=='No'){
   if(this.cookies=='Success'){
    // this.paymentTransactionId=this.cookieService.get('orderId');
     this.payment(this.cookies);
-    sessionStorage.setItem('vasPending','Yes')
+   // sessionStorage.setItem('vasPending','Yes')
 
   }else if(this.cookies=='Failure'){
     document.cookie = 'status' +'=; Path=/';
@@ -210,25 +212,51 @@ this.choosePlan(this.vasPDetails,'renew')
 }
 
   public choosePlan(plan: Subscription,flag:string) {
-    this.choosedPlan = plan;
-    this.choosedPlan.flag=flag;
-    sessionStorage.setItem('flag',flag);
-    sessionStorage.setItem("subscriptionamount", plan.subscriptionAmount.toFixed(2));
-    sessionStorage.setItem("subscriptionid", plan.subscriptionId);
+    const data={
+      "userId": sessionStorage.getItem('userID'),
+      "subscriptionName":plan.subscriptionName,
+      "subscriptionAmount":plan.subscriptionAmount,
+      "subscriptionId":plan.subscriptionId,
+      "subscriptionValidity":plan.subscriptionValidity,
+      "lcCount":plan.lcCount,
+      "subsidiaries": plan.subsidiaries,
+      "relationshipManager":plan.relationshipManager
+    }
 
-    this.choosedPrice = this.choosedPlan.subscriptionAmount;
-    this.addedAmount = this.choosedPrice;
-    this.choosedPlan.userId = sessionStorage.getItem('userID');
-    this.isNew = false;
-    this.isRenew=false;
-    this.isPaymentSuccess=false;
-    this.isOrder = true;
-    this.viewVASPlans();
+    this.onlinePayment.checkSubsidiary(data).subscribe((response)=>{
+      let data=JSON.parse(JSON.stringify(response));
+      if(data.status=="Failure"){
+        $('#buyNowFailed').show();
+        this.buyNowfailMsg=data.errMessage;
+           }      
+           else{
+
+            this.choosedPlan = plan;
+            this.choosedPlan.flag=flag;
+            sessionStorage.setItem('flag',flag);
+            sessionStorage.setItem("subscriptionamount", plan.subscriptionAmount.toFixed(2));
+            sessionStorage.setItem("subscriptionid", plan.subscriptionId);
+        
+            this.choosedPrice = this.choosedPlan.subscriptionAmount;
+            this.addedAmount = this.choosedPrice;
+            this.choosedPlan.userId = sessionStorage.getItem('userID');
+            this.isNew = false;
+            this.isRenew=false;
+            this.isPaymentSuccess=false;
+            this.isOrder = true;
+            this.viewVASPlans();
+           }
+    })
+
+
     // if(this.choosedPlan.flag=='new' || sessionStorage.getItem(flag)=='new'){
     //   this.payNowSave('CreditPending',this.choosedPlan);
     // }
   }
 
+  buyNowOkBtn(){
+    $('#buyNowFailed').hide();
+  }
   viewVASPlans(){
     var userid = sessionStorage.getItem("userID");   
       if((userid.startsWith('CU')) || (userid.startsWith('BC'))){
@@ -258,6 +286,8 @@ this.choosePlan(this.vasPDetails,'renew')
     })
   }
   removeCoupon(){
+    sessionStorage.setItem('vasPending','No')
+
     let req = {
       "discountId": this.discountId
     }
@@ -271,6 +301,7 @@ this.choosePlan(this.vasPDetails,'renew')
         this.isApply=true;        
         this.discountId="0";
         this.discount="0";
+
         if(this.callVasService)
         {
           this.addedAmount = this.choosedPrice+parseFloat(this.advPrice);
@@ -281,6 +312,7 @@ this.choosePlan(this.vasPDetails,'renew')
           this.amountAfterCoupon=this.choosedPrice;
         }  
         this.couponSuccess=false;
+
     }
     )
   }
@@ -388,15 +420,14 @@ this.choosePlan(this.vasPDetails,'renew')
     this.titleService.loading.next(true);
     this.choosedPlan.emailID=this.branchUserEmailId  
     //this.choosedPlan.vasAmount=this.advPrice;
-    if(this.addVasEnabled){
-      this.choosedPlan.vasAmount=this.advPrice;
+    if(Number(this.cookieService.get('vasAmount'))>0){
+      this.choosedPlan.vasAmount=Number(this.cookieService.get('vasAmount'));
     }
     this.choosedPlan.grandAmount=this.cookieService.get('subsAmount');      
     this.choosedPlan.discount=sessionStorage.getItem('discount')
     this.choosedPlan.discountId=sessionStorage.getItem('discountId');
     this.choosedPlan.modeOfPayment="Credit" ;
     this.choosedPlan.subscriptionId=sessionStorage.getItem('subscriptionid');
-
     this.choosedPlan.flag=this.cookieService.get('subsflag');       
     this.choosedPlan.customerSupport= this.cookieService.get('custSupport');
     this.choosedPlan.lcCount=this.cookieService.get('lcCount');
@@ -459,6 +490,7 @@ this.choosePlan(this.vasPDetails,'renew')
         }
       )
       document.cookie = 'status' +'=; Path=/';
+     // document.cookie = 'vasAmount' +'=; Path=/';
 
   }
  
@@ -594,7 +626,6 @@ if(this.addVasEnabled){
         }
       )
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
-    sessionStorage.setItem('vasPending','Yes')
 
   }
   addAdvService(event){
@@ -608,6 +639,8 @@ if(this.addVasEnabled){
         this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
       }
       event.target.value = "Remove";
+      sessionStorage.setItem('vasPending','Yes')
+
       } else {
        
       this.callVasService=false;  
@@ -653,6 +686,10 @@ if(this.addVasEnabled){
 
   
   submit(){   
+
+ 
+
+    
   let orderid="";
   function makeRandom(lengthOfCode: number, possible: string) {
     let text = "";
@@ -665,21 +702,25 @@ if(this.addVasEnabled){
   const lengthOfCode = 15;
   makeRandom(lengthOfCode, possible);
 
+if(this.addVasEnabled){
+this.vasPlanId=sessionStorage.getItem('vasId');
+}else{
+  this.vasPlanId="";
+
+}
     const onlinePay={
       "userId":sessionStorage.getItem('userID'),
       "merchantId":"45990",
       "orderId":orderid,
       "amount":this.addedAmount,
-      "currency":this.paymentForm.get('currency').value,
-  
+      "currency":this.paymentForm.get('currency').value,  
        "cancelURL":`${environment.domain}/nimaiSPlan/PGResponse`,
-       "redirectURL":`${environment.domain}/nimaiSPlan/PGResponse`,
-      
+       "redirectURL":`${environment.domain}/nimaiSPlan/PGResponse`,     
 
      "merchantParam1":sessionStorage.getItem('userID'),
      "merchantParam2":sessionStorage.getItem('subscriptionid'),
      "merchantParam3":sessionStorage.getItem('flag'),
-     "merchantParam4":sessionStorage.getItem('vasId'),
+     "merchantParam4":this.vasPlanId,
      "merchantParam5":sessionStorage.getItem('subscriptionamount'),
     }
     this.onlinePayment.initiatePG(onlinePay).subscribe((response)=>{

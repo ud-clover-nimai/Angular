@@ -108,7 +108,7 @@ if(comanyname==undefined){
 
 if(this.userId.startsWith('BA')){
   const param = {
-    "userid":userid,
+    "userid":userIdOnLoad,
     "txnInsertedDate":this.startDate,
     "txnDate":this.endDate,
     "companyName":this.companyName,

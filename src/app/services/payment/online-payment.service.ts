@@ -13,6 +13,11 @@ export class OnlinePaymentService {
   public initiatePG(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/initiatePG` , data, { headers: { 'content-type': 'application/json' } })
   }
+
+  public checkSubsidiary(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/checkSubsidiary` , data, { headers: { 'content-type': 'application/json' } })
+  }
+
   public PGResponse(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/PGResponse` , data, { headers: { 'content-type': 'application/json' } })
   }

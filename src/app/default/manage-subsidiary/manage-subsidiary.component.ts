@@ -129,12 +129,13 @@ export class ManageSubsidiaryComponent implements OnInit {
       return;
     }
     this.submitted = false;
+
     let data = {
       firstName: this.manageSubForm.get('firstName').value,
       lastName: this.manageSubForm.get('lastName').value,
       emailAddress: this.manageSubForm.get('emailId').value,
       mobileNum: this.manageSubForm.get('mobileNo').value,
-      countryName: this.manageSubForm.get('country').value,
+      countryName: this.countryName,
       landLinenumber: this.manageSubForm.get('landlineNo').value,
       companyName: '',
       designation: '',
