@@ -25,10 +25,17 @@ export class SubscriptionDetailsService {
   public getPlanByUserId(userID: string): Observable<Subscription> {
     return this.httpClient.get<Subscription>(`${environment.domain}/nimaiSPlan/getSPlan/` + userID, { headers: { 'content-type': 'application/json' } })
   }
-
+  
+  public getFinalVASAmount(data): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/getFinalVASAmount`, data,{ headers: { 'content-type': 'application/json' } })
+  }
 
   public saveSplan(userID: string, plan: Subscription): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/saveUserSubscriptionPlan/` + userID, plan,{ headers: { 'content-type': 'application/json' } })
+  }
+  
+  public addVASAfterSubscription(data:any): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/addVASAfterSubscription` , data,{ headers: { 'content-type': 'application/json' } })
   }
   public addVas(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/addVAS`, data,{ headers: { 'content-type': 'application/json' } })

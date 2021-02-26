@@ -146,7 +146,7 @@ if(this.userId.startsWith('BA')){
   this.accountType=sessionStorage.getItem('accountType')
   if(this.accountType=='Passcode'){
     //this.usersid=""
-    this.usersid=userIdOnLoad
+    this.usersid=userid
     emailId = sessionStorage.getItem('branchUserEmailId');
 
      }else{

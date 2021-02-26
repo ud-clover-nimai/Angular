@@ -212,8 +212,10 @@ this.vasPDetails.userId=sessionStorage.getItem('userID')
 this.choosedPlan=this.vasPDetails;
 
 this.payNow(undefined);
+
+console.log(sessionStorage.getItem('vasPending'))
+
     })
-    console.log(this.vasPDetails)
 }
 
   public choosePlan(plan: Subscription,flag:string) {
@@ -462,7 +464,50 @@ this.payNow(undefined);
       }
       )
     }
-    
+    if(  sessionStorage.getItem('vasPending')=='No'){
+
+      let data=    {
+        "userId":sessionStorage.getItem('userID'),
+        "subscriptionId":"DGE42532",
+        "vasId":20
+          }
+      this.subscriptionService.addVASAfterSubscription(data)
+      .subscribe(
+        response => {
+        let data= JSON.parse(JSON.stringify(response))
+        if(data.data)
+        this.paymentTransactionId=this.cookieService.get('orderId');
+        this.isNew = false;
+        this.isOrder = false;
+        this.isPayment = false;
+        this.isPaymentSuccess = true;
+        this.titleService.loading.next(false);
+       if(cdstatus=='Success'){
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'SubscriptionPlan',
+              message: data.errMessage,
+              parent: this.subURL + '/' + this.parentURL + '/subscription'
+            }
+          };          
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/success`], navigationExtras)
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
+        }); 
+      }
+      },
+      (error) => {
+        this.titleService.loading.next(false);
+      }
+    )
+    document.cookie = 'status' +'=; Path=/';
+   // document.cookie = 'vasAmount' +'=; Path=/';
+   sessionStorage.setItem('vasPending','Yes')
+
+      }else{
+
+        
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -496,7 +541,7 @@ this.payNow(undefined);
       document.cookie = 'status' +'=; Path=/';
      // document.cookie = 'vasAmount' +'=; Path=/';
      sessionStorage.setItem('vasPending','Yes')
-
+      }
   }
  
   public getPlan(userID: string) {
@@ -591,6 +636,63 @@ if(this.addVasEnabled){
       }
       )
     } 
+if(  sessionStorage.getItem('vasPending')=='No'){
+
+  let data=    {
+    "userId":sessionStorage.getItem('userID'),
+    "subscriptionId":"DGE42532",
+    "vasId":20
+      }
+  this.subscriptionService.addVASAfterSubscription(data)
+  .subscribe(
+    response => {
+    let data= JSON.parse(JSON.stringify(response))
+    if(data.data)
+      this.paymentTransactionId=data.data
+    this.isNew = false;
+    this.isOrder = false;
+    this.isPayment = false;
+    this.isPaymentSuccess = true;
+    this.titleService.loading.next(false);
+    if(data.status=="Failure"){
+      const navigationExtras: NavigationExtras = {
+        state: {
+          title: 'Oops! Something went wrong while Renewing the plan',
+          message: data.errMessage,
+          parent: this.subURL + '/' + this.parentURL + '/subscription'
+        }
+      };          
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/error`], navigationExtras)
+      .then(success => console.log('navigation success?', success))
+      .catch(console.error);
+      this.isPaymentSuccess = true;
+    }); 
+    }else {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          title: 'SubscriptionPlan',
+          message: data.errMessage,
+          parent: this.subURL + '/' + this.parentURL + '/subscription'
+        }
+      };          
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription/success`], navigationExtras)
+      .then(success => console.log('navigation success?', success))
+      .catch(console.error);
+    }); 
+    }
+  },
+  (error) => {
+    this.titleService.loading.next(false);
+  }
+)
+//this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
+sessionStorage.setItem('vasPending','Yes')
+
+}else{
+
+
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -637,7 +739,7 @@ if(this.addVasEnabled){
       )
     //this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`]);
     sessionStorage.setItem('vasPending','Yes')
-
+      }
   }
   addAdvService(event){
     if (event.target.value === "Add") {

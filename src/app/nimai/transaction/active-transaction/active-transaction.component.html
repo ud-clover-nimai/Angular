@@ -44,6 +44,7 @@
                                  <tr>
                                     <th class="disabled-sorting text-center">#</th>
                                     <th nowrap>Transaction ID</th>
+                                    <th style="min-width: 150px;">Date</th>
                                     <th style="min-width: 150px;">Applicant Name</th>
                                     <th style="min-width: 150px;">Beneficiary Name</th>
                                     <th style="min-width: 80px;">LC Value</th>
@@ -59,6 +60,8 @@
                                  <tr *ngFor="let record of detail; let i = index">
                                     <td>{{i+1}}</td>
                                     <td>{{record.transactionId}}</td>
+                                    <td>{{record.insertedDate}}</td>
+
                                     <td>{{record.applicantName}}</td>
                                     <td>{{record.beneName}}</td>
                                     <td>{{record.lCValue | number}}</td>

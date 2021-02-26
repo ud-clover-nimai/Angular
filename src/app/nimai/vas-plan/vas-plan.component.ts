@@ -14,12 +14,13 @@ export class VasPlanComponent implements OnInit {
   callVasService=false;
   choosedPrice: any;
   advPrice:any;
-  addedAmount: any;
+  addedAmount: any=0;
   showVasPlan =true;
   showSuccess=false;
   isvasapplied:any;
   subscriptionId:any;
   hideAddBtn: boolean=false;
+  vasId: any;
   constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -31,7 +32,7 @@ export class VasPlanComponent implements OnInit {
 
    }
   ngOnInit() {
-    this.addedAmount = sessionStorage.getItem('subscriptionamount');
+    this.addedAmount = 0;
     this.choosedPrice=sessionStorage.getItem('subscriptionamount');
     this.subscriptionId=sessionStorage.getItem('subscriptionid');
     this.isvasapplied=sessionStorage.getItem('isvasapplied');
@@ -65,6 +66,7 @@ export class VasPlanComponent implements OnInit {
     }
     this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
       this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
+      this.vasId=this.advDetails.vas_id;
       if(this.advDetails){
         this.advPrice = this.advDetails.pricing;
       }
@@ -73,12 +75,24 @@ export class VasPlanComponent implements OnInit {
       }
 
     })
+    console.log(this.vasId)
   }
   addAdvService(event){
     if (event.target.value === "Add") {
       this.callVasService=true;
-      this.addedAmount = parseFloat(this.choosedPrice) + parseFloat(this.advPrice);
+      this.addedAmount = 0 + parseFloat(this.advPrice);
       event.target.value = "Remove";
+     const req ={
+        "userId":sessionStorage.getItem('userID'),
+        "vasId":this.vasId
+   }
+this.subscriptionService.getFinalVASAmount(req).subscribe(data => {
+        let sdata= JSON.parse(JSON.stringify(data))
+      console.log(sdata.data)
+      this.addedAmount=sdata.data;
+      })    
+       
+
       } else {
       this.callVasService=false;  
       event.target.value = "Add";
