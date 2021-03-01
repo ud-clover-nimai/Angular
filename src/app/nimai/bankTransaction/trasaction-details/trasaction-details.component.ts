@@ -85,7 +85,13 @@ export class TrasactionDetailsComponent {
     this.getcountUser=this.nimaiCount.accounttype;
     this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
     this.nts.creditCount.next(this.creditCounts)
-  
+    if(this.getcountUser=='MASTER'){
+       
+      this.disablesubsi=true
+    }else{
+      this.disablesubsi=false
+      
+    }
       }
     )
   }
@@ -153,13 +159,7 @@ export class TrasactionDetailsComponent {
          if (this.data) {
          this.hasNoRecord=true;
          this.getDetail(this.data,status,this.data.transactionID);
-         if(this.getcountUser=='MASTER'){
        
-          this.disablesubsi=true
-        }else{
-          this.disablesubsi=false
-          
-        }
       }
 
       },

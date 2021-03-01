@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
 
 
     this.callAllDraftTransaction();
-    //console.log("Email id --",sessionStorage.getItem('branchUserEmailId'))
+    console.log("Email id --",sessionStorage.getItem('branchUserEmailId'))
     if(sessionStorage.getItem('branchUserEmailId')==null || sessionStorage.getItem('branchUserEmailId')==undefined || sessionStorage.getItem('branchUserEmailId')=="undefined"){
     //  console.log("if")
       this.emailid=""

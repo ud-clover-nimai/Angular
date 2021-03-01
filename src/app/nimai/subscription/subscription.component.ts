@@ -15,7 +15,8 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.css']
+  styleUrls: ['./subscription.component.css'],
+  providers: [CookieService]
 })
 export class SubscriptionComponent implements OnInit {
   private cookies:string;
@@ -79,7 +80,7 @@ isRenewPlan=false;
       redirectURL:[''],
       cancelURL:[''],
     });
-   
+
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -93,6 +94,7 @@ if(vasPending=='No'){
 }else{
 
     let navigation = this.router.getCurrentNavigation();
+
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "New-Transaction"){
         this.getSubscriptionDetails();
@@ -106,7 +108,6 @@ if(vasPending=='No'){
   }
 
   ngOnInit() {    
-
     this.branchUserEmailId = sessionStorage.getItem('branchUserEmailId');
     this.custUserEmailId=sessionStorage.getItem('custUserEmailId');
    
@@ -150,7 +151,6 @@ if(vasPending=='No'){
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
-    console.log('gjhj--------------------------')
     this.titleService.loading.next(true);
     let req = {
       "userId": sessionStorage.getItem('userID'),

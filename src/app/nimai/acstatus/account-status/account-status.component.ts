@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 @Component({
   selector: 'app-account-status',
@@ -9,7 +10,9 @@ import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 export class AccountStatusComponent implements OnInit {
   public subURL: string = "";
   public parentURL: string = "";
-  constructor(public activatedRoute: ActivatedRoute,public router: Router) {
+  nimaiCount: any;
+  kycStatus: any="";
+  constructor(public activatedRoute: ActivatedRoute,public getCount: SubscriptionDetailsService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -19,15 +22,26 @@ export class AccountStatusComponent implements OnInit {
    }
 
   ngOnInit() {
-    let kycStatus = sessionStorage.getItem("kycStatus");
-    console.log("kycStatus---",kycStatus)
-    if(kycStatus=="Approved")
+   
+      let data = {
+        "userid": sessionStorage.getItem('userID'),
+        "emailAddress": ""
+      }
+  
+      this.getCount.getTotalCount(data).subscribe(
+        response => {
+          this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+          this.kycStatus=this.nimaiCount.kycstatus
+    
+    // let kycStatus = sessionStorage.getItem("kycStatus");
+    console.log("kycStatus---",this.kycStatus)
+    if(this.kycStatus=="Approved")
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate([`/${this.subURL}/${this.parentURL}/dashboard-details`])
         .then(success => console.log('navigation success?', success))
         .catch(console.error);
        }); 
-    else if(kycStatus=="Rejected")
+    else if(this.kycStatus=="Rejected")
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details`])
       .then(success => console.log('navigation success?', success))
@@ -37,6 +51,11 @@ export class AccountStatusComponent implements OnInit {
 
     else  
       this.router.navigate([`/${this.subURL}/${this.parentURL}/account-review`])
-  }
+ 
+    },  
+    error => { }
+  )
+ 
+    }
 
 }

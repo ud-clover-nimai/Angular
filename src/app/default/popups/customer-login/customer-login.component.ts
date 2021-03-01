@@ -47,8 +47,16 @@ export class CustomerLoginComponent implements OnInit {
 
     this.userId=sessionStorage.getItem('userID');
     if(this.userId.startsWith('RE')){
-      $('.modal1').show();
-
+     // $('.modal1').show();
+     let kycStatus=sessionStorage.getItem("kStatus")
+     if(kycStatus=="KycStauts:Approved"){
+       $('.modal1').show();
+ 
+       }else{  
+         this.onBALoginClick()
+         $('.modal2').show();
+ 
+       }
     }else if(this.userId.startsWith('BA')){
       this.onBALoginClick()
       $('.modal2').show();
@@ -58,7 +66,6 @@ export class CustomerLoginComponent implements OnInit {
 
   }else if(this.userId.startsWith('CU')){
     let kycStatus=sessionStorage.getItem("kStatus")
-
     if(kycStatus=="KycStauts:Approved"){
       $('.modal1').show();
 
