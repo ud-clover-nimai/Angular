@@ -138,6 +138,7 @@ export class DashboardComponent implements OnInit {
         sessionStorage.setItem('registeredCountry', this.nimaiCount.registeredcountry); 
         sessionStorage.setItem('isvasapplied', this.nimaiCount.isvasapplied);   
         sessionStorage.setItem('accountType', this.nimaiCount.accounttype);   
+        sessionStorage.setItem('status',this.nimaiCount.status)
         if(this.nimaiCount.kycstatus=='Approved' && this.nimaiCount.subscribertype !== 'REFERRER'){
           this.creditenable='yes';
         }else{
@@ -252,11 +253,11 @@ export class DashboardComponent implements OnInit {
     //   }
     // });
   }
-  inactiveOk(){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.parentURL}/dsb/subscription`]);
-      });
-  }
+  // inactiveOk(){
+  //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+  //         this.router.navigate([`/${this.parentURL}/dsb/subscription`]);
+  //     });
+  // }
   ngOnInit() {
    // this.getNimaiCount();
 
@@ -493,8 +494,8 @@ export class DashboardComponent implements OnInit {
            this.hideSubAccount=true;
            this.hideChangepass=false;
          }
-       if( this.nimaiCount.status=='INACTIVE'){
-        $('#trnxInactive').show();
+      //  if( this.nimaiCount.status=='INACTIVE'){
+      //   $('#trnxInactive').show();
 
         // const navigationExtras: NavigationExtras = {
         //         state: {
@@ -508,7 +509,7 @@ export class DashboardComponent implements OnInit {
         //         .then(success => console.log('navigation success?', success))
         //         .catch(console.error);
             
-            }
+        //    }
       },
       error => { }
     )

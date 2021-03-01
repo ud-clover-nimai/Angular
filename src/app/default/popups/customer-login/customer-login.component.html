@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4">
               <div class="inputDiv">
-                <input type="text" formControlName="email_id" oninput="this.value = this.value.toLowerCase()">
+                <input type="text" formControlName="email_id"  maxlength="30" oninput="this.value = this.value.toLowerCase()">
                 <label>Email ID</label>
                 <div *ngIf="submitted && custLogDetails.email_id.errors?.required" class="invalid-feedback">
                   Email is required

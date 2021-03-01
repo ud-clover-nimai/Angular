@@ -68,7 +68,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv" *ngIf="!disableRadiobtn">
-                <input type="text" formControlName="applicantContactPersonEmail"  oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpAppEmail($event)">
+                <input type="text" maxlength="30" formControlName="applicantContactPersonEmail"  oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpAppEmail($event)">
                 <label>Contact Person's Email</label>
                 <div *ngIf="isValidAppEmail" class="invalid-feedback">
                     Invalid Email id
@@ -103,7 +103,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="beneContactPersonEmail"  oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpBeneEmail($event)">
+                <input type="text" maxlength="30" formControlName="beneContactPersonEmail"  oninput="this.value = this.value.toLowerCase()"  (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpBeneEmail($event)">
                 <label>Contact Person's Email</label>
                 <div *ngIf="isValidBeneEmail" class="invalid-feedback">
                     Invalid Email id
@@ -213,7 +213,7 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" formControlName="applicantContactPersonEmail"  oninput="this.value = this.value.toLowerCase()" maxlength="100" (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpAppEmail($event)">
+                <input type="text" maxlength="30" formControlName="applicantContactPersonEmail"  oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault();" (keyup)="onKeyUpAppEmail($event)">
                 <label>Contact Person's Email</label>
                 <div *ngIf="isValidAppEmail" class="invalid-feedback">
                     Invalid Email id

@@ -63,8 +63,6 @@ for(var i=0 ; i<5 ; i++){
  // this.minFiveYears=this.currnetYear.;
   this.minFiveYears.push(this.currnetYear);
 }
-console.log(this.minFiveYears)
-
 
     this.userId=sessionStorage.getItem('userID')
     if(this.userId.startsWith('CU') || this.userId.startsWith('BC')){

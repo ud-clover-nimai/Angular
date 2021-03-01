@@ -31,7 +31,7 @@
                            </tr>
                            <tr>
                               <td colspan="2">
-                                 <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                 <input id="curtainInput" [disabled]='addBtn' (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
                               </td>
                            </tr>
                         </table>
@@ -51,7 +51,10 @@
                         </tr> -->
                         <tr>
                            <th>
-                               Total
+                              Grand Total  <a class="" data-toggle="tooltip" data-placement="right"
+                              title="Grand Total is calculated on pro rata basis for remaining months of your subscription validity."><i
+                                  class="fas fa-info-circle"
+                                  style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
                            </th>
                            <th>
                               US ${{addedAmount}}

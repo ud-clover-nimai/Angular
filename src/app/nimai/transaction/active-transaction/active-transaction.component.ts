@@ -394,7 +394,10 @@ selectSubsidiaries(val: any) {
   this.selectedSub='';
 
       this.selectedSub=val;
-      this.getAllnewTransactions(this.selectedSub,this.selectedSub)
+
+      var userid= val.replace('All' , '')
+   
+      this.getAllnewTransactions(userid,this.selectedSub)
   }
   selectUsercode(val: any) {
     if(val=='All'){

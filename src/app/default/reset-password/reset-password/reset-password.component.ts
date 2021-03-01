@@ -23,6 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   submitted: boolean = false;
   isTextFieldType: boolean;
   isreTextFieldType: boolean;
+  public isParent:boolean=false;
   constructor(public router: ActivatedRoute, public route: Router,public lgsc:LoginService,public dialog: MatDialog, public rsc: ResetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -47,6 +48,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+   // if()
     loads()
     this.resetForm = this.fb.group({
       emailId: [''],

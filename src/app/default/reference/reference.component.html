@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-icon" data-background-color="blue">
-                            <i class="fas fa-exchange-alt"></i>
+                            <i class="fas fa-external-link-alt"></i>
                         </div>
                         <div class="card-content">
                             <h4 class="card-title"> <span id="changetext"> References</span>
@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="inputDiv">
-                                                        <input type="text" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
+                                                        <input type="text"  maxlength="30" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
                                                         <label>Email ID</label>
                                                         <div *ngIf="submitted && referDetails.emailAddress.errors?.required" class="invalid-feedback">
                                                             Email is required

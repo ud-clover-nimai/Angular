@@ -21,6 +21,7 @@ export class VasPlanComponent implements OnInit {
   subscriptionId:any;
   hideAddBtn: boolean=false;
   vasId: any;
+  addBtn: boolean=false;
   constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -36,6 +37,12 @@ export class VasPlanComponent implements OnInit {
     this.choosedPrice=sessionStorage.getItem('subscriptionamount');
     this.subscriptionId=sessionStorage.getItem('subscriptionid');
     this.isvasapplied=sessionStorage.getItem('isvasapplied');
+    if(sessionStorage.getItem('status')=='INACTIVE'){
+      this.addBtn=true;
+    }else{
+      this.addBtn=true;
+
+    }
     if(this.isvasapplied==="true"){
       this.getVASByUserId();   
       this.showSuccess=true;

@@ -32,6 +32,7 @@ export class CreditAndTransactionsComponent implements OnInit {
   usersid: string="";
   totalTrnx: any="";
   selecteduserCode: string="";
+  bankName: string;
   constructor(public titleService: TitleService,public service: DashboardDetailsService,public psd: PersonalDetailsService) {
 
    }
@@ -46,10 +47,12 @@ export class CreditAndTransactionsComponent implements OnInit {
 
       if(this.userId.startsWith('BA')){
       this.userBA=true;
-      
+      this.bankName='Additional Entity';
     }else if(this.userId.startsWith('BC')){
       this.userBC=true;
+      this.bankName='Bank Name';
   }else if(this.userId.startsWith('CU')){
+    this.bankName='Bank Name';
       this.userCU=true;
   }
   if(this.accountType=='MASTER' && this.userId.startsWith('CU')){
@@ -133,7 +136,7 @@ if(this.userId.startsWith('BA')){
           savings+=Number(this.creditData[i].savings);
         }
         this.creditUsed=total;
-        this.totalSavings=savings;
+        this.totalSavings=savings.toFixed(2);
         this.totalTrnx= this.creditData.length;
       }   
      
@@ -182,7 +185,7 @@ this.usersid=userid
           }
           this.subsidiary=this.arrUnique(this.subsidiary) 
           this.creditUsed=total;
-          this.totalSavings=savings;
+          this.totalSavings=savings.toFixed(2);;
           this.totalTrnx= this.creditData.length;
         }
         

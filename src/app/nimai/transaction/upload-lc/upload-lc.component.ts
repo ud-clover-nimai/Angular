@@ -114,6 +114,11 @@ export class UploadLCComponent implements OnInit {
     this.getCount.getTotalCount(data).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        if( this.nimaiCount.status=='INACTIVE'){
+          $('#trnxInactive').show();
+        }else{
+          this.checkLcCount();
+        }
         if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
           if(this.accountType=='SUBSIDIARY' || this.accountType=='Passcode'){
             const navigationExtras: NavigationExtras = {
@@ -129,6 +134,9 @@ export class UploadLCComponent implements OnInit {
               .catch(console.error);
         }
       }
+
+          
+         
         },  
      
     )   
@@ -160,7 +168,13 @@ export class UploadLCComponent implements OnInit {
       
     this.currencies = [...new Set(this.countryName.map(item => item.currency))];
   
-    this.checkLcCount();
+   
+  }
+  inactiveOk(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL+"/"+this.parentURL }/subscription`]);
+           
+      });
   }
   ngAfterViewInit() {
     // document.getElementsByTagName('input') : to gell all Docuement imputs
@@ -214,6 +228,8 @@ export class UploadLCComponent implements OnInit {
       textarea.className="ng-valid ng-dirty ng-touched has-value"
     });
   });
+ 
+
  }
 
  
@@ -1047,6 +1063,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
 
   close(){
     $('.modal3').hide();
+    $('#invalidDate').hide();
   }
 
   checkLcCount(){
