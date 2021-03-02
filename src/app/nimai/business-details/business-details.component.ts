@@ -27,7 +27,6 @@ export class BusinessDetailsComponent implements OnInit {
   public subURL: string = "";
   public perDetailsSubmit = false;
   public hasValue=false;
-  resp: any = "";
   parentRedirection: string = "subscription";
   stateName: any = "";
   countryName: any = "";
@@ -37,6 +36,8 @@ export class BusinessDetailsComponent implements OnInit {
   enableicon: boolean;
   accountType:any;
   count: number=0;
+  removeId: number=0;
+  resp: any="";
   constructor(public fb: FormBuilder, public getCount: SubscriptionDetailsService, public router: Router, public titleService: TitleService, public bds: BusinessDetailsService, private activatedRoute: ActivatedRoute,private el: ElementRef) {
   
     setTimeout(() => {
@@ -384,11 +385,40 @@ export class BusinessDetailsComponent implements OnInit {
     }
   }
 
-  remove(i: number) {
+
+  removeYes(){
+
     this.addMoreFlag=false;
     this.disableButton=false;
     let items = this.businessDetailsForm.get('owners') as FormArray;
-    items.removeAt(i);
+    let ownerid=this.businessDetailsForm.get('owners').value;
+    const req=
+          {
+            "ownerID":ownerid[this.removeId].ownerID
+          }
+          this.bds.removeOwner(req).
+          subscribe(
+            (response) => {
+              let resp = JSON.parse(JSON.stringify(response)).data;
+              $('#removeOwner').hide();
+
+            },
+            (error) => {}
+          )
+         
+
+    items.removeAt(this.removeId);
+  }
+
+  removeNo(){
+    $('#removeOwner').hide();
+
+  }
+
+  remove(i: number) {
+this.removeId=i;
+    $('#removeOwner').show();
+
   }
 
   removeAll() {

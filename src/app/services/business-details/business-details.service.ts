@@ -19,4 +19,9 @@ export class BusinessDetailsService {
   public viewCountryList(): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/viewDetailedCountry` , { headers: { 'content-type': 'application/json' } });
   } 
+  public removeOwner(data: any): Observable<Business> {
+    return this.httpClient.post<Business>(`${environment.domain}/nimaiUCM/UserDetails/removeOwner` , data, { headers: { 'content-type': 'application/json' } });
+  }
+
+
 }

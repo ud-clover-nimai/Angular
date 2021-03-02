@@ -30,6 +30,16 @@ export class ResetPasswordComponent implements OnInit {
     })
     this.rsc.validateToken(this.key).subscribe(
       (response) => {
+
+          let resp=JSON.parse(JSON.stringify(response)).data;
+          console.log(resp)
+          console.log(resp.userIdentification)
+          if(resp.userIdentification== "MASTER")
+          {
+            this.isParent=false;
+          }else{
+            this.isParent=true;
+          }
         this.flag = true;
       },
       (error) => {
