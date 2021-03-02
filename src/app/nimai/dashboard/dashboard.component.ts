@@ -89,6 +89,8 @@ export class DashboardComponent implements OnInit {
 
     if (userId.startsWith('RE')) {
       this.userType = "Referrer";
+      this.hideSubAccount=true;
+
       this.usersStat('RE');
     } else if (userId.startsWith('BC')) {
       this.userType = "Bank as a Customer";

@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4">
               <div class="inputDiv">
-                <input type="text" formControlName="email_id"  maxlength="30" oninput="this.value = this.value.toLowerCase()">
+                <input type="text" formControlName="email_id"  maxlength="45" oninput="this.value = this.value.toLowerCase()">
                 <label>Email ID</label>
                 <div *ngIf="submitted && custLogDetails.email_id.errors?.required" class="invalid-feedback">
                   Email is required
@@ -82,7 +82,7 @@
         <div class="col-md-12">
           <div class="text-center">
             <p><strong>Thank you for sharing access details!</strong></p>
-            <p class="ptext">We have sent a 5-digit passcode to your registered email address <span class="cust_email">{{emailAddress}}</span>. Check your
+            <p class="ptext">We have sent a 5-digit passcode to your registered email address<span class="cust_email">{{emailAddress}}</span>. Check your
               spam folder just in case our email has skipped your inbox.</p> 
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">

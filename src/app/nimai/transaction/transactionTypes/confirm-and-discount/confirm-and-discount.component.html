@@ -54,7 +54,7 @@
                         <tr *ngIf="disableRadiobtn">
 
                            <td>Email Id</td>
-                           <td><input type="text" maxlength="30" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
+                           <td><input type="text" maxlength="45" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
                                #applicantContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPersonEmail.invalid }" required email>
                               <span> <div *ngIf="f.submitted && applicantContactPersonEmail.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantContactPersonEmail.errors.required">Email is required</div>
@@ -74,7 +74,7 @@
                         <tr *ngIf="!applicantType">
 
                            <td>Email Id</td>
-                           <td><input type="text" maxlength="30" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
+                           <td><input type="text" maxlength="45" name="applicantContactPersonEmail" [(ngModel)]="data.applicantContactPersonEmail"
                                #applicantContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPersonEmail.invalid }" required email>
                               <span> <div *ngIf="f.submitted && applicantContactPersonEmail.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantContactPersonEmail.errors.required">Email is required</div>
@@ -120,7 +120,7 @@
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Email Id</td>
-                           <td><input type="text" maxlength="30" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
+                           <td><input type="text" maxlength="45" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
                               #beneContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPersonEmail.invalid }" required email>
                               <span> <div *ngIf="f.submitted && beneContactPersonEmail.invalid" class="invalid-feedback">
                                  <div *ngIf="beneContactPersonEmail.errors.required">Email Id is required</div>
@@ -138,7 +138,7 @@
                         </tr>
                         <tr *ngIf="!beneficiaryType">
                            <td>Email Id</td>
-                           <td><input type="text" maxlength="30" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
+                           <td><input type="text" maxlength="45" name="beneContactPersonEmail" [(ngModel)]="data.beneContactPersonEmail"
                               #beneContactPersonEmail="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPersonEmail.invalid }" required email>
                               <span> <div *ngIf="f.submitted && beneContactPersonEmail.invalid" class="invalid-feedback">
                                  <div *ngIf="beneContactPersonEmail.errors.required">Email Id is required</div>

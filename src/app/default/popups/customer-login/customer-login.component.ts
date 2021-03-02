@@ -217,7 +217,7 @@ export class CustomerLoginComponent implements OnInit {
       "token" : this.passCode.split('_')[0],
       "passcodeValue": this.passValue
     }
-    
+    console.log('jjjjjjjjjjjjjjjjjjjjj')
     this.fps.branchUserOTP(data).subscribe(
       (response) => {
         var response = JSON.parse(JSON.stringify(response));

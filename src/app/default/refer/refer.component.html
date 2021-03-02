@@ -110,7 +110,7 @@
                                            
                                             <div class="col-md-6">
                                                 <div class="inputDiv">
-                                                    <input type="text"  maxlength="30" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
+                                                    <input type="text"  maxlength="45" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
                                                     <label>Email ID</label>
                                                     <div *ngIf="submitted && referDetails.emailAddress.errors?.required" class="invalid-feedback">
                                                         Email is required

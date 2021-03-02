@@ -32,8 +32,7 @@ export class ResetPasswordComponent implements OnInit {
       (response) => {
 
           let resp=JSON.parse(JSON.stringify(response)).data;
-          console.log(resp)
-          console.log(resp.userIdentification)
+     
           if(resp.userIdentification== "MASTER")
           {
             this.isParent=false;
@@ -100,6 +99,15 @@ export class ResetPasswordComponent implements OnInit {
   }
   submit(){
    
+if(!this.isParent){
+
+  console.log(this.isParent)
+  this.resetForm.get('termsAndcondition').clearValidators();
+  this.resetForm.get('termsAndcondition').updateValueAndValidity();
+
+}
+console.log(this.isParent)
+
     this.submitted = true;
     if (this.resetForm.invalid) {
       return;

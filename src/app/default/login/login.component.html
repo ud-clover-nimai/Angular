@@ -394,7 +394,7 @@
                                     <h1>Forgot Password</h1>
                                     <div class="form-group"></div>
                                     <div class="inputDiv">
-                                       <input type="email" maxlength="30" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()" formControlName="email">
+                                       <input type="email" maxlength="45" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()" formControlName="email">
                                        <label>Email</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="forgPassSubmitted && fpf.email.errors" class="invalid-feedback">
