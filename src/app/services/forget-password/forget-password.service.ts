@@ -20,6 +20,11 @@ export class ForgetPasswordService {
     return this.httpClient.get(`${environment.domain}/nimaiEmail/validatePasswordLink/` + token, { headers: { 'content-type': 'application/json' } });
   }
 
+  
+  public passwordChangeSuccess(data: any): Observable<any> {
+    return this.httpClient.get(`${environment.domain}/nimaiEmail/passwordChangeSuccess` + data, { headers: { 'content-type': 'application/json' } });
+  }
+
   public sendEmailReferSubsidiary(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/sendSubsidiaryAcivationLink` ,data, { headers: { 'content-type': 'application/json' } });
   }

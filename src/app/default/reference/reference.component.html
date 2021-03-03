@@ -112,7 +112,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="inputDiv">
+                                                    <div class="inputDiv divmob">
                                                         <input type="text" maxlength="13" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
                                                         <label>Mobile No.</label>      
                                                         <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
