@@ -62,7 +62,15 @@ export class CustomerLoginComponent implements OnInit {
       $('.modal2').show();
 
     }else if(this.userId.startsWith('BC')){
-      $('.modal1').show();
+      let kycStatus=sessionStorage.getItem("kStatus")
+     if(kycStatus=="KycStauts:Approved"){
+       $('.modal1').show();
+ 
+       }else{  
+         this.onBALoginClick()
+         $('.modal2').show();
+ 
+       }
 
   }else if(this.userId.startsWith('CU')){
     let kycStatus=sessionStorage.getItem("kStatus")
