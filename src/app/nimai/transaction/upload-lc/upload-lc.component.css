@@ -146,6 +146,18 @@ hr {
 
 /* The Close Button */
 
+.closeValidity{
+    color: #524949;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    border: antiquewhite;
+    background: border-box;
+    z-index: 1;
+    right: 1%;
+}
+
 .close {
     color: #aaa;
     float: right;

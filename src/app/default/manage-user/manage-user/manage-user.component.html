@@ -29,7 +29,7 @@
                                             <tr>
                                                 <th style="min-width: 19px!important;" class="text-center">#</th>
                                                 <th style="min-width: 130px;">Date</th>
-                                                <th style="min-width: 150px;">Additional User Name</th>
+                                                <th style="min-width: 150px;">Additional Entity</th>
                                                 <th style="min-width: 120px;">First Name</th>
                                                 <th style="min-width: 120px;">Last Name</th>
                                                 <th style="min-width: 210px;">Email</th>
@@ -173,19 +173,23 @@
                                         <div class="inputDiv multiselect-dropdown">
                                             <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Countries Interested</label>
-                                            <div *ngIf="submitted && manageSubDetails.countriesInt.errors?.required" class="invalid-feedback">
+                                            <div style="top: 33px;" *ngIf="submitted && manageSubDetails.countriesInt.errors?.required" class="invalid-feedback">
                                                 Select Countries Interested
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv multiselect-dropdown">
-                                            <ng-multiselect-dropdown-angular7  [data]="goodsArray" formControlName="blacklistedGC" [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
+                                            <ng-multiselect-dropdown-angular7  [data]="goodsArray" [(ngModel)]="BGselected" [disabled]="disabledNone" formControlName="blacklistedGC"  [settings]="dropdownSettingGoods" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"></ng-multiselect-dropdown-angular7>
                                             <label class="dropdownlabel">Blacklisted Goods/Commodities</label>
-                                            <div *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
+                                            <div style="top: 33px;" *ngIf="submitted && manageSubDetails.blacklistedGC.errors?.required" class="invalid-feedback">
                                                 Select Blacklisted Goods
                                             </div>
+                                           
                                         </div>
+                                    </div>
+                                    <div class="col-md-6"  *ngIf=" isOptionNone">
+                                        <button type="button" class="closeNone" style="left: 15px;margin-left: 0px;" (click)="closeNone()">&times;</button>
                                     </div>
                                     <div class="col-md-6 col-sm-6 bankfields" *ngIf=" isBankOther">
                                         <div class="inputDiv">

@@ -275,10 +275,15 @@ export function manageSub() {
                 destroy: true,
                 pagingType: "full_numbers",
                 scrollX: true,
-                lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50]
-                ],
+                "initComplete": function(settings, json) {
+                    $('.dataTables_scrollBody thead tr').css({visibility:'collapse'});
+                },
+                // lengthMenu: [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50]
+                // ],
+                "lengthMenu": [ 5,10, 25, 50 ],
+                "pageLength":10,
                 responsive: false, //scrollX: true,
                 language: {
                     search: "_INPUT_",
@@ -374,11 +379,11 @@ export function manageSub() {
 }
 
 export function bankNewTransaction() {
-    $('.collapse').on('shown.bs.collapse', function() {
-        $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-    }).on('hidden.bs.collapse', function() {
-        $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-    });    
+    // $('.collapse').on('shown.bs.collapse', function() {
+    //     $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    // }).on('hidden.bs.collapse', function() {
+    //     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+    // });    
     
     $(function() {
         var slider1 = $("#menubarConfirmQuote").slideReveal({

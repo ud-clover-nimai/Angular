@@ -56,7 +56,7 @@ export class ValidateRegex {
         if (reg1.test(email) == false) {
             alert("invalid mail")
         }else if (reg1.test(email) == true) {
-            alert("ekdam corrrect mail")
+            alert("corrrect mail")
         }
       };
 }

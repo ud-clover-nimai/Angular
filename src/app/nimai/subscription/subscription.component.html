@@ -153,7 +153,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <input id="curtainInput" (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                                    <input id="curtainInput" (click)="addAdvService($event,undefined)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -161,9 +161,9 @@
                                     <table class="table">
                                         <tr>
                                             <td>
-                                                <label class="customlabel">Sub Total</label>
+                                                <label class="customlabel">Subscription Total</label>
                                             </td>
-                                            <td>${{addedAmount}}</td>
+                                            <td>${{choosedPlan.subscriptionAmount}}</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -396,12 +396,44 @@
             </div>
         </div>
     </div>
-    <div id="myModal4" class="popupnew modal fade in" role="dialog">
+
+
+
+    <div id="buyNowFailed" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content">
+              <div class="modal-body">
+                 <h2>Oops! Something went wrong while Renewing the plan </h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>{{buyNowfailMsg}}</h5>
+                               
+                             </div>
+                          </div>
+                          <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="buyNowOkBtn()">OK</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+    <div id="myModal4" class="popupnew modal fade in myModal4" role="dialog">
         <div class="modal-dialog modal-md emaildiv">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Wire Transfer Details</h2>
+                    <h2>Wire Transfer Details
+                        <button type="button" class="close" (click)="closeWT()">
+                            &times;
+                        </button>
+                    </h2>
                     <div class="padnew">
                         <!--<p><strong>Enter Email ID here</strong></p> -->
                         <div class="">

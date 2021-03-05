@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-icon" data-background-color="blue">
-                            <i class="fas fa-exchange-alt"></i>
+                            <i class="fas fa-external-link-alt"></i>
                         </div>
                         <div class="card-content">
                             <h4 class="card-title"> <span id="changetext"> References</span>
@@ -26,7 +26,7 @@
                                                 <tr>
                                                     <th class="text-center" style="min-width: 19px!important;">#</th>
                                                     <th style="min-width: 120px;">Date</th>
-                                                    <th style="min-width: 100px;">User Id</th>
+                                                    <th style="min-width: 100px;">User ID</th>
                                                     <th style="min-width: 150px;">Country</th>
                                                     <th style="min-width: 180px;">Company</th>
                                                     <th style="min-width: 120px;">Account Status</th>
@@ -112,7 +112,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="inputDiv">
+                                                    <div class="inputDiv divmob">
                                                         <input type="text" maxlength="13" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
                                                         <label>Mobile No.</label>      
                                                         <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="inputDiv">
-                                                        <input type="text" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
+                                                        <input type="text"  maxlength="45" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
                                                         <label>Email ID</label>
                                                         <div *ngIf="submitted && referDetails.emailAddress.errors?.required" class="invalid-feedback">
                                                             Email is required

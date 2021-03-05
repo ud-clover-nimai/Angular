@@ -80,8 +80,8 @@ export class TransactionDetailsComponent {
 
   ngOnInit() {
     this.accountType=sessionStorage.getItem('accountType')
-
-    this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
+ let userid=sessionStorage.getItem('userID')
+    this.getAllnewTransactions('Accepted',userid,'All'+userid);
     this.getSubsidiaryData();
     
     }
@@ -133,7 +133,7 @@ export class TransactionDetailsComponent {
       
       })
     }
-  public getAllnewTransactions(status,userid) {
+  public getAllnewTransactions(status,userid,useridOnLoad) {
   
     if (status == "Rejected") {
       this.onReject = true;
@@ -181,7 +181,7 @@ export class TransactionDetailsComponent {
     if(this.accountType=='Passcode'){
    this.usersid=""
     }else{
-      this.usersid=userid
+      this.usersid=useridOnLoad
     }
     const data = {
       "userId": this.usersid,
@@ -258,7 +258,8 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
   }
 
   changeStatusCall(status) {
-    this.getAllnewTransactions(status,sessionStorage.getItem('userID'));
+let userid=sessionStorage.getItem('userID')
+    this.getAllnewTransactions(status,userid,userid);
   }
 
   displayDetails(transactionId){
@@ -472,8 +473,8 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
     this.nts.custRejectBankQuote(data, quoteId).subscribe(
       (response) => {
               this.getNimaiCount();
-
-        this.getAllnewTransactions('Rejected',sessionStorage.getItem('userID'));
+        let userid=sessionStorage.getItem('userID')
+        this.getAllnewTransactions('Rejected',userid,userid);
         custTrnsactionDetail();
         this.closeOffcanvas();
         $('#addOptions select').val('Rejected').change();
@@ -552,7 +553,8 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
         (response) => {
         this.closeOffcanvas();
         $("#closePopup").hide();
-        this.getAllnewTransactions('Accepted',sessionStorage.getItem('userID'));
+let userid=sessionStorage.getItem('userID')
+        this.getAllnewTransactions('Accepted',userid,userid);
         custTrnsactionDetail();
         },
         (err) => { }
@@ -560,12 +562,12 @@ else if(this.accountType=='SUBSIDIARY' && userIdDetail.startsWith('CU')){
   }
   selectSubsidiaries(val: any) {
     this.selectedSub=val;
-    this.getAllnewTransactions(this.currentStatus,this.selectedSub);
+    this.getAllnewTransactions(this.currentStatus,this.selectedSub,this.selectedSub);
 }
 selectUsercode(val: any) {
   this.selectedUCode=val;
   this.selectedSub=""
-  this.getAllnewTransactions(this.currentStatus,this.selectedSub)
+  this.getAllnewTransactions(this.currentStatus,this.selectedSub,this.selectedSub)
 }
 
 

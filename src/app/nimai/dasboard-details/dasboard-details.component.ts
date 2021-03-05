@@ -45,6 +45,8 @@ export class DasboardDetailsComponent implements OnInit {
   noDataPieChartGoods: boolean = false;
   lifetimeSavings:any;
   @ViewChild('pieChart', { static: true }) pieChart: ElementRef
+  public minFiveYears: any=[];
+  currnetYear: number;
   constructor(public service: DashboardDetailsService,public activatedRoute: ActivatedRoute, public router: Router) { 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -54,6 +56,14 @@ export class DasboardDetailsComponent implements OnInit {
     })
   }
   ngOnInit() {
+   
+
+for(var i=0 ; i<5 ; i++){
+  this.currnetYear= new Date().getFullYear()-i;
+ // this.minFiveYears=this.currnetYear.;
+  this.minFiveYears.push(this.currnetYear);
+}
+
     this.userId=sessionStorage.getItem('userID')
     if(this.userId.startsWith('CU') || this.userId.startsWith('BC')){
       this.isCustomer=true;
@@ -422,6 +432,8 @@ if(this.startDate && this.endDate)
 }
 
 public onOptionsSelected(event) {
+
+
   const value = event.target.value;
   const param = {
     userId: this.userId,

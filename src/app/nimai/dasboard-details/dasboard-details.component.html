@@ -79,10 +79,8 @@
                                  <div class="textfield">
                                     <select (change)='onOptionsSelected($event)'>
                                        <option value="">Select Year</option>
-                                       <option value="2017">2017</option>
-                                       <option value="2018">2018</option>
-                                       <option value="2019">2019</option>
-                                       <option value="2020">2020</option>
+                                       <option *ngFor="let data of minFiveYears" [ngValue]='data'>{{data}}</option>
+
                                     </select>
                                  </div>
                               </li>
@@ -318,7 +316,7 @@
                                        </option>
                                        </select> -->
                                         <select (change)='onCountrySelected($event)' style="width: 200px!important;">
-                                       <option value="">Select</option>
+                                       <option value="">Select a Country</option>
                                        <option *ngFor="let data of countryArray" [ngValue]="data">
                                          {{ data}}
                                        </option>

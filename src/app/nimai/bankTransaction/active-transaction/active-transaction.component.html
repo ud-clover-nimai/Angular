@@ -9,13 +9,15 @@
                 <i class="fa fa-check-square-o"></i>
               </div>
                 <div class="card-content">
-                   <h4 class="card-title pull-left">Active Transaction</h4>
+                   <h4 class="card-title pull-left">Active Transactions</h4>
                    <div class="row">
                     <div class="parentOfSelect" *ngIf="disablesubsi">
                         <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                           <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                             <option value=''>Additional users</option>
-                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
+                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">Additional user</label>
+
+                            <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                             <!-- <option value='All'>All</option> -->
+                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.emailId}}</option>                               
                           </select>
                     </div>
                 </div> 
@@ -481,7 +483,7 @@
                                       <br>
                                       <tr>
                                         <td colspan="2">
-                                            <small> Disclaimer:Note: The application benchmark/taxes will be applicable
+                                            <small> Disclaimer: The application benchmark/taxes will be applicable
                                                     as of transaction date,actual quote from the bank may differ to the extent.</small>
                                         </td>
                                     </tr>

@@ -47,8 +47,16 @@ export class CustomerLoginComponent implements OnInit {
 
     this.userId=sessionStorage.getItem('userID');
     if(this.userId.startsWith('RE')){
-      $('.modal1').show();
-
+     // $('.modal1').show();
+     let kycStatus=sessionStorage.getItem("kStatus")
+     if(kycStatus=="KycStauts:Approved"){
+       $('.modal1').show();
+ 
+       }else{  
+         this.onBALoginClick()
+         $('.modal2').show();
+ 
+       }
     }else if(this.userId.startsWith('BA')){
       this.onBALoginClick()
       $('.modal2').show();
@@ -57,7 +65,17 @@ export class CustomerLoginComponent implements OnInit {
       $('.modal1').show();
 
   }else if(this.userId.startsWith('CU')){
-    $('.modal1').show();
+    let kycStatus=sessionStorage.getItem("kStatus")
+    if(kycStatus=="KycStauts:Approved"){
+      $('.modal1').show();
+
+      }else{  
+        this.onBALoginClick()
+        $('.modal2').show();
+
+      }
+    
+
 
   }
 
@@ -93,7 +111,6 @@ export class CustomerLoginComponent implements OnInit {
              this.passCode = JSON.parse(JSON.stringify(response));
              this.passCode = this.passCode.data;
               sessionStorage.setItem('branchUserEmailId', this.emailAddress);
-              console.log("Response---",JSON.parse(JSON.stringify(response)))
               $('.modal1').hide();
               $('.modal2').show();
             },
@@ -106,6 +123,31 @@ export class CustomerLoginComponent implements OnInit {
           )     
   }
 
+  onLoginClickWOA(){
+  let sendEmail = {
+    "event": 'ADD_BRANCH_USER',
+    "emailId": this.emailAddress,
+    "userId": sessionStorage.getItem("userID"),
+    "branchId": ""
+  }
+  this.fps.sendEmailBranchUser(sendEmail)
+    .subscribe(
+      (response) => {
+       this.passCode = JSON.parse(JSON.stringify(response));
+       this.passCode = this.passCode.data;
+        sessionStorage.setItem('branchUserEmailId', this.emailAddress);
+        $('.modal1').hide();
+        $('.modal2').show();
+      },
+      (error) => {
+        $('.modal1').hide();
+        $('.modal3').show();
+        // alert("unable to send mail")
+
+      }
+    )
+
+}
 
   onCustLoginClick() {    
     this.submitted = true;
@@ -175,7 +217,7 @@ export class CustomerLoginComponent implements OnInit {
       "token" : this.passCode.split('_')[0],
       "passcodeValue": this.passValue
     }
-    
+    console.log('jjjjjjjjjjjjjjjjjjjjj')
     this.fps.branchUserOTP(data).subscribe(
       (response) => {
         var response = JSON.parse(JSON.stringify(response));

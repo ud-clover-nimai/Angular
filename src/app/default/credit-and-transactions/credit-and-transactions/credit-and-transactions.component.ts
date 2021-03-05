@@ -32,13 +32,14 @@ export class CreditAndTransactionsComponent implements OnInit {
   usersid: string="";
   totalTrnx: any="";
   selecteduserCode: string="";
+  bankName: string;
   constructor(public titleService: TitleService,public service: DashboardDetailsService,public psd: PersonalDetailsService) {
 
    }
   ngOnInit() {
     this.accountType=sessionStorage.getItem('accountType')
     this.userId=sessionStorage.getItem('userID');
-    this.listOfCreditAndTransaction(undefined,this.userId);
+    this.listOfCreditAndTransaction(undefined,this.userId,'All'+sessionStorage.getItem('userID'));
    this.getSubsidiaryData();
  
     this.startDate=""
@@ -46,10 +47,12 @@ export class CreditAndTransactionsComponent implements OnInit {
 
       if(this.userId.startsWith('BA')){
       this.userBA=true;
-      
+      this.bankName='Additional Entity';
     }else if(this.userId.startsWith('BC')){
       this.userBC=true;
+      this.bankName='Bank Name';
   }else if(this.userId.startsWith('CU')){
+    this.bankName='Bank Name';
       this.userCU=true;
   }
   if(this.accountType=='MASTER' && this.userId.startsWith('CU')){
@@ -86,7 +89,7 @@ export class CreditAndTransactionsComponent implements OnInit {
     }
     return t;
    }
-  listOfCreditAndTransaction(comanyname:any,userid:any){   
+  listOfCreditAndTransaction(comanyname:any,userid:any,userIdOnLoad){   
     this.titleService.quote.next(true);
 
     this.usersid=userid
@@ -108,7 +111,11 @@ if(comanyname==undefined){
 
 if(this.userId.startsWith('BA')){
   const param = {
-    "userid":userid,
+    "userid":userIdOnLoad,
+    "txnInsertedDate":this.startDate,
+    "txnDate":this.endDate,
+    "companyName":this.companyName,
+    "passcodeUser":emailId
    
   }
   this.service.getCreditTxnForCustomerByBankUserId(param).subscribe(
@@ -129,7 +136,7 @@ if(this.userId.startsWith('BA')){
           savings+=Number(this.creditData[i].savings);
         }
         this.creditUsed=total;
-        this.totalSavings=savings;
+        this.totalSavings=savings.toFixed(2);
         this.totalTrnx= this.creditData.length;
       }   
      
@@ -146,7 +153,7 @@ if(this.userId.startsWith('BA')){
     emailId = sessionStorage.getItem('branchUserEmailId');
 
      }else{
-       this.usersid=userid
+       this.usersid=userIdOnLoad
      } 
  const param = {
   "userid":this.usersid,
@@ -178,7 +185,7 @@ this.usersid=userid
           }
           this.subsidiary=this.arrUnique(this.subsidiary) 
           this.creditUsed=total;
-          this.totalSavings=savings;
+          this.totalSavings=savings.toFixed(2);;
           this.totalTrnx= this.creditData.length;
         }
         
@@ -195,18 +202,18 @@ this.usersid=userid
   changeStartDate(event: MatDatepickerInputEvent<Date>) {    
     let formatedDate  = formatDate(new Date(event.target.value), 'yyyy-MM-dd', 'en'); 
     this.startDate=formatedDate
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
   }
   changeEndDate(event: MatDatepickerInputEvent<Date>) { 
     let date = new Date(event.target.value);
     date.setDate(date.getDate() + 1);
     this.endDate=formatDate(new Date(date), 'yyyy-MM-dd', 'en');
-    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+    this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
   }
   selectCompany(companyName){
     if(companyName!="none"){
       this.companyName=companyName;
-      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'))
+      this.listOfCreditAndTransaction(undefined,sessionStorage.getItem('userID'),sessionStorage.getItem('userID'))
     }
     
   }
@@ -241,13 +248,13 @@ this.usersid=userid
 selectSubsidiaries(val: any) {
  // this.selectedSub=val;
  
-  this.listOfCreditAndTransaction(undefined,val)
+  this.listOfCreditAndTransaction(undefined,val,val)
   
 }
 selectUsercode(val: any) {
   this.selecteduserCode =sessionStorage.getItem('userID')
   this.selectedUCode=val;
-  this.listOfCreditAndTransaction(undefined,this.selecteduserCode)
+  this.listOfCreditAndTransaction(undefined,this.selecteduserCode,sessionStorage.getItem('userID'))
 
 }
 }

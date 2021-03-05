@@ -116,12 +116,13 @@
         data-image="assets/images/sidebar-1.jpg"
       >
         <div class="logo" [routerLink]="['dashboard-details']">
-          <a href="javascript:void(0)" class="simple-text logo-mini">
+          <!-- <a href="javascript:void(0)" class="simple-text logo-mini">
             <i class="fas fa-industry"></i>
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-            NIMAITRADE
-          </a>
+          </a> -->         
+          <!-- <a href="javascript:void(0)" class="simple-text logo-normal"> -->
+            &nbsp; &nbsp;&nbsp; <img src="assets/images/Nimai_Logo2.jpg" width="195" height="50"/>
+            
+          <!-- </a> -->
         </div>
         <div class="sidebar-wrapper">
           <div class="user">
@@ -264,7 +265,7 @@
                   </li>
                   <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
                       <a [routerLink]="['reference']" >
-                        <i class="fas fa-industry"></i>
+                        <i class="fas fa-external-link-alt"></i>
                         <p>References</p>
                       </a>
                     </li>
@@ -411,7 +412,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li *ngIf="hideMyProfile"><a [routerLink]="['my-profile']">My Profile</a></li>
-                    <li *ngIf="!hideCreditTransaction">
+                    <li *ngIf="!hideCreditTransaction && (nimaiCount.kycstatus | lowercase) == 'approved'">
                       <a
                         *ngIf="isCustomer || isBank"
                         [routerLink]="['credit-transaction']"
@@ -451,21 +452,19 @@
               </ul>     
              
                 <i *ngIf="creditenable=='yes'"  class='fas fa-coins navbar-right' style='font-size:36px;color:grey;padding-top: 10px;'>
-                  <span style="color: #555555;font-size: 14px;"> &nbsp;&nbsp;{{ creditCount}}  Credits </span> </i>
+                  <span style="color: #555555;font-size: 14px;"> &nbsp;&nbsp;{{ creditCount}}  Credits</span> </i>
         
             
             </div>
           </div>
         </nav>
         
-      <div id="trnxInactive" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+      <!-- <div id="trnxInactive" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
         <div class="modal-dialog modal-md emaildiv">
-           <!-- Modal content-->
            <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
               <div class="modal-body">
                  <h2>Transaction Not Allowed !</h2>
                     <div class="row">
-                       <!--<p><strong>Enter Email ID here</strong></p> -->
                        <div class="col-md-12">
                           <div class="row">
                              <div class="col-md-12">
@@ -479,7 +478,7 @@
               </div>
            </div>
         </div>
-      </div>
+      </div> -->
         <div class="content">
           <div class="container-fluid">
             <div class="row">

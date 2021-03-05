@@ -2,7 +2,7 @@
   <!-- <div class="modal-dialog modal-md emaildiv"> -->
   <!-- Modal content-->
   <div class="modal-content">
-    <div class="col-md-12 arrow_box" style="border-bottom: 1px solid gray!important;margin-bottom: 20px;"><button type="button" class="close" (click)="close()" style="margin-top: 5px;margin-right:90%!important">&times;</button><h3 style="margin-top: 0px!important;padding-left: 29px;font-weight: 400!important;">Enter Access Details</h3></div>
+    <div class="col-md-12 arrow_box" style="border-bottom: 1px solid gray!important;margin-bottom: 20px;"><button type="button" class="close" (click)="close()" style="margin-top: px;margin-left:93%!important">&times;</button><h3 style="margin-top: 0px!important;padding-left: 29px;font-weight: 400!important;">Enter Access Details</h3></div>
     <div class="modal-body">
       <form [formGroup]="customerLoginForm" (ngSubmit)="onCustLoginClick()">
       <div class="row">
@@ -21,7 +21,7 @@
               </div>
               </div>
             </div> -->
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="inputDiv">
                 <input type="text" maxlength="10" formControlName="employee_id" class="first_input" (keypress)="validateRegexFields($event, 'alphaNum')">
                 <label>Employee ID</label>
@@ -33,9 +33,9 @@
               </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="inputDiv">
-                <input type="text" formControlName="email_id" oninput="this.value = this.value.toLowerCase()">
+                <input type="text" formControlName="email_id"  maxlength="45" oninput="this.value = this.value.toLowerCase()">
                 <label>Email ID</label>
                 <div *ngIf="submitted && custLogDetails.email_id.errors?.required" class="invalid-feedback">
                   Email is required
@@ -45,7 +45,7 @@
               </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="inputDiv">
                 <input type="text" maxlength="30" formControlName="employee_name" (keydown)="validateRegexFields($event, 'namewithspace')">
                 <label>Name</label>
@@ -82,7 +82,7 @@
         <div class="col-md-12">
           <div class="text-center">
             <p><strong>Thank you for sharing access details!</strong></p>
-            <p class="ptext">We have sent a 5-digit passcode to your registered email address <span class="cust_email">{{emailAddress}}</span>. Check your
+            <p class="ptext">We have sent a 5-digit passcode to your registered email address<span class="cust_email">{{emailAddress}}</span>. Check your
               spam folder just in case our email has skipped your inbox.</p> 
             <div class="form-group"></div>
             <div class="col-md-4 col-md-offset-4">
@@ -107,15 +107,15 @@
   <!-- <div class="modal-dialog modal-md emaildiv"> -->
   <!-- Modal content-->
   <div class="modal-content">
-    <div class="col-md-12 arrow_box" style="border-bottom: 1px solid gray!important;margin-bottom: 20px;"><button type="button" class="close" (click)="close()" style="margin-top: 5px;margin-right:90%!important">&times;</button><h3 style="margin-top: 0px!important;padding-left: 29px;font-weight: 400!important;">Enter Access Details</h3></div>
+    <div class="col-md-12 arrow_box" style="border-bottom: 1px solid gray!important;margin-bottom: 20px;"><button type="button" class="close" (click)="close()" style="margin-top: 0px;margin-left:93%!important">&times;</button><h3 style="margin-top: 0px!important;padding-left: 29px;font-weight: 400!important;">Enter Access Details</h3></div>
     <div class="modal-body">
       <div class="row">
         <!--<p><strong>Enter Email ID here</strong></p> -->
         <div class="col-md-12">
           <div class="text-center">
             <p>Oops! We can't find association of entered email address with any account on
-              TradeEnabler. Kindly contact <a
-                href="mailto:support.contactsupport@NimaiTrade.com" class="cust_email">support.contactsupport@NimaiTrade.com</a> or
+              NimaiTrade. Kindly contact <a
+                href="mailto:support.TradeSupport@NimaiTrade.com" class="cust_email">support.TradeSupport@NimaiTrade.com</a> or
               re-enter the email id.</p>  
 
             <div class="form-group"></div>

@@ -186,10 +186,10 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalDetailsForm.get('landLineNo').updateValueAndValidity();
    }
    setBankAsCustomerValidators(){
-    this.personalDetailsForm.get('mobileNo').clearValidators();
-    this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
-    this.personalDetailsForm.get('landLineNo').setValidators([Validators.required,Validators.minLength(7)])
+    this.personalDetailsForm.get('landLineNo').clearValidators();
     this.personalDetailsForm.get('landLineNo').updateValueAndValidity();
+    this.personalDetailsForm.get('mobileNo').setValidators([Validators.required,Validators.minLength(7)])
+    this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
     
    }
   submit(): void {
@@ -200,7 +200,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
 if(emailId==emailId1 || emailId==emailId2 || emailId==emailId3){
-alert(emailId)
+alert('Official Email ID and Additional Email ID cannot be same ')
 }else{
 
     this.submitted = true;

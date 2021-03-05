@@ -1,9 +1,9 @@
-<div id="menubar-con" [hidden]="!isActive" style="position: fixed; width: 450px; transition: all 300ms ease 0s; 
+<div id="menubar-con" class="offcanvas" [hidden]="!isActive" style="position: fixed; width: 450px; transition: all 300ms ease 0s; 
 height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
-                <h4>{{title}} <button type="button" class="close">&times;</button></h4>
+                <h4>{{title}} <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
                 <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 110px;">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
@@ -71,7 +71,7 @@ height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
                               </tr>
                               <tr>
                                  <td>Bank Quote Validity</td>
-                                 <td><input type="date" [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
+                                 <td><input type="date" id="validity"  [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                                     (ngModelChange)="dataViewEdit.validityDate = $event"></td>      
                                     <!-- <td><input type="date"  [ngModel]="dataViewEdit.validityDate | date:'yyyy-MM-dd'" 
                                         (ngModelChange)="data.validityDate = $event" disabled></td>                         -->
@@ -93,7 +93,7 @@ height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
                              
                             
                               <tr>
-                                 <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                 <td colspan="2"><small>Disclaimer: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                               </tr>
                            </tbody>
                         </table>
@@ -200,7 +200,7 @@ height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
                                 </tr>
              
                                 <tr>
-                                    <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                    <td colspan="2"><small>Disclaimer: The applicable benchmark will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -355,7 +355,7 @@ height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
                            <tr>
                              <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote.">
                                  <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
-                              <td><input type="date"  name="validityDate" 
+                              <td><input type="date"  name="validityDate"  [min]="CurrentDate"
                                 [ngModel]="data.validityDate | date:'yyyy-MM-dd'" (ngModelChange)="data.validityDate = $event"
                                  #validityDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required  >
                                  <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
@@ -373,13 +373,13 @@ height: 100%; top: 0px; right: 0px; z-index:9999;" tabindex="-1">
                           
                            <!-- <tr>
                               <td>
-                                 Disclaimer:Note: The application benchmark/taxes will be applicable
+                                 Disclaimer: The application benchmark/taxes will be applicable
                                  as of transaction date,actual quote from the bank may differ to the extent
                               </td>
                            </tr> -->
                            <tr>
                                 <td colspan="2">
-                                    <small> Disclaimer:Note: The application benchmark/taxes will be applicable
+                                    <small> Disclaimer: The application benchmark/taxes will be applicable
                                             as of transaction date,actual quote from the bank may differ to the extent.</small>
                                 </td>
                             </tr>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { manageSub } from 'src/assets/js/commons'
+import { manageSub ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
 import { loads } from '../../../assets/js/commons';
 import { ValidateRegex } from 'src/app/beans/Validations';
@@ -30,6 +30,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   subuticount:any;
   available:any;
   nimaiCount:any;
+  countryName: any;
+  countryCode: any;
+  hasCountrycode: boolean=false;
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -82,12 +85,20 @@ export class ManageSubsidiaryComponent implements OnInit {
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
   }
-
+  showCountryCode(data){
+    this.countryName = data.country;
+    this.countryCode = data.code;
+    if(this.countryCode){
+      this.hasCountrycode=true;
+    }
+  }
   
   listOfSubsidiary(){  
     let userID: string = sessionStorage.getItem('userID');
     this.signUpService.getSubsidiaryList(userID).subscribe(
       (response) => {
+        custTrnsactionDetail();
+
         this.subsidiaryData = JSON.parse(JSON.stringify(response)).data;
         if(this.subsidiaryData.length === 0){
           this.noData = true;
@@ -99,11 +110,11 @@ export class ManageSubsidiaryComponent implements OnInit {
       )
   }
   onOkClick(){    
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-    //   });
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+      });
      // window.location.reload()
-      $("#addsub").hide();
+     // $("#addsub").hide();
   }
 
   addSubsidiary() {
@@ -118,12 +129,13 @@ export class ManageSubsidiaryComponent implements OnInit {
       return;
     }
     this.submitted = false;
+
     let data = {
       firstName: this.manageSubForm.get('firstName').value,
       lastName: this.manageSubForm.get('lastName').value,
       emailAddress: this.manageSubForm.get('emailId').value,
       mobileNum: this.manageSubForm.get('mobileNo').value,
-      countryName: this.manageSubForm.get('country').value,
+      countryName: this.countryName,
       landLinenumber: this.manageSubForm.get('landlineNo').value,
       companyName: '',
       designation: '',

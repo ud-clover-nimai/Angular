@@ -4,6 +4,7 @@ import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {Validators} from '@angular/forms';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 @Component({
   selector: 'app-applicant-beneficiary',
   templateUrl: './applicant-beneficiary.component.html',
@@ -18,7 +19,8 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   public isValidBeneEmail=false;
   submitted: boolean;
   disableRadiobtn: boolean=true;
-  constructor(public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
+  nimaiCount: any;
+  constructor( public getCount: SubscriptionDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
     this.LcDetail = this.fb.group({
      
       swiftCode: ['', Validators.required],
@@ -56,8 +58,11 @@ export class ApplicantBeneficiaryComponent implements OnInit {
            this.disableRadiobtn=false;
             this.onItemChange("");
           }
-
+       
   }
+
+
+
   onItemChange(e){
     console.log("On item Change...")
     var radioValue = $("input[name='userType']:checked").val();

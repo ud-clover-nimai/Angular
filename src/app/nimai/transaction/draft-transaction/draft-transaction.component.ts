@@ -28,6 +28,13 @@ export class DraftTransactionComponent implements OnInit {
   callAllDraftTransaction(){
     var userIdDetail = sessionStorage.getItem('userID');
     var emailId = "";
+  
+    if(sessionStorage.getItem('accountType')=='Passcode'){
+      emailId = sessionStorage.getItem('branchUserEmailId');
+    }else{
+      emailId="";
+    }
+
     if(userIdDetail.startsWith('BC')){
       emailId = sessionStorage.getItem('branchUserEmailId');
     }

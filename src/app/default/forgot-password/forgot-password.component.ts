@@ -25,6 +25,16 @@ export class ForgotPasswordComponent implements OnInit {
     this.rsc.validateToken(this.key).subscribe(
       (response) => {
         this.flag = true;
+      const data = {
+          "userId": sessionStorage.getItem('userID'), 
+          "event": "RESET_SUCCESS"          
+        }
+        this.rsc.passwordChangeSuccess(data)
+        .subscribe(
+          (response)=>{
+            
+          }
+        )
         this.lgsc.findUserByToken(this.key)
         .subscribe(
           (response)=>{

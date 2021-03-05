@@ -54,7 +54,7 @@ export class ReferComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     mobileNo: ['', [Validators.required,Validators.minLength(7)]],
-    landLinenumber:['', [Validators.required,Validators.minLength(7)]],
+    landLineNo:['', [Validators.minLength(7)]],
     emailAddress: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
     countryName: new FormControl('', [Validators.required]),
     companyName: new FormControl('', [Validators.required]),
@@ -115,7 +115,7 @@ export class ReferComponent implements OnInit {
       firstName: this.referForm.get('firstName').value,
       lastName: this.referForm.get('lastName').value,
       mobileNo: this.referForm.get('mobileNo').value,
-      landLinenumber:this.referForm.get('landLinenumber').value,
+      landLineNo:this.referForm.get('landLineNo').value,
       emailAddress: this.referForm.get('emailAddress').value,
       countryName: this.countryNames,
       companyName: this.referForm.get('companyName').value,
@@ -134,7 +134,7 @@ export class ReferComponent implements OnInit {
       emailAddress: this.referForm.get('emailAddress').value,
       mobileNum: this.referForm.get('mobileNo').value,
       countryName: this.countryNames,
-      landLinenumber: this.referForm.get('landLinenumber').value,
+      landLinenumber: this.referForm.get('landLineNo').value,
       companyName: this.referForm.get('companyName').value,
       designation: '',
       businessType: '',
@@ -164,7 +164,6 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let res = JSON.parse(JSON.stringify(response));
-          console.log(res);
           const fg = {
             "emailId": this.referForm.get('emailAddress').value,
             "event": 'ADD_REFER',
@@ -234,10 +233,8 @@ export class ReferComponent implements OnInit {
       .subscribe(
         (response) => {
           let responseData = JSON.parse(JSON.stringify(response));
-          console.log(responseData)
           let total = 0;
           for (let i = 0; i < responseData.length; i++) {
-            console.log ("Block statement execution no." + responseData[i].earnings);
             total +=Number(responseData[i].earnings);
           }
           this.total_earning=total;

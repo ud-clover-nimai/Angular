@@ -30,7 +30,7 @@
     /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 62%;
     /* Could be more or less, depending on screen size */
 }
 
@@ -81,9 +81,8 @@
 #success_msg{
 padding-top:0px!important;
 }
-.cust_email:hover{
-    color: gray;
-    cursor: pointer;
+.cust_email{
+    color: black;
 }
 .renter_btn:hover{
     color: teal;

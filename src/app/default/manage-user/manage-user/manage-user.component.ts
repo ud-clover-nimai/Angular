@@ -13,6 +13,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 import { LoginService } from 'src/app/services/login/login.service';
+import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -44,7 +45,11 @@ export class ManageUserComponent implements OnInit {
   countryArray: Array<string> = [];
   isBankOther: boolean;
   countryName: any;
-    constructor(public router: Router, public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
+  disabledNone: boolean=false;
+  isOptionNone: boolean=false;
+  BGselected: any;
+  nimaiCount: any;
+    constructor(public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ResetPasswordService, public signUpService: SignupService,public service: DashboardDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -102,50 +107,53 @@ export class ManageUserComponent implements OnInit {
     if(item.productCategory=="Others"){
       this.isBankOther=true;      
      // loads();
-    }else{
+    }
+    else{
       this.isBankOther=false;
     }
-console.log(item.productCategory)
-    // if(item.productCategory=='None'){
-      
-    //   this.dropdownSettingGoods = {
-    //     singleSelection: false,
-    //     idField: 'id',
-    //     textField: 'productCategory',
-    //     selectAllText: 'Select All',
-    //     unSelectAllText: 'Unselect All',
-    //     itemsShowLimit: 1,
-    //     allowSearchFilter: true,
-    //     enableCheckAll:false,
 
-    //    // limitSelection:'none'
-    //   }
-    // }else{
-    //   this.dropdownSettingGoods = {
-    //     singleSelection: false,
-    //     idField: 'id',
-    //     textField: 'productCategory',
-    //     selectAllText: 'Select All',
-    //     unSelectAllText: 'Unselect All',
-    //     itemsShowLimit: 1,
-    //     allowSearchFilter: true,
-        
-    //   }
-    // }
+  
 
+if(item.productCategory=='None'){
+    // this.manageSubForm.get('blacklistedGC').setValue('');
+
+  this.isOptionNone=true;
+ // this.BGselected.push({ id: '1',productCategory: "None",description:""});
+  this.disabledNone=true
+
+}else{
+  console.log(item.productCategory)
+
+  this.disabledNone=false;
+}
   }
-
+  closeNone(){
+    this.manageSubForm.get('blacklistedGC').setValue('');
+    this.disabledNone=false
+    this.isOptionNone=false;
+  }
   onSelectAll(item: any) {
     console.log(item);
   }
 
   ngOnInit() {
-    this.goodsService();
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress":sessionStorage.getItem('branchUserEmailId')
+    }
+
+    this.getCount.getTotalCount(data).subscribe(
+      response => {        
+        this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.subsidiries=this.nimaiCount.subsidiries;;  
+        this.subuticount=this.nimaiCount.subuticount;;
+        this.available=this.subsidiries-this.subuticount
+      })
 
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-    this.subsidiries=sessionStorage.getItem('subsidiries');  
-    this.subuticount=sessionStorage.getItem('subuticount');
-    this.available=this.subsidiries-this.subuticount
+   
+    this.goodsService();
+
     loads();
     manageSub();
     this.listOfUsers();
@@ -183,13 +191,15 @@ console.log(item.productCategory)
     // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
     $("#addsub").hide();
     this.isBankOther=false;
+    this.disabledNone=false;
+
   }
 
   onOkClick(){
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //       this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
-    //   });
-    window.location.reload();
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-user`]);
+      });
+   // window.location.reload();
     $("#addsub").hide();
   }
 
@@ -265,7 +275,7 @@ console.log(item.productCategory)
       account_type: "BANKUSER",
       account_status: "ACTIVE",
       account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
-      regCurrency: "",
+      regCurrency: this.manageSubForm.get('regCurrency').value,
       emailAddress1: "",
       emailAddress2: "",
       emailAddress3: ""

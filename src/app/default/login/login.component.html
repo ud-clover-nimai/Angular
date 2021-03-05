@@ -15,7 +15,7 @@
          <div class="content-b">
             <div class="container-fluid">
                <div class="">
-                  <div class="col-md-8 col-md-offset-2 maindiv" id="container">
+                  <div class="col-md-8 col-md-offset-2 maindiv" id="container" style="padding-bottom: 14px;">
                      <div class="form-container sign-up-container ">
                         <form [formGroup]="signupForm" (ngSubmit)="signUp()">
                            <div class="">
@@ -276,7 +276,7 @@
                                          </div>
                                         
                                        </div>
-                                       <div class="col-md-12 col-sm-12 bankfields" *ngIf="isBank && isBankOther">
+                                       <div class="col-md-12 col-sm-12 bankfields" style="bottom: 14px;" *ngIf="isBank && isBankOther">
                                           <div class="inputDiv" style="width:30%">
                                              <input type="text" class="has-value" maxlength="30" formControlName="otherTypeBank">
                                              <label>Other</label>
@@ -317,18 +317,19 @@
                                        </div>
                                        <div class="col-md-4 col-sm-4 referrerdiv" *ngIf="isReferrer && isReferrerOther">
                                           <div class="inputDiv">
-                                             <input type="text" maxlength="30" formControlName="otherType">
+                                             <input type="text" maxlength="30" class="has-value" formControlName="otherType">
                                              <label>Other</label>
                                              <i class="fa fa-address-card fa-1"></i>
                                           </div>
                                        </div>
                                        <div class="clearfix"></div>
-                                        <div class="col-md-12 inputDiv" style="margin: -3px!important;padding-left: 232px!important;">   
+                                        <div class="col-md-12 inputDiv" style="bottom: 4px;margin: -11px!important;padding-left: 232px!important;">   
                                           <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive" siteKey="6Lda-jIaAAAAAMNrtvrHcHMCMAb7OvJK9ZfSXJ5s">
                                           </re-captcha>
                                           <div *ngIf="submittedSignup && suf.recaptchaReactive.errors" class="invalid-feedback" style="margin-top: 40px!important;margin-right: 215px!important;">
                                              <div *ngIf="suf.recaptchaReactive.errors.required">
-                                                Please verify Google Recaptcha.
+                                                <p>Please verify Google Recaptcha.</p>
+                                                 
                                              </div>
                                           </div>
                                        </div> 
@@ -393,7 +394,7 @@
                                     <h1>Forgot Password</h1>
                                     <div class="form-group"></div>
                                     <div class="inputDiv">
-                                       <input type="email" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()" formControlName="email">
+                                       <input type="email" maxlength="45" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()" formControlName="email">
                                        <label>Email</label>
                                        <img src="assets/images/user.png" />
                                        <div *ngIf="forgPassSubmitted && fpf.email.errors" class="invalid-feedback">

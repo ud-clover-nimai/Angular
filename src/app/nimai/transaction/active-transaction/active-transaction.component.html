@@ -8,7 +8,7 @@
                   <i class="fa fa-check-square-o"></i>
                </div>
                <div class="card-content">
-                  <h4 class="card-title"> <span id="changetext"> Active Transaction</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                  <h4 class="card-title"> <span id="changetext"> Active Transactions</span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                   <form>
                      <div class="row">
                         <div class="parentOfSelect " *ngIf="disablesubsi">
@@ -44,6 +44,7 @@
                                  <tr>
                                     <th class="disabled-sorting text-center">#</th>
                                     <th nowrap>Transaction ID</th>
+                                    <th style="min-width: 150px;">Date</th>
                                     <th style="min-width: 150px;">Applicant Name</th>
                                     <th style="min-width: 150px;">Beneficiary Name</th>
                                     <th style="min-width: 80px;">LC Value</th>
@@ -59,6 +60,8 @@
                                  <tr *ngFor="let record of detail; let i = index">
                                     <td>{{i+1}}</td>
                                     <td>{{record.transactionId}}</td>
+                                    <td>{{record.insertedDate}}</td>
+
                                     <td>{{record.applicantName}}</td>
                                     <td>{{record.beneName}}</td>
                                     <td>{{record.lCValue | number}}</td>
@@ -76,7 +79,7 @@
                                           {{record.quotationReceived}}
                                        </div>
                                        <div *ngIf="record.quotationReceived != 0"> 
-                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
+                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.userId,record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
                                           {{record.quotationReceived}}
                                           </span>
                                        </div>
@@ -216,7 +219,7 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}}</td>
                         </tr>
                         <tr>
-                           <td>Minimum Transaction Charges </td>
+                           <td>Minimum Transaction Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                         </tr>
                         <tr>
@@ -241,7 +244,7 @@
                     
 <br>
                         <tr>
-                           <td colspan="2">Note: The applicable benchmark will be applicable as of transaction date, actual
+                           <td colspan="2">Disclaimer: The applicable benchmark will be applicable as of transaction date, actual
                               quote from the bank may differ to that extent.
                            </td>
                         </tr>

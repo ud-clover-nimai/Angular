@@ -168,13 +168,15 @@ export class LoginComponent implements OnInit {
           this.titleService.loading.next(true);
           sessionStorage.setItem("kStatus", responseData.message);
           if (loginData.userId.startsWith('RE')) {
-            // this.router.navigate(['/ref/rcs/dashboard-details']);
-            this.callCustomerPopup();  
-          } else  if (loginData.userId.startsWith('BA')){
-            // this.router.navigate(['/bcst/dsb/dashboard-details']);   
-            this.callCustomerPopup();      
+            this.callCustomerPopup();
+              
+             } else  if (loginData.userId.startsWith('BA')){
+              this.callCustomerPopup();
+           
           } else if(loginData.userId.startsWith('CU')){
             this.callCustomerPopup();
+             
+
             // if(responseData.message=="KycStauts:Approved"){
             //   this.router.navigate(['/cst/dsb/dashboard-details']); 
             // }else if(responseData.message=="KycStauts:Rejected"){ 
@@ -208,7 +210,7 @@ export class LoginComponent implements OnInit {
   changeType(type){    
     if(type=="Others"){
       this.isReferrerOther=true;      
-      loads();
+     // loads();
 
     }else{
       this.isReferrerOther=false;
@@ -224,9 +226,7 @@ export class LoginComponent implements OnInit {
     this.submittedSignup = true;
     let subscriptionType = this.signupForm.get('radio').value;
     let selector = this.signupForm.get('selector').value;
-    if(this.isReferrerOther){      
-      this.signupForm.get('businessType').setValue(this.signupForm.get('otherType').value)
-    }
+  
    
     sessionStorage.setItem('subscriptionType', subscriptionType);
     sessionStorage.setItem('selector', selector);
@@ -254,6 +254,9 @@ export class LoginComponent implements OnInit {
       
         if (this.signupForm.invalid) {
           return;
+        }
+        if(this.isReferrerOther){      
+          this.signupForm.get('businessType').setValue(this.signupForm.get('otherType').value)
         }
       }
 

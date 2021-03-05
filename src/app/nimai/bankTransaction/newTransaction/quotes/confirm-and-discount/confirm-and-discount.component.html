@@ -1,10 +1,10 @@
-<div id="menubarConfDis" [hidden]="!isActive" (blur)="closed()" style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; 
+<div id="menubarConfDis" [hidden]="!isActive" class="offcanvas" (blur)="closed()" style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; 
 right: 0px; z-index:9999;">
 
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
-                <h4>{{title}} <button type="button" class="close handle">&times;</button></h4>
+                <h4>{{title}} <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
                 <div class="tab-content" style="overflow: auto;padding-bottom: 110px;" id="tab1" *ngIf="tab==='tab1'">
                     <div class="tab-pane active" id="pill1">
                         <div class="tab">
@@ -114,7 +114,7 @@ right: 0px; z-index:9999;">
                         placeholder="Specify the type of charge (Swift, P&T, etc)" rows="3"></textarea>
 
                         <tr>
-                           <td>Minimum Transaction Charges</td>
+                           <td>Minimum Transaction Charges (if any)</td>
                            <td>
                               <input type="text" [(ngModel)]="dataViewEdit.minTransactionCharges"
                                  placeholder="0.00" weightDirective />
@@ -142,11 +142,11 @@ right: 0px; z-index:9999;">
 <!--                                
                                    <tr>
                                        <td>
-                                           Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent
+                                           Disclaimer: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent
                                        </td>
                                    </tr> -->
                         <tr>
-                           <td colspan="2"><small>Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                           <td colspan="2"><small>Disclaimer: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -293,7 +293,7 @@ right: 0px; z-index:9999;">
                                 </tr>
  
                                 <tr>
-                                    <td colspan="2"><small>Note: The applicable benchmark will be applicable as of transaction
+                                    <td colspan="2"><small>Disclaimer: The applicable benchmark will be applicable as of transaction
                                  date,  actual quote from the bank may differ to that extent.</small></td>
                                 </tr>
                             </tbody>
@@ -497,12 +497,12 @@ right: 0px; z-index:9999;">
                                     <td><input type="text" [(ngModel)]="data.TotalQuote"  disabled></td>
                                   </tr> -->
                                         <tr>
-                                            <td>Minimum Transaction Charges</td>
+                                            <td>Minimum Transaction Charges (if any)</td>
                                             <td><input type="text" name="minTransactionCharges" [(ngModel)]="data.minTransactionCharges" placeholder="0.00" weightDirective>
                                         </tr>
                                         <tr>
                                             <td>Bank Quote Validity <a class="" data-toggle="tooltip" data-placement="right" title="Date before which the customer should accept your quote."><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a></td>
-                                 <td><input type="date" name="validityDate"  [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
+                                 <td><input type="date" name="validityDate"  [min]="CurrentDate" [ngModel]="data.validityDate | date:'yyyy-MM-dd'"
                                     (ngModelChange)="data.validityDate = $event"   #validityDate="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && validityDate.invalid }" required>
                                     <div *ngIf="f.submitted && validityDate.invalid" class="invalid-feedback">
@@ -517,7 +517,7 @@ right: 0px; z-index:9999;">
                                      <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." rows="3" ></textarea>
                                         <!-- <tr>
                                             <td>
-                                                Disclaimer:Note: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent
+                                                Disclaimer: The application benchmark/taxes will be applicable as of transaction date, actual quote from the bank may differ to that extent
                                             </td>
                                         </tr> -->
                                         <tr>
@@ -622,7 +622,7 @@ right: 0px; z-index:9999;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Minimum Transaction Charges</td>
+                                        <td>Minimum Transaction Charges (if any)</td>
                                         <td>
                                             {{data.minTransactionCharges}}
                                         </td>
@@ -649,7 +649,7 @@ right: 0px; z-index:9999;">
                                 <small style="color: #b6a3a3;">{{data.termConditionComments}}</small></td>
                            </tr>
                                     <tr>
-                                        <td colspan="2"><small>Disclaimer: Note: The applicable benchmark will be applicable as of
+                                        <td colspan="2"><small>Disclaimer: The applicable benchmark will be applicable as of
                                     transaction date,  actual quote from the bank may differ to that extent.</small></td>
                                     </tr>
                                 </tbody>

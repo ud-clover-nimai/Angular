@@ -30,6 +30,7 @@ export class RefinancingComponent implements OnInit {
   totalQuote: any;
   dateString: any;
   currentDateTime: any;
+  CurrentDate: string;
 
   constructor(public titleService: TitleService, public ts: NewTransactionService,
     public upls: UploadLcService, public activatedRoute: ActivatedRoute, public router: Router) {
@@ -152,6 +153,8 @@ export class RefinancingComponent implements OnInit {
   ngOnInit() {
   }
   public action(flag: boolean, type: Tflag, data: any) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     this.tab='tab1';
 console.log(type)
     if(data.termConditionComments=='null'){
@@ -327,6 +330,14 @@ console.log(type)
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
   }
+
+  closed_div(){
+    this.isActive = false;
+    document.getElementById("menubarRefinancing").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+   }
+
   public transactionForQuotes(act: string, data: any, detail: any) {
     switch (act) {
       case 'edit': {

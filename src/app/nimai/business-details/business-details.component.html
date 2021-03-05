@@ -85,7 +85,7 @@
                         type="text"
                         formControlName="companyName" 
                         [ngClass]="hasValue ? 'has-value' : ''"
-                        maxlength="50"
+                        maxlength="45"
                       />
                       <label>Company Name</label>
                       <div
@@ -358,11 +358,11 @@
                             >
                               Add More
                             </button>
-                            <div
+                            <!-- <div
                             *ngIf="addMoreFlag"
                             class="invalid-feedback" style="right: 81px!important;">
                             Please fill all three fields.
-                          </div>
+                          </div> -->
                           </div>
                           <div class="inputDiv" *ngIf="i > 0">
                             <button
@@ -543,16 +543,11 @@
                       >
                         Address Line 2 is required
                       </div>
-                      <div
-                        *ngIf="
-                          perDetailsSubmit && busiDetails.addressLine2.errors
-                        "
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="busiDetails.addressLine2.errors?.minlength">
+                                          
+                        <div *ngIf="busiDetails.addressLine2.errors?.minlength" class="invalid-feedback">
                           Address Line 2 atleast 2 characters long.
                         </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-3">
@@ -567,16 +562,11 @@
                       <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
                                                 Landmark is required
                                             </div> -->
-                      <div
-                        *ngIf="
-                          perDetailsSubmit && busiDetails.addressLine3.errors
-                        "
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="busiDetails.addressLine3.errors?.minlength">
+                     
+                        <div *ngIf="busiDetails.addressLine3.errors?.minlength" class="invalid-feedback">
                           Landmark atleast 2 characters long.
                         </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-3">
@@ -645,6 +635,34 @@
         </div>
       </div>
     </div>
+
+
+    <div id="removeOwner" style="display: none;top: 0%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+      <div class="modal-dialog modal-md emaildiv" style="margin-top: 200px;">
+         <!-- Modal content-->
+         <div class="modal-content">
+            <div class="modal-body">
+               <h2>Remove Owner </h2>
+               <div class="padnew">
+                  <div class="row">
+                     <!--<p><strong>Enter Email ID here</strong></p> -->
+                     <div class="col-md-12">
+                        <div class="row">
+                           <div class="col-md-12">
+                              <h5>Are you sure want to Remove this owner ?</h5>
+                             
+                           </div>
+                        </div>
+                        <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="removeYes()">Yes</button>
+                        <button type="submit" class="handle1 btn btn-info pull-right" (click)="removeNo()">No</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
     <router-outlet></router-outlet>
     <!-- </div> -->
     <!-- </div>  -->
