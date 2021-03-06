@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("./assets/css/bootstrap.min.css");
+@import url("./assets/css/material-dashboard.css");
+@import url("./assets/css/style.css");
+@import url("./assets/css/demo.css");
+@import url("./assets/css/textinput.css");
+@import url("./assets/css/font.css");
+@import url("./assets/css/fontAwesome.min.css");
+@import url("./assets/css/googleFonts.css");
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::ng-deep .mat-input-element {
+    caret-color: #00b5de;
+}

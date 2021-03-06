@@ -1,0 +1,46 @@
+
+.table td radio{
+    width: 18px;
+    height: 18px;
+
+}
+
+ .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+  .popupcontent table {
+    margin-left: 15px!important;
+  }
+  ::ng-deep .popupcontent .tab-pane .table tbody > tr > td{
+    padding-right: 30px!important;
+    padding-top: 8px!important;
+  }
+  ::ng-deep .popupcontent input:read-only{
+    margin-left: 12px!important;
+    float: right!important;
+  } 
+  ::ng-deep input[type=radio] {
+    margin-right: 5px!important;
+  }
+  .tab{
+    margin-left: 20px;
+  }
+  .popupcontent textarea {
+    margin-left: 8px!important;
+    margin-right: 29px;
+    width: 260px!important; 
+    height: 85px!important;
+  }
+  .popupcontent .percent{
+    /* left: 223px!important; */
+    right:30px!important;
+    top: 8px!important;
+  }

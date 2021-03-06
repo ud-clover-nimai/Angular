@@ -1,0 +1,43 @@
+.support h2 {
+  color: #757575;
+  font-weight: bold;
+  padding-bottom: 10px;
+  font-size: 21px;
+  padding: 0;
+  margin: 5px 0px 30px;
+}
+
+.support h4 {
+  font-size: 29px;
+  font-weight: 900;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.support table td {
+  border: 0 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .support table td {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .support .support-heading {
+    font-size: 25px;
+  }
+  .support .support-subheading {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .support table td {
+    display: block;
+    margin-bottom: 15px;
+  }
+  .support .support-heading {
+    font-size: 19px;
+  }
+  .support .support-subheading {
+    font-size: 16px;
+  }
+}

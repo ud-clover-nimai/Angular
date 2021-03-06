@@ -1,0 +1,129 @@
+.card .card-header.card-header-icon + .card-content .card-title {
+  padding-bottom: 25px;
+  font-size: 17px;
+  font-family: montserrat;
+  font-weight: 400;
+}
+.card .card-header.card-header-icon + .card-content .card-title small {
+  margin: 0 0 0 8px;
+}
+
+.myprofile p a {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 23px 0 66px;
+  color: #949494;
+  font-size: 14px;
+  font-weight: 500;
+  float: right!important;
+}
+.customspan {
+  top: 3px;
+  font-size: 9px;
+  color: #aaa;
+  left: 1px;
+  position: absolute;
+  transform: translateY(-50%);
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
+
+.labeltext {
+  display: block;
+  padding: 12px 0px 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.myprofile td {
+  text-align: left;
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-family: montserrat;
+  font-weight: 500;
+}
+.myprofile th {
+  text-align: left !important;
+  color: #aaa !important;
+  padding: 4px 10px !important;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+hr {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 2px solid #1fc1d5;
+}
+
+.myprofile .headingProfile {
+  padding: 10px 15px 5px 15px !important;
+  font-size: 13px !important;
+  font-family: montserrat;
+  font-weight: 600 !important;
+}
+.edit_icon:hover {
+  color: blue !important;
+}
+
+@media screen and (max-width: 350px) {
+  .myprofile p a {
+    margin: 0 0px 0 66px;
+  }
+}
+.modal1, .modal2, .modal3{
+  display: block;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1050;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  z-index: 9;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

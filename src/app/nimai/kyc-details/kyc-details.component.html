@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">KYC Details - <small class="category">Complete your profile</small>
+                            </h4>
+                            <form [formGroup]="kycDetailsForm" (ngSubmit)="submit();">
+                                <div class="row" style="padding-bottom: 15px!important;">
+                                    <div class="col-md-6" [hidden]="!disabledBusiness">
+                                        <div>
+                                            <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                                Business KYC
+                                            </h4>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select id="busiCountry" formControlName="busiCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
+                                                    </select>
+                                                    <label>Select Country</label>
+                                                    <div *ngIf="submitted && kycDetails.busiCountry.errors" class="invalid-feedback">
+                                                    <div *ngIf="kycDetails.busiCountry.errors.required">
+                                                        Country is required
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" >
+                                                <div class="inputDiv selectdiv">
+                                                    <select id="busiDocument" formControlName="busiDocument">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option *ngIf="isCustomer" value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
+                                                        <option value="Address Proof">Address Proof</option>
+                                                        <option *ngIf="isCustomer" value="Tax identification document">Tax identification document</option>
+                                                        <option *ngIf="isBank" value="Statutory License" style="color: black;">Statutory License</option>
+                                                    </select>
+                                                    <label>Valid Documents</label>
+                                                    <div *ngIf="submitted && kycDetails.busiDocument.errors" class="invalid-feedback">
+                                                        <div *ngIf="kycDetails.busiDocument.errors.required">
+                                                            Select Valid Documents
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label>Upload Document (only pdf, jpeg, png)</label>
+                                                <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].businessDocumentList_html['controls'];  let i = index;">
+                                                    <div class="row" [formGroupName]="i">
+                                                        <input formControlName="encodedFileContent" type="file" placeholder="Upload Document" (change)="selectFile($event, item)" name="document[]" id="upload_file{{i+1}}" class="filestyle" multiple="" />
+                                                        <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
+                                                            <div class="inputDiv" *ngIf="i==0">
+                                                                <a href="javascript:void(0);" (click)="add(i,'business')" class="attachMore" id="attachMore">+
+                                                                    Add More</a>
+                                                            </div>
+                                                            <div class="inputDiv" *ngIf="i>0">
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,'business')">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="submitted &&item.controls.encodedFileContent.status ==='INVALID'" class="invalid-feedback-file">
+                                                            Upload Document
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" [hidden]="!disabledpersonal">
+                                        <div>
+                                            <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                                Personal KYC
+                                            </h4>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+
+                                                    <select id="perCountry" formControlName="perCountry">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
+                                                    </select>
+                                                    <label>Select Country</label>
+                                                    <div *ngIf="submitted && kycDetails.perCountry.errors" class="invalid-feedback">
+                                                        <div *ngIf="kycDetails.perCountry.errors.required">
+                                                            Country is required
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="inputDiv selectdiv">
+                                                    <select id="perDocument" formControlName="perDocument">
+                                                        <option [ngValue]="null" selected>Select</option>
+                                                        <option value="Passport" >Passport</option>
+                                                        <option value="Driving License" >Driving License</option>
+                                                        <option value="National Identity Card" >National Identity Card</option>
+                                                    </select>
+                                                    <label>Valid Documents</label>
+                                                    <div *ngIf="submitted && kycDetails.perDocument.errors" class="invalid-feedback">
+                                                        <div *ngIf="kycDetails.perDocument.errors.required">
+                                                            Select Valid Documents
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label>Upload Document (only pdf, jpeg, png)</label>
+                                                
+                                                <div class="element" formArrayName="personalDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].personalDocumentList_html['controls'];   let i = index;">
+                                                    <div class="row" [formGroupName]="i">
+                                                        <input formControlName="encodedFileContent" type="file" placeholder="Upload Document" (change)="selectFile_KYC($event)" name="document[]" id="upload_file4{{i+1}}" class="filestyle" multiple="" />
+
+                                                        <div class="col-md-3" id="moreImageUploadLink" style="display:none;margin-left: 10px;">
+                                                            <div class="inputDiv" *ngIf="i==0">
+                                                                <a href="javascript:void(0);" (click)="add(i,undefined)" class="attachMore" id="attachMore">+
+                                                                    Add More</a>
+                                                            </div>
+                                                            <div class="inputDiv" *ngIf="i>0">
+                                                                <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,undefined)">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="submitted &&item.controls.encodedFileContent.status ==='INVALID'" class="invalid-feedback-file">
+                                                                Upload Document
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-info pull-right">Submit</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+       <router-outlet></router-outlet>
+</body>
+
+</html>
+
+<div id="rejectedPopup" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>KYC Rejected
+                <button type="button" class="close" (click)="closePopup()">
+                    &times;
+                </button>
+             </h2>
+             <div class="padnew">
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12" *ngFor="let data of kycStatusData">
+                            <label> {{ data.title }}</label>
+
+                            <div class="form-group">
+                               <span> <b> Reason - </b> {{data.reason}} </span>
+                              </div>
+                              <hr/>
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="closePopup()" >Reupload</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+
+  <div id="accountReview" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>Thank you for submitting the KYC documents.
+                <button type="button" class="close" (click)="closeAR()">
+                    &times;
+                </button>
+             </h2>
+             <div class="padnew">
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12" >
+                            <label></label>
+
+                            <div class="form-group">
+                               <span>Currently we are reviewing your account.
+                                    You will be notified on registered email address once we complete the review. </span>
+                              </div>
+                              <hr/>
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="closeAR()" >OK</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>

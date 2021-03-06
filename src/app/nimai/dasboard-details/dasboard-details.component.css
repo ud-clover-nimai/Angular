@@ -1,0 +1,421 @@
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+      position: relative;
+    min-height: 1px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+
+.maindash {
+           box-shadow: 0px 0px 30px 0px rgba(75,102,171,0.2);
+    background-color: #fff;
+    padding: 15px 4px 7px 16px;
+    border-radius: 13px;
+    /* text-align: center; */
+    min-height: 100px;
+     border-bottom: 4px solid #00bcd4;
+    margin-bottom: 15px;
+    position: relative;
+
+}
+
+.maindashstats{
+     box-shadow: 0px 0px 30px 0px rgba(75,102,171,0.2);
+    background-color: #fff;
+    padding: 15px 4px 7px 16px;
+    border-radius: 13px;
+    /* text-align: center; */
+    min-height: 100px;
+     border-bottom: 4px solid #00bcd4;
+    margin-bottom: 15px;
+    position: relative;height: 150px;
+}
+
+.maindashstats span{
+      font-size: 32px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.maindashstats h3{
+      font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    margin: 3px 0 0px;
+}
+
+.maindashstats .exchangestats {
+        position: absolute;
+    top: -9px;
+    fill: #00bcd4;
+    z-index: 0;
+    width: 53px;
+    left: 3px;
+}
+
+.maindash svg{
+      position: absolute;
+    top: 15px;
+    width: 35px;
+    height: 26px;
+    fill: #00bcd4;
+    right: 6px;
+}
+
+ .maindash i{
+      position: absolute;
+    top: 15px;
+    width: 35px;
+    height: 26px;
+    color: #00bcd4;font-size: 22px !important;
+    right: 6px;
+}
+
+.maindashh{
+      margin: 5px 15px 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    letter-spacing: 0.1px;
+}
+.maindash h3 {
+   font-size: 14px;
+    font-weight: 500;
+    margin: 6px 0 3px 0;
+       color: #656565;
+    letter-spacing: 0.3px;
+    line-height: 35px;
+}
+
+.maindash h3.text{    
+  font-size: 13px;
+    margin: 8px 0 3px 0 !important;
+    line-height: 16px;
+  }
+
+.maindash span {
+       display: inline-block;
+    font-size: 27px;
+    font-weight: 500;
+    margin: 5px auto 0;
+    color: #4e4e4e;
+}
+
+.dashsidediv{
+        padding: 12px 15px 0;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 15px;
+    box-shadow: 0px 0px 30px 0px rgba(75,102,171,0.2);
+}
+
+.dashsideinner{
+  background-color: #fff;
+    border-top: 1px dashed #ccc;
+    padding: 0px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.dashsideinner div:first-child {
+  border-right: 1px dashed #ccc; 
+}
+
+.dashsideinner div:last-child {
+  border-left: 1px dashed #ccc; 
+}
+
+
+
+.graphsideinner{
+  background-color: #fff;
+    border-top: 1px dashed #ccc;
+    padding: 0px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.graphsideinner_1{
+  background-color: #fff!important;    
+  padding: 0px!important;
+  height: 200px!important;
+  margin-left: 10px!important;
+  margin-top: 10px!important;
+}
+
+
+.dashsidediv h2{
+      padding: 0 0 10px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0;
+}
+
+.dashsidediv h6{
+             font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    color: #656565;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    margin: 10px 0 12px;
+    line-height: 15px;
+    height: 30px;
+}
+
+/* .dashsidediv span{
+       font-size: 21px;
+    display: block;
+    margin: 0 auto 10px;
+    font-weight: 500;
+    text-align: center;
+} */
+
+
+
+.inputDiv .calendarlabel{
+      top: 0px;
+    font-size: 10px;
+    color: #aaa;
+    left: 1px;
+    font-weight: 400;
+    font-family: roboto;
+}
+
+
+.textfield{
+  position: relative;
+}
+.textfield input, .textfield select {
+      padding: 2px 7px;
+    height: 30px;
+    font-size: 13px;    width: 130px;
+    border: 1px solid #eee;
+}
+
+.textfield i.fas.fa-calendar-week {
+        position: absolute;
+    top: 8px;
+    right: 7px;
+    color: #848484;
+    font-size: 14px !important;
+
+}
+
+.revenuediv{
+   background-color: #fff;
+    border-top: 1px dashed #ccc;
+    padding: 0px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.revenuediv h3{
+      margin: 15px 0 0;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 16px;
+}
+
+.revenuediv h3 small{    font-size: 54%;}
+
+.revenuediv h2 small{
+      font-size: 54%;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+}
+
+.revenuediv h5{
+       font-size: 15px;
+    font-weight: 500;
+    color: #00bcd4;
+    margin: 5px 0 10px;
+}
+
+.padright{
+      padding-right: 0; 
+}
+
+.padleft{
+  padding-left: 0;
+}
+
+.marzero{
+  margin: 0 0 10px !important;
+}
+
+.tablediv .dashsideinner th{
+  border:0;
+}
+
+.tablediv .dashsideinner td{
+      padding: 14px 8px;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2b2b;
+}
+
+.overallstats h5{
+        font-size: 28px;
+    font-weight: 500;
+    text-align: right;
+    margin: 0;
+}
+
+.overallstats{
+  background-color: #fff;
+    border-top: 1px dashed #ccc;
+    padding: 0px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.overallstats h3{
+      font-size: 17px;
+    text-align: right;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 16px;
+}
+
+.overallstats .border{
+  border-left: 1px dashed #ccc; 
+}
+
+.borderright{
+  border-right: 1px dashed #ccc; border-left: 1px dashed #ccc; 
+}
+.overall {
+  padding: 0px; 
+}
+
+.overall table{
+  margin: 0;
+}
+
+.overall td, th{
+      vertical-align: middle !important;
+      border:0 !important;
+}
+
+.overall .list-inline{
+  margin: 0;
+}
+
+.borderzero{
+  border:0;
+  padding-top: 38px;
+  /* height: 120px; */
+}
+
+
+.dashbottom{
+      padding: 12px 15px 10px;
+}
+
+.borderzero div + div {
+  border-left: 1px solid #ccc;
+}
+
+.borderzero .fa-money-bill-alt, .borderzero i {
+      position: absolute;
+    top: 9px;
+    left: 19px;
+    font-size: 29px !important;
+    color: #dedede;
+}
+
+.borderzero h5 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #00bcd4;
+    margin: 10px 0 5px;
+}
+
+@media (max-width: 767px){
+  .main-panel .content{
+        padding: 30px 0px;
+  }
+
+  .textfield {
+    position: relative;
+    margin-bottom: 15px;
+}
+.textfield input{
+      width: 106px;
+}
+}
+
+@media (max-width: 1024px){
+.dashsidediv h6{
+      height: auto;
+}
+.maindash h3{
+  line-height: 16px;
+}
+}
+
+.bignumber{
+  height: 253px;
+}
+
+.bignumber h4{
+         padding: 0px 0 0px;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+.bignumber p {
+         text-align: center;
+    margin: 0 auto 15px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+}
+mat-form-field {
+  margin-right: 12px;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #00bcd4!important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #00bcd4;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-required-marker {
+  color: #00bcd4;
+}
+::ng-deep .mat-form-field.mat-focused .mat-input-element {
+  color: #00bcd4;
+}

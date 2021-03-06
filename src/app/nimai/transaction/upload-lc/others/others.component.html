@@ -1,0 +1,115 @@
+<div class="row" [formGroup]="LcDetail">
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Loading Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="loadingCountry" (change)="portLoadingOnchange($event)">
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                      
+                    </select>
+                    <label>Country of Port of
+                        Loading</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="IndiaPort" formControlName="loadingPort"  >
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                   </select>
+                    <label>Port of Loading</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <p class="col-md-12"><strong>Discharge Goods</strong></p>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="country" formControlName="dischargeCountry" (change)="portDischargeOnchange($event)">
+
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                      
+                    </select>
+                    <label>Country of Port of
+                        Discharge</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="inputDiv selectdiv">
+
+                    <select name="Banglaport" formControlName="dischargePort">
+                        <option [ngValue]="null" selected>Select</option>
+                        <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                   </select>
+                    <label>Port of Discharge</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 ">
+        <div class="selection">
+            <p class=""><strong>Charges are
+                    on</strong></p>
+        </div>
+        <ul class="list-unstyled list-inline">
+            <li>
+                <div class="radio">
+                    <label >
+                        <input [checked]="chargesTypeCk1" type="radio" id="ch1" formControlName="chargesType" name="chargesType"  (change)="onItemChangeApp('Applicant')"
+                            value="Applicant" ><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        {{LcDetail.get('applicantName').value}} (Applicant)
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="radio">
+                    <label >
+                        <input [checked]="chargesTypeCk2" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary')"
+                            value="Beneficiary"><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                        {{LcDetail.get('beneName').value}} (Beneficiary)
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+            <mat-form-field (click)="validity.open()">
+                <mat-label style="font-size: 12px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">
+                    Validity <br> <small> (expected date to receive quote) </small> </mat-label>
+                <input style="padding-bottom: 5px;padding-top: 8px;" matInput [matDatepicker]="validity" class="has-value" [min]="minDate" formControlName="validity" autocomplete="off" class="validity">
+                <mat-datepicker-toggle [for]="validity" matSuffix>
+                </mat-datepicker-toggle>
+                <mat-datepicker  #validity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+    <div class="clearfix"></div>
+
+   
+    <div class="clearfix"></div>
+    <div class="col-md-5">
+        <p><strong>Upload LC or Proforma Invoice</strong></p>
+        <label>Upload Document (only jpg, jpeg, png)</label>
+        <input #myInput (change)="handleFileInput1($event)" type="file"  placeholder="Document" class="filestyle" name="upload_file11" id="upload_file11" data-icon="false"/>
+        <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
+      
+    </div>
+    
+    <div class="col-md-2">
+
+    </div>
+
+</div>

@@ -1,0 +1,168 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="fas fa-tasks"></i>
+                                        </div>
+                    
+                    <div class="card-content">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="card-title"> <span id="changetext"> Manage Subsidiary</span>
+                                <ul class="pull-right list-unstyled list-inline statusbar">
+                                    <li>
+                                        <label>Subsidiary Slots Available <span class="">{{subuticount}}</span></label>
+                                    </li>
+                                    <li><label>Subsidiary Slots Utilized <span>{{available}}</span></label></li>
+                              <li> <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a></li>
+                                </ul>
+                            </h4>
+                        </div>
+                       <!-- <div class="col-md-4 col-sm-12 col-xs-12">
+                        <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
+                       </div> -->
+                       <div class="row">
+                        <div class="col-md-12" *ngIf="noData">
+                            No Subsidiary Data is available
+                        </div>
+                        <div class="col-md-12" *ngIf="!noData">
+                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                                <table class="table table-hover" id="datatables">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 19px !important;" class="text-center">#</th>
+                                        <th style="min-width: 130px;">Date</th>
+                                        <th style="min-width: 150px;">Subsidiary Name</th>
+                                        <th style="min-width: 120px;">First Name</th>
+                                        <th style="min-width: 120px;">Last Name</th>
+                                        <th style="min-width: 210px;">Email</th>
+                                        <th style="min-width: 100px;">Credits Used</th>
+                                        <th style="min-width: 130px;width: 100px !important;">Quotes Received</th>
+                                        <th style="min-width: 100px;" nowrap class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of subsidiaryData; let i = index">
+                                        <td>{{i+1}}</td>                                       
+                                        <td>{{list.accountCreatedDate  | date : "dd-MM-y"}}</td>                                    
+                                        <td>{{list.companyName}}</td>
+                                        <td>{{list.firstName}}</td>
+                                        <td>{{list.lastName}}</td>
+                                        <td>{{list.emailAddress}}</td>
+                                        <td>{{list.creditUsed}}</td>
+                                        <td>{{list.quoteReceived}}</td>
+                                        <td>{{list.accountStatus}}</td>  
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addsub" class="popupnew modal fade in" role="dialog" style="display:none;">
+    <div class="modal-dialog emaildiv">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form [formGroup]="manageSubForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <h2>Add Subsidiary
+                        <button type="button" class="close" (click)="close()">&times;</button>
+                    </h2>
+                    <div class="padnew">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="authemaildiv">
+                                    <p *ngIf="!respMessage"><strong>Enter details of an Authorized user</strong></p>
+                                    <div class="form-group"></div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="15" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                            <label>First Name</label>
+                                            <div *ngIf="submitted && manageSubDetails.firstName.errors?.required" class="invalid-feedback">
+                                                First Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="15" formControlName="lastName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                            <label>Last Name</label>
+                                            <div *ngIf="submitted && manageSubDetails.lastName.errors?.required" class="invalid-feedback">
+                                                Last Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="emailId" oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault();">
+                                            <label>Your Email ID</label>
+                                            <div *ngIf="submitted && manageSubDetails.emailId.errors?.required" class="invalid-feedback">
+                                                Email is required
+                                            </div>
+                                            <div *ngIf="(manageSubDetails.emailId.touched && manageSubDetails.emailId.errors?.pattern || !isValidEmail)" class="invalid-feedback">
+                                                Invalid Email id
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
+                         <option value=''>Select</option>
+                         <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>                         
+                      </select>
+                                            <label>Select Country</label>
+                                            <div *ngIf="submitted && manageSubDetails.country.errors" class="invalid-feedback">
+                                                <div *ngIf="manageSubDetails.country.errors.required">
+                                                    Country field is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv divmob">
+                                            <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                            <ng-template #other_content></ng-template>
+                                            <input type="text" formControlName="mobileNo" maxlength="12"
+                                            [ngClass]="hasCountrycode ? 'has-value' : ''" (keypress)="validateRegexFields($event,'number')">
+                                            <label>Mobile No.</label>
+                                            <div *ngIf="submitted && manageSubDetails.mobileNo.errors?.required" class="invalid-feedback">
+                                                Mobile No is required
+                                            </div>
+                                            <div *ngIf="manageSubDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                Mobile Number is atleast of 7 digits.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="landlineNo" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                                            <label>Landline No.</label>
+                                            <div *ngIf="manageSubDetails.landlineNo.touched && manageSubDetails.landlineNo.errors?.minlength" class="invalid-feedback">
+                                                Landline No. is atleast of 7 digits.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p id="paradiv">
+                                    {{respMessage}}
+                                </p>
+                                <div class="clearfix"></div>
+                                <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                                <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

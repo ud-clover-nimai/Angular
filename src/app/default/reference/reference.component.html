@@ -1,0 +1,357 @@
+<div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
+
+<div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title"> <span id="changetext"> References</span>
+                                <ul class="pull-right list-unstyled list-inline statusbar">
+                                    <li>
+                                        <a class="btn btn-info pull-right" (click)="addRefer()">+ Refer</a>
+                                    </li>
+    
+                                </ul>
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive material-datatables" id="transactionID" cellspacing="0"
+                                        width="100%" style="width:100%">
+                                        <table class="table table-hover" id="datatables">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="min-width: 19px!important;">#</th>
+                                                    <th style="min-width: 120px;">Date</th>
+                                                    <th style="min-width: 100px;">User ID</th>
+                                                    <th style="min-width: 150px;">Country</th>
+                                                    <th style="min-width: 180px;">Company</th>
+                                                    <th style="min-width: 120px;">Account Status</th>
+                                                    <th style="min-width: 130px;">Expires In</th>
+                                                    <th style="min-width: 120px;">Earning</th>
+                                                    <th style="min-width: 120px;">Currency</th>
+                                                    <th style="min-width: 120px;">Details</th>
+                                                    <th class="disabled-sorting text-center"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let record of responseData; let i = index">
+                                                   <td>{{i+1}}</td>
+                                                    <td nowrap>{{record.insertedDate| date : "dd-MM-y"}}</td>
+                                                    <td>{{record.userid}}</td>
+                                                    <td>{{record.countryName}}</td>
+                                                    <td>{{record.companyName}}</td>
+                                                    <td>{{record.accountStatus}}</td>
+                                                    <td>{{record.expiredIn}}</td>
+                                                    <td >{{record.earning}}</td>
+                                                    <td >{{record.currency}}</td>
+                                             
+                                              <td>
+                                                <a href="javascript:void()" (click)="showDetail(record);openNav3();openOffcanvas();"
+                                                style="color: blue;text-decoration: underline;" class="referhandle">Detail
+                                                    <div class="ripple-container"></div></a>                                                   
+                                              </td>
+                                              <td>
+                                                <button *ngIf="hideresend" type="submit" class="btn btn-info pull-right"  (click)="resend(record)">
+                                                    Resend
+                                                 </button>
+                                              </td>
+                                                </tr>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="addsubref" class="popupnew modal fade in" role="dialog" style="display:none;">
+        <div class="modal-dialog emaildiv">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form [formGroup]="referForm" (ngSubmit)="onSubmit()">
+                    <div class="modal-body">
+                        <h2>Refer <span class="refer_span">Refer a corporate to join NIMAITRADE and earn referral fees on an on-going basis.</span>
+                            <button type="button" class="close" (click)="close()">&times;</button>
+                        </h2>
+                        <div class="padnew">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="authemaildiv">
+    
+                                        <div class="form-group"></div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="15"   [ngClass]="{ 'is-invalid': submitted && referDetails.firstName.errors?.required }" formControlName="firstName" (keydown)="validateRegexFields($event, 'name_validation')">
+                                                        <label>First Name</label>
+                                                        <div *ngIf="submitted && referDetails.firstName.errors?.required" class="invalid-feedback">       
+                                                            <div *ngIf="submitted && referDetails.firstName.errors?.required">
+                                                                First Name is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="15" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && referDetails.lastName.errors?.required }" (keydown)="validateRegexFields($event, 'name_validation')">
+                                                        <label>Last Name</label>      
+                                                        <div *ngIf="submitted && referDetails.lastName.errors?.required" class="invalid-feedback">
+                                                            Last Name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv divmob">
+                                                        <input type="text" maxlength="13" formControlName="mobileNo" [ngClass]="{ 'is-invalid': submitted && referDetails.mobileNo.errors?.required }"  maxlength="12" (keypress)="validateRegexFields($event, 'mobile_number')">
+                                                        <label>Mobile No.</label>      
+                                                        <div *ngIf="submitted && referDetails.mobileNo.errors?.required" class="invalid-feedback">
+                                                            Mobile No. is required.
+                                                        </div>
+                                                        <div *ngIf="referDetails.mobileNo.errors?.minlength" class="invalid-feedback">
+                                                            Mobile No atleast of 11 digits.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text"  maxlength="45" formControlName="emailAddress" oninput="this.value = this.value.toLowerCase()" [ngClass]="{ 'is-invalid': submitted && (referDetails.emailAddress.errors?.required || referDetails.emailAddress.errors?.pattern)}">
+                                                        <label>Email ID</label>
+                                                        <div *ngIf="submitted && referDetails.emailAddress.errors?.required" class="invalid-feedback">
+                                                            Email is required
+                                                        </div>
+                                                        <div *ngIf="referDetails.emailAddress.touched && referDetails.emailAddress.errors?.pattern"  class="invalid-feedback">
+                                                            Invalid Email id
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv selectdiv" >
+                                                        <select formControlName="countryName" [ngClass]="{ 'is-invalid': submitted && referDetails.countryName.errors?.required }">
+                                                            <option value="">Select</option>
+                                                            <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>    
+                                                        </select>
+                                                        <label>Country</label>
+                                                        <div *ngIf="submitted && referDetails.countryName.errors?.required" class="invalid-feedback">
+                                                            Country is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="30" formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && (referDetails.companyName.errors?.required)}">
+                                                        <label>Company Name</label>
+                                                        <div *ngIf="submitted && referDetails.companyName.errors?.required" class="invalid-feedback">
+                                                            Company Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" *ngIf="showBranchUserId" [ngClass]="{ 'is-invalid': submitted && (referDetails.branchUserId.errors?.required)}">
+                                                    <div class="inputDiv">
+                                                        <input type="text" maxlength="30" formControlName="branchUserId" >
+                                                        <label>Branch User Id</label>
+                                                        <div *ngIf="submitted && referDetails.branchUserId.errors?.required" class="invalid-feedback">
+                                                            Branch User Id is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <p id="paradiv">
+                                        {{respMessage}}
+                                    </p>
+                                    <div class="clearfix"></div>
+                                    <button type="submit" [disabled]="!referForm.valid" id="btninvite" class="btn btn-info pull-right">Invite
+                                        User</button>
+                                    <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">Ok</a>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+    <div id="referDetail" class="offcanvas" >
+    
+        <div class="popupcontent">
+            <div class="card">
+                <div class="card-content">
+                    <h4>Details <button type="button" class="close_details" (click)="closeOffcanvas()">&times;</button></h4>
+                    <div class="tab-content" style="height: 552px;overflow: auto;">
+                        <div class="tab-pane active" id="pill1123" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+                            <div class="row">
+                                <div class="col-md-12" style="padding-right: 0px !important;">
+                                 
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Personal Details</th>                                               
+                                            </tr>                                           
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>User ID </td>
+                                                <td>{{data.userid}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date & Time</td>
+                                                <td>{{data.accountCreatedDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>First Name</td>
+                                                <td>{{data.firstName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Name</td>
+                                                <td>{{data.lastName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email </td>
+                                                <td>{{data.emailAddress}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile</td>
+                                                <td>{{data.mobileNumber}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Landline</td>
+                                                <td>{{data.landline}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Company</td>
+                                                <td>{{data.companyName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Designation</td>
+                                                <td>{{data.designation}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country</td>
+                                                <td>{{data.countryName}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Account Details</th>                                               
+                                            </tr>                                           
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Account status </td>
+                                                <td>{{data.accountStatus}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Account Created on</td>
+                                                <td>{{data.accountCreatedDate}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>Account Expires on</td>
+                                                <td></td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>Relationship Manager (RM)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><small style="font-size: 89%;">First Name</small> </td>
+                                                <td><small style="font-size: 89%;">{{data.rmFirstName}}</small></td>
+                                            </tr>
+                                            <tr>
+                                                <td><small style="font-size: 89%;">Last Name</small></td>
+                                                <td><small style="font-size: 89%;">{{data.rmLastName}}</small></td>
+                                            </tr>
+                                            <tr>
+                                                <td>subscription plan</td>
+                                                <td>{{data.subsPlanName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>subscription fee</td>
+                                                <td>{{data.subsPlanFee}}</td>
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Earning</th>                                               
+                                            </tr>                                           
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Earning on current plan</td>
+                                                <td>{{data.earning}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Earning</td>
+                                                <td>{{data.totalEarning}}</td>
+                                            </tr>
+                                        
+                                        </tbody>
+                                    </table>
+                                 
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="successResend1" class="modal3" style="display: none;">
+        <div class="modal-content-image">
+         <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close_successmsg()">&times;</button></div>
+         <div class="modal-body" style="text-align:center">
+           <h4>Success</h4>
+           <div class="row">
+             <div class="col-md-12">
+                 <p>Email send successfully</p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div id="successResend" style="display: none;top: 0%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv" style="margin-top: 200px;">
+           <!-- Modal content-->
+           <div class="modal-content">
+              <div class="modal-body">
+                 <h2>Resend </h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>Are you sure want to resend this transaction ?</h5>
+                               
+                             </div>
+                          </div>
+                          <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="successResend()">Yes</button>
+                          <button type="submit" class="handle1 btn btn-info pull-right" (click)="closeResend()">No</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>

@@ -1,0 +1,90 @@
+/* The Modal (background) */
+.divmob input[type=text] {
+    padding-left: 55px !IMPORTANT;
+    }
+    .countrycode {
+        position: absolute;
+        left: 15px;
+        top: 11px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        color: #545454;
+        /* display: none; */
+        }
+        ::ng-deep .dropdown-list .item2{
+            max-height: 155px !important;
+      }
+.modal{
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+.inputDiv select{
+    color: #545454!important;
+}
+.inputDiv .invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+.inputDiv .is-invalid {
+	outline: none;
+    background-image: linear-gradient(#ff0330, #ff0330), linear-gradient(#ff0330, #ff0330);
+    background-size: 100% 2px, 100% 1px;
+    box-shadow: none;
+    transition-duration: 0.3s;
+
+}
+
+/* Modal Content/Box */
+/* The Close Button */
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 9;
+    margin-left: 553px;
+    margin-top: -51px
+}
+.popupnew .emaildiv h2{
+    padding: 5px 15px!important;
+}
+
+.refer_span{
+    display: flex;
+    font-size: 13px;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.statusbar{
+    display: flex!important;
+}

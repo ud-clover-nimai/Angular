@@ -1,0 +1,152 @@
+<div class="row" [hidden]="!confirmation" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="confirmationPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <!-- <div class="clearfix"></div>
+    <div class="col-md-4" [hidden]="!CandD">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div> -->
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
+            <label>Start Date</label>
+        </div>
+    </div> -->
+    <!-- <div class="col-md-4 ">
+        <div class="selection"><label class="customlabel">End Date</label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" (change)="handleRadio($event,'DOM')" name="tenorEndDate"
+                    value="DOM"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
+            </label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" name="tenorEndDate" (change)="handleRadio($event,'ND')"
+                    value="Negotiation Date"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Negotiation Date
+            </label>
+        </div>
+
+    </div> -->
+</div>
+
+<div class="row" [hidden]="!discount" [formGroup]="LcDetail">
+    <div class="col-md-4" [hidden]="bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="col-md-4" [hidden]="!bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which financing is required</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+</div>
+
+<!-- refinancing -->
+<div class="row" [hidden]="!refinancing" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
+            <label>Orignal Usance (Tenor) of LC</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which refinancing is required</label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
+        <div class="selection maturitydate">
+            <p><strong>LC Maturity Date <i class="fas fa-info-circle tooltip" aria-hidden="true"></i></strong></p>
+        </div>
+        <div class="col-md-4">
+                <mat-form-field (click)="lcMaturity.open()">                                
+                <input autocomplete="off" matInput
+                    [matDatepicker]="lcMaturity"
+                    formControlName="lcMaturityDate">
+                <mat-datepicker-toggle matSuffix
+                    [for]="lcMaturity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #lcMaturity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>  
+        <div class="col-md-4">       
+            <li class="multipledate" style="width: 400px;">
+                <label>Upload multiple maturity dates (Optional - only jpg, jpeg, png)</label>
+                <input formControlName="tenorFile" #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"  class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
+            </li>
+            <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
+            <div><a style="cursor: pointer;color:blue;" 
+                (click)="showProForma(detailInfo.lcProForma)" class="">Download Excel forma</a></div>
+        </div>     
+    </div>
+
+    <div class="clearfix"></div>
+    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="20" formControlName="lcNumber" (keypress)="validateRegexFields($event, 'alphaNum')">
+            <label>LC Number</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="50" formControlName="lastBeneBank">
+            <label>Beneficiary Bank Name</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')" formControlName="lastBeneSwiftCode">
+            <label>Swift Code</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv selectdiv">
+
+            <select name="country" formControlName="lastBankCountry">
+                <option [ngValue]="null" selected>Select</option>
+                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+            
+            </select>
+            <label>Country</label>
+        </div>
+        
+    </div>
+</div>

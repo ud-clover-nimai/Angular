@@ -1,0 +1,233 @@
+/* .statusbar li {
+    vertical-align: top;
+  border-right: 1px solid #bfbfbf;
+  padding: 0 10px;
+}
+
+.statusbar li li {
+border:0;
+padding: 0;
+}
+.addOptions{
+  padding: 0;
+  width: 179px;
+  position: absolute;
+  right: 50%;
+        top: 9px;
+  z-index: 1;
+  margin-right: -117px;
+  margin-top: 13px;
+}
+.addOptionsuser{
+  padding: 0;
+  width: 179px;
+  position: absolute;
+  right: 29%;
+        top: 9px;
+  z-index: 1;
+  margin-right: -117px;
+  margin-top: 13px;
+}
+
+
+.statusbar li label {
+   font-size: 13px;
+  line-height: 1.428571429;
+  color: #989898;
+  font-weight: 400;
+}
+
+.statusbar li .numbdiv {
+      color: #ffffff;
+  font-weight: 400;
+  font-size: 13px;
+  display: inline-block;
+  background: #00bcd4;
+  padding: 2px 7px;
+  border-radius: 33px;
+  text-align: center;
+  margin: 0 0 0 5px;
+}
+
+.statusbar li a {
+margin:0;
+}
+
+.statusbar li:last-child {
+border:0;
+}
+
+.inputDivNew {
+position: relative;
+}
+
+.inputDivNew input{
+    border: 1px solid #ccc;
+  font-size: 13px;
+  padding: 5px 8px;
+  height: 30px;
+  display: block;
+  width: 100%;
+}
+
+.inputDivNew i.fas.fa-calendar-week{
+    position: absolute;
+  top: 7px;
+  right: 8px;
+  color: #848484;
+}
+
+.thead{
+    background: #00bcd4;
+  color: #fff;
+}
+
+
+::ng-deep .mat-form-field-flex {
+  border: 1px solid #d2d2d2;
+}
+::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  font-size: 15px!important;
+  padding-top: 5px!important;
+}
+::ng-deep .is-empty{
+  margin-top: -58px!important;
+  margin-left: 407%!important;
+}
+::ng-deep .addOptions{
+  width: 245px!important;
+  margin-right: 70%!important;
+}  */
+
+
+
+.statusbar li label {
+  font-size: 13px;
+ line-height: 1.428571429;
+ color: #989898;
+ font-weight: 400;
+}
+
+.statusbar li .numbdiv {
+     color: #ffffff;
+ font-weight: 400;
+ font-size: 13px;
+ display: inline-block;
+ background: #00bcd4;
+ padding: 2px 7px;
+ border-radius: 33px;
+ text-align: center;
+ margin: 0 0 0 5px;
+}
+
+.statusbar li a {
+margin:0;
+}
+
+.statusbar li:last-child {
+border:0;
+}
+.card .card-header.card-header-icon + .card-content .card-title {
+  padding-bottom: 15px;
+  }
+  .overlay3 {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left:0;
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-align: center;
+  opacity:0;
+  transition: opacity 1s;
+  }
+  body {
+  transition: background-color .5s;
+  } 
+  .addOptions{
+    padding: 0;
+    width: 179px;
+    position: absolute;
+    right: 56%;
+    top: -13px;
+    z-index: 1;
+    margin-right: -117px;
+    margin-top: 13px;
+  }
+  .addOptionsuser{
+    padding: 0;
+    width: 179px;
+    position: absolute;
+    right: 33%;
+    top: -13px;
+    z-index: 1;
+    margin-right: -117px;
+    margin-top: 13px;
+  }
+  .popupcontent{
+    height: 100%;
+    }
+  .tab-content{
+    width: 520px!important;
+  }  
+  .offcanvas {
+  height: 100%;
+  width: 0;
+  top: 0;
+  right: 0; 
+  position: fixed;
+  z-index: 9999; 
+  transition: .5s;
+  } 
+  .closeOffcanvas {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px !important;
+  margin-left: 50px;
+  } 
+  .data-selected {
+      background-color:grey;
+    }
+    .adisabled {
+      cursor: not-allowed!important;
+      opacity: .65!important;
+      pointer-events: none!important;
+      background-color: grey!important;
+    }
+    
+    .adisabled:hover { text-decoration: none!important; }
+    .adisabled:focus { text-decoration: none!important; }
+    .adisabled:active { text-decoration: none!important; }
+
+
+
+    .statusbar li label {
+      font-size: 13px;
+     line-height: 1.428571429;
+     color: #989898;
+     font-weight: 400;
+   }
+   
+   .statusbar li .numbdiv {
+         color: #ffffff;
+     font-weight: 400;
+     font-size: 13px;
+     display: inline-block;
+     background: #00bcd4;
+     padding: 2px 7px;
+     border-radius: 33px;
+     text-align: center;
+     margin: 0 0 0 5px;
+   }
+   
+   .statusbar li a {
+   margin:0;
+   }
+   
+   .statusbar li:last-child {
+   border:0;
+   }

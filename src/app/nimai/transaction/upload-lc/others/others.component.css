@@ -1,0 +1,44 @@
+select{
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+::ng-deep .mat-form-field-infix{
+    width: 175px!important;
+}
+ ::ng-deep.mat-form-field-flex {
+    margin-right: 26px;
+
+}
+
+::ng-deep.mat-calendar-body-selected {
+    background-color: #00bcd4;
+    color: #fff;
+}
+
+   ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color:#00bcd4 !important;;
+   }
+::ng-deep.mat-form-field-underline {
+    background-color:#dbc5c5 !important;
+   } 
+
+/* 
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon, .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 1.5em;
+} */
+
+
+.radio label {
+    color: #333!important;
+}
+.mat-form-field{
+    padding-top: 18px;
+}
+.deleteFile{
+    float: right;
+    margin-right: -165px;
+    cursor: pointer;
+    margin-top: -38px;
+}

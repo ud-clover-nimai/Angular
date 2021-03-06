@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+
+  <body>
+    <!-- <div class="wrapper"> -->
+    <!-- <div class="main-panel">
+         -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div
+                class="card-header card-header-icon"
+                data-background-color="blue"
+              >
+                <i class="fas fa-business-time"></i>
+              </div>
+              <div class="card-content business_details">
+                <h4 class="card-title" id="business_details">
+                  Business Details
+                </h4>
+                <form [formGroup]="businessDetailsForm" (ngSubmit)="submit()">
+                  <div class="row col-md-5 selection" *ngIf="isCustomer">
+                    <div class="row">
+                      <label class="customlabel">Registration Type</label>
+                      <div class="radio-group">
+                        <input
+                          checked="checked"
+                          formControlName="selector"
+                          (click)="selectRegType('Exporter')"
+                          value="Exporter"
+                          type="radio"
+                          id="option-one"
+                          name="selector"
+                        />
+                        <label for="option-one">Exporter</label>
+                        <input
+                          type="radio"
+                          id="option-two"
+                          value="Importer"
+                          (click)="selectRegType('Importer')"
+                          formControlName="selector"
+                          name="selector"
+                        />
+                        <label for="option-two">Importer</label>
+                        <input
+                          type="radio"
+                          id="option-three"
+                          value="Impo_Expo"
+                          (click)="selectRegType('Impo_Expo')"
+                          formControlName="selector"
+                          name="selector"
+                        />
+                        <label for="option-three">Both</label>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="perDetailsSubmit && busiDetails.selector.errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.selector.errors?.required
+                        "
+                      >
+                        Please select Registration Type
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="isCustomer">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        formControlName="companyName" 
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                        maxlength="45"
+                      />
+                      <label>Company Name</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.companyName.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Company Name is required
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-6 col-md-6 col-lg-3">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="designation">
+                                            <label>Designation</label>
+                                        </div>
+                                    </div> -->
+                  <div class="clearfix"></div>
+
+                  <!-- Bank Details-->
+                  <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="30"
+                        formControlName="bankNbfcName"
+                        (keydown)="validateRegexFields($event, 'alphaNspace')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Bank Name</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.bankNbfcName.errors?.required 
+                        "
+                        class="invalid-feedback"
+                      >
+                        Bank name is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.bankNbfcName.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Bank name atleast 3 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="30"
+                        formControlName="branchName"
+                        (keydown)="validateRegexFields($event, 'alphaNspace')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Branch Name</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.branchName.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Branch name is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.branchName.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Branch name atleast 3 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="11"
+                        formControlName="swiftCode"
+                        (keypress)="validateRegexFields($event, 'alphaNum')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Swift Code</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.swiftCode.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Swift code is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.swiftCode.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Swift code atleast 8 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <!--added by ashvini - designation field added for bank-->
+                  <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                    <div class="inputDiv">
+                      <input type="text" formControlName="bank_designation" />
+                      <label>Designation</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.bank_designation.errors?.required
+                        "
+                        (keydown)="validateRegexFields($event, 'alpha')"
+                        class="invalid-feedback"
+                      >
+                        Designation is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.bank_designation.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Designation atleast 2 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Bank Details-->
+                  <!-- Bank Details-->
+                  <!-- <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                               <input type="text" formControlName="minimumValueofLC">
+                               <label>Minimum Value of LC</label>
+                               <div *ngIf="submitted && suf.swiftCode.errors" class="invalid-feedback">
+                                   <div *ngIf="suf.swiftCode.errors.required">
+                                       Branch Name is required
+                                   </div>
+                                </div>
+                           </div>
+                           </div> -->
+                  <!-- Bank Details-->
+                  <!-- <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
+                           <div class="inputDiv">
+                               <input type="text" formControlName="lCCurrencyValue">
+                               <label>LC Currency Value</label>
+                           </div>
+                           </div> -->
+                  <!-- <div class="col-sm-6 col-md-6 col-lg-3">
+                                        <div class="inputDiv selectdiv" *ngIf="!isCustomer">
+                                            <select formControlName="lCCurrencyValue">
+                                                <option value="">Select</option>
+                                                <option value="INR">INR</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EUR">EUR</option>
+                                            </select>
+                                            <label>LC Currency </label>
+                                        </div>
+                                    </div> -->
+                  <div
+                    class="col-md-12 items row"
+                    id="items"
+                    *ngIf="isCustomer"
+                  >
+                    <div
+                      class="col-md-12 items"
+                      id="items"
+                      formArrayName="owners"
+                      *ngFor="
+                        let item of businessDetailsForm['controls'].owners[
+                          'controls'
+                        ];
+                        let i = index
+                      "
+                    >
+                      <div class="row" [formGroupName]="i">
+                        <input type="hidden" formControlName="ownerID" />
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                          <div class="inputDiv">
+                            <input
+                              type="text"
+                              maxlength="30"
+                              formControlName="ownerFirstName"
+                              (keydown)="
+                                validateRegexFields($event, 'name_validation')
+                              "
+                              [ngClass]="hasValue ? 'has-value' : ''"
+                            />
+                            <label>MD/CEO/Owner’s First Name</label>
+                            <div
+                              *ngIf="
+                                perDetailsSubmit &&
+                                item.controls.ownerFirstName.status ===
+                                  'INVALID'
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  item.controls.ownerFirstName.status ===
+                                  'INVALID'
+                                "
+                              >
+                                MD/CEO/Owner’s First Name is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                          <div class="inputDiv">
+                            <input
+                              type="text"
+                              maxlength="30"
+                              formControlName="ownerLastName"
+                              (keydown)="
+                                validateRegexFields($event, 'name_validation')
+                              "
+                              [ngClass]="hasValue ? 'has-value' : ''"
+                            />
+                            <label>MD/CEO/Owner’s Last Name</label>
+                            <div
+                              *ngIf="
+                                perDetailsSubmit &&
+                                item.controls.ownerLastName.status === 'INVALID'
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  item.controls.ownerLastName.status ===
+                                  'INVALID'
+                                "
+                              >
+                                MD/CEO/Owner’s Last Name is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                          <div class="inputDiv">
+                            <input
+                              type="text"
+                              maxlength="30"
+                              formControlName="designation"
+                              (keypress)="validateRegexFields($event, 'alpha')"
+                              [ngClass]="hasValue ? 'has-value' : ''"
+                            />
+                            <label>Designation</label>
+                            <div
+                              *ngIf="
+                                perDetailsSubmit &&
+                                item.controls.designation.status === 'INVALID'
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  item.controls.designation.status === 'INVALID'
+                                "
+                              >
+                                Designation is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3">
+                          <div class="inputDiv" *ngIf="i == 0">
+                            <button [disabled]="disableButton"
+                              type="button"
+                              class="btn btn-info btn-xs add_button"
+                              (click)="add(i)"
+                            >
+                              Add More
+                            </button>
+                            <!-- <div
+                            *ngIf="addMoreFlag"
+                            class="invalid-feedback" style="right: 81px!important;">
+                            Please fill all three fields.
+                          </div> -->
+                          </div>
+                          <div class="inputDiv" *ngIf="i > 0">
+                            <button
+                              type="button"
+                              class="btn btn-info btn-xs add_button"
+                              (click)="remove(i)"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Bank Details-->
+                  <!-- <div class="col-sm-6 col-md-6 col-lg-3">
+                           <div class="inputDiv">
+                               <input type="text" formControlName="blacklistGoodsCommodities">
+                               <label>Blacklist Goods/Commodities</label>
+                           </div>
+                           </div> -->
+                  <div class="clearfix"></div>
+                  <h4
+                    class="card-title col-md-12"
+                    style="
+                      padding: 5px 15px 15px 15px;
+                      font-size: 15px;
+                      font-weight: 500;
+                    "
+                  >
+                    Registered Address Details <a *ngIf="enableicon" class="" data-toggle="tooltip" data-placement="right" 
+                    title="To change business country, contact customer support"><i
+                    class="fas fa-info-circle"
+                    style="font-size: 11px !important;color: #333;"></i></a>
+                  </h4>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv selectdiv" id="addOptions">
+                      <select
+                        formControlName="country"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                        (ngModelChange)="showState($event)"
+                      >
+                        <option value="">Select</option>
+                        <option *ngFor="let data of resp" [ngValue]="data">
+                          {{ data.countryName }}
+                        </option>
+                      </select>
+                      <label>Select Country</label>
+          
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.country.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Country is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv selectdiv">
+                      <select
+                        formControlName="provinceName"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      >
+                        <option value="">Select</option>
+                        <option
+                          *ngFor="let data of stateName"
+                          [ngValue]="data.stateName"
+                        >
+                          {{ data.stateName }}
+                        </option>
+                      </select>
+                      <label>Select Province/State</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit && busiDetails.provinceName.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="busiDetails.provinceName.errors.required">
+                          Province/State is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="15"
+                        formControlName="city"
+                        (keydown)="validateRegexFields($event, 'alpha')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>City</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit && busiDetails.city.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        City is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.city.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        City atleast 2 characters long.
+                      </div>
+                    </div>
+                    <!-- <div class="inputDiv">
+                              <select class="selectpicker" data-style="select-with-transition" multiple title="Choose City" data-size="7">
+                                <option disabled> Choose City</option>
+                                <option value="2">Paris </option>
+                                <option value="3">Bucharest</option>
+                                <option value="4">Rome</option>
+                                <option value="5">New York</option>
+                                <option value="6">Miami </option>
+                                <option value="7">Piatra Neamt</option>
+                                <option value="8">Paris </option>
+                                <option value="9">Bucharest</option>
+                                <option value="10">Rome</option>
+                                <option value="11">New York</option>
+                                <option value="12">Miami </option>
+                                <option value="13">Piatra Neamt</option>
+                                <option value="14">Paris </option>
+                                <option value="15">Bucharest</option>
+                                <option value="16">Rome</option>
+                                <option value="17">New York</option>
+                                <option value="18">Miami </option>
+                                <option value="19">Piatra Neamt</option>
+                              </select>
+                              </div> -->
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="30"
+                        formControlName="addressLine1"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Address Line 1</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.addressLine1.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Address Line 1 is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.addressLine1.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Address atleast 2 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="30"
+                        formControlName="addressLine2"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Address Line 2</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.addressLine2.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Address Line 2 is required
+                      </div>
+                                          
+                        <div *ngIf="busiDetails.addressLine2.errors?.minlength" class="invalid-feedback">
+                          Address Line 2 atleast 2 characters long.
+                        </div>
+                     
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        maxlength="30"
+                        formControlName="addressLine3"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Address Line 3 / Landmark</label>
+                      <!-- <div *ngIf="perDetailsSubmit && busiDetails.addressLine3.errors?.required">
+                                                Landmark is required
+                                            </div> -->
+                     
+                        <div *ngIf="busiDetails.addressLine3.errors?.minlength" class="invalid-feedback">
+                          Landmark atleast 2 characters long.
+                        </div>
+                     
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        formControlName="pincode"
+                        maxlength="6"
+                        (keypress)="validateRegexFields($event, 'alphaNum')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Pincode/Zipcode</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.pincode.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Pincode/Zipcode is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.pincode.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Pincode must be 5 to 6 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="inputDiv">
+                      <input
+                        type="text"
+                        formControlName="telephone"
+                        maxlength="12"
+                        (keypress)="validateRegexFields($event, 'number')"
+                        [ngClass]="hasValue ? 'has-value' : ''"
+                      />
+                      <label>Telephone</label>
+                      <div
+                        *ngIf="
+                          perDetailsSubmit &&
+                          busiDetails.telephone.errors?.required
+                        "
+                        class="invalid-feedback"
+                      >
+                        Telephone is required
+                      </div>
+                      <div
+                        *ngIf="busiDetails.telephone.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Telephone atleast of 7 digits.
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" formControlName="userId" />
+                  <button type="submit" class="btn btn-info pull-right">
+                    Next
+                  </button>
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="removeOwner" style="display: none;top: 0%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+      <div class="modal-dialog modal-md emaildiv" style="margin-top: 200px;">
+         <!-- Modal content-->
+         <div class="modal-content">
+            <div class="modal-body">
+               <h2>Remove Owner </h2>
+               <div class="padnew">
+                  <div class="row">
+                     <!--<p><strong>Enter Email ID here</strong></p> -->
+                     <div class="col-md-12">
+                        <div class="row">
+                           <div class="col-md-12">
+                              <h5>Are you sure want to Remove this owner ?</h5>
+                             
+                           </div>
+                        </div>
+                        <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="removeYes()">Yes</button>
+                        <button type="submit" class="handle1 btn btn-info pull-right" (click)="removeNo()">No</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <router-outlet></router-outlet>
+    <!-- </div> -->
+    <!-- </div>  -->
+  </body>
+</html>

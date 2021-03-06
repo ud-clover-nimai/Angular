@@ -1,0 +1,19 @@
+
+.card .card-header.card-header-icon + .card-content .card-title {
+    padding-bottom: 15px;
+    }
+
+    .overlay3 {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left:0;
+        background-color: rgba(0,0,0, 0.9);
+        overflow-y: auto;
+        overflow-x: hidden;
+        text-align: center;
+        opacity:0;
+        transition: opacity 1s;
+        }

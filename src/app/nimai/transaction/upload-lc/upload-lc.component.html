@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>NIMAI</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+    <!-- <div class="wrapper"> -->
+
+    <!-- <div class="main-panel"> -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">New Transaction</h4>
+                            <!-- <form [formGroup]="newTransactionForm" (ngSubmit)="submit();"> -->
+                            <div class="row" [formGroup]="lcDetailForm" [hidden]="previewShow" >
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="tabbable-panel">
+                                                    <div class="tabbable-line">
+                                                        <ul class="nav nav-tabs ">
+                                                            <li class="active">
+                                                                <a style="pointer-events:none" href="#tab_default_1" data-toggle="tab">
+                                                                    Applicant & Beneficiary </a>
+                                                            </li>
+                                                            <li>
+                                                                <a style="pointer-events:none" href="#tab_default_2" data-toggle="tab">
+                                                                    LC Details </a>
+                                                            </li>
+                                                            <li>
+                                                                <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
+                                                                    Tenor </a>
+                                                            </li>
+                                                            <li>
+                                                                <a style="pointer-events:none" href="#tab_default_4" data-toggle="tab">
+                                                                    Other Details </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="tab_default_1">
+                                                                <app-applicant-beneficiary [LcDetail]="lcDetailForm" >
+                                                                </app-applicant-beneficiary>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_2">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text" maxlength="100"
+                                                                                formControlName="lCIssuanceBank">
+                                                                            <label>LC Issuance Bank</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text" maxlength="40"
+                                                                                formControlName="lCIssuanceBranch" (keypress)="validateRegexFields($event, 'alphaNum')">
+                                                                            <label>Issuance Branch</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text" maxlength="11"
+                                                                                formControlName="swiftCode" (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')">
+                                                                            <label>Swift Code</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="inputDiv selectdiv">
+                                                                            <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= {{selectInfo}} ><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;"></i></a> 
+                                                                            <select formControlName="lCIssuanceCountry" (change)="selectCountryInfo($envent)">
+                                                                                <option [ngValue]="null" selected>Select</option>
+                                                                                <option *ngFor="let data of countryName"  [ngValue]='data.country'>{{data.country}}</option>
+                                                                              
+                                                                            </select>
+                                                                            <label>Select Country</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div class="col-md-12 selections">
+                                                                        <div class="row">
+                                                                            <label
+                                                                                class="customlabel">Product</label>
+                                                                            <div class="radio-group">
+                                                                                <input type="radio"
+                                                                                    id="option-one" name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="Confirmation"
+                                                                                    (click)="tenor.selectors('Confirmation')">
+                                                                                <label
+                                                                                    for="option-one">Confirmation</label>
+                                                                                <input type="radio" id="option-two"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="Discounting"
+                                                                                    (click)="tenor.selectors('Discounting')">
+                                                                                <label
+                                                                                    for="option-two">Discounting</label>
+                                                                                <input type="radio" id="option-three"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="ConfirmAndDiscount"
+                                                                                    (click)="tenor.selectors('ConfirmAndDiscount')">
+                                                                                <label for="option-three">Confirmation
+                                                                                    and Discounting</label>
+                                                                                <input type="radio" id="option-four"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="Refinance"
+                                                                                    (click)="tenor.selectors('Refinance')">
+                                                                                <label
+                                                                                    for="option-four">Refinancing</label>
+                                                                                <input type="radio" id="option-five"
+                                                                                    name="selector"
+                                                                                    formControlName="selector"
+                                                                                    value="Banker"
+                                                                                    (click)="tenor.selectors('Banker')">
+                                                                                <label for="option-five">Banker's
+                                                                                    Acceptance</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <div class="col-md-3">
+                                                                            <div class="inputDiv">
+                                                                                <input type="text" maxlength="11"
+                                                                                    formControlName="lCValue" (keypress)="validateRegexFields($event, 'number')">
+                                                                                <label>Amount</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="inputDiv selectdiv">
+                                                                               
+                                                                                <select formControlName="lCCurrency">
+                                                                                    <option *ngFor="let data of currencies"  [ngValue]='data'>{{data}}</option>
+
+                                                                                 </select>
+                                                                                <label>Select Currency</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <mat-form-field (click)="lcIssuDt.open()">
+                                                                                <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">LC Issuance Date</mat-label>
+                                                                                <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
+                                                                                    [matDatepicker]="lcIssuDt"
+                                                                                    formControlName="lCIssuingDate">
+                                                                                <mat-datepicker-toggle [for]="lcIssuDt" matSuffix
+                                                                                    [for]="lcIssuDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #lcIssuDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-md-3" [hidden]="refinancing">
+                                                                            <mat-form-field (click)="lastShipDt.open()">
+                                                                                    <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Last Shipment Date
+                                                                                </mat-label>
+                                                                                <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
+                                                                                    [matDatepicker]="lastShipDt"
+                                                                                    formControlName="lastShipmentDate">
+                                                                                <mat-datepicker-toggle  matSuffix
+                                                                                    [for]="lastShipDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #lastShipDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-md-3" [hidden]="refinancing">
+
+                                                                            <mat-form-field (click)="negDt.open()">
+                                                                                <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Negotiation Date
+                                                                                </mat-label>
+                                                                                <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput [matDatepicker]="negDt"
+                                                                                    formControlName="negotiationDate">
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="negDt">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #negDt>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
+                                                                            <div class="inputDiv selectdiv">
+                                                                                <select formControlName="goodsType" (change)="onItemSelect($event.target.value)">
+                                                                                    <!-- <option value=''>Select</option> -->
+                                                                                    <option *ngFor="let data of goodsList" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
+                                                                                   
+                                                                                </select>
+                                                                                <label>Types of Good</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers " *ngIf="isBankOther">
+                                                                            <div class="inputDiv">
+                                                                               <input type="text" maxlength="50" formControlName="otherType">
+                                                                               <label>Other</label>
+                                                                               <!-- <i class="fa fa-address-card fa-1"></i> -->
+                                                                            </div>
+                                                                         </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_3">
+                                                                <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
+                                                                </app-tenor-payment>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_4">
+                                                                <app-others [LcDetail]="lcDetailForm"></app-others>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>                                
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Preview</strong></p>
+                                    <p class="col-md-12"><strong>Applicant and Beneficiary details</strong></p>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Name</span>
+                                          <span class="labeltext">{{lc.applicantName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Country</span>
+                                          <span class="labeltext">{{lc.applicantCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
+                                       </div>
+                                    </div>
+                                    <div *ngIf="lc.userType == 'Beneficiary'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Applicant Contact Person</span>
+                                           <span class="labeltext">{{lc.applicantContactPerson}}</span>
+                                           <span class="labeltext" *ngIf="!lc.applicantContactPerson">-</span>  
+                                        </div>
+                                     </div>
+                                     <div *ngIf="lc.userType == 'Beneficiary'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Applicant Email Id</span>
+                                           <span class="labeltext">{{lc.applicantContactPersonEmail}}</span>
+                                           <span class="labeltext" *ngIf="!lc.applicantContactPersonEmail">-</span>  
+                                        </div>
+                                     </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Name</span>
+                                          <span class="labeltext">{{lc.beneName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Country</span>
+                                          <span class="labeltext">{{lc.beneCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
+                                       </div>
+                                    </div>
+                                    <div *ngIf="lc.userType == 'Applicant'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Beneficiary Contact Person</span>
+                                           <span class="labeltext">{{lc.beneContactPerson}}</span>
+                                           <span class="labeltext" *ngIf="!lc.beneContactPerson">-</span>  
+                                        </div>
+                                     </div>
+                                     <div *ngIf="lc.userType == 'Applicant'" class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Beneficiary Email Id</span>
+                                           <span class="labeltext">{{lc.beneContactPersonEmail}}</span>
+                                           <span class="labeltext" *ngIf="!lc.beneContactPersonEmail">-</span>  
+                                        </div>
+                                     </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Bank</span>
+                                          <span class="labeltext">{{lc.beneBankName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneBankName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Swift Code</span>
+                                          <span class="labeltext">{{lc.beneSwiftCode}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneSwiftCode">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Bank Country</span>
+                                            <span class="labeltext">{{lc.beneBankCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.beneBankCountry">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>LC Details</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Issuing Bank</span>
+                                            <span class="labeltext">{{lc.lCIssuanceBank}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Issuance Branch</span>
+                                            <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Swift Code</span>
+                                            <span class="labeltext">{{lc.swiftCode}}</span>
+                                            <span class="labeltext" *ngIf="!lc.swiftCode">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.lCIssuanceCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceCountry">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Product </span>
+                                            <span class="labeltext" *ngIf="lc.selector=='ConfirmAndDiscount'">Confirmation and Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Discounting'">Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
+                                            <span class="labeltext" *ngIf="!lc.selector">-</span>
+                                        </div>
+                                    </div>                
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC value</span>
+                                            <span class="labeltext">{{lc.lCValue | number}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCValue">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Currency</span>
+                                            <span class="labeltext">{{lc.lCCurrency}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCCurrency">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Issuing Date</span>
+                                            <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Negotiation Date</span>
+                                            <span class="labeltext">{{lc.negotiationDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.negotiationDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Last Shipment Date</span>
+                                            <span class="labeltext">{{lc.lastShipmentDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Goods</span>
+                                            <span class="labeltext">{{lc.goodsType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.goodsType">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector != 'Refinance'">
+                                        <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
+                                        <div class="col-md-3" *ngIf="lc.selector == 'Discounting'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Usance (Days)</span>
+                                               <span class="labeltext">{{lc.discountingPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3" *ngIf="lc.selector == 'Banker'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Period for which financing is required</span>
+                                               <span class="labeltext">{{lc.discountingPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
+                                            </div>
+                                         </div>
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Usance (Days)</span>
+                                              <span class="labeltext">{{lc.confirmationPeriod}}</span>
+                                              <span class="labeltext" *ngIf="!lc.confirmationPeriod">-</span>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting'">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Payments terms to be seller as per LC</span>
+                                              <span class="labeltext">{{lc.paymentTerms}}</span>
+                                              <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
+                                           </div>
+                                        </div>
+                                        <!-- <div *ngIf="lc.selector == 'Banker'" class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Remarks</span>
+                                               <span class="labeltext">{{lc.remarks}}</span>
+                                               <span class="labeltext" *ngIf="!lc.remarks">-</span>
+                                            </div>
+                                         </div> -->
+                                        <!-- <div *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'" class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Start Date</span>
+                                              <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
+                                              <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
+                                           </div>
+                                        </div> -->
+                                        <!-- <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">End Date</span>
+                                              <span class="labeltext">{{lc.lCExpiryDate}}</span>
+                                              <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
+                                           </div>
+                                        </div> -->
+                                </div>
+                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector == 'Refinance'">
+                                    <p class="col-md-12"><strong>Tenor</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Orignal Usance (Tenor) of LC </span>
+                                            <span class="labeltext">{{lc.originalTenorDays}}</span>
+                                            <span class="labeltext" *ngIf="!lc.originalTenorDays">-</span>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Period for which refinancing is required </span>
+                                            <span class="labeltext">{{lc.refinancingPeriod}}</span>
+                                            <span class="labeltext" *ngIf="!lc.refinancingPeriod">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Maturity Date</span>
+                                            <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="lc.tenorFile">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Multiple Maturity Date </span> 
+                                            <span class="labeltext" *ngIf="lc.tenorFile" style="cursor: pointer;color: blue;" (click)="openDocument(lc.tenorFile)">View</span>                                                                                       
+                                            <span class="labeltext" *ngIf="!lc.tenorFile">-</span>
+                                        </div>
+                                    </div>
+                                    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+                                
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">LC Number</span>
+                                            <span class="labeltext">{{lc.lcNumber}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcNumber">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Beneficiary Bank Name</span>
+                                            <span class="labeltext">{{lc.lastBeneBank}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBeneBank">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Swift Code</span>
+                                            <span class="labeltext">{{lc.lastBeneSwiftCode}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBeneSwiftCode">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.lastBankCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lastBankCountry">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Other Details</strong></p>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country of port of loading</span>
+                                            <span class="labeltext">{{lc.loadingCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Port of Loading</span>
+                                            <span class="labeltext">{{lc.loadingPort}}</span>
+                                            <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country of port of discharge</span>
+                                            <span class="labeltext">{{lc.dischargeCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Port of Discharge</span>
+                                            <span class="labeltext">{{lc.dischargePort}}</span>
+                                            <span class="labeltext" *ngIf="!lc.dischargePort">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Charges are on</span>
+                                            <span class="labeltext">{{lc.chargesType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.chargesType">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Validity</span>
+                                            <span class="labeltext">{{lc.validity | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.validity">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Upload LC or Proforma Invoice</span>
+                                            <span class="labeltext" *ngIf="lc.lcProForma" style="cursor: pointer;color: blue;" (click)="openDocument(lc.lcProForma)">View</span>
+                                            <span class="labeltext" *ngIf="!lc.lcProForma">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                          
+                            <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
+                                << Prev</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="next()"
+                                        *ngIf="isNext">Next >></button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="save()"
+                                        *ngIf="isSave">Next >></button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="preview()"
+                                        *ngIf="isPreview">Save & Preview</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="update()"
+                                        *ngIf="showUpdateButton">Update & Preview</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="confirm()"
+                                        *ngIf="isConfirm">Confirm</button>
+                                    <button type="button" class="btn btn-info pull-right" (click)="edit()"
+                                        *ngIf="isEdit">Edit</button>
+                                    <div class="clearfix"></div>
+                                    <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal7" class="modal3" style="display: none;">
+        <!-- <div class="modal-dialog modal-md emaildiv"> -->
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
+          <div class="modal-body" style="text-align:center">
+            <h4>Attached document</h4>
+            <div class="row">
+              <!--<p><strong>Enter Email ID here</strong></p> -->
+              <div class="col-md-12">
+               <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+               <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+
+              </div>
+              <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+
+      <div id="duplicatePopup" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
+              <div class="modal-body">
+                 <h2>Duplicate Transaction</h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>You are trying to place duplicate LC , Still do you want to continue ?</h5>
+
+                             </div>
+                          </div>
+                          <button type="submit" class="btn btn-info pull-right" (click)="dupPopYes()">Yes</button>
+                          <button type="submit" class="btn btn-info pull-right" (click)="dupPopNo()">No</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <div id="invalidDate" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
+              <div class="modal-body">
+                 <h2>Invalid Validity Date
+                    <button type="button" class="closeValidity" (click)="close()">&times;</button>
+                 </h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>Please select correct transaction validity date</h5>
+
+                             </div>
+                          </div>
+                          <button type="submit" class="btn btn-info pull-right" (click)="invalidDateOk()">OK</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <div id="trnxInactive" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
+              <div class="modal-body">
+                 <h2>Transaction Not Allowed !</h2>
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <p>Your Subscription Plan validity has been expired! Kindly renew the susbcription plan to continue with the service!</p>
+    
+                             </div>
+                          </div>
+                          <button type="submit" class="btn btn-info pull-right" (click)="inactiveOk()">OK</button>
+                       </div>
+                    </div>
+              </div>
+           </div>
+        </div>
+      </div>
+      
+      <div id="trnxFailed" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
+              <div class="modal-body">
+                 <h2>Transaction Failed</h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <p>{{trnxFailedMsg}}</p>
+
+                             </div>
+                          </div>
+                          <button type="submit" class="btn btn-info pull-right" (click)="invalidDateOk()">OK</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+      
+    <router-outlet></router-outlet>
+</body>
+
+</html>

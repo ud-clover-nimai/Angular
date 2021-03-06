@@ -1,0 +1,84 @@
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="blue">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Saved Transactions</h4>
+                    <form>
+                        
+                        <div class="row">
+                        <div class="col-md-12" *ngIf="noData">
+                            No saved transactions are available
+                        </div>
+                        <div class="col-md-12" *ngIf="!noData">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                    <tr *ngFor="let list of draftData; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>Draft</td>
+                                        <td>
+                                             <div *ngIf="list.requirementType=='Banker' || list.requirementType =='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="list.requirementType=='ConfirmAndDiscount' || list.requirementType =='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="list.requirementType=='Refinance' || list.requirementType =='Refinancing'">Refinancing </div>
+                                            <div *ngIf="list.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="list.requirementType=='Confirmation'">Confirmation</div>
+                                         </td>
+                                        <!-- <td>{{list.transactionId}}</td> -->
+                                        <td>{{list.modifiedDate  | date : "dd-MM-y"}}</td>
+                                        <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list)">Delete</button></td>
+                                   
+                                    
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>           
+
+<div id="discardQuote" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+        <div class="modal-dialog modal-md emaildiv">
+           <!-- Modal content-->
+           <div class="modal-content" style="padding-bottom: 25px;width: 100%;">
+              <div class="modal-body">
+                 <h2>Discard quote</h2>
+                 <div class="padnew">
+                    <div class="row">
+                       <!--<p><strong>Enter Email ID here</strong></p> -->
+                       <div class="col-md-12">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <h5>The transaction is already closed by the customer. You cannot place a quote for this.</h5>
+
+                             </div>
+                          </div>
+                          <button type="submit" class="handle btn btn-info pull-right" (click)="deleteDraft(data)">Discard quote</button>
+                          <button type="submit" class="handle btn btn-info pull-right" (click)="cancelDiscard()">Cancel</button>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+<app-banker></app-banker>
+<app-confirm-and-discount></app-confirm-and-discount>
+<app-confirmation></app-confirmation>
+<app-discounting></app-discounting>
+<app-refinancing></app-refinancing>

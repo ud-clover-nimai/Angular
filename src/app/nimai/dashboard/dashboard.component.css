@@ -1,0 +1,56 @@
+.sidebar[data-active-color="blue"] li.active > a {
+  background-color: #00bcd4;
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+
+.card-text{
+  font-size: 88%;
+    font-weight: normal;
+}
+/* 
+ul li a.active{
+    background-color: #00bcd4;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+} */
+.sidebar .nav i {
+  margin-top: 2px !important;
+}
+.sidebar .nav p {
+  margin-top: -2px !important;
+}
+
+.sidebar .user .iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar .user .iconWrapper i {
+  font-size: 34px !important;
+  color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .sidebar .user {
+    display: none;
+  }
+}
+a.adisabled {
+  cursor: not-allowed;
+  opacity: .65;
+  pointer-events: none;
+}
+
+a.adisabled:hover { text-decoration: none; }
+a.adisabled:focus { text-decoration: none; }
+a.adisabled:active { text-decoration: none; }
+.userType{
+  text-transform: none;
+    display: inline-block;
+    vertical-align: top;
+    margin: -3px 0 0;
+    font-size: 12px;
+    padding: 0 4px;
+    font-weight: 400;
+}
