@@ -293,12 +293,12 @@ console.log(sessionStorage.getItem('vasPending'))
     })
   }
   removeCoupon(){
-    sessionStorage.setItem('vasPending','No')
-
+    sessionStorage.setItem('vasPending','')
+    this.addVasEnabled=false;
+console.log('kkk')
     let req = {
       "discountId": this.discountId
     }
-    this.addVasEnabled=false;
 
     this.subscriptionService.removeCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
@@ -363,6 +363,7 @@ console.log(sessionStorage.getItem('vasPending'))
     )
   }
   public payNow(planType) {
+    console.log(planType)
     this.paymentForm.patchValue({
       amount: this.addedAmount,
       currency:'USD'
@@ -424,7 +425,14 @@ console.log(sessionStorage.getItem('vasPending'))
   }
   public payment(cdstatus) {
     this.titleService.loading.next(true);
-    this.choosedPlan.emailID=this.branchUserEmailId  
+
+if(this.branchUserEmailId=='undefined'){
+
+  this.choosedPlan.emailID=this.custUserEmailId
+
+}else{
+  this.choosedPlan.emailID=this.branchUserEmailId  
+}
     //this.choosedPlan.vasAmount=this.advPrice;
     if(Number(this.cookieService.get('vasAmount'))>0){
       this.choosedPlan.vasAmount=Number(this.cookieService.get('vasAmount'));
@@ -469,7 +477,7 @@ console.log(sessionStorage.getItem('vasPending'))
       let data=    {
         "userId":sessionStorage.getItem('userID'),
         "subscriptionId":"DGE42532",
-        "vasId":20
+        "vasId":sessionStorage.getItem('vasId')
           }
       this.subscriptionService.addVASAfterSubscription(data)
       .subscribe(
@@ -606,10 +614,20 @@ console.log(sessionStorage.getItem('vasPending'))
     document.cookie = 'paymentMode' +'=; Path=/';
 
     this.titleService.loading.next(true);
-    this.choosedPlan.emailID=this.branchUserEmailId    
+    if(this.branchUserEmailId=='undefined'){
+
+      this.choosedPlan.emailID=this.custUserEmailId
+    
+    }else{
+      this.choosedPlan.emailID=this.branchUserEmailId  
+    }
+   
     this.choosedPlan.modeOfPayment="Wire"
+    console.log(this.addVasEnabled)
 if(this.addVasEnabled){
   this.choosedPlan.vasAmount=this.advPrice;
+}else{
+  this.choosedPlan.vasAmount=0;
 }
 // else(sessionStorage.getItem('vasPending')=='No'){
 //   this.choosedPlan.vasAmount=this.advPrice;
@@ -641,7 +659,7 @@ if(  sessionStorage.getItem('vasPending')=='No'){
   let data=    {
     "userId":sessionStorage.getItem('userID'),
     "subscriptionId":"DGE42532",
-    "vasId":20
+    "vasId":sessionStorage.getItem('vasId')
       }
   this.subscriptionService.addVASAfterSubscription(data)
   .subscribe(
@@ -743,6 +761,7 @@ sessionStorage.setItem('vasPending','Yes')
   }
   addAdvService(event){
     if (event.target.value === "Add") {
+
       this.addVasEnabled=true;
       this.callVasService=true;
       if(this.amountAfterCoupon){
@@ -755,7 +774,7 @@ sessionStorage.setItem('vasPending','Yes')
       sessionStorage.setItem('vasPending','Yes')
 
       } else {
-       
+this.addVasEnabled=false;
       this.callVasService=false;  
       event.target.value = "Add";
       if(this.amountAfterCoupon){

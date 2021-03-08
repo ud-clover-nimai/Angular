@@ -22,7 +22,7 @@ export class ForgetPasswordService {
 
   
   public passwordChangeSuccess(data: any): Observable<any> {
-    return this.httpClient.get(`${environment.domain}/nimaiEmail/passwordChangeSuccess` + data, { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.post(`${environment.domain}/nimaiEmail/passwordChangeSuccess` , data, { headers: { 'content-type': 'application/json' } });
   }
 
   public sendEmailReferSubsidiary(data): Observable<any> {

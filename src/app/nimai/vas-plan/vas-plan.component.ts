@@ -40,7 +40,7 @@ export class VasPlanComponent implements OnInit {
     if(sessionStorage.getItem('status')=='INACTIVE'){
       this.addBtn=true;
     }else{
-      this.addBtn=true;
+      this.addBtn=false;
 
     }
     if(this.isvasapplied==="true"){

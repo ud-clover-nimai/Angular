@@ -674,6 +674,9 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       username: [''],
       password: ['']
     });
+    this.forgotPasswordForm=this.fb.group({
+      email:['']
+    })
   }
 
   resetSignUpForm() {

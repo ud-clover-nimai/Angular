@@ -55,6 +55,7 @@ export class ActiveTransactionComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     this.titleService.quote.next(false);
+    if(sessionStorage.getItem('accountType')=='MASTER')
     this.getSubsidiaryData();
 
   }
@@ -65,6 +66,13 @@ export class ActiveTransactionComponent implements OnInit {
   public getAllnewTransactions(userid) {
     this.getNimaiCount();
     this.titleService.quote.next(true);
+if(sessionStorage.getItem('accountType')=='MASTER'){
+  userid='All'+userid;  
+
+}else{
+  userid=userid;
+}
+
     const data = {
       "bankUserId":userid,
       "quotationStatus": "Placed"
@@ -73,10 +81,7 @@ export class ActiveTransactionComponent implements OnInit {
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
         custTrnsactionDetail();
-
-                this.detail=[];
-
-
+        this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;  
         let array = this.detail;
         if(array!=null){
@@ -87,7 +92,7 @@ export class ActiveTransactionComponent implements OnInit {
         }   
 
       }
-      
+
       if(this.getcountUser=='MASTER'){
        
         this.disablesubsi=true

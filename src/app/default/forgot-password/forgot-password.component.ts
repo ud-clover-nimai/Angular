@@ -14,7 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
   public flag: boolean = false;
   public key: string;
   public forgetPassword: FormGroup;
-  public userID: string = null;
+  public userID: string = "";
   submitted: boolean = false;
   isTextFieldType: boolean;
   isreTextFieldType: boolean;
@@ -25,16 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.rsc.validateToken(this.key).subscribe(
       (response) => {
         this.flag = true;
-      const data = {
-          "userId": sessionStorage.getItem('userID'), 
-          "event": "RESET_SUCCESS"          
-        }
-        this.rsc.passwordChangeSuccess(data)
-        .subscribe(
-          (response)=>{
-            
-          }
-        )
+     
         this.lgsc.findUserByToken(this.key)
         .subscribe(
           (response)=>{
@@ -100,6 +91,19 @@ export class ForgotPasswordComponent implements OnInit {
    this.lgsc.resetPassword(data)
    .subscribe(
      (response)=>{
+this.userID=JSON.parse(JSON.stringify(response)).data.userId
+console.log(this.userID)
+      const data = {
+        "userId": this.userID, 
+        "event": "RESET_SUCCESS"          
+      }
+      this.rsc.passwordChangeSuccess(data)
+      .subscribe(
+        (response)=>{
+          
+        }
+      )
+
        const navigationExtras: NavigationExtras = {
          state: {
            title: 'Congratulations! Your password is set successfully!',

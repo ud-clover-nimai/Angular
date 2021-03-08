@@ -31,6 +31,7 @@ export class ReferComponent implements OnInit {
   countryNames: any;
   countryCode: any;
   hasCountrycode: boolean=false;
+  CompanyName_: any="";
   constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -159,11 +160,14 @@ export class ReferComponent implements OnInit {
     this.submitted = false;
     this.CompanyName = this.referForm.get('companyName').value;
     this.signUpService.signUp(request).subscribe((response) => {
+      let resp = JSON.parse(JSON.stringify(response));
+      this.CompanyName_=resp.data.companyName
 
     this.service.addRefer(data)
       .subscribe(
         (response) => {
           let res = JSON.parse(JSON.stringify(response));
+          
           const fg = {
             "emailId": this.referForm.get('emailAddress').value,
             "event": 'ADD_REFER',
@@ -174,7 +178,7 @@ export class ReferComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.resetPopup();
-                this.respMessage = "'You've successfully invited a corporate to join NIMAITRADE. You will be notified once corporate completes the sign up processes."
+                this.respMessage = "You've successfully invited " + this.CompanyName_+ " to join TradeEnabler. You will be notified once the invitee completes the sign up processes."
               },
               (error) => {
                 this.resetPopup();
