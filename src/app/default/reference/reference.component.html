@@ -211,8 +211,8 @@
                                                 <td>{{data.userid}}</td>
                                             </tr>
                                             <tr>
-                                                <td>Date & Time</td>
-                                                <td>{{data.accountCreatedDate}}</td>
+                                                <td>Date </td>
+                                                <td>{{data.accountCreatedDate |  slice:0:10}}</td>
                                             </tr>
                                             <tr>
                                                 <td>First Name</td>
@@ -261,7 +261,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Account Created on</td>
-                                                <td>{{data.accountCreatedDate}}</td>
+                                                <td>{{data.accountCreatedDate |  slice:0:10}}</td>
                                             </tr>
                                             <!-- <tr>
                                                 <td>Account Expires on</td>

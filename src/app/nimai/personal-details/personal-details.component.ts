@@ -584,7 +584,7 @@ alert('Official Email ID and Additional Email ID cannot be same ')
       ValidateRegex.alphaNumeric(event);
     }else if(type=="name_validation"){
       var key = event.keyCode;
-      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
+      if (!((key >= 65 && key <= 90) || key == 8/*backspce*/|| key==32/*SPACE*/ || key==46/*DEL*/ || key==9/*TAB*/ || key==37/*LFT ARROW*/ || key==39/*RGT ARROW*/ || key==222/* ' key*/ || key==189/* - key*/)) {
           event.preventDefault();
       }    
     }
